@@ -1,9 +1,11 @@
+
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BrandSection from '@/components/BrandSection';
 import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
 import { setupHebrewRTL } from '@/utils/direction';
 
 const Index = () => {
@@ -20,6 +22,7 @@ const Index = () => {
         <BrandSection />
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 };

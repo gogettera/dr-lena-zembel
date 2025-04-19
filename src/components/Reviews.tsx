@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -44,7 +45,7 @@ const Reviews = () => {
         <CarouselContent>
           {[1, 2, 3].map((index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <Card className="bg-white rounded-xl shadow-md mx-2">
+              <Card className="bg-white rounded-xl shadow-md mx-2 animate-pulse">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-4 mb-4">
                     <Skeleton className="w-12 h-12 rounded-full" />
@@ -78,30 +79,30 @@ const Reviews = () => {
       className="w-full max-w-5xl mx-auto"
     >
       <CarouselContent>
-        {reviews?.map((review) => (
+        {reviews?.map((review, index) => (
           <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3">
-            <Card className="bg-white rounded-xl shadow-md mx-2">
+            <Card className="bg-white rounded-xl shadow-md mx-2 hover:shadow-lg transition-shadow duration-300 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]" style={{ animationDelay: `${index * 0.1}s` }}>
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <img
                     src={review.profile_photo_url || '/placeholder.svg'}
                     alt={`תמונת פרופיל של ${review.author_name}`}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover ring-2 ring-dental-pink"
                   />
                   <div>
                     <h4 className="font-bold text-dental-navy">{review.author_name}</h4>
                     <div className="text-dental-orange">{renderStars(review.rating)}</div>
                   </div>
                 </div>
-                <p className="text-dental-navy mb-4">{review.text}</p>
+                <p className="text-dental-navy mb-4 line-clamp-4">{review.text}</p>
                 <div className="text-sm text-gray-500">{review.relative_time_description}</div>
               </CardContent>
             </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="hidden md:flex" />
-      <CarouselNext className="hidden md:flex" />
+      <CarouselPrevious className="hidden md:flex -left-12 hover:scale-110 transition-transform" />
+      <CarouselNext className="hidden md:flex -right-12 hover:scale-110 transition-transform" />
     </Carousel>
   );
 };
