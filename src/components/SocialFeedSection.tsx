@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -99,7 +98,7 @@ const SocialFeedSection = () => {
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
 
-        <div className="w-full relative pb-14">
+        <div className="w-full relative">
           <Carousel
             opts={{
               align: "start",
@@ -116,7 +115,7 @@ const SocialFeedSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-6">
+            <div className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2">
               <Button 
                 variant="outline" 
                 size="icon" 
@@ -127,6 +126,8 @@ const SocialFeedSection = () => {
                   <ChevronRight className="h-5 w-5 text-dental-navy" />
                 </CarouselPrevious>
               </Button>
+            </div>
+            <div className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2">
               <Button 
                 variant="outline" 
                 size="icon" 
