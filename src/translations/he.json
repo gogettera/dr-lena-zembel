@@ -1,3 +1,4 @@
+
 {
   "home": "דף הבית",
   "about": "אודות",
@@ -47,5 +48,33 @@
   "treatments": "טיפולים",
   "watchOurClinic": "צפו בסיור במרפאה שלנו",
   "clinicTourDescription": "סיור וירטואלי במרפאת השיניים המודרנית והמתקנים שלנו",
-  "clinicTourThumbnail": "תמונה ממוזערת של סרטון סיור במרפאת השיניים"
+  "clinicTourThumbnail": "תמונה ממוזערת של סרטון סיור במרפאת השיניים",
+  
+  "overview": "סקירה כללית",
+  "procedure": "תהליך הטיפול",
+  "faq": "שאלות נפוצות",
+  "relatedTreatments": "טיפולים קשורים",
+  "keyPoints": "נקודות מפתח",
+  "idealFor": "מתאים במיוחד ל",
+  "otherTreatmentsYouMightLike": "טיפולים נוספים שעשויים לעניין אותך",
+  "procedureDetails": "פרטי התהליך",
+  "afterProcedure": "לאחר הטיפול",
+  "frequentlyAskedQuestions": "שאלות נפוצות",
+  "patientExperiences": "חוויות של מטופלים",
+  "readyToStart": "מוכנים להתחיל את הטיפול?",
+  "treatmentNotFound": "הטיפול לא נמצא",
+  "backToHome": "חזרה לדף הבית",
+  "faqQuestion1": "איך מתבצע תהליך הטיפול?",
+  "faqQuestion2": "כמה זמן נמשך הטיפול?",
+  "faqQuestion3": "האם התהליך כואב?",
+  "faqQuestion4": "מהן תופעות הלוואי?",
+  "faqQuestion5": "כמה עולה הטיפול?",
+  "procedureStep1": "ייעוץ ראשוני",
+  "procedureStep2": "תכנון הטיפול",
+  "procedureStep3": "הטיפול העיקרי",
+  "procedureStep4": "טיפול מעקב",
+  "benefit1": "תוצאות ארוכות טווח עם טיפול נכון",
+  "benefit2": "טכניקות מינימליות פולשניות",
+  "benefit3": "שיפור בריאות הפה ותפקודו",
+  "benefit4": "שיפור המראה והביטחון העצמי"
 }

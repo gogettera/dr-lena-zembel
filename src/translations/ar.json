@@ -1,3 +1,4 @@
+
 {
   "home": "الرئيسية",
   "about": "نبذة عنا",
@@ -45,5 +46,33 @@
   "allRightsReserved": "جميع الحقوق محفوظة",
   "watchOurClinic": "شاهد جولة في عيادتنا",
   "clinicTourDescription": "قم بجولة افتراضية في عيادة الأسنان الحديثة ومرافقنا",
-  "clinicTourThumbnail": "صورة مصغرة لفيديو جولة في عيادة الأسنان"
+  "clinicTourThumbnail": "صورة مصغرة لفيديو جولة في عيادة الأسنان",
+  
+  "overview": "نظرة عامة",
+  "procedure": "الإجراء",
+  "faq": "الأسئلة الشائعة",
+  "relatedTreatments": "علاجات ذات صلة",
+  "keyPoints": "النقاط الرئيسية",
+  "idealFor": "مثالي لـ",
+  "otherTreatmentsYouMightLike": "علاجات أخرى قد تعجبك",
+  "procedureDetails": "تفاصيل الإجراء",
+  "afterProcedure": "بعد الإجراء",
+  "frequentlyAskedQuestions": "الأسئلة المتكررة",
+  "patientExperiences": "تجارب المرضى",
+  "readyToStart": "هل أنت مستعد لبدء علاجك؟",
+  "treatmentNotFound": "العلاج غير موجود",
+  "backToHome": "العودة إلى الصفحة الرئيسية",
+  "faqQuestion1": "كيف تتم عملية العلاج؟",
+  "faqQuestion2": "كم يستغرق العلاج من الوقت؟",
+  "faqQuestion3": "هل الإجراء مؤلم؟",
+  "faqQuestion4": "ما هي الآثار الجانبية؟",
+  "faqQuestion5": "كم تكلفة العلاج؟",
+  "procedureStep1": "الاستشارة الأولية",
+  "procedureStep2": "تخطيط العلاج",
+  "procedureStep3": "الإجراء الرئيسي",
+  "procedureStep4": "الرعاية المتابعة",
+  "benefit1": "نتائج طويلة الأمد مع الرعاية المناسبة",
+  "benefit2": "تقنيات الحد الأدنى من التدخل",
+  "benefit3": "تحسين صحة الفم ووظيفته",
+  "benefit4": "تحسين المظهر والثقة بالنفس"
 }

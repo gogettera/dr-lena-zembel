@@ -1,3 +1,4 @@
+
 {
   "home": "Startseite",
   "about": "Über uns",
@@ -45,5 +46,33 @@
   "allRightsReserved": "Alle Rechte vorbehalten",
   "watchOurClinic": "Besichtigen Sie unsere Praxis",
   "clinicTourDescription": "Machen Sie eine virtuelle Tour durch unsere moderne Zahnarztpraxis",
-  "clinicTourThumbnail": "Vorschaubild der Praxisführung"
+  "clinicTourThumbnail": "Vorschaubild der Praxisführung",
+  
+  "overview": "Überblick",
+  "procedure": "Verfahren",
+  "faq": "FAQ",
+  "relatedTreatments": "Verwandte",
+  "keyPoints": "Hauptpunkte",
+  "idealFor": "Ideal für",
+  "otherTreatmentsYouMightLike": "Andere Behandlungen, die Ihnen gefallen könnten",
+  "procedureDetails": "Verfahrensdetails",
+  "afterProcedure": "Nach dem Eingriff",
+  "frequentlyAskedQuestions": "Häufig gestellte Fragen",
+  "patientExperiences": "Patientenerfahrungen",
+  "readyToStart": "Bereit, mit Ihrer Behandlung zu beginnen?",
+  "treatmentNotFound": "Behandlung nicht gefunden",
+  "backToHome": "Zurück zur Startseite",
+  "faqQuestion1": "Wie läuft der Behandlungsprozess ab?",
+  "faqQuestion2": "Wie lange dauert die Behandlung?",
+  "faqQuestion3": "Ist das Verfahren schmerzhaft?",
+  "faqQuestion4": "Was sind die Nebenwirkungen?",
+  "faqQuestion5": "Wie viel kostet es?",
+  "procedureStep1": "Erstberatung",
+  "procedureStep2": "Behandlungsplanung",
+  "procedureStep3": "Hauptverfahren",
+  "procedureStep4": "Nachsorge",
+  "benefit1": "Langanhaltende Ergebnisse bei richtiger Pflege",
+  "benefit2": "Minimalinvasive Techniken",
+  "benefit3": "Verbesserte Mundgesundheit und Funktion",
+  "benefit4": "Verbessertes Aussehen und Selbstvertrauen"
 }

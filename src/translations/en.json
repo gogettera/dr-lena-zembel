@@ -1,3 +1,4 @@
+
 {
   "home": "Home",
   "about": "About",
@@ -45,5 +46,33 @@
   "allRightsReserved": "All Rights Reserved",
   "watchOurClinic": "Watch Our Clinic Tour",
   "clinicTourDescription": "Take a virtual tour of our modern dental clinic and facilities",
-  "clinicTourThumbnail": "Dental Clinic Tour Video Thumbnail"
+  "clinicTourThumbnail": "Dental Clinic Tour Video Thumbnail",
+  
+  "overview": "Overview",
+  "procedure": "Procedure",
+  "faq": "FAQ",
+  "relatedTreatments": "Related",
+  "keyPoints": "Key Points",
+  "idealFor": "Ideal For",
+  "otherTreatmentsYouMightLike": "Other Treatments You Might Like",
+  "procedureDetails": "Procedure Details",
+  "afterProcedure": "After The Procedure",
+  "frequentlyAskedQuestions": "Frequently Asked Questions",
+  "patientExperiences": "Patient Experiences",
+  "readyToStart": "Ready to Start Your Treatment?",
+  "treatmentNotFound": "Treatment Not Found",
+  "backToHome": "Back to Home",
+  "faqQuestion1": "What is the treatment process like?",
+  "faqQuestion2": "How long does the treatment take?",
+  "faqQuestion3": "Is the procedure painful?",
+  "faqQuestion4": "What are the side effects?",
+  "faqQuestion5": "How much does it cost?",
+  "procedureStep1": "Initial Consultation",
+  "procedureStep2": "Treatment Planning",
+  "procedureStep3": "Main Procedure",
+  "procedureStep4": "Follow-up Care",
+  "benefit1": "Long-lasting results with proper care",
+  "benefit2": "Minimally invasive techniques",
+  "benefit3": "Improved oral health and function",
+  "benefit4": "Enhanced appearance and confidence"
 }
