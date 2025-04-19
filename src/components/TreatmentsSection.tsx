@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Star, Smile, Heart, Shield, Stethoscope, PieChart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Star, Smile, Heart, Shield, Stethoscope, PieChart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Carousel,
@@ -60,13 +61,13 @@ const TreatmentsSection = () => {
         </div>
 
         {isMobile ? (
-          <div className="w-full overflow-x-auto pb-6">
+          <div className="w-full relative pb-14">
             <Carousel
               opts={{
                 align: "start",
                 loop: true,
               }}
-              className="w-full relative"
+              className="w-full"
             >
               <CarouselContent className="-ml-2 md:-ml-4">
                 {treatments.map((treatment, index) => (
@@ -86,9 +87,27 @@ const TreatmentsSection = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <div className="flex justify-center mt-4">
-                <CarouselPrevious className="static mx-2 transform-none bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
-                <CarouselNext className="static mx-2 transform-none bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+              <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-6">
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
+                  asChild
+                >
+                  <CarouselPrevious className="static transform-none">
+                    <ChevronRight className="h-5 w-5 text-dental-navy" />
+                  </CarouselPrevious>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
+                  asChild
+                >
+                  <CarouselNext className="static transform-none">
+                    <ChevronLeft className="h-5 w-5 text-dental-navy" />
+                  </CarouselNext>
+                </Button>
               </div>
             </Carousel>
           </div>

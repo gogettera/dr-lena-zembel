@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Facebook, Heart, MessageSquare, Share } from 'lucide-react';
+import { Facebook, Heart, MessageSquare, Share, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -99,13 +99,13 @@ const SocialFeedSection = () => {
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
 
-        <div className="w-full overflow-x-auto pb-6">
+        <div className="w-full relative pb-14">
           <Carousel
             opts={{
               align: "start",
               loop: true,
             }}
-            className="w-full max-w-5xl mx-auto relative"
+            className="w-full max-w-5xl mx-auto"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
               {defaultPosts.map((post) => (
@@ -116,9 +116,27 @@ const SocialFeedSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center mt-4">
-              <CarouselPrevious className="static mx-2 transform-none md:absolute md:-left-6 md:top-1/2 md:-translate-y-1/2 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
-              <CarouselNext className="static mx-2 transform-none md:absolute md:-right-6 md:top-1/2 md:-translate-y-1/2 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 mt-6">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
+                asChild
+              >
+                <CarouselPrevious className="static transform-none">
+                  <ChevronRight className="h-5 w-5 text-dental-navy" />
+                </CarouselPrevious>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
+                asChild
+              >
+                <CarouselNext className="static transform-none">
+                  <ChevronLeft className="h-5 w-5 text-dental-navy" />
+                </CarouselNext>
+              </Button>
             </div>
           </Carousel>
         </div>
