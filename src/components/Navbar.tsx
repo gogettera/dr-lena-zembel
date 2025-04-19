@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { Menu, X, Phone } from 'lucide-react';
@@ -46,34 +45,35 @@ const Navbar = () => {
         ? "bg-white/95 shadow-md backdrop-blur-sm" 
         : "bg-transparent"
     )}>
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Logo />
-
-        <div className="hidden md:flex space-x-8 space-x-reverse">
-          {menuItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-dental-navy hover:text-dental-orange transition-colors text-sm font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:right-0 after:bg-dental-orange after:origin-bottom-right after:transition-transform hover:after:scale-x-100 hover:after:origin-bottom-left"
-            >
-              {item.label}
-            </a>
-          ))}
+      <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
+        <div className="flex items-center justify-start">
+          <LanguageSwitcher />
         </div>
 
-        <div className="hidden md:flex items-center">
-          <LanguageSwitcher />
-          <Button variant="orange" size="sm" className="rounded-full shadow-md flex items-center gap-2 ml-4">
-            <Phone className="h-4 w-4" />
-            <span>{t('bookVisit')}</span>
-          </Button>
+        <div className="flex justify-center">
+          <Logo />
         </div>
 
-        <div className="md:hidden flex items-center">
-          <LanguageSwitcher />
+        <div className="flex items-center justify-end">
+          <div className="hidden md:flex items-center gap-4">
+            {menuItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-dental-navy hover:text-dental-orange transition-colors text-sm font-medium"
+              >
+                {item.label}
+              </a>
+            ))}
+            <Button variant="orange" size="sm" className="rounded-full shadow-md flex items-center gap-2">
+              <Phone className="h-4 w-4" />
+              <span>{t('bookVisit')}</span>
+            </Button>
+          </div>
+
           <button 
             onClick={toggleMenu} 
-            className="p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-colors ml-2"
+            className="md:hidden p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-colors"
             aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -81,7 +81,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div 
         className={cn(
           "fixed inset-x-0 top-[57px] bg-white shadow-lg transition-all duration-300 ease-in-out md:hidden",
