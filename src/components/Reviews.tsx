@@ -1,5 +1,7 @@
 
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Review = {
   author_name: string;
@@ -17,34 +20,54 @@ type Review = {
   relative_time_description: string;
 };
 
-const MOCK_REVIEWS: Review[] = [
-  {
-    author_name: "איתי שלום",
-    rating: 5,
-    text: "אני בטיפולים שהוא חופשיים מעיניים. אבל מההתחלה זה הרגיש אחרת. הצוות סופר אכפתי, הסביר לי כל פרט ושלב בתהליך והרגשתי שבאמת מקשיבים לי.",
-    profile_photo_url: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
-    relative_time_description: "תל אביב, מהנדס תוכנה"
-  },
-  {
-    author_name: "שירה לוי",
-    rating: 5,
-    text: "טיפול מקצועי ואישי. ממליצה בחום!",
-    profile_photo_url: "https://images.unsplash.com/photo-1500673922987-e212871fec22",
-    relative_time_description: "לפני שבוע"
-  },
-  {
-    author_name: "דניאל כהן",
-    rating: 5,
-    text: "המרפאה מדהימה והצוות מקצועי ואדיב. שמחה שמצאתי אותם!",
-    profile_photo_url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-    relative_time_description: "לפני חודש"
-  },
-];
-
 const Reviews = () => {
+  const { data: reviews, isLoading, error } = useQuery({
+    queryKey: ['reviews'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('google_reviews')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data as Review[];
+    }
+  });
+
   const renderStars = (rating: number) => {
     return "★".repeat(rating) + "☆".repeat(5 - rating);
   };
+
+  if (isLoading) {
+    return (
+      <Carousel className="w-full max-w-5xl mx-auto">
+        <CarouselContent>
+          {[1, 2, 3].map((index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <Card className="bg-white rounded-xl shadow-md mx-2">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Skeleton className="w-12 h-12 rounded-full" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-4 w-24" />
+                      <Skeleton className="h-4 w-16" />
+                    </div>
+                  </div>
+                  <Skeleton className="h-20 w-full" />
+                  <Skeleton className="h-4 w-32 mt-4" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    );
+  }
+
+  if (error) {
+    console.error('Error loading reviews:', error);
+    return null;
+  }
 
   return (
     <Carousel
@@ -55,8 +78,8 @@ const Reviews = () => {
       className="w-full max-w-5xl mx-auto"
     >
       <CarouselContent>
-        {MOCK_REVIEWS.map((review, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+        {reviews?.map((review) => (
+          <CarouselItem key={review.author_name} className="md:basis-1/2 lg:basis-1/3">
             <Card className="bg-white rounded-xl shadow-md mx-2">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
