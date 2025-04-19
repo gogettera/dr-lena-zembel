@@ -51,6 +51,7 @@ const TreatmentPage: React.FC = () => {
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
           treatmentDescKey={treatmentDescKey}
+          treatmentType={treatmentType || ''}
         />
       </main>
       <Footer />
