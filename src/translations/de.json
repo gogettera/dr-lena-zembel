@@ -1,4 +1,3 @@
-
 {
   "home": "Startseite",
   "about": "Über uns",
@@ -43,5 +42,8 @@
   "friday": "Freitag",
   "contactUs": "Kontaktieren Sie uns",
   "address": "Dentalstraße 123, Tel Aviv",
-  "allRightsReserved": "Alle Rechte vorbehalten"
+  "allRightsReserved": "Alle Rechte vorbehalten",
+  "watchOurClinic": "Besichtigen Sie unsere Praxis",
+  "clinicTourDescription": "Machen Sie eine virtuelle Tour durch unsere moderne Zahnarztpraxis",
+  "clinicTourThumbnail": "Vorschaubild der Praxisführung"
 }

@@ -1,4 +1,3 @@
-
 {
   "home": "Home",
   "about": "About",
@@ -43,5 +42,8 @@
   "friday": "Friday",
   "contactUs": "Contact Us",
   "address": "123 Dental Street, Tel Aviv",
-  "allRightsReserved": "All Rights Reserved"
+  "allRightsReserved": "All Rights Reserved",
+  "watchOurClinic": "Watch Our Clinic Tour",
+  "clinicTourDescription": "Take a virtual tour of our modern dental clinic and facilities",
+  "clinicTourThumbnail": "Dental Clinic Tour Video Thumbnail"
 }

@@ -1,4 +1,3 @@
-
 {
   "home": "דף הבית",
   "about": "אודות",
@@ -45,5 +44,8 @@
   "address": "רחוב הדנטל 123, תל אביב",
   "allRightsReserved": "כל הזכויות שמורות",
   "home": "דף הבית",
-  "treatments": "טיפולים"
+  "treatments": "טיפולים",
+  "watchOurClinic": "צפו בסיור במרפאה שלנו",
+  "clinicTourDescription": "סיור וירטואלי במרפאת השיניים המודרנית והמתקנים שלנו",
+  "clinicTourThumbnail": "תמונה ממוזערת של סרטון סיור במרפאת השיניים"
 }

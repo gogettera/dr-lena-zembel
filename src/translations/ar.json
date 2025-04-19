@@ -1,4 +1,3 @@
-
 {
   "home": "الرئيسية",
   "about": "نبذة عنا",
@@ -43,5 +42,8 @@
   "friday": "الجمعة",
   "contactUs": "اتصل بنا",
   "address": "شارع دنتال 123، تل أبيب",
-  "allRightsReserved": "جميع الحقوق محفوظة"
+  "allRightsReserved": "جميع الحقوق محفوظة",
+  "watchOurClinic": "شاهد جولة في عيادتنا",
+  "clinicTourDescription": "قم بجولة افتراضية في عيادة الأسنان الحديثة ومرافقنا",
+  "clinicTourThumbnail": "صورة مصغرة لفيديو جولة في عيادة الأسنان"
 }
