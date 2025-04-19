@@ -1,8 +1,11 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Smile, Heart, Shield, Stethoscope, PieChart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Carousel,
   CarouselContent,
@@ -13,48 +16,58 @@ import {
 
 const TreatmentsSection = () => {
   const isMobile = useIsMobile();
+  const { t, language } = useLanguage();
+  
   const treatments = [
     {
       icon: Smile,
-      title: 'טיפולי שיניים לילדים',
-      description: 'טיפול ייחודי ועדין לילדים בסביבה נעימה ומרגיעה'
+      title: t('childrenDentistry'),
+      description: t('childrenDentistryDesc'),
+      slug: 'children-dentistry'
     },
     {
       icon: Star,
-      title: 'טיפולים אסתטיים',
-      description: 'הלבנת שיניים, ציפויי חרסינה, והשתלות שיניים מתקדמות'
+      title: t('aestheticTreatments'),
+      description: t('aestheticTreatmentsDesc'),
+      slug: 'aesthetic-treatments'
     },
     {
       icon: Shield,
-      title: 'רפואה מונעת',
-      description: 'ניקוי אבנית, בדיקות תקופתיות וטיפול במחלות חניכיים'
+      title: t('preventiveMedicine'),
+      description: t('preventiveMedicineDesc'),
+      slug: 'preventive-medicine'
     },
     {
       icon: Stethoscope,
-      title: 'טיפולי שורש',
-      description: 'טיפולי שורש מתקדמים עם טכנולוגיה חדישה ומינימום כאב'
+      title: t('rootCanal'),
+      description: t('rootCanalDesc'),
+      slug: 'root-canal'
     },
     {
       icon: PieChart,
-      title: 'שיקום הפה',
-      description: 'כתרים, גשרים ותותבות באיכות גבוהה ובהתאמה אישית'
+      title: t('oralRehabilitation'),
+      description: t('oralRehabilitationDesc'),
+      slug: 'oral-rehabilitation'
     },
     {
       icon: Heart,
-      title: 'יישור שיניים',
-      description: 'טיפולי יישור שיניים שקופים ומסורתיים לכל הגילאים'
+      title: t('orthodontics'),
+      description: t('orthodonticsDesc'),
+      slug: 'orthodontics'
     }
   ];
+  
+  const isRTL = language === 'he' || language === 'ar';
 
   return (
     <section id="treatments" className="py-24 bg-dental-beige/30">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-            הטיפולים שלנו
+            {t('ourTreatments')}
           </h2>
           <p className="text-lg text-dental-navy/80 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-            אנו מציעים מגוון רחב של טיפולי שיניים מתקדמים
+            {t('wideRangeOfTreatments')}
           </p>
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
@@ -80,7 +93,18 @@ const TreatmentsSection = () => {
                           <treatment.icon className="h-8 w-8 text-dental-orange" />
                         </div>
                         <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
-                        <p className="text-dental-navy/70 text-center">{treatment.description}</p>
+                        <p className="text-dental-navy/70 text-center mb-4">{treatment.description}</p>
+                        <div className="text-center">
+                          <Link to={`/treatments/${treatment.slug}`}>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="rounded-full border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white"
+                            >
+                              {t('learnMore')}
+                            </Button>
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
                   </CarouselItem>
@@ -94,7 +118,7 @@ const TreatmentsSection = () => {
                   asChild
                 >
                   <CarouselPrevious className="static transform-none">
-                    <ChevronRight className="h-5 w-5 text-dental-navy" />
+                    {isRTL ? <ChevronRight className="h-5 w-5 text-dental-navy" /> : <ChevronLeft className="h-5 w-5 text-dental-navy" />}
                   </CarouselPrevious>
                 </Button>
               </div>
@@ -106,7 +130,7 @@ const TreatmentsSection = () => {
                   asChild
                 >
                   <CarouselNext className="static transform-none">
-                    <ChevronLeft className="h-5 w-5 text-dental-navy" />
+                    {isRTL ? <ChevronLeft className="h-5 w-5 text-dental-navy" /> : <ChevronRight className="h-5 w-5 text-dental-navy" />}
                   </CarouselNext>
                 </Button>
               </div>
@@ -125,7 +149,18 @@ const TreatmentsSection = () => {
                     <treatment.icon className="h-8 w-8 text-dental-orange" />
                   </div>
                   <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
-                  <p className="text-dental-navy/70 text-center">{treatment.description}</p>
+                  <p className="text-dental-navy/70 text-center mb-5">{treatment.description}</p>
+                  <div className="text-center">
+                    <Link to={`/treatments/${treatment.slug}`}>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="rounded-full border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white"
+                      >
+                        {t('learnMore')}
+                      </Button>
+                    </Link>
+                  </div>
                 </CardContent>
               </Card>
             ))}

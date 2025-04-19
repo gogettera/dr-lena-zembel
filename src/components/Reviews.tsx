@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -12,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type Review = {
   id: string;
@@ -23,6 +25,9 @@ type Review = {
 };
 
 const Reviews = () => {
+  const { language, t } = useLanguage();
+  const isRTL = language === 'he' || language === 'ar';
+
   const { data: reviews, isLoading, error } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
@@ -129,7 +134,7 @@ const Reviews = () => {
             asChild
           >
             <CarouselPrevious className="static transform-none">
-              <ChevronRight className="h-5 w-5 text-dental-navy" />
+              {isRTL ? <ChevronRight className="h-5 w-5 text-dental-navy" /> : <ChevronLeft className="h-5 w-5 text-dental-navy" />}
             </CarouselPrevious>
           </Button>
         </div>
@@ -141,7 +146,7 @@ const Reviews = () => {
             asChild
           >
             <CarouselNext className="static transform-none">
-              <ChevronLeft className="h-5 w-5 text-dental-navy" />
+              {isRTL ? <ChevronLeft className="h-5 w-5 text-dental-navy" /> : <ChevronRight className="h-5 w-5 text-dental-navy" />}
             </CarouselNext>
           </Button>
         </div>

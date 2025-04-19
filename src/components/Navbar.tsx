@@ -4,10 +4,13 @@ import Logo from './Logo';
 import { Menu, X, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t, language } = useLanguage();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,12 +30,14 @@ const Navbar = () => {
   }, []);
 
   const menuItems = [
-    { href: "#practice", label: "המרפאה שלנו" },
-    { href: "#team", label: "המלצות" },
-    { href: "#patients", label: "למטופלים" },
-    { href: "#treatments", label: "טיפולים" },
-    { href: "#contact", label: "צור קשר" }
+    { href: "#practice", label: t("practice") },
+    { href: "#team", label: t("team") },
+    { href: "#patients", label: t("patients") },
+    { href: "#treatments", label: t("treatments") },
+    { href: "#contact", label: t("contact") }
   ];
+
+  const isRTL = language === 'he' || language === 'ar';
 
   return (
     <nav className={cn(
@@ -56,18 +61,20 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden md:flex">
-          <Button variant="orange" size="sm" className="rounded-full shadow-md flex items-center gap-2">
+        <div className="hidden md:flex items-center">
+          <LanguageSwitcher />
+          <Button variant="orange" size="sm" className="rounded-full shadow-md flex items-center gap-2 ml-4">
             <Phone className="h-4 w-4" />
-            <span>לתיאום ביקור</span>
+            <span>{t('bookVisit')}</span>
           </Button>
         </div>
 
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center">
+          <LanguageSwitcher />
           <button 
             onClick={toggleMenu} 
-            className="p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-colors"
-            aria-label={isMenuOpen ? "סגור תפריט" : "פתח תפריט"}
+            className="p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-colors ml-2"
+            aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -89,7 +96,7 @@ const Navbar = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="block text-dental-navy hover:text-dental-orange transition-colors text-lg font-medium text-right"
+                className={`block text-dental-navy hover:text-dental-orange transition-colors text-lg font-medium ${isRTL ? 'text-right' : 'text-left'}`}
                 onClick={toggleMenu}
               >
                 {item.label}
@@ -98,7 +105,7 @@ const Navbar = () => {
             <div className="pt-4 border-t border-gray-100">
               <Button variant="orange" className="w-full rounded-full shadow-md flex items-center justify-center gap-2 mt-2">
                 <Phone className="h-4 w-4" />
-                <span>לתיאום ביקור</span>
+                <span>{t('bookVisit')}</span>
               </Button>
             </div>
           </div>
