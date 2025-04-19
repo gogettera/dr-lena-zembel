@@ -1,16 +1,19 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 import { Menu, X, Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
+import { createLocalizedPath } from '@/utils/languageRoutes';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language } = useLanguage();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -28,6 +31,11 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close menu when changing routes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
 
   const menuItems = [
     { href: "#treatments", label: t("treatments") },
@@ -51,7 +59,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-center">
-          <Logo />
+          <Link to={createLocalizedPath(language, '/')}>
+            <Logo />
+          </Link>
         </div>
 
         <div className="flex items-center justify-end">

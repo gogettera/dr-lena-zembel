@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,10 +7,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
+import { createLocalizedPath } from '@/utils/languageRoutes';
 
 const TreatmentsSection = () => {
   const isMobile = useIsMobile();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const treatments = [
     {
@@ -79,7 +81,7 @@ const TreatmentsSection = () => {
                       <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
                       <p className="text-dental-navy/70 text-center mb-4">{treatment.description}</p>
                       <div className="text-center">
-                        <Link to={`/treatments/${treatment.slug}`}>
+                        <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
                           <Button 
                             variant="outline" 
                             size="sm" 
@@ -110,7 +112,7 @@ const TreatmentsSection = () => {
                   <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
                   <p className="text-dental-navy/70 text-center mb-5">{treatment.description}</p>
                   <div className="text-center">
-                    <Link to={`/treatments/${treatment.slug}`}>
+                    <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
                       <Button 
                         variant="outline" 
                         size="sm" 

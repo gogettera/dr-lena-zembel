@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TreatmentType } from '@/data/treatmentTypes';
+import { createLocalizedPath } from '@/utils/languageRoutes';
 
 interface TreatmentHeroProps {
   treatment: TreatmentType;
@@ -28,16 +29,20 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="text-dental-navy hover:text-dental-orange">
-                {t('home')}
+              <BreadcrumbLink asChild>
+                <Link to={createLocalizedPath(language, '/')} className="text-dental-navy hover:text-dental-orange">
+                  {t('home')}
+                </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>
               {language === 'he' || language === 'ar' ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
             </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/#treatments" className="text-dental-navy hover:text-dental-orange">
-                {t('treatments')}
+              <BreadcrumbLink asChild>
+                <Link to={createLocalizedPath(language, '/#treatments')} className="text-dental-navy hover:text-dental-orange">
+                  {t('treatments')}
+                </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator>

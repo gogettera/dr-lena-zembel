@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage, Language } from '@/contexts/LanguageContext';
 import { 
   DropdownMenu,
@@ -19,7 +20,24 @@ const languageOptions: { value: Language; label: string }[] = [
 
 const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
   const currentLanguage = languageOptions.find(option => option.value === language);
+
+  const handleLanguageChange = (newLanguage: Language) => {
+    // Don't do anything if it's the same language
+    if (newLanguage === language) return;
+    
+    // Set the language in context
+    setLanguage(newLanguage);
+    
+    // Get the current path without the language prefix
+    const pathSegments = location.pathname.split('/').filter(Boolean);
+    const pathWithoutLanguage = pathSegments.length > 1 ? `/${pathSegments.slice(1).join('/')}` : '/';
+    
+    // Navigate to the same path but with new language prefix
+    navigate(`/${newLanguage}${pathWithoutLanguage}`);
+  };
 
   return (
     <DropdownMenu>
@@ -37,7 +55,7 @@ const LanguageSwitcher: React.FC = () => {
           <DropdownMenuItem
             key={option.value}
             className={`flex items-center justify-center text-sm ${language === option.value ? 'bg-dental-beige/30' : ''}`}
-            onClick={() => setLanguage(option.value)}
+            onClick={() => handleLanguageChange(option.value)}
           >
             {option.label}
           </DropdownMenuItem>

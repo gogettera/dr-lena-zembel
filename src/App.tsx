@@ -3,32 +3,46 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import Index from "./pages/Index";
+import LanguageRoute from "@/components/LanguageRoute";
+import LanguageHome from "./pages/LanguageHome";
+import LanguageTreatmentPage from "./pages/LanguageTreatmentPage";
 import NotFound from "./pages/NotFound";
-import TreatmentPage from "./pages/TreatmentPage";
+import { getBrowserLanguage } from "@/utils/languageRoutes";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <div className="min-h-screen w-full">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/treatments/:treatmentType" element={<TreatmentPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
-    </LanguageProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const defaultLanguage = getBrowserLanguage();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <div className="min-h-screen w-full">
+              <Routes>
+                {/* Redirect root to language-specific home page */}
+                <Route path="/" element={<Navigate to={`/${defaultLanguage}`} replace />} />
+                
+                {/* Language-specific routes */}
+                <Route path="/:lang" element={<LanguageRoute />}>
+                  <Route index element={<LanguageHome />} />
+                  <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+                </Route>
+                
+                {/* Handle 404 */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LanguageProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
