@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { TreatmentType } from '@/data/treatmentTypes';
+import TreatmentBenefits from './TreatmentBenefits';
 
 interface TreatmentContentProps {
   treatment: TreatmentType;
@@ -16,6 +16,13 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
   treatmentDescKey
 }) => {
   const { t } = useLanguage();
+  
+  const defaultBenefits = [
+    t('benefit1'),
+    t('benefit2'),
+    t('benefit3'),
+    t('benefit4')
+  ];
 
   return (
     <section className="py-16 md:py-24 bg-white">
@@ -48,29 +55,8 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
               <p className="text-dental-navy/80 mb-4">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros.
               </p>
-              <h3 className="text-xl font-bold text-dental-navy mb-4 mt-6">
-                {t('benefits')}
-              </h3>
-              <ul className="list-disc list-inside text-dental-navy/80 space-y-2">
-                <li>Benefit 1</li>
-                <li>Benefit 2</li>
-                <li>Benefit 3</li>
-                <li>Benefit 4</li>
-              </ul>
+              <TreatmentBenefits benefits={defaultBenefits} />
             </div>
-          </div>
-          
-          <div className="mt-16 text-center">
-            <h3 className="text-2xl font-bold text-dental-navy mb-6">
-              {t('readyToStart')}
-            </h3>
-            <Button 
-              variant="orange" 
-              size="lg" 
-              className="rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-lg"
-            >
-              {t('bookVisit')}
-            </Button>
           </div>
         </div>
       </div>
