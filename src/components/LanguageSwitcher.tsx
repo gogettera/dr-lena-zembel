@@ -1,14 +1,13 @@
 
 import React from 'react';
 import { useLanguage, Language } from '@/contexts/LanguageContext';
-import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Globe } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const languageOptions: { value: Language; label: string }[] = [
   { value: 'he', label: 'עב' },
@@ -28,10 +27,9 @@ const LanguageSwitcher: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="flex items-center gap-1 px-2"
+          className="px-2"
         >
-          <Globe className="h-4 w-4" />
-          <span className="ml-1 text-sm font-medium">{currentLanguage?.label}</span>
+          <span className="text-sm font-medium">{currentLanguage?.label}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-20 bg-white">

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { Menu, X, Phone } from 'lucide-react';
@@ -29,10 +30,9 @@ const Navbar = () => {
   }, []);
 
   const menuItems = [
-    { href: "#practice", label: t("practice") },
-    { href: "#team", label: t("team") },
-    { href: "#patients", label: t("patients") },
     { href: "#treatments", label: t("treatments") },
+    { href: "#patients", label: t("patients") },
+    { href: "#team", label: t("team") },
     { href: "#contact", label: t("contact") }
   ];
 
