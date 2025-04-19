@@ -5,6 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BrandSection from '@/components/BrandSection';
 import TreatmentsSection from '@/components/TreatmentsSection';
+import SocialFeedSection from '@/components/SocialFeedSection';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import { setupHebrewRTL } from '@/utils/direction';
@@ -21,6 +22,7 @@ const Index = () => {
         <HeroSection />
         <BrandSection />
         <TreatmentsSection />
+        <SocialFeedSection />
         <TestimonialSection />
       </main>
       <Footer />
