@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,8 +10,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-// Temporary mock data - replace with real Facebook integration later
-const socialPosts = [
+// Default posts as fallback
+const defaultPosts = [
   {
     id: 1,
     content: "מטופל חדש סיים היום טיפול והתוצאות מדהימות! תודה על האמון 😊",
@@ -42,7 +41,7 @@ const socialPosts = [
   }
 ];
 
-const SocialPost = ({ post }: { post: typeof socialPosts[0] }) => {
+const SocialPost = ({ post }: { post: any }) => {
   return (
     <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       <CardContent className="p-0">
@@ -86,6 +85,21 @@ const SocialPost = ({ post }: { post: typeof socialPosts[0] }) => {
 };
 
 const SocialFeedSection = () => {
+  const [posts, setPosts] = React.useState(() => {
+    const saved = localStorage.getItem('socialPosts');
+    return saved ? JSON.parse(saved) : defaultPosts;
+  });
+
+  React.useEffect(() => {
+    const handleStorage = () => {
+      const saved = localStorage.getItem('socialPosts');
+      setPosts(saved ? JSON.parse(saved) : defaultPosts);
+    };
+
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
   return (
     <section className="py-24 bg-gradient-to-b from-white to-dental-beige/30">
       <div className="container mx-auto px-4">
@@ -107,7 +121,7 @@ const SocialFeedSection = () => {
           className="w-full max-w-5xl mx-auto"
         >
           <CarouselContent>
-            {socialPosts.map((post, index) => (
+            {posts.map((post: any) => (
               <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-2">
                   <SocialPost post={post} />
