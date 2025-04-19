@@ -2,8 +2,17 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Smile, Heart, Shield, Stethoscope, PieChart } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const TreatmentsSection = () => {
+  const isMobile = useIsMobile();
   const treatments = [
     {
       icon: Smile,
@@ -50,26 +59,58 @@ const TreatmentsSection = () => {
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {treatments.map((treatment, index) => (
-            <Card 
-              key={index} 
-              className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-            >
-              <CardContent className="p-8">
-                <div className="bg-dental-pink/30 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <treatment.icon className="h-8 w-8 text-dental-orange" />
-                </div>
-                <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
-                <p className="text-dental-navy/70 text-center">{treatment.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {isMobile ? (
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto relative"
+          >
+            <CarouselContent>
+              {treatments.map((treatment, index) => (
+                <CarouselItem key={index} className="basis-[85%] sm:basis-[90%]">
+                  <Card 
+                    className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards] mx-2"
+                    style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                  >
+                    <CardContent className="p-6">
+                      <div className="bg-dental-pink/30 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <treatment.icon className="h-8 w-8 text-dental-orange" />
+                      </div>
+                      <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
+                      <p className="text-dental-navy/70 text-center">{treatment.description}</p>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex -left-6 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+            <CarouselNext className="hidden md:flex -right-6 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+          </Carousel>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {treatments.map((treatment, index) => (
+              <Card 
+                key={index} 
+                className="border-none shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              >
+                <CardContent className="p-8">
+                  <div className="bg-dental-pink/30 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <treatment.icon className="h-8 w-8 text-dental-orange" />
+                  </div>
+                  <h3 className="text-xl font-bold text-dental-navy mb-3 text-center">{treatment.title}</h3>
+                  <p className="text-dental-navy/70 text-center">{treatment.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
 export default TreatmentsSection;
+
