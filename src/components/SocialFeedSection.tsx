@@ -99,25 +99,29 @@ const SocialFeedSection = () => {
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full max-w-5xl mx-auto"
-        >
-          <CarouselContent>
-            {defaultPosts.map((post) => (
-              <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
-                <div className="p-2">
-                  <SocialPost post={post} />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden md:flex -left-6 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
-          <CarouselNext className="hidden md:flex -right-6 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
-        </Carousel>
+        <div className="w-full overflow-x-auto pb-6">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-5xl mx-auto relative"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {defaultPosts.map((post) => (
+                <CarouselItem key={post.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <SocialPost post={post} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center mt-4">
+              <CarouselPrevious className="static mx-2 transform-none md:absolute md:-left-6 md:top-1/2 md:-translate-y-1/2 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+              <CarouselNext className="static mx-2 transform-none md:absolute md:-right-6 md:top-1/2 md:-translate-y-1/2 bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all" />
+            </div>
+          </Carousel>
+        </div>
 
         <div className="text-center mt-12">
           <Button 
