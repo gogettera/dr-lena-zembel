@@ -24,12 +24,14 @@ const Reviews = () => {
   const { data: reviews, isLoading, error } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
-      // Use type assertion to bypass TypeScript type checking for the table name
-      // @ts-ignore - Ignore type checking for the from() method call
+      // When using tables not yet in the generated types, we need to use type assertions
       const { data, error } = await supabase
         .from('google_reviews')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false }) as unknown as { 
+          data: Review[] | null; 
+          error: Error | null 
+        };
       
       if (error) throw error;
       return data as Review[];
