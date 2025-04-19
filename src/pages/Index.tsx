@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BrandSection from '@/components/BrandSection';
+import TreatmentsSection from '@/components/TreatmentsSection';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import { setupHebrewRTL } from '@/utils/direction';
@@ -14,12 +15,13 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       <Navbar />
       <main>
         <HeroSection />
-        <TestimonialSection />
         <BrandSection />
+        <TreatmentsSection />
+        <TestimonialSection />
       </main>
       <Footer />
       <BackToTop />
