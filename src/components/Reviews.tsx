@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -13,25 +12,22 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Review = {
+  id: string;
   author_name: string;
   rating: number;
-  text: string;
-  profile_photo_url: string;
-  relative_time_description: string;
+  text: string | null;
+  profile_photo_url: string | null;
+  relative_time_description: string | null;
 };
 
 const Reviews = () => {
   const { data: reviews, isLoading, error } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
-      // When using tables not yet in the generated types, we need to use type assertions
       const { data, error } = await supabase
         .from('google_reviews')
         .select('*')
-        .order('created_at', { ascending: false }) as unknown as { 
-          data: Review[] | null; 
-          error: Error | null 
-        };
+        .order('created_at', { ascending: false });
       
       if (error) throw error;
       return data as Review[];
@@ -83,12 +79,12 @@ const Reviews = () => {
     >
       <CarouselContent>
         {reviews?.map((review) => (
-          <CarouselItem key={review.author_name} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3">
             <Card className="bg-white rounded-xl shadow-md mx-2">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
                   <img
-                    src={review.profile_photo_url}
+                    src={review.profile_photo_url || '/placeholder.svg'}
                     alt={`תמונת פרופיל של ${review.author_name}`}
                     className="w-12 h-12 rounded-full object-cover"
                   />
