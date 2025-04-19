@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -85,21 +86,6 @@ const SocialPost = ({ post }: { post: any }) => {
 };
 
 const SocialFeedSection = () => {
-  const [posts, setPosts] = React.useState(() => {
-    const saved = localStorage.getItem('socialPosts');
-    return saved ? JSON.parse(saved) : defaultPosts;
-  });
-
-  React.useEffect(() => {
-    const handleStorage = () => {
-      const saved = localStorage.getItem('socialPosts');
-      setPosts(saved ? JSON.parse(saved) : defaultPosts);
-    };
-
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
-
   return (
     <section className="py-24 bg-gradient-to-b from-white to-dental-beige/30">
       <div className="container mx-auto px-4">
@@ -121,7 +107,7 @@ const SocialFeedSection = () => {
           className="w-full max-w-5xl mx-auto"
         >
           <CarouselContent>
-            {posts.map((post: any) => (
+            {defaultPosts.map((post) => (
               <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-2">
                   <SocialPost post={post} />
