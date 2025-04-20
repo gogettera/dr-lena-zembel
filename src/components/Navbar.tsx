@@ -48,9 +48,9 @@ const Navbar = () => {
 
   return (
     <nav className={cn(
-      "py-2 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+      "py-4 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
       isScrolled 
-        ? "bg-white/95 shadow-md backdrop-blur-sm" 
+        ? "bg-white/80 shadow-lg backdrop-blur-md" 
         : "bg-transparent"
     )}>
       <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
@@ -59,23 +59,27 @@ const Navbar = () => {
         </div>
 
         <div className="flex justify-center">
-          <Link to={createLocalizedPath(language, '/')}>
+          <Link to={createLocalizedPath(language, '/')} className="transition-transform duration-300 hover:scale-105">
             <Logo />
           </Link>
         </div>
 
-        <div className="flex items-center justify-end">
-          <div className="hidden md:flex items-center gap-4">
+        <div className="flex items-center justify-end gap-4">
+          <div className="hidden md:flex items-center gap-6">
             {menuItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-dental-navy hover:text-dental-orange transition-colors text-sm font-medium"
+                className="text-dental-navy hover:text-dental-orange transition-all duration-300 text-sm font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-dental-orange after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
               >
                 {item.label}
               </a>
             ))}
-            <Button variant="orange" size="sm" className="rounded-full shadow-md flex items-center gap-2">
+            <Button 
+              variant="orange" 
+              size="sm" 
+              className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            >
               <Phone className="h-4 w-4" />
               <span>{t('bookVisit')}</span>
             </Button>
@@ -83,7 +87,7 @@ const Navbar = () => {
 
           <button 
             onClick={toggleMenu} 
-            className="md:hidden p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-colors"
+            className="md:hidden p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-all duration-300"
             aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -93,14 +97,14 @@ const Navbar = () => {
 
       <div 
         className={cn(
-          "fixed inset-x-0 top-[57px] bg-white shadow-lg transition-all duration-300 ease-in-out md:hidden",
+          "fixed inset-x-0 top-[65px] bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out md:hidden",
           isMenuOpen 
             ? "opacity-100 translate-y-0" 
             : "opacity-0 -translate-y-2 pointer-events-none"
         )}
       >
         <div className="max-h-[80vh] overflow-y-auto">
-          <div className="px-4 py-6 space-y-4">
+          <div className="px-6 py-8 space-y-6">
             {menuItems.map((item) => (
               <a
                 key={item.href}
@@ -111,8 +115,11 @@ const Navbar = () => {
                 {item.label}
               </a>
             ))}
-            <div className="pt-4 border-t border-gray-100">
-              <Button variant="orange" className="w-full rounded-full shadow-md flex items-center justify-center gap-2 mt-2">
+            <div className="pt-6 border-t border-dental-beige">
+              <Button 
+                variant="orange" 
+                className="w-full rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mt-2"
+              >
                 <Phone className="h-4 w-4" />
                 <span>{t('bookVisit')}</span>
               </Button>
