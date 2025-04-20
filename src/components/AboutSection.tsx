@@ -2,7 +2,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Avatar } from '@/components/ui/avatar';
-import { Language } from 'lucide-react';
+import { Languages } from 'lucide-react';
 
 const AboutSection = () => {
   const { t, language } = useLanguage();
@@ -22,7 +22,7 @@ const AboutSection = () => {
               />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
-              <Language className="h-5 w-5 text-dental-navy" />
+              <Languages className="h-5 w-5 text-dental-navy" />
               <div className="flex gap-2">
                 {['he', 'en', 'de', 'ru'].map((lang) => (
                   <div
