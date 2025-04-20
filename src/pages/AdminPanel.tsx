@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Table } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -9,6 +8,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import TranslationsTable from '@/components/admin/TranslationsTable';
 import ContentManager from '@/components/admin/ContentManager';
 import LanguageExport from '@/components/admin/LanguageExport';
+import SiteSettings from '@/components/admin/SiteSettings';
 
 const AdminPanel = () => {
   const { language } = useLanguage();
@@ -23,6 +23,7 @@ const AdminPanel = () => {
             <TabsTrigger value="translations">Copy Management</TabsTrigger>
             <TabsTrigger value="content">Content Manager</TabsTrigger>
             <TabsTrigger value="export">Website Export</TabsTrigger>
+            <TabsTrigger value="settings">Site Settings</TabsTrigger>
           </TabsList>
 
           <TabsContent value="translations" className="space-y-4">
@@ -42,6 +43,10 @@ const AdminPanel = () => {
               </p>
               <LanguageExport />
             </div>
+          </TabsContent>
+
+          <TabsContent value="settings">
+            <SiteSettings />
           </TabsContent>
         </Tabs>
       </div>

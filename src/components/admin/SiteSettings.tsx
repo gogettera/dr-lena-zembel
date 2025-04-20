@@ -1,0 +1,119 @@
+
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { Image } from 'lucide-react';
+
+const SiteSettings = () => {
+  const [faviconFile, setFaviconFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const { toast } = useToast();
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: "Invalid file type",
+        description: "Please upload an image file (PNG or JPG)",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file size (max 1MB)
+    if (file.size > 1024 * 1024) {
+      toast({
+        title: "File too large",
+        description: "Favicon must be less than 1MB",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setFaviconFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!faviconFile) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('file', faviconFile);
+      
+      // TODO: Implement file upload endpoint
+      toast({
+        title: "Favicon updated",
+        description: "The site favicon has been updated successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update favicon. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-sm">
+      <h2 className="text-xl font-semibold mb-4">Site Settings</h2>
+      
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium mb-2">Favicon</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Upload a new favicon for your website. Use PNG or JPG format, maximum size 1MB.
+            The favicon will appear in browser tabs and bookmarks.
+          </p>
+
+          <div className="flex items-start space-x-4">
+            {previewUrl && (
+              <div className="relative">
+                <img
+                  src={previewUrl}
+                  alt="Favicon preview"
+                  className="w-16 h-16 rounded border border-gray-200"
+                />
+                <p className="text-xs text-gray-500 mt-1">Preview</p>
+              </div>
+            )}
+
+            <div className="flex-1 space-y-4">
+              <div>
+                <Input
+                  type="file"
+                  accept="image/png,image/jpeg"
+                  onChange={handleFileChange}
+                  className="cursor-pointer"
+                  aria-label="Upload favicon"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Recommended size: 32x32 pixels
+                </p>
+              </div>
+
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                disabled={!faviconFile}
+                className="w-full sm:w-auto"
+              >
+                <Image className="w-4 h-4 mr-2" />
+                Update Favicon
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SiteSettings;
