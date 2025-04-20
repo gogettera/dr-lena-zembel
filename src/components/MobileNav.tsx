@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import { createLocalizedPath } from '@/utils/languageRoutes';
+import LanguageSwitcher from './LanguageSwitcher';
+import { Separator } from './ui/separator';
 
 const MobileNav = () => {
   const { t, language } = useLanguage();
@@ -24,9 +26,9 @@ const MobileNav = () => {
         <Button 
           variant="ghost" 
           size="icon"
-          className="md:hidden"
+          className="md:hidden hover:bg-dental-beige/20"
         >
-          <Menu className="h-6 w-6" />
+          <Menu className="h-5 w-5 text-dental-navy" />
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
@@ -44,6 +46,10 @@ const MobileNav = () => {
               {item.label}
             </Link>
           ))}
+          <Separator className="my-4" />
+          <div className="px-2">
+            <LanguageSwitcher />
+          </div>
         </nav>
       </SheetContent>
     </Sheet>

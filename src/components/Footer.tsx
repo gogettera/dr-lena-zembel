@@ -24,6 +24,7 @@ const Footer = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-10 mb-16">
+          {/* Logo and Description Section */}
           <div className="text-center md:text-right md:w-1/3">
             <div className="mb-6">
               <Logo />
@@ -59,8 +60,11 @@ const Footer = () => {
             </div>
           </div>
           
+          {/* Opening Hours Section */}
           <div className="text-center md:text-right md:w-1/3">
-            <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">{t('openingHours')}</h3>
+            <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">
+              {t('openingHours')}
+            </h3>
             <div className="space-y-3">
               <div className="flex items-center justify-center md:justify-end gap-3">
                 <Clock className="h-5 w-5 text-dental-orange flex-shrink-0" />
@@ -70,44 +74,18 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-2 mt-6 justify-center md:justify-end">
-              <Button 
-                variant="orange" 
-                className="rounded-full shadow-md"
-                asChild
-              >
-                <a href="tel:03-566-6915">
-                  <Phone className="mr-2 h-4 w-4" />
-                  03-566-6915
-                </a>
-              </Button>
-              <Button 
-                variant="orange" 
-                className="rounded-full shadow-md"
-                asChild
-              >
-                <a 
-                  href="https://api.whatsapp.com/send?phone=97235666915&text=היי%20ד%22ר%20לנה%20.%20הייתי%20רוצה%20לקבוע%20תור"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  WhatsApp
-                </a>
-              </Button>
-            </div>
           </div>
           
+          {/* Contact Section */}
           <div className="text-center md:text-right md:w-1/3">
-            <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">{t('contact')}</h3>
-            
+            <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">
+              {t('contact')}
+            </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-center md:justify-end gap-3">
                 <Phone className="h-5 w-5 text-dental-orange flex-shrink-0" />
                 <span className="text-white">03-566-6915</span>
               </div>
-              
               <div className="flex items-center justify-center md:justify-end gap-3">
                 <MapPin className="h-5 w-5 text-dental-orange flex-shrink-0" />
                 <span className="text-white">דרך בן-צבי 2, תל-אביב יפו</span>
@@ -116,6 +94,7 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Site Map */}
         <nav className="mt-8 pt-8 border-t border-white/10" aria-label="Site Map">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
@@ -157,6 +136,7 @@ const Footer = () => {
           </div>
         </nav>
 
+        {/* Copyright */}
         <div className="mt-16 pt-6 border-t border-white/10 text-center">
           <p className="text-sm text-white/60">© {new Date().getFullYear()} {t('copyright')}.</p>
         </div>

@@ -5,8 +5,6 @@ import {
   Carousel as BaseCarousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -57,8 +55,24 @@ export function EnhancedCarousel({
     return () => clearInterval(intervalId);
   }, [api, autoplay, interval]);
 
+  const handlePrevious = () => {
+    if (isRTL) {
+      api?.scrollNext();
+    } else {
+      api?.scrollPrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (isRTL) {
+      api?.scrollPrev();
+    } else {
+      api?.scrollNext();
+    }
+  };
+
   return (
-    <div className="relative w-full" dir={isRTL ? 'rtl' : 'ltr'}>
+    <div className="relative w-full">
       <BaseCarousel
         setApi={setApi}
         className={cn("w-full", className)}
@@ -76,24 +90,24 @@ export function EnhancedCarousel({
 
         {showArrows && (
           <>
-            <div className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2">
+            <div className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-10">
               <Button 
                 variant="outline" 
                 size="icon" 
                 className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
-                onClick={() => api?.scrollPrev()}
+                onClick={handlePrevious}
               >
-                {isRTL ? <ChevronRight className="h-5 w-5 text-dental-navy" /> : <ChevronLeft className="h-5 w-5 text-dental-navy" />}
+                <ChevronLeft className="h-5 w-5 text-dental-navy" />
               </Button>
             </div>
-            <div className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2">
+            <div className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-10">
               <Button 
                 variant="outline" 
                 size="icon" 
                 className="h-10 w-10 rounded-full bg-white shadow-md hover:bg-dental-beige hover:scale-110 transition-all border-dental-navy/20"
-                onClick={() => api?.scrollNext()}
+                onClick={handleNext}
               >
-                {isRTL ? <ChevronLeft className="h-5 w-5 text-dental-navy" /> : <ChevronRight className="h-5 w-5 text-dental-navy" />}
+                <ChevronRight className="h-5 w-5 text-dental-navy" />
               </Button>
             </div>
           </>
@@ -121,4 +135,3 @@ export function EnhancedCarousel({
 }
 
 export { CarouselItem };
-
