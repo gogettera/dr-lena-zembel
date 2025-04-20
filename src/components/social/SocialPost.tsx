@@ -90,4 +90,3 @@ const SocialPost = ({ post }: SocialPostProps) => {
 };
 
 export default SocialPost;
-

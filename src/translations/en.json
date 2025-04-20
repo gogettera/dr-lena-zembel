@@ -85,5 +85,12 @@
   "doctorPhilosophy": "It's important to me to provide a positive and pleasant experience along with professional and quality treatment.",
   "transparency": "Transparency - you are partners in the treatment decision-making process",
   "xrayPolicy": "X-rays - they are your property and will be emailed to you",
-  "treatmentOptions": "Treatment options - there is no single right way, there are always several"
+  "treatmentOptions": "Treatment options - there is no single right way, there are always several",
+  "play": "Play",
+  "pause": "Pause",
+  "mute": "Mute",
+  "unmute": "Unmute",
+  "fullscreen": "Fullscreen",
+  "close": "Close",
+  "clinicTourVideo": "Clinic Tour Video"
 }
