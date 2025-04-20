@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
@@ -28,9 +27,16 @@ const HeroSection = () => {
                 variant="orange" 
                 size="lg" 
                 className="rounded-full text-lg hover:scale-105 transition-all duration-300 shadow-soft hover:shadow-glow group"
+                asChild
               >
-                <Calendar className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-                לתיאום ביקור
+                <a 
+                  href="https://api.whatsapp.com/send?phone=97235666915&text=היי%20ד%22ר%20לנה%20.%20הייתי%20רוצה%20לקבוע%20תור"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Calendar className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                  לתיאום ביקור
+                </a>
               </Button>
               <Button 
                 variant="outline" 
