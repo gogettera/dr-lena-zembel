@@ -1,13 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { FileVideo2, Upload } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Label } from "@/components/ui/label";
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
+import AddVideoButton from './AddVideoButton';
+import VideoCard from './VideoCard';
 
 interface VideoData {
   id: string;
@@ -53,8 +51,7 @@ const VideoManager = () => {
 
   const handleVideoUpdate = async (id: string, field: keyof VideoData, value: string | number) => {
     try {
-      // Create an update object with only the field to update
-      const updateData: Record<string, any> = { 
+      const updateData: Record<string, any> = {
         [field]: value,
         updated_at: new Date().toISOString()
       };
@@ -66,8 +63,7 @@ const VideoManager = () => {
 
       if (error) throw error;
 
-      // Update local state
-      setVideos(videos.map(video => 
+      setVideos(videos.map(video =>
         video.id === id ? { ...video, [field]: value } : video
       ));
 
@@ -151,65 +147,16 @@ const VideoManager = () => {
     <div className="bg-white p-6 rounded-lg shadow-sm space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Video Management</h2>
-        <Button onClick={handleAddVideo} variant="outline">
-          <FileVideo2 className="w-4 h-4 mr-2" />
-          Add New Video
-        </Button>
+        <AddVideoButton onAdd={handleAddVideo} />
       </div>
-
       <div className="space-y-6">
         {videos.map((video) => (
-          <Card key={video.id} className="p-4 space-y-4">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-medium">
-                {video.title || 'Untitled Video'}
-              </h3>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => handleRemoveVideo(video.id)}
-              >
-                Remove
-              </Button>
-            </div>
-
-            <div className="grid gap-4">
-              <div>
-                <Label htmlFor={`title-${video.id}`}>Title</Label>
-                <Input
-                  id={`title-${video.id}`}
-                  value={video.title}
-                  onChange={(e) => handleVideoUpdate(video.id, 'title', e.target.value)}
-                  placeholder="Enter video title"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor={`src-${video.id}`}>Video Source (URL or YouTube link)</Label>
-                <Input
-                  id={`src-${video.id}`}
-                  value={video.src}
-                  onChange={(e) => handleVideoUpdate(video.id, 'src', e.target.value)}
-                  placeholder="Enter video URL or YouTube link"
-                />
-              </div>
-
-              <div>
-                <Label htmlFor={`poster-${video.id}`}>Cover Image URL</Label>
-                <div className="flex gap-2">
-                  <Input
-                    id={`poster-${video.id}`}
-                    value={video.poster}
-                    onChange={(e) => handleVideoUpdate(video.id, 'poster', e.target.value)}
-                    placeholder="Enter cover image URL"
-                  />
-                  <Button variant="outline" size="icon">
-                    <Upload className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Card>
+          <VideoCard
+            key={video.id}
+            video={video}
+            onUpdate={handleVideoUpdate}
+            onRemove={handleRemoveVideo}
+          />
         ))}
       </div>
     </div>
