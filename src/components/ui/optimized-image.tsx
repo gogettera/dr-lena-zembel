@@ -33,9 +33,9 @@ const OptimizedImage = ({
   // If priority is true, preload the image
   usePreloadImages(priority ? [src] : []);
 
-  // Extract dimensions from props or set defaults
-  const imgWidth = width || props.width;
-  const imgHeight = height || props.height;
+  // Extract dimensions from props
+  const imgWidth = width;
+  const imgHeight = height;
 
   // Determine if we're dealing with an absolute URL or a relative path
   const isAbsoluteUrl = src.startsWith('http') || src.startsWith('//');
