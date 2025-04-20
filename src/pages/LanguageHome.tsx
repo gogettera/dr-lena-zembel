@@ -10,6 +10,7 @@ import SocialFeedSection from '@/components/SocialFeedSection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
+import AboutSection from '@/components/AboutSection';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { setupDirectionByLanguage } from '@/utils/direction';
 
@@ -26,6 +27,7 @@ const LanguageHome = () => {
       <Navbar />
       <main>
         <HeroSection />
+        <AboutSection />
         <BrandSection />
         <TreatmentsSection />
         <VideoSection />
