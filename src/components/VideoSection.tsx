@@ -1,26 +1,22 @@
+
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import OptimizedImage from '@/components/ui/optimized-image';
 import DeferredContent from './deferred-content';
+import SectionHeader from '@/components/ui/section-header';
 
 const VideoSection = () => {
-  const { t, language } = useLanguage();
-  const isRTL = language === 'he' || language === 'ar';
+  const { t } = useLanguage();
 
   return (
     <section className="py-24 bg-gradient-to-b from-dental-beige/30 to-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-            {t('watchOurClinic')}
-          </h2>
-          <p className="text-lg text-dental-navy/80 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-            {t('clinicTourDescription')}
-          </p>
-          <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
-        </div>
+        <SectionHeader 
+          title={t('watchOurClinic')}
+          subtitle={t('clinicTourDescription')}
+        />
 
         <div className="max-w-4xl mx-auto">
           <DeferredContent>
