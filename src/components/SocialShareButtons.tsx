@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Facebook, Twitter, Linkedin, Share2, MessageCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SocialShareButtonsProps {
   url?: string;
@@ -20,6 +21,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
   className = ''
 }) => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [showAll, setShowAll] = useState(false);
   
   const encodedUrl = encodeURIComponent(url);
@@ -48,37 +50,40 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
     {
       name: 'WhatsApp',
       icon: <MessageCircle className="h-4 w-4" />,
-      url: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}`,
+      url: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}%0A%0A${encodedDescription}`,
       color: 'bg-[#25D366] hover:bg-[#25D366]/90',
     }
   ];
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(url).then(
-      () => {
-        toast({
-          title: "Link copied!",
-          description: "The link has been copied to your clipboard.",
-        });
-      },
-      () => {
-        toast({
-          title: "Failed to copy",
-          description: "Could not copy the link to clipboard.",
-          variant: "destructive",
-        });
-      }
-    );
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({
+        title: t('linkCopied'),
+        description: t('linkCopiedDesc'),
+      });
+    } catch (err) {
+      toast({
+        title: t('copyError'),
+        description: t('copyErrorDesc'),
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     if (navigator.share) {
-      navigator.share({
-        title: title,
-        text: description,
-        url: url,
-      })
-      .catch((error) => console.log('Error sharing', error));
+      try {
+        await navigator.share({
+          title: title,
+          text: description,
+          url: url,
+        });
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError') {
+          setShowAll(true);
+        }
+      }
     } else {
       setShowAll(true);
     }
@@ -95,7 +100,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
           className="rounded-full"
         >
           <Share2 className="h-4 w-4 mr-2" />
-          Share
+          {t('share')}
         </Button>
       </div>
     );
@@ -106,11 +111,11 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
       {shareLinks.map((link) => (
         <Button
           key={link.name}
-          onClick={() => window.open(link.url, '_blank')}
+          onClick={() => window.open(link.url, '_blank', 'noopener,noreferrer')}
           variant="outline"
           size="sm"
           className={`rounded-full ${link.color} text-white`}
-          aria-label={`Share on ${link.name}`}
+          aria-label={t('shareOn', { platform: link.name })}
         >
           {link.icon}
           {!compact && <span className="ml-2">{link.name}</span>}
@@ -122,10 +127,10 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
         variant="outline"
         size="sm"
         className="rounded-full"
-        aria-label="Copy link"
+        aria-label={t('copyLink')}
       >
         <Share2 className="h-4 w-4" />
-        {!compact && <span className="ml-2">Copy Link</span>}
+        {!compact && <span className="ml-2">{t('copyLink')}</span>}
       </Button>
     </div>
   );

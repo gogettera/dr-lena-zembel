@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,6 +53,7 @@ const defaultPosts = [
 
 const SocialPost = ({ post }: { post: any }) => {
   const [isSharing, setIsSharing] = useState(false);
+  const { t } = useLanguage();
 
   const toggleSharing = () => {
     setIsSharing(!isSharing);
@@ -93,7 +93,11 @@ const SocialPost = ({ post }: { post: any }) => {
                 <span>{post.comments}</span>
               </div>
               <div className="flex items-center gap-1">
-                <button onClick={toggleSharing} className="flex items-center gap-1 hover:text-dental-orange transition-colors">
+                <button 
+                  onClick={toggleSharing} 
+                  className="flex items-center gap-1 hover:text-dental-orange transition-colors"
+                  aria-label={t('sharePost')}
+                >
                   <Share className="w-4 h-4" />
                   <span>{post.shares}</span>
                 </button>
@@ -105,8 +109,9 @@ const SocialPost = ({ post }: { post: any }) => {
           {isSharing && (
             <div className="mt-4 pt-4 border-t border-gray-100">
               <SocialShareButtons 
-                url={`https://dental-love.com/social/${post.id}`} 
-                title={post.content.substring(0, 50) + "..."} 
+                url={`${window.location.origin}/${post.platform}/${post.id}`}
+                title={post.content}
+                description={t('checkOutPost')}
                 compact={true}
               />
             </div>
