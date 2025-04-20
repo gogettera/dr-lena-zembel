@@ -22,7 +22,7 @@ export const useLanguage = () => {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('he');
-  const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [translations, setTranslations] = useState<Record<string, any>>({});
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
@@ -50,8 +50,23 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  // Translate function
+  // Translate function that handles nested keys like "clinicInfo.name"
   const t = (key: string): string => {
+    if (key.includes('.')) {
+      const keys = key.split('.');
+      let current: any = translations;
+      
+      for (const k of keys) {
+        if (current && typeof current === 'object' && k in current) {
+          current = current[k];
+        } else {
+          return key; // Return the key if path doesn't exist
+        }
+      }
+      
+      return typeof current === 'string' ? current : key;
+    }
+    
     return translations[key] || key;
   };
 
