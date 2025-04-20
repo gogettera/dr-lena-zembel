@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,9 +11,72 @@ import ContentManager from '@/components/admin/ContentManager';
 import LanguageExport from '@/components/admin/LanguageExport';
 import SiteSettings from '@/components/admin/SiteSettings';
 import VideoManager from '@/components/admin/VideoManager';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from "@/components/ui/use-toast";
 
 const AdminPanel = () => {
   const { language } = useLanguage();
+  const { toast } = useToast();
+
+  // State for promoting user to admin
+  const [promoteEmail, setPromoteEmail] = useState('');
+  const [promoteLoading, setPromoteLoading] = useState(false);
+
+  // Function to promote user to admin role
+  const handlePromoteAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPromoteLoading(true);
+
+    try {
+      // 1. Find user by email in Supabase Auth
+      const { data: users, error: userError } = await supabase.auth.admin.listUsers({
+        email: promoteEmail,
+        limit: 1,
+      });
+
+      if (userError || !users || users.users.length === 0) {
+        toast({
+          variant: "destructive",
+          title: "User not found",
+          description: `No user found with the email "${promoteEmail}".`,
+        });
+        setPromoteLoading(false);
+        return;
+      }
+
+      const userId = users.users[0].id;
+
+      // 2. Upsert user_roles with "admin" role
+      const { error: upsertError } = await supabase
+        .from('user_roles')
+        .upsert([
+          { user_id: userId, role: 'admin' }
+        ])
+        .select();
+
+      if (upsertError) {
+        toast({
+          variant: "destructive",
+          title: "Promotion failed",
+          description: upsertError.message,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: `User "${promoteEmail}" has been promoted to admin.`,
+        });
+        setPromoteEmail('');
+      }
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Unexpected error",
+        description: err.message || String(err),
+      });
+    } finally {
+      setPromoteLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -27,6 +90,7 @@ const AdminPanel = () => {
             <TabsTrigger value="videos">Videos</TabsTrigger>
             <TabsTrigger value="export">Website Export</TabsTrigger>
             <TabsTrigger value="settings">Site Settings</TabsTrigger>
+            <TabsTrigger value="user-management">User Management</TabsTrigger>
           </TabsList>
 
           <TabsContent value="translations">
@@ -55,6 +119,34 @@ const AdminPanel = () => {
           <TabsContent value="settings">
             <SiteSettings />
           </TabsContent>
+
+          <TabsContent value="user-management">
+            <div className="bg-white p-6 rounded-lg shadow-sm max-w-md">
+              <h2 className="text-xl font-semibold mb-4">Promote User to Admin</h2>
+              <form onSubmit={handlePromoteAdmin} className="space-y-4">
+                <div>
+                  <label htmlFor="promote-email" className="block text-sm font-medium text-gray-700 mb-1">
+                    User Email
+                  </label>
+                  <Input
+                    id="promote-email"
+                    type="email"
+                    required
+                    placeholder="Enter user's email"
+                    value={promoteEmail}
+                    onChange={e => setPromoteEmail(e.target.value)}
+                    disabled={promoteLoading}
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={promoteLoading || promoteEmail.trim() === ''}>
+                  {promoteLoading ? "Promoting..." : "Promote to Admin"}
+                </Button>
+              </form>
+              <p className="text-sm text-gray-500 mt-3">
+                Enter the email address of a registered user to grant them admin rights.
+              </p>
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
@@ -62,3 +154,4 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+
