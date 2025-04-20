@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
-import { Phone } from 'lucide-react';
+import { Phone, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -55,7 +55,17 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end gap-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-full"
+            asChild
+          >
+            <Link to="/admin">
+              <Settings className="h-4 w-4" />
+            </Link>
+          </Button>
           <Button 
             variant="orange" 
             size="sm" 

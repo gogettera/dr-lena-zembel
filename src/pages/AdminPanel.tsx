@@ -8,6 +8,7 @@ import { Download, Search } from "lucide-react";
 import { useLanguage } from '@/contexts/LanguageContext';
 import TranslationsTable from '@/components/admin/TranslationsTable';
 import ContentManager from '@/components/admin/ContentManager';
+import LanguageExport from '@/components/admin/LanguageExport';
 
 const AdminPanel = () => {
   const { language } = useLanguage();
@@ -21,6 +22,7 @@ const AdminPanel = () => {
           <TabsList>
             <TabsTrigger value="translations">Copy Management</TabsTrigger>
             <TabsTrigger value="content">Content Manager</TabsTrigger>
+            <TabsTrigger value="export">Export</TabsTrigger>
           </TabsList>
 
           <TabsContent value="translations" className="space-y-4">
@@ -29,6 +31,10 @@ const AdminPanel = () => {
 
           <TabsContent value="content">
             <ContentManager />
+          </TabsContent>
+
+          <TabsContent value="export">
+            <LanguageExport />
           </TabsContent>
         </Tabs>
       </div>
