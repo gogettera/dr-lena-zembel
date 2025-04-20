@@ -1,4 +1,3 @@
-
 type TranslationMeta = {
   maxLength: number;
   location: string;
@@ -48,28 +47,27 @@ export const translationMetadata: TranslationMetadataType = {
   
   // Treatment types
   childrenDentistry: { maxLength: 30, location: "Services" },
-  childrenDentistryDesc: { maxLength: 100, location: "Services" },
+  childrenDentistryDesc: { maxLength: 150, location: "Services" },
   aestheticTreatments: { maxLength: 30, location: "Services" },
-  aestheticTreatmentsDesc: { maxLength: 100, location: "Services" },
+  aestheticTreatmentsDesc: { maxLength: 150, location: "Services" },
   preventiveMedicine: { maxLength: 30, location: "Services" },
-  preventiveMedicineDesc: { maxLength: 100, location: "Services" },
+  preventiveMedicineDesc: { maxLength: 150, location: "Services" },
   rootCanal: { maxLength: 30, location: "Services" },
-  rootCanalDesc: { maxLength: 100, location: "Services" },
+  rootCanalDesc: { maxLength: 150, location: "Services" },
   oralRehabilitation: { maxLength: 30, location: "Services" },
-  oralRehabilitationDesc: { maxLength: 100, location: "Services" },
+  oralRehabilitationDesc: { maxLength: 150, location: "Services" },
   orthodontics: { maxLength: 30, location: "Services" },
-  orthodonticsDesc: { maxLength: 100, location: "Services" },
+  orthodonticsDesc: { maxLength: 150, location: "Services" },
   
   // Common UI elements
   learnMore: { maxLength: 20, location: "Common UI" },
   
   // Business information
   openingHours: { maxLength: 30, location: "Business Hours" },
-  sundayToThursday: { maxLength: 30, location: "Business Hours" },
-  friday: { maxLength: 20, location: "Business Hours" },
-  sundayToFriday: { maxLength: 40, location: "Business Hours" },
-  contactInfo: { maxLength: 20, location: "Contact Information" },
+  sundayToThursday: { maxLength: 40, location: "Business Hours" },
+  friday: { maxLength: 30, location: "Business Hours" },
   clinicAddress: { maxLength: 100, location: "Contact Information" },
+  contactInfo: { maxLength: 30, location: "Contact Information" },
   allRightsReserved: { maxLength: 50, location: "Footer" },
   
   // SEO and descriptions

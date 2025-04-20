@@ -1,29 +1,19 @@
 
 import type { Language } from '@/contexts/LanguageContext';
 
-/**
- * Utility functions for RTL/LTR handling
- */
-
-/**
- * Sets the document direction to RTL or LTR
- */
 export const setDirection = (dir: 'rtl' | 'ltr') => {
   document.documentElement.dir = dir;
+  document.documentElement.lang = dir === 'rtl' ? 'he' : 'en';
   
-  // Set the language attribute based on the direction
+  // Add RTL-specific CSS class for better styling control
   if (dir === 'rtl') {
-    document.documentElement.lang = 'he'; // Default RTL language is Hebrew
+    document.documentElement.classList.add('rtl');
   } else {
-    document.documentElement.lang = 'en'; // Default LTR language is English
+    document.documentElement.classList.remove('rtl');
   }
 };
 
-/**
- * Sets up the document direction based on language
- */
 export const setupDirectionByLanguage = (language: Language) => {
-  // RTL languages: Hebrew and Arabic
   const rtlLanguages: Language[] = ['he', 'ar'];
   
   if (rtlLanguages.includes(language)) {
@@ -35,10 +25,7 @@ export const setupDirectionByLanguage = (language: Language) => {
   document.documentElement.lang = language;
 };
 
-/**
- * Sets up the document for Hebrew RTL
- */
-export const setupHebrewRTL = () => {
-  setDirection('rtl');
-  document.documentElement.lang = 'he';
+// Helper function to handle RTL text in specific contexts
+export const getTextDirection = (language: Language): 'rtl' | 'ltr' => {
+  return ['he', 'ar'].includes(language) ? 'rtl' : 'ltr';
 };
