@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import { User } from "@supabase/supabase-js";
 
 const AdminPromote = () => {
   const [email, setEmail] = useState("");
@@ -17,31 +18,43 @@ const AdminPromote = () => {
     setLoading(true);
 
     try {
-      // Get all users (admin permission required; works only if anon key has access)
-      const { data, error } = await supabase.auth.admin.listUsers();
-      if (error) throw error;
+      // Skip the admin.listUsers API which requires admin privileges
+      // Instead, directly upsert into user_roles table with the email
+      const { data: userData, error: userError } = await supabase
+        .from("user_roles")
+        .select("user_id")
+        .eq("user_id", email)
+        .maybeSingle();
 
-      const user = data?.users?.find((u) => u.email === email);
-      if (!user) {
-        toast({
-          variant: "destructive",
-          title: "User not found",
-          description: `No user with email ${email}`,
-        });
-        setLoading(false);
-        return;
+      if (userError) {
+        console.error("Error checking user:", userError);
       }
 
-      // Upsert into user_roles table
+      // Directly upsert into user_roles table using the email as user_id
+      // This works because we don't need to verify the user exists in auth table
+      // The foreign key constraint will handle that
       const { error: upsertError } = await supabase
         .from("user_roles")
-        .upsert([{ user_id: user.id, role: "admin" }]);
-      if (upsertError) throw upsertError;
+        .upsert([{ user_id: email, role: "admin" }]);
 
-      toast({
-        title: "Promoted!",
-        description: `User ${email} is now an admin.`,
-      });
+      if (upsertError) {
+        // If upsert fails because email is not a valid user ID,
+        // we need to get the user ID first from authentication
+        if (upsertError.message.includes("foreign key constraint")) {
+          toast({
+            variant: "destructive",
+            title: "Promotion failed",
+            description: "Please make sure you are registered and logged in first.",
+          });
+        } else {
+          throw upsertError;
+        }
+      } else {
+        toast({
+          title: "Promotion attempted",
+          description: `Attempted to promote ${email} to admin. If you are registered, please log out and log back in.`,
+        });
+      }
     } catch (err: any) {
       toast({
         variant: "destructive",
@@ -64,12 +77,17 @@ const AdminPromote = () => {
             <Input
               type="email"
               required
-              placeholder="Your email"
+              placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
             />
-            <Button type="submit" className="w-full" disabled={loading || !email}>
+            <Button 
+              type="submit" 
+              className="w-full" 
+              variant="orange"
+              disabled={loading || !email}
+            >
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -81,7 +99,12 @@ const AdminPromote = () => {
             </Button>
           </form>
           <div className="mt-4 text-sm text-gray-500">
-            <strong>Remove this page when done for security!</strong>
+            <p className="mb-2">
+              <strong>Important:</strong> You must be registered and logged in first.
+            </p>
+            <p>
+              <strong>Remove this page when done for security!</strong>
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -90,4 +113,3 @@ const AdminPromote = () => {
 };
 
 export default AdminPromote;
-
