@@ -54,13 +54,16 @@ export default {
         },
         dental: {
           navy: '#1E3A8A',     // Deep blue
-          sky: '#3B82F6',      // Bright blue
+          sky: '#60A5FA',      // Bright sky blue
           ocean: '#0369A1',    // Dark sky blue
-          azure: '#60A5FA',    // Light blue
-          denim: '#2563EB',    // Classic denim blue
-          blue: '#1D4ED8',     // Rich blue
-          lightblue: '#93C5FD', // Soft light blue
-          textDark: '#1F2937'  // Added a dark gray for text
+          azure: '#93C5FD',    // Light azure
+          pink: '#FFF1F2',     // Soft pink
+          orange: '#FF6B6B',   // Modern coral
+          beige: '#FDF4F0',    // Warm beige
+          textDark: '#1F2937', // Dark text
+          muted: '#6B7280',    // Muted text
+          accent: '#FCA5A5',   // Accent color
+          highlight: '#FECDD3', // Highlight color
         },
       },
       borderRadius: {
@@ -91,6 +94,14 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "slide-in": "slide-in 0.8s ease-out forwards"
+      },
+      fontFamily: {
+        sans: ['Assistant', 'system-ui', 'sans-serif'],
+        heading: ['Heebo', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'glow': '0 0 20px rgba(252, 165, 165, 0.2)',
       },
     },
   },

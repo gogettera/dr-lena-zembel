@@ -9,19 +9,49 @@
 @layer base {
   html {
     font-family: 'Assistant', 'Heebo', sans-serif;
+    scroll-behavior: smooth;
   }
   
   body {
     direction: rtl;
     text-align: right;
-    background: linear-gradient(to right, #E6F2FF 0%, #B0D4F0 100%);
-    color: #1F2937; /* Using the textDark color directly */
+    @apply bg-gradient-to-br from-white via-dental-beige/30 to-white text-dental-textDark antialiased;
   }
   
   :root {
-    --background: 210 100% 98%;
+    --background: 0 0% 100%;
     --foreground: 222 47% 11%;
-    --primary: 210 100% 56%;
-    --primary-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222 47% 11%;
+    --radius: 1rem;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-dental-navy via-dental-ocean to-dental-sky bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply backdrop-blur-md bg-white/70 border border-white/20;
   }
 }
