@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Table } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -9,6 +10,7 @@ import TranslationsTable from '@/components/admin/TranslationsTable';
 import ContentManager from '@/components/admin/ContentManager';
 import LanguageExport from '@/components/admin/LanguageExport';
 import SiteSettings from '@/components/admin/SiteSettings';
+import VideoManager from '@/components/admin/VideoManager';
 
 const AdminPanel = () => {
   const { language } = useLanguage();
@@ -22,16 +24,21 @@ const AdminPanel = () => {
           <TabsList>
             <TabsTrigger value="translations">Copy Management</TabsTrigger>
             <TabsTrigger value="content">Content Manager</TabsTrigger>
+            <TabsTrigger value="videos">Videos</TabsTrigger>
             <TabsTrigger value="export">Website Export</TabsTrigger>
             <TabsTrigger value="settings">Site Settings</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="translations" className="space-y-4">
+          <TabsContent value="translations">
             <TranslationsTable />
           </TabsContent>
 
           <TabsContent value="content">
             <ContentManager />
+          </TabsContent>
+
+          <TabsContent value="videos">
+            <VideoManager />
           </TabsContent>
 
           <TabsContent value="export">
