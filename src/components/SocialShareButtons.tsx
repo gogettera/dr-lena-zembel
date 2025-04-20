@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Facebook, Twitter, Linkedin, Share2, MessageCircle } from 'lucide-react';
+import { Share2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { ShareButton } from './share/ShareButton';
+import { useShareLinks } from './share/useShareLinks';
 
 interface SocialShareButtonsProps {
   url?: string;
@@ -24,36 +26,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
   const { t } = useLanguage();
   const [showAll, setShowAll] = useState(false);
   
-  const encodedUrl = encodeURIComponent(url);
-  const encodedTitle = encodeURIComponent(title);
-  const encodedDescription = encodeURIComponent(description);
-  
-  const shareLinks = [
-    {
-      name: 'Facebook',
-      icon: <Facebook className="h-4 w-4" />,
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      color: 'bg-[#1877F2] hover:bg-[#1877F2]/90',
-    },
-    {
-      name: 'Twitter',
-      icon: <Twitter className="h-4 w-4" />,
-      url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
-      color: 'bg-[#1DA1F2] hover:bg-[#1DA1F2]/90',
-    },
-    {
-      name: 'LinkedIn',
-      icon: <Linkedin className="h-4 w-4" />,
-      url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      color: 'bg-[#0077B5] hover:bg-[#0077B5]/90',
-    },
-    {
-      name: 'WhatsApp',
-      icon: <MessageCircle className="h-4 w-4" />,
-      url: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}%0A%0A${encodedDescription}`,
-      color: 'bg-[#25D366] hover:bg-[#25D366]/90',
-    }
-  ];
+  const shareLinks = useShareLinks(url, title, description);
 
   const copyToClipboard = async () => {
     try {
@@ -89,7 +62,6 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
     }
   };
 
-  // If we're in compact mode and not showing all, just show the share button
   if (compact && !showAll) {
     return (
       <div className={className}>
@@ -109,17 +81,16 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
   return (
     <div className={`flex flex-wrap gap-2 ${className}`}>
       {shareLinks.map((link) => (
-        <Button
+        <ShareButton
           key={link.name}
+          name={link.name}
+          icon={link.icon}
+          url={link.url}
+          color={link.color}
+          compact={compact}
           onClick={() => window.open(link.url, '_blank', 'noopener,noreferrer')}
-          variant="outline"
-          size="sm"
-          className={`rounded-full ${link.color} text-white`}
-          aria-label={t('shareOn', { platform: link.name })}
-        >
-          {link.icon}
-          {!compact && <span className="ml-2">{link.name}</span>}
-        </Button>
+          ariaLabel={t('shareOn', { platform: link.name })}
+        />
       ))}
       
       <Button
