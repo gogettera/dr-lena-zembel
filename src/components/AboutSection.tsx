@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Avatar } from '@/components/ui/avatar';
-import { Languages } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const AboutSection = () => {
   const { t, language } = useLanguage();
@@ -11,23 +10,26 @@ const AboutSection = () => {
   return (
     <section className="bg-gradient-to-br from-dental-beige via-white to-dental-pink py-16">
       <div className="container mx-auto px-4" dir={isRTL ? 'rtl' : 'ltr'}>
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className={`md:w-1/3 ${isRTL ? 'md:order-last' : ''}`}>
+        <h2 className="text-4xl font-bold text-dental-navy mb-8 text-end">
+          {t('aboutMe')}
+        </h2>
+        
+        <div className="flex flex-col lg:flex-row items-start gap-12">
+          <div className={`lg:w-1/3 ${isRTL ? 'lg:order-last' : ''}`}>
             <div className="relative">
               <div className="absolute inset-0 bg-dental-orange rounded-xl blur-xl opacity-20 transform rotate-3"></div>
               <img
-                src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
+                src="/lovable-uploads/ee68f5b4-8d1b-4e34-9a10-4c4da455e913.png"
                 alt={t('doctorProfile')}
-                className="relative rounded-xl shadow-xl hover:scale-105 transition-transform duration-300 w-full max-w-md mx-auto"
+                className="relative rounded-xl shadow-xl w-full"
               />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
-              <Languages className="h-5 w-5 text-dental-navy" />
               <div className="flex gap-2">
-                {['he', 'en', 'de', 'ru'].map((lang) => (
+                {['RU', 'DE', 'EN', 'HE'].map((lang) => (
                   <div
                     key={lang}
-                    className="text-sm font-medium text-dental-navy uppercase"
+                    className="text-sm font-medium text-dental-navy"
                   >
                     {lang}
                   </div>
@@ -36,15 +38,30 @@ const AboutSection = () => {
             </div>
           </div>
 
-          <div className="md:w-2/3 space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-              {t('aboutMe')}
-            </h2>
-            <div className="space-y-4 leading-relaxed text-lg opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-              <p>{t('aboutMeIntro')}</p>
-              <p>{t('aboutMeClinic')}</p>
-              <p>{t('aboutMeLanguages')}</p>
-              <p className="font-medium">{t('aboutMeInvite')}</p>
+          <div className="lg:w-2/3 space-y-6">
+            <div className="space-y-4 leading-relaxed text-lg">
+              <h3 className="text-2xl font-bold text-dental-navy mb-4 text-end">
+                {t('doctorName')}
+              </h3>
+              <p className="text-end">{t('doctorEducation')}</p>
+              <p className="text-end">{t('doctorTreatments')}</p>
+              <p className="text-end">{t('doctorApproach')}</p>
+              <p className="text-end mb-8">{t('doctorPhilosophy')}</p>
+
+              <div className="space-y-3 text-dental-navy">
+                <div className="flex items-center gap-2 justify-end">
+                  <span>{t('transparency')}</span>
+                  <Check className="h-5 w-5 text-blue-500 flex-shrink-0" />
+                </div>
+                <div className="flex items-center gap-2 justify-end">
+                  <span>{t('xrayPolicy')}</span>
+                  <Check className="h-5 w-5 text-blue-500 flex-shrink-0" />
+                </div>
+                <div className="flex items-center gap-2 justify-end">
+                  <span>{t('treatmentOptions')}</span>
+                  <Check className="h-5 w-5 text-blue-500 flex-shrink-0" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
