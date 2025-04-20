@@ -69,10 +69,12 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
+        // Create an update object with only the field that needs to be updated
         const updateData: Record<string, any> = {
           [field]: value,
           updated_at: new Date().toISOString()
         };
+        
         const { error } = await supabase
           .from('videos')
           .update(updateData)
@@ -80,6 +82,7 @@ export const useVideos = () => {
 
         if (error) throw error;
 
+        // Update the local state to reflect the change
         setVideos(prev =>
           prev.map(video =>
             video.id === id ? { ...video, [field]: value } : video
@@ -96,6 +99,7 @@ export const useVideos = () => {
           title: "Error updating video",
           description: error.message
         });
+        console.error("Update error:", error);
       }
     },
     [toast]
