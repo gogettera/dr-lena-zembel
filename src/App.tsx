@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,8 +14,6 @@ import { getBrowserLanguage } from "@/utils/languageRoutes";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const defaultLanguage = getBrowserLanguage();
-  
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
@@ -29,8 +26,8 @@ const App = () => {
             </a>
             <div className="min-h-screen w-full">
               <Routes>
-                {/* Redirect root to language-specific home page */}
-                <Route path="/" element={<Navigate to={`/${defaultLanguage}`} replace />} />
+                {/* Redirect root to Hebrew by default */}
+                <Route path="/" element={<Navigate to="/he" replace />} />
                 
                 {/* Admin panel route */}
                 <Route path="/admin" element={<AdminPanel />} />

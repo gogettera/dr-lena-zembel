@@ -16,6 +16,18 @@ export const supportedLanguages: Language[] = ['he', 'en', 'ru', 'de', 'ar'];
 
 // Get browser language or default to Hebrew
 export const getBrowserLanguage = (): Language => {
+  // First check localStorage
+  const storedLanguage = localStorage.getItem('preferredLanguage') as Language;
+  if (storedLanguage && supportedLanguages.includes(storedLanguage)) {
+    return storedLanguage;
+  }
+
+  // Then check browser language
   const browserLang = navigator.language.split('-')[0] as Language;
-  return supportedLanguages.includes(browserLang) ? browserLang : 'he';
+  if (supportedLanguages.includes(browserLang)) {
+    return browserLang;
+  }
+
+  // Default to Hebrew
+  return 'he';
 };

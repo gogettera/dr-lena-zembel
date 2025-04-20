@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 
@@ -71,17 +70,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
-    // Load stored language preference or use Hebrew as default
+    // Load stored language preference or use browser language with Hebrew as default
     const storedLanguage = localStorage.getItem('preferredLanguage') as Language | null;
     const browserLanguage = navigator.language.split('-')[0] as Language;
-    const supportedLanguages: Language[] = ['he', 'en', 'ru', 'de', 'ar'];
     
-    let initialLanguage: Language = 'he';
+    let initialLanguage: Language = 'he'; // Default to Hebrew
     
     if (storedLanguage && supportedLanguages.includes(storedLanguage)) {
       initialLanguage = storedLanguage;
-    } else if (supportedLanguages.includes(browserLanguage as Language)) {
-      initialLanguage = browserLanguage as Language;
+    } else if (supportedLanguages.includes(browserLanguage)) {
+      initialLanguage = browserLanguage;
+      localStorage.setItem('preferredLanguage', browserLanguage);
     }
     
     setLanguageState(initialLanguage);
