@@ -38,6 +38,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     progress, // Using progress instead of currentTime
     volume,
     isMuted,
+    handleVolumeChange, // <-- Added this line to fix the error
     toggleMute, // Using toggleMute instead of handleMuteToggle
     handleFullscreen, // Using handleFullscreen instead of handleFullscreenToggle
     handleProgressChange, // Using handleProgressChange instead of handleSeek
@@ -82,3 +83,4 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
 };
 
 export default VideoPlayer;
+
