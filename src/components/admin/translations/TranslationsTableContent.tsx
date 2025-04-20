@@ -3,6 +3,7 @@ import React from 'react';
 import { TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { SortAsc, SortDesc } from "lucide-react";
 import { Translation, SortConfig } from './types';
+import { formatTranslationValue } from '@/utils/translation-helpers';
 
 interface TranslationsTableContentProps {
   sortConfig: SortConfig;
@@ -64,7 +65,7 @@ export const TranslationsTableContent: React.FC<TranslationsTableContentProps> =
             <TableCell className="font-medium">{translation.key}</TableCell>
             <TableCell>
               <div className={exceedsMaxLength(translation.en, translation.maxLength) ? "text-red-500" : ""}>
-                {translation.en}
+                {formatTranslationValue(translation.en)}
                 {exceedsMaxLength(translation.en, translation.maxLength) && (
                   <div className="text-xs">
                     Exceeds limit by {getLength(translation.en) - translation.maxLength} characters
@@ -74,7 +75,7 @@ export const TranslationsTableContent: React.FC<TranslationsTableContentProps> =
             </TableCell>
             <TableCell>
               <div className={exceedsMaxLength(translation.he, translation.maxLength) ? "text-red-500" : ""}>
-                {translation.he}
+                {formatTranslationValue(translation.he)}
                 {exceedsMaxLength(translation.he, translation.maxLength) && (
                   <div className="text-xs">
                     Exceeds limit by {getLength(translation.he) - translation.maxLength} characters
@@ -84,7 +85,7 @@ export const TranslationsTableContent: React.FC<TranslationsTableContentProps> =
             </TableCell>
             <TableCell>
               <div className={exceedsMaxLength(translation.de, translation.maxLength) ? "text-red-500" : ""}>
-                {translation.de}
+                {formatTranslationValue(translation.de)}
                 {exceedsMaxLength(translation.de, translation.maxLength) && (
                   <div className="text-xs">
                     Exceeds limit by {getLength(translation.de) - translation.maxLength} characters
@@ -94,7 +95,7 @@ export const TranslationsTableContent: React.FC<TranslationsTableContentProps> =
             </TableCell>
             <TableCell>
               <div className={exceedsMaxLength(translation.ru, translation.maxLength) ? "text-red-500" : ""}>
-                {translation.ru}
+                {formatTranslationValue(translation.ru)}
                 {exceedsMaxLength(translation.ru, translation.maxLength) && (
                   <div className="text-xs">
                     Exceeds limit by {getLength(translation.ru) - translation.maxLength} characters
@@ -104,7 +105,7 @@ export const TranslationsTableContent: React.FC<TranslationsTableContentProps> =
             </TableCell>
             <TableCell>
               <div className={exceedsMaxLength(translation.ar, translation.maxLength) ? "text-red-500" : ""}>
-                {translation.ar}
+                {formatTranslationValue(translation.ar)}
                 {exceedsMaxLength(translation.ar, translation.maxLength) && (
                   <div className="text-xs">
                     Exceeds limit by {getLength(translation.ar) - translation.maxLength} characters

@@ -15,9 +15,13 @@ export const formatTranslationValue = (value: any): string => {
   }
   
   if (typeof value === 'object') {
-    // For nested objects, we return a placeholder with object info
-    const keys = Object.keys(value);
-    return `[Nested Object: ${keys.join(', ')}]`;
+    try {
+      // For nested objects, convert to JSON string with indentation for better readability
+      return JSON.stringify(value, null, 2);
+    } catch (e) {
+      // Fallback in case of circular references or other JSON stringify issues
+      return '[Complex Object]';
+    }
   }
   
   return String(value);
@@ -28,4 +32,24 @@ export const formatTranslationValue = (value: any): string => {
  */
 export const isNestedObject = (value: any): boolean => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
+};
+
+/**
+ * Safe way to access and display a nested object property or sub-property
+ * Avoids the "Objects are not valid as React child" error
+ */
+export const safeDisplayObject = (obj: any): string => {
+  if (obj === null || obj === undefined) {
+    return '';
+  }
+  
+  if (typeof obj !== 'object') {
+    return String(obj);
+  }
+  
+  try {
+    return JSON.stringify(obj, null, 2);
+  } catch (e) {
+    return '[Complex Object]';
+  }
 };

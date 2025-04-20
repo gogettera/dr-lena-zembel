@@ -13,7 +13,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
-import { isNestedObject } from "@/utils/translation-helpers"
+import { formatTranslationValue, isNestedObject } from "@/utils/translation-helpers"
 
 const Form = FormProvider
 
@@ -151,7 +151,7 @@ const FormMessage = React.forwardRef<
   // Format error message to handle nested objects
   let errorMessage = error?.message;
   if (errorMessage && isNestedObject(errorMessage)) {
-    errorMessage = 'Invalid format';
+    errorMessage = formatTranslationValue(errorMessage);
   }
   
   const body = error ? String(errorMessage) : children

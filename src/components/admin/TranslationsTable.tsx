@@ -6,6 +6,7 @@ import { useTranslations } from './translations/useTranslations';
 import { TranslationsToolbar } from './translations/TranslationsToolbar';
 import { TranslationsTableContent } from './translations/TranslationsTableContent';
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatTranslationValue, isNestedObject } from '@/utils/translation-helpers';
 
 const LoadingState = () => (
   <div className="space-y-4">
@@ -23,15 +24,10 @@ const LoadingState = () => (
   </div>
 );
 
-// Helper function to check if a value is a nested object
-const isNestedObject = (value: any): boolean => {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-};
-
 // Helper function to stringify nested objects for display/searching
 const stringifyNestedObject = (obj: any): string => {
   if (!isNestedObject(obj)) return String(obj);
-  return JSON.stringify(obj);
+  return formatTranslationValue(obj);
 };
 
 const TranslationsTable = () => {
@@ -60,6 +56,7 @@ const TranslationsTable = () => {
         if (typeof obj === 'string') {
           return obj.toLowerCase().includes(searchQuery.toLowerCase());
         } else if (isNestedObject(obj)) {
+          // Search in nested object values
           return Object.values(obj).some(value => searchInTranslation(value));
         }
         return false;
@@ -86,8 +83,8 @@ const TranslationsTable = () => {
       }
       
       // For nested objects, convert to string for comparison
-      const aStr = isNestedObject(aValue) ? JSON.stringify(aValue) : String(aValue);
-      const bStr = isNestedObject(bValue) ? JSON.stringify(bValue) : String(bValue);
+      const aStr = isNestedObject(aValue) ? stringifyNestedObject(aValue) : String(aValue);
+      const bStr = isNestedObject(bValue) ? stringifyNestedObject(bValue) : String(bValue);
       
       return sortConfig.direction === 'asc' 
         ? aStr.localeCompare(bStr)

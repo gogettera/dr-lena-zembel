@@ -1,5 +1,6 @@
 
 import { Language } from '@/types/language';
+import { formatTranslationValue, isNestedObject } from './translation-helpers';
 
 export const getNavigationPath = (language: Language, path: string = '') => {
   return `/${language}${path}`;
@@ -23,9 +24,14 @@ export const getNestedTranslationValue = (obj: any, path: string): string => {
     current = current[part];
   }
   
-  if (typeof current === 'object' && current !== null) {
-    return JSON.stringify(current);
+  if (isNestedObject(current)) {
+    return formatTranslationValue(current);
   }
   
   return current?.toString() || '';
+};
+
+// Safe way to display nested objects as strings in any context
+export const safelyStringifyIfObject = (value: any): string => {
+  return formatTranslationValue(value);
 };
