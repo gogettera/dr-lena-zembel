@@ -89,7 +89,7 @@ const SocialShareButtons: React.FC<SocialShareButtonsProps> = ({
           color={link.color}
           compact={compact}
           onClick={() => window.open(link.url, '_blank', 'noopener,noreferrer')}
-          ariaLabel={t('shareOn', { platform: link.name })}
+          ariaLabel={`${t('shareOn')} ${link.name}`}
         />
       ))}
       
