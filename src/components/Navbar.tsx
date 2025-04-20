@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'; // Add useLocation to the import
 import Logo from './Logo';
 import { Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -12,7 +13,7 @@ import MobileNav from './MobileNav';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language } = useLanguage();
-  const location = useLocation();
+  const location = useLocation(); // Use useLocation hook
   const isRTL = language === 'he' || language === 'ar';
 
   useEffect(() => {
