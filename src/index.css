@@ -15,6 +15,7 @@
     direction: rtl;
     text-align: right;
     background: linear-gradient(to right, #E6F2FF 0%, #B0D4F0 100%);
+    color: theme('colors.dental.textDark'); // Added this line to set a darker text color
   }
   
   :root {

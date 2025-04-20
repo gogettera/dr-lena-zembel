@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -60,7 +59,8 @@ export default {
           azure: '#60A5FA',    // Light blue
           denim: '#2563EB',    // Classic denim blue
           blue: '#1D4ED8',     // Rich blue
-          lightblue: '#93C5FD' // Soft light blue
+          lightblue: '#93C5FD', // Soft light blue
+          textDark: '#1F2937'  // Added a dark gray for text
         },
       },
       borderRadius: {
