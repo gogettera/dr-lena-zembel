@@ -1,7 +1,6 @@
-
 import React from 'react';
 import Logo from './Logo';
-import { Phone, Mail, MapPin, Calendar, Clock } from 'lucide-react';
+import { Phone, MessageCircle, Mail, MapPin, Calendar, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
@@ -62,13 +61,32 @@ const Footer = () => {
               </div>
             </div>
             
-            <Button 
-              variant="orange" 
-              className="mt-6 rounded-full shadow-md"
-            >
-              <Phone className="mr-2 h-4 w-4" />
-              03-566-6915
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-2 mt-6 justify-center md:justify-end">
+              <Button 
+                variant="orange" 
+                className="rounded-full shadow-md"
+                asChild
+              >
+                <a href="tel:03-566-6915">
+                  <Phone className="mr-2 h-4 w-4" />
+                  03-566-6915
+                </a>
+              </Button>
+              <Button 
+                variant="orange" 
+                className="rounded-full shadow-md"
+                asChild
+              >
+                <a 
+                  href="https://api.whatsapp.com/send?phone=97235666915&text=היי%20ד%22ר%20לנה%20.%20הייתי%20רוצה%20לקבוע%20תור"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </a>
+              </Button>
+            </div>
           </div>
           
           <div className="text-center md:text-right md:w-1/3">

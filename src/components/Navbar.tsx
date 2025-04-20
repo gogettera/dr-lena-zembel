@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
-import { Menu, X, Phone } from 'lucide-react';
+import { Phone, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -56,14 +56,32 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end gap-2">
           <Button 
             variant="orange" 
             size="sm" 
             className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            asChild
           >
-            <Phone className="h-4 w-4" />
-            <span>03-566-6915</span>
+            <a href="tel:03-566-6915">
+              <Phone className="h-4 w-4" />
+              <span>03-566-6915</span>
+            </a>
+          </Button>
+          <Button 
+            variant="orange" 
+            size="sm" 
+            className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            asChild
+          >
+            <a 
+              href="https://api.whatsapp.com/send?phone=97235666915&text=היי%20ד%22ר%20לנה%20.%20הייתי%20רוצה%20לקבוע%20תור"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>WhatsApp</span>
+            </a>
           </Button>
         </div>
       </div>
