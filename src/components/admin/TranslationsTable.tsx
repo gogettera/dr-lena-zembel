@@ -1,17 +1,33 @@
-
 import React, { useState, useMemo } from 'react';
 import { Table } from "@/components/ui/table";
 import { Translation, SortConfig } from './translations/types';
 import { useTranslations } from './translations/useTranslations';
 import { TranslationsToolbar } from './translations/TranslationsToolbar';
 import { TranslationsTableContent } from './translations/TranslationsTableContent';
+import { Skeleton } from "@/components/ui/skeleton";
+
+const LoadingState = () => (
+  <div className="space-y-4">
+    <div className="flex gap-4">
+      <Skeleton className="h-10 w-64" />
+      <Skeleton className="h-10 w-32" />
+    </div>
+    <div className="border rounded-lg">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="border-b p-4">
+          <Skeleton className="h-4 w-full" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 const TranslationsTable = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState<string>('');
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'key', direction: 'asc' });
   
-  const translations = useTranslations();
+  const { translations, isLoading } = useTranslations();
 
   const uniqueLocations = useMemo(() => {
     const locations = new Set(translations.map(t => t.location));
@@ -70,6 +86,10 @@ const TranslationsTable = () => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+  if (isLoading) {
+    return <LoadingState />;
+  }
 
   return (
     <div className="space-y-4">

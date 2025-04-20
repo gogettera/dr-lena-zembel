@@ -1,8 +1,16 @@
 
 import { useMemo } from 'react';
 import { Facebook, Twitter, Linkedin, MessageCircle } from 'lucide-react';
+import { ReactNode } from 'react';
 
-export const useShareLinks = (url: string, title: string, description: string) => {
+interface ShareLink {
+  name: string;
+  icon: ReactNode;
+  url: string;
+  color: string;
+}
+
+export const useShareLinks = (url: string, title: string, description: string): ShareLink[] => {
   return useMemo(() => {
     const encodedUrl = encodeURIComponent(url);
     const encodedTitle = encodeURIComponent(title);
