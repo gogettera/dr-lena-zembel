@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 
+type Language = 'he' | 'en' | 'ru' | 'de' | 'ar';
+
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
@@ -48,11 +50,11 @@ const TranslationPDF = ({ translations }: { translations: Record<string, string>
 );
 
 const LanguageExport = () => {
-  const { language, setLanguage } = useLanguage();
-  const [selectedLanguage, setSelectedLanguage] = useState(language);
+  const { language } = useLanguage();
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(language);
   const [translations, setTranslations] = useState<Record<string, string>>({});
 
-  const loadTranslations = async (lang: string) => {
+  const loadTranslations = async (lang: Language) => {
     try {
       const content = await import(`../../translations/${lang}.json`);
       setTranslations(content.default);
@@ -73,12 +75,16 @@ const LanguageExport = () => {
     loadTranslations(selectedLanguage);
   }, [selectedLanguage]);
 
+  const handleLanguageChange = (value: string) => {
+    setSelectedLanguage(value as Language);
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-4">
         <Select
           value={selectedLanguage}
-          onValueChange={(value: string) => setSelectedLanguage(value)}
+          onValueChange={handleLanguageChange}
         >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select language" />

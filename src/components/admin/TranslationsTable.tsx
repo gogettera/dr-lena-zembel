@@ -33,13 +33,21 @@ const TranslationsTable = () => {
   const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'key', direction: 'asc' });
 
   const translations: Translation[] = useMemo(() => {
-    return Object.keys(en).map(key => ({
+    const allKeys = new Set([
+      ...Object.keys(en || {}),
+      ...Object.keys(he || {}),
+      ...Object.keys(de || {}),
+      ...Object.keys(ru || {}),
+      ...Object.keys(ar || {})
+    ]);
+    
+    return Array.from(allKeys).map(key => ({
       key,
-      en: en[key as keyof typeof en],
-      he: he[key as keyof typeof he],
-      de: de[key as keyof typeof de],
-      ru: ru[key as keyof typeof ru],
-      ar: ar[key as keyof typeof ar],
+      en: (en as any)[key] || '',
+      he: (he as any)[key] || '',
+      de: (de as any)[key] || '',
+      ru: (ru as any)[key] || '',
+      ar: (ar as any)[key] || '',
       maxLength: translationMetadata[key]?.maxLength || 0,
       location: translationMetadata[key]?.location || 'Unknown'
     }));
@@ -101,6 +109,16 @@ const TranslationsTable = () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  // Helper function to safely check string length
+  const getLength = (str: string | undefined): number => {
+    return str ? str.length : 0;
+  };
+
+  // Helper function to check if string exceeds max length
+  const exceedsMaxLength = (str: string | undefined, maxLength: number): boolean => {
+    return getLength(str) > maxLength && maxLength > 0;
   };
 
   return (
@@ -175,51 +193,51 @@ const TranslationsTable = () => {
               <TableRow key={translation.key}>
                 <TableCell className="font-medium">{translation.key}</TableCell>
                 <TableCell>
-                  <div className={translation.en.length > translation.maxLength ? "text-red-500" : ""}>
+                  <div className={exceedsMaxLength(translation.en, translation.maxLength) ? "text-red-500" : ""}>
                     {translation.en}
-                    {translation.en.length > translation.maxLength && (
+                    {exceedsMaxLength(translation.en, translation.maxLength) && (
                       <div className="text-xs">
-                        Exceeds limit by {translation.en.length - translation.maxLength} characters
+                        Exceeds limit by {getLength(translation.en) - translation.maxLength} characters
                       </div>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className={translation.he.length > translation.maxLength ? "text-red-500" : ""}>
+                  <div className={exceedsMaxLength(translation.he, translation.maxLength) ? "text-red-500" : ""}>
                     {translation.he}
-                    {translation.he.length > translation.maxLength && (
+                    {exceedsMaxLength(translation.he, translation.maxLength) && (
                       <div className="text-xs">
-                        Exceeds limit by {translation.he.length - translation.maxLength} characters
+                        Exceeds limit by {getLength(translation.he) - translation.maxLength} characters
                       </div>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className={translation.de.length > translation.maxLength ? "text-red-500" : ""}>
+                  <div className={exceedsMaxLength(translation.de, translation.maxLength) ? "text-red-500" : ""}>
                     {translation.de}
-                    {translation.de.length > translation.maxLength && (
+                    {exceedsMaxLength(translation.de, translation.maxLength) && (
                       <div className="text-xs">
-                        Exceeds limit by {translation.de.length - translation.maxLength} characters
+                        Exceeds limit by {getLength(translation.de) - translation.maxLength} characters
                       </div>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className={translation.ru.length > translation.maxLength ? "text-red-500" : ""}>
+                  <div className={exceedsMaxLength(translation.ru, translation.maxLength) ? "text-red-500" : ""}>
                     {translation.ru}
-                    {translation.ru.length > translation.maxLength && (
+                    {exceedsMaxLength(translation.ru, translation.maxLength) && (
                       <div className="text-xs">
-                        Exceeds limit by {translation.ru.length - translation.maxLength} characters
+                        Exceeds limit by {getLength(translation.ru) - translation.maxLength} characters
                       </div>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className={translation.ar.length > translation.maxLength ? "text-red-500" : ""}>
+                  <div className={exceedsMaxLength(translation.ar, translation.maxLength) ? "text-red-500" : ""}>
                     {translation.ar}
-                    {translation.ar.length > translation.maxLength && (
+                    {exceedsMaxLength(translation.ar, translation.maxLength) && (
                       <div className="text-xs">
-                        Exceeds limit by {translation.ar.length - translation.maxLength} characters
+                        Exceeds limit by {getLength(translation.ar) - translation.maxLength} characters
                       </div>
                     )}
                   </div>
