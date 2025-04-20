@@ -28,13 +28,17 @@ const AdminPanel = () => {
     setPromoteLoading(true);
 
     try {
-      // 1. Find user by email in Supabase Auth
-      const { data: users, error: userError } = await supabase.auth.admin.listUsers({
-        email: promoteEmail,
-        limit: 1,
-      });
+      // First, we'll get all users and find the one with the matching email
+      const { data, error } = await supabase.auth.admin.listUsers();
 
-      if (userError || !users || users.users.length === 0) {
+      if (error) {
+        throw error;
+      }
+
+      // Find the user with the matching email
+      const user = data?.users?.find(user => user.email === promoteEmail);
+
+      if (!user) {
         toast({
           variant: "destructive",
           title: "User not found",
@@ -44,13 +48,11 @@ const AdminPanel = () => {
         return;
       }
 
-      const userId = users.users[0].id;
-
-      // 2. Upsert user_roles with "admin" role
+      // Upsert user_roles with "admin" role
       const { error: upsertError } = await supabase
         .from('user_roles')
         .upsert([
-          { user_id: userId, role: 'admin' }
+          { user_id: user.id, role: 'admin' }
         ])
         .select();
 
@@ -154,4 +156,3 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
-
