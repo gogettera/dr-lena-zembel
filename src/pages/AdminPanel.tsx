@@ -22,7 +22,7 @@ const AdminPanel = () => {
           <TabsList>
             <TabsTrigger value="translations">Copy Management</TabsTrigger>
             <TabsTrigger value="content">Content Manager</TabsTrigger>
-            <TabsTrigger value="export">Export</TabsTrigger>
+            <TabsTrigger value="export">Website Export</TabsTrigger>
           </TabsList>
 
           <TabsContent value="translations" className="space-y-4">
@@ -34,7 +34,14 @@ const AdminPanel = () => {
           </TabsContent>
 
           <TabsContent value="export">
-            <LanguageExport />
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h2 className="text-xl font-semibold mb-4">Export Website Content</h2>
+              <p className="text-gray-600 mb-6">
+                Generate a comprehensive PDF export of the entire website, including all text content, 
+                images, and structure. Perfect for documentation, offline review, or translation work.
+              </p>
+              <LanguageExport />
+            </div>
           </TabsContent>
         </Tabs>
       </div>
