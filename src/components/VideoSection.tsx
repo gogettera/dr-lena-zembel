@@ -16,7 +16,9 @@ const VideoSection = () => {
   const videoData = {
     src: "https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4", // Sample video URL
     poster: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg",
-    title: t('clinicTourVideo')
+    title: t('clinicTourVideo'),
+    width: 1280,
+    height: 720
   };
 
   const openVideoModal = () => {
@@ -45,7 +47,10 @@ const VideoSection = () => {
                 <OptimizedImage
                   src={videoData.poster}
                   alt={t('clinicTourThumbnail')}
+                  width={videoData.width}
+                  height={videoData.height}
                   className="w-full h-full object-cover"
+                  priority={true} // This is likely an LCP element
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
                   <div className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform group-hover:scale-110 transition-transform">

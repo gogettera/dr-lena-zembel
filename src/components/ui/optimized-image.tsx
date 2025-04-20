@@ -1,47 +1,109 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
+import { usePreloadImages } from '@/hooks/use-preload-images';
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
+  priority?: boolean;
   className?: string;
   fallback?: React.ReactNode;
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 }
 
 const OptimizedImage = ({ 
   src, 
   alt, 
+  width,
+  height,
+  priority = false,
   className,
   fallback,
+  objectFit = 'cover',
   ...props 
 }: OptimizedImageProps) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!priority);
   const [hasError, setHasError] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string>(src);
+  
+  // If priority is true, preload the image
+  usePreloadImages(priority ? [src] : []);
+
+  // Extract dimensions from props or set defaults
+  const imgWidth = width || props.width;
+  const imgHeight = height || props.height;
+
+  // Determine if we're dealing with an absolute URL or a relative path
+  const isAbsoluteUrl = src.startsWith('http') || src.startsWith('//');
+  
+  // If using Lovable's upload service, we can add dimensions query params
+  // for automatic resizing (assuming a resize service is available)
+  useEffect(() => {
+    if (!isAbsoluteUrl && src.includes('/lovable-uploads/') && imgWidth && imgHeight) {
+      // Append dimensions to URL for automatic server-side resizing
+      // This is a placeholder - actual implementation depends on your image service
+      // setImgSrc(`${src}?width=${imgWidth}&height=${imgHeight}`);
+    }
+  }, [src, imgWidth, imgHeight, isAbsoluteUrl]);
+
+  // Determine loading strategy
+  const loadingAttribute = priority ? 'eager' : 'lazy';
 
   if (hasError) {
     return fallback || (
-      <div className={cn("bg-gray-100 flex items-center justify-center", className)}>
+      <div 
+        className={cn(
+          "bg-gray-100 flex items-center justify-center rounded overflow-hidden", 
+          className
+        )}
+        style={{ 
+          width: imgWidth ? `${imgWidth}px` : '100%',
+          height: imgHeight ? `${imgHeight}px` : '240px',
+          aspectRatio: imgWidth && imgHeight ? `${imgWidth}/${imgHeight}` : undefined
+        }}
+      >
         <span className="text-sm text-gray-500">Failed to load image</span>
       </div>
     );
   }
 
   return (
-    <div className="relative">
+    <div 
+      className="relative overflow-hidden"
+      style={{ 
+        width: imgWidth ? `${imgWidth}px` : '100%',
+        height: imgHeight ? `${imgHeight}px` : 'auto',
+        aspectRatio: (!imgHeight && imgWidth) || (!imgWidth && imgHeight) 
+          ? 'auto' 
+          : (imgWidth && imgHeight) 
+            ? `${imgWidth}/${imgHeight}` 
+            : undefined
+      }}
+    >
       {isLoading && (
-        <Skeleton className={cn("absolute inset-0", className)} />
+        <Skeleton 
+          className={cn(
+            "absolute inset-0 z-10",
+            className
+          )} 
+        />
       )}
       <img
-        src={src}
+        src={imgSrc}
         alt={alt}
-        loading="lazy"
-        decoding="async"
+        width={imgWidth}
+        height={imgHeight}
+        loading={loadingAttribute}
+        decoding={priority ? "sync" : "async"}
         onLoad={() => setIsLoading(false)}
         onError={() => setHasError(true)}
         className={cn(
-          'w-full h-auto transition-opacity duration-300',
+          'w-full h-full transition-opacity duration-300',
+          `object-${objectFit}`,
           isLoading ? 'opacity-0' : 'opacity-100',
           className
         )}

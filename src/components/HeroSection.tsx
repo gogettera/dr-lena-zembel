@@ -1,20 +1,22 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
 import OptimizedImage from '@/components/ui/optimized-image';
 import { useLanguage } from '@/contexts/LanguageContext';
+
 const HeroSection = () => {
-  const {
-    t,
-    language
-  } = useLanguage();
+  const { t, language } = useLanguage();
   const isRTL = language === 'he' || language === 'ar';
+  
   const getWhatsAppLink = () => {
     const phone = "97235666915";
     const message = encodeURIComponent(t('whatsappMessage'));
     return `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
   };
-  return <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
+  
+  return (
+    <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
       <div className="container mx-auto px-4 py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className={`md:w-1/2 space-y-8 ${isRTL ? 'md:order-1' : ''}`}>
@@ -42,7 +44,14 @@ const HeroSection = () => {
           <div className={`md:w-1/2 opacity-0 animate-[slide-in_0.8s_ease-out_forwards] ${isRTL ? 'md:order-0' : ''}`}>
             <div className="relative aspect-square md:aspect-[4/3] w-full max-w-2xl mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2.5rem] blur-3xl transform rotate-6"></div>
-              <OptimizedImage alt={t('dentistryWithLove')} className="relative w-full h-full rounded-[2rem] shadow-soft hover:scale-[1.02] transition-all duration-500 object-cover" src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" />
+              <OptimizedImage 
+                alt={t('dentistryWithLove')} 
+                src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
+                width={800}
+                height={600}
+                priority={true} // This is an LCP element
+                className="relative w-full h-full rounded-[2rem] shadow-soft hover:scale-[1.02] transition-all duration-500 object-cover" 
+              />
               <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft`}>
                 <p className="text-dental-navy font-bold text-lg">{t('completelyHappy')}</p>
                 <div className="flex text-dental-orange mt-2 text-xl">
@@ -56,6 +65,8 @@ const HeroSection = () => {
       
       <div className="absolute top-1/4 left-10 w-24 h-24 bg-dental-accent/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-dental-orange/10 rounded-full blur-3xl"></div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
