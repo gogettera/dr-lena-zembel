@@ -13,6 +13,7 @@ import SiteSettings from '@/components/admin/SiteSettings';
 import VideoManager from '@/components/admin/VideoManager';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
+import { User } from '@supabase/supabase-js';
 
 const AdminPanel = () => {
   const { language } = useLanguage();
@@ -35,8 +36,9 @@ const AdminPanel = () => {
         throw error;
       }
 
-      // Find the user with the matching email
-      const user = data?.users?.find(user => user.email === promoteEmail);
+      // Find the user with the matching email - properly type the users array
+      const users = data?.users as User[] | undefined;
+      const user = users?.find(user => user.email === promoteEmail);
 
       if (!user) {
         toast({
