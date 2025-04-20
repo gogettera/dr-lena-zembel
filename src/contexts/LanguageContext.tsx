@@ -1,9 +1,7 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { setDirection } from '../utils/direction';
-import { supportedLanguages } from '../utils/languageRoutes';
-
-export type Language = 'he' | 'en' | 'ru' | 'de' | 'ar';
+import { setDirection } from '@/utils/direction';
+import { supportedLanguages } from '@/utils/languageRoutes';
+import { Language } from '@/types/language';
 
 interface LanguageContextType {
   language: Language;
@@ -29,7 +27,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setLanguageState(lang);
     localStorage.setItem('preferredLanguage', lang);
     
-    // Set the direction based on the language
     if (lang === 'he' || lang === 'ar') {
       setDirection('rtl');
     } else {
@@ -43,7 +40,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       setTranslations(translations.default);
     } catch (error) {
       console.error(`Failed to load translations for ${lang}:`, error);
-      // Fallback to Hebrew if translations fail to load
       if (lang !== 'he') {
         const heTranslations = await import(`../translations/he.json`);
         setTranslations(heTranslations.default);
@@ -51,7 +47,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  // Translate function that handles nested keys like "clinicInfo.name"
   const t = (key: string): string => {
     if (key.includes('.')) {
       const keys = key.split('.');
@@ -61,7 +56,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (current && typeof current === 'object' && k in current) {
           current = current[k];
         } else {
-          return key; // Return the key if path doesn't exist
+          return key;
         }
       }
       
@@ -72,11 +67,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
-    // Load stored language preference or use browser language with Hebrew as default
     const storedLanguage = localStorage.getItem('preferredLanguage') as Language | null;
     const browserLanguage = navigator.language.split('-')[0] as Language;
     
-    let initialLanguage: Language = 'he'; // Default to Hebrew
+    let initialLanguage: Language = 'he';
     
     if (storedLanguage && supportedLanguages.includes(storedLanguage)) {
       initialLanguage = storedLanguage;
@@ -87,7 +81,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     
     setLanguageState(initialLanguage);
     
-    // Set initial direction
     if (initialLanguage === 'he' || initialLanguage === 'ar') {
       setDirection('rtl');
     } else {

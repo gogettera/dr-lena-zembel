@@ -1,5 +1,4 @@
-
-import type { Language } from '@/contexts/LanguageContext';
+import type { Language } from '@/types/language';
 
 // Helper function to get language path prefix
 export const getLanguagePath = (language: Language): string => {
