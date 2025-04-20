@@ -45,6 +45,22 @@
     --ring: 222 47% 11%;
     --radius: 1rem;
   }
+
+  /* Accessibility improvements */
+  :focus {
+    outline: 2px solid #4A90E2;
+    outline-offset: 2px;
+  }
+
+  /* Skip to main content link - hidden by default, visible on focus */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-4 focus:left-4 focus:bg-white focus:text-dental-navy focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg;
+  }
+
+  /* Ensure sufficient color contrast */
+  .text-white\/80 {
+    @apply hover:text-white focus:text-white;
+  }
 }
 
 @layer utilities {

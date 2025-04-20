@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
-import { Phone, Settings } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -35,7 +34,7 @@ const Navbar = () => {
       isScrolled 
         ? "bg-white/80 shadow-lg backdrop-blur-md" 
         : "bg-transparent"
-    )}>
+    )} role="navigation" aria-label="Main navigation">
       <div className={cn(
         "max-w-7xl mx-auto grid items-center",
         "grid-cols-3 md:grid-cols-3",
@@ -55,24 +54,14 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="rounded-full"
-            asChild
-          >
-            <Link to="/admin">
-              <Settings className="h-4 w-4" />
-            </Link>
-          </Button>
+        <div className="flex items-center justify-end">
           <Button 
             variant="orange" 
             size="sm" 
             className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
             asChild
           >
-            <a href={`tel:${t('phoneNumber')}`} dir={isRTL ? 'rtl' : 'ltr'}>
+            <a href={`tel:${t('phoneNumber')}`} dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('phoneNumber')}>
               <Phone className="h-4 w-4" />
               <span>{t('phoneNumber')}</span>
             </a>

@@ -24,6 +24,9 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <a href="#main-content" className="skip-to-content">
+              Skip to main content
+            </a>
             <div className="min-h-screen w-full">
               <Routes>
                 {/* Redirect root to language-specific home page */}

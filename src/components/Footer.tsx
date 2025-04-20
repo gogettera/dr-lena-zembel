@@ -4,12 +4,22 @@ import { Phone, MessageCircle, Mail, MapPin, Calendar, Clock } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
+import { createLocalizedPath } from '@/utils/languageRoutes';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isRTL = language === 'he' || language === 'ar';
+  
+  const siteMapLinks = [
+    { label: t('home'), href: '/' },
+    { label: t('about'), href: '/#about' },
+    { label: t('treatments'), href: '/#treatments' },
+    { label: t('contact'), href: '/#contact' },
+  ];
   
   return (
-    <footer id="contact" className="bg-dental-navy text-white py-16 relative overflow-hidden">
+    <footer id="contact" className="bg-dental-navy text-white py-16 relative overflow-hidden" role="contentinfo">
       <div className="absolute inset-0 bg-[url('/lovable-uploads/11fa7c9b-39fc-4d60-b09b-13f0578ebffe.png')] bg-cover bg-center opacity-5 mix-blend-overlay"></div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -105,6 +115,47 @@ const Footer = () => {
             </div>
           </div>
         </div>
+
+        <nav className="mt-8 pt-8 border-t border-white/10" aria-label="Site Map">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-dental-orange">{t('sitemap')}</h4>
+              <ul className={`space-y-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                {siteMapLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      to={createLocalizedPath(language, link.href)}
+                      className="text-white/80 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-dental-orange">{t('treatments')}</h4>
+              <ul className={`space-y-2 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <li>
+                  <Link to={createLocalizedPath(language, '/treatments/children')} className="text-white/80 hover:text-white transition-colors">
+                    {t('childrenDentistry')}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={createLocalizedPath(language, '/treatments/aesthetic')} className="text-white/80 hover:text-white transition-colors">
+                    {t('aestheticTreatments')}
+                  </Link>
+                </li>
+                <li>
+                  <Link to={createLocalizedPath(language, '/treatments/preventive')} className="text-white/80 hover:text-white transition-colors">
+                    {t('preventiveMedicine')}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
         <div className="mt-16 pt-6 border-t border-white/10 text-center">
           <p className="text-sm text-white/60">© {new Date().getFullYear()} {t('copyright')}.</p>
