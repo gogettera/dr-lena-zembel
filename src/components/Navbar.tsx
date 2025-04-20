@@ -8,16 +8,13 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import { createLocalizedPath } from '@/utils/languageRoutes';
+import MobileNav from './MobileNav';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language } = useLanguage();
   const location = useLocation();
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const isRTL = language === 'he' || language === 'ar';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,12 +29,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
-
-  const isRTL = language === 'he' || language === 'ar';
-
   return (
     <nav className={cn(
       "py-4 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
@@ -45,13 +36,21 @@ const Navbar = () => {
         ? "bg-white/80 shadow-lg backdrop-blur-md" 
         : "bg-transparent"
     )}>
-      <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
-        <div className="flex items-center justify-start">
+      <div className={cn(
+        "max-w-7xl mx-auto grid items-center",
+        "grid-cols-3 md:grid-cols-3",
+      )}>
+        <div className="flex items-center justify-start space-x-2">
+          <MobileNav />
           <LanguageSwitcher />
         </div>
 
         <div className="flex justify-center">
-          <Link to={createLocalizedPath(language, '/')} className="transition-transform duration-300 hover:scale-105">
+          <Link 
+            to={createLocalizedPath(language, '/')} 
+            className="transition-transform duration-300 hover:scale-105"
+            aria-label={t('home')}
+          >
             <Logo />
           </Link>
         </div>
@@ -63,7 +62,7 @@ const Navbar = () => {
             className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
             asChild
           >
-            <a href={`tel:${t('phoneNumber')}`}>
+            <a href={`tel:${t('phoneNumber')}`} dir={isRTL ? 'rtl' : 'ltr'}>
               <Phone className="h-4 w-4" />
               <span>{t('phoneNumber')}</span>
             </a>
