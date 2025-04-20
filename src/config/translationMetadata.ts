@@ -65,5 +65,24 @@ export const translationMetadata: TranslationMetadataType = {
   doctorPhilosophy: { maxLength: 200, location: "Doctor Profile" },
   transparency: { maxLength: 100, location: "Doctor Values" },
   xrayPolicy: { maxLength: 100, location: "Doctor Values" },
-  treatmentOptions: { maxLength: 100, location: "Doctor Values" }
+  treatmentOptions: { maxLength: 100, location: "Doctor Values" },
+  
+  // Add or update FAQ related metadata
+  "frequentlyAskedQuestions": { maxLength: 30, location: "FAQ Section" },
+  "faqDescription": { maxLength: 100, location: "FAQ Section" },
+  
+  // Update address and contact information
+  "address": { maxLength: 50, location: "Contact Information" },
+  "contactUs": { maxLength: 20, location: "Contact Information" },
+  "phoneNumber": { maxLength: 20, location: "Contact Information" },
+  
+  // Update opening hours
+  "openingHours": { maxLength: 30, location: "Business Hours" },
+  "sundayToFriday": { maxLength: 40, location: "Business Hours" },
+  
+  // Update doctor information
+  "aboutMeIntro": { maxLength: 250, location: "Doctor Profile" },
+  "aboutMeClinic": { maxLength: 250, location: "Doctor Profile" },
+  "aboutMeLanguages": { maxLength: 150, location: "Doctor Profile" },
+  "aboutMeInvite": { maxLength: 100, location: "Doctor Profile" }
 };
