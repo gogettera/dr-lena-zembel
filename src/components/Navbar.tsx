@@ -32,17 +32,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when changing routes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
-
-  const menuItems = [
-    { href: "#treatments", label: t("treatments") },
-    { href: "#patients", label: t("patients") },
-    { href: "#team", label: t("team") },
-    { href: "#contact", label: t("contact") }
-  ];
 
   const isRTL = language === 'he' || language === 'ar';
 
@@ -64,67 +56,15 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center justify-end gap-4">
-          <div className="hidden md:flex items-center gap-6">
-            {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-dental-navy hover:text-dental-orange transition-all duration-300 text-sm font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-dental-orange after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-              >
-                {item.label}
-              </a>
-            ))}
-            <Button 
-              variant="orange" 
-              size="sm" 
-              className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
-            >
-              <Phone className="h-4 w-4" />
-              <span>{t('bookVisit')}</span>
-            </Button>
-          </div>
-
-          <button 
-            onClick={toggleMenu} 
-            className="md:hidden p-2 rounded-full bg-dental-beige/50 text-dental-navy hover:bg-dental-beige transition-all duration-300"
-            aria-label={isMenuOpen ? t('closeMenu') : t('openMenu')}
+        <div className="flex items-center justify-end">
+          <Button 
+            variant="orange" 
+            size="sm" 
+            className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </div>
-
-      <div 
-        className={cn(
-          "fixed inset-x-0 top-[65px] bg-white/95 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out md:hidden",
-          isMenuOpen 
-            ? "opacity-100 translate-y-0" 
-            : "opacity-0 -translate-y-2 pointer-events-none"
-        )}
-      >
-        <div className="max-h-[80vh] overflow-y-auto">
-          <div className="px-6 py-8 space-y-6">
-            {menuItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`block text-dental-navy hover:text-dental-orange transition-colors text-lg font-medium ${isRTL ? 'text-right' : 'text-left'}`}
-                onClick={toggleMenu}
-              >
-                {item.label}
-              </a>
-            ))}
-            <div className="pt-6 border-t border-dental-beige">
-              <Button 
-                variant="orange" 
-                className="w-full rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mt-2"
-              >
-                <Phone className="h-4 w-4" />
-                <span>{t('bookVisit')}</span>
-              </Button>
-            </div>
-          </div>
+            <Phone className="h-4 w-4" />
+            <span>03-566-6915</span>
+          </Button>
         </div>
       </div>
     </nav>
