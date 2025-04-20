@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +9,8 @@ import LanguageRoute from "@/components/LanguageRoute";
 import LanguageHome from "./pages/LanguageHome";
 import LanguageTreatmentPage from "./pages/LanguageTreatmentPage";
 import AdminPanel from "./pages/AdminPanel";
+import AdminLogin from "./pages/AdminLogin";
+import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 import { getBrowserLanguage } from "@/utils/languageRoutes";
 
@@ -29,8 +32,11 @@ const App = () => {
                 {/* Redirect root to Hebrew by default */}
                 <Route path="/" element={<Navigate to="/he" replace />} />
                 
-                {/* Admin panel route */}
-                <Route path="/admin" element={<AdminPanel />} />
+                {/* Admin routes */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route element={<AdminRoute />}>
+                  <Route path="/admin" element={<AdminPanel />} />
+                </Route>
                 
                 {/* Language-specific routes */}
                 <Route path="/:lang" element={<LanguageRoute />}>
