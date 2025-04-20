@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Volume2, VolumeX, Fullscreen } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import VideoControls from './controls/VideoControls';
+import PlayOverlay from './PlayOverlay';
 
 interface VideoPlayerProps {
   src: string;
@@ -26,7 +26,6 @@ const VideoPlayer = ({
   controls = true,
   className = '',
 }: VideoPlayerProps) => {
-  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -36,7 +35,6 @@ const VideoPlayer = ({
   const [showControls, setShowControls] = useState(true);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Handle initial video metadata loading
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -51,7 +49,6 @@ const VideoPlayer = ({
     };
   }, []);
 
-  // Handle time update during playback
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -74,16 +71,11 @@ const VideoPlayer = ({
     };
   }, [onEnd]);
 
-  // Hide controls after inactivity
   useEffect(() => {
     if (!controls) return;
 
-    const hideControls = () => {
-      setShowControls(false);
-    };
-
     if (isPlaying) {
-      controlsTimeoutRef.current = setTimeout(hideControls, 3000);
+      controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
     } else {
       setShowControls(true);
       if (controlsTimeoutRef.current) {
@@ -115,20 +107,6 @@ const VideoPlayer = ({
     }
   };
 
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isMuted) {
-      video.muted = false;
-      setIsMuted(false);
-      video.volume = volume;
-    } else {
-      video.muted = true;
-      setIsMuted(true);
-    }
-  };
-
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const video = videoRef.current;
     if (!video) return;
@@ -143,6 +121,20 @@ const VideoPlayer = ({
     } else if (isMuted) {
       setIsMuted(false);
       video.muted = false;
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isMuted) {
+      video.muted = false;
+      setIsMuted(false);
+      video.volume = volume;
+    } else {
+      video.muted = true;
+      setIsMuted(true);
     }
   };
 
@@ -161,19 +153,13 @@ const VideoPlayer = ({
 
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(err => {
-        console.error(`Error attempting to exit fullscreen: ${err.message}`);
+        console.error(`Error exiting fullscreen: ${err.message}`);
       });
     } else {
       video.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        console.error(`Error enabling fullscreen: ${err.message}`);
       });
     }
-  };
-
-  const formatTime = (time: number): string => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (
@@ -206,85 +192,23 @@ const VideoPlayer = ({
         </div>
       )}
 
-      {/* Custom video controls */}
       {controls && (
-        <div className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-4 py-3 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-          {/* Progress bar */}
-          <div className="flex items-center mb-2">
-            <span className="text-white text-xs mr-2">{formatTime(progress)}</span>
-            <input
-              type="range"
-              min={0}
-              max={duration || 0}
-              value={progress}
-              onChange={handleProgressChange}
-              className="flex-grow h-1 rounded-full bg-white/30 appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-dental-orange"
-            />
-            <span className="text-white text-xs ml-2">{formatTime(duration)}</span>
-          </div>
-          
-          {/* Controls */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={togglePlay} 
-                className="text-white hover:text-dental-orange transition-colors"
-                aria-label={isPlaying ? t('pause') : t('play')}
-              >
-                {isPlaying ? (
-                  <Pause className="w-6 h-6" />
-                ) : (
-                  <Play className="w-6 h-6" />
-                )}
-              </button>
-              
-              <div className="flex items-center space-x-2">
-                <button 
-                  onClick={toggleMute}
-                  className="text-white hover:text-dental-orange transition-colors"
-                  aria-label={isMuted ? t('unmute') : t('mute')}
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-5 h-5" />
-                  ) : (
-                    <Volume2 className="w-5 h-5" />
-                  )}
-                </button>
-                <input
-                  type="range"
-                  min={0}
-                  max={1}
-                  step={0.1}
-                  value={isMuted ? 0 : volume}
-                  onChange={handleVolumeChange}
-                  className="w-20 h-1 rounded-full bg-white/30 appearance-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-dental-orange"
-                />
-              </div>
-            </div>
-            
-            <button 
-              onClick={handleFullscreen}
-              className="text-white hover:text-dental-orange transition-colors"
-              aria-label={t('fullscreen')}
-            >
-              <Fullscreen className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
+        <VideoControls
+          isPlaying={isPlaying}
+          progress={progress}
+          duration={duration}
+          volume={volume}
+          isMuted={isMuted}
+          showControls={showControls}
+          onPlayPause={togglePlay}
+          onVolumeChange={handleVolumeChange}
+          onProgressChange={handleProgressChange}
+          onMuteToggle={toggleMute}
+          onFullscreen={handleFullscreen}
+        />
       )}
       
-      {/* Play/Pause overlay */}
-      {!isPlaying && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-          <button 
-            onClick={togglePlay}
-            className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform hover:scale-110 transition-transform"
-            aria-label={t('play')}
-          >
-            <Play className="w-10 h-10 text-white fill-white" />
-          </button>
-        </div>
-      )}
+      <PlayOverlay isPlaying={isPlaying} onPlay={togglePlay} />
     </div>
   );
 };
