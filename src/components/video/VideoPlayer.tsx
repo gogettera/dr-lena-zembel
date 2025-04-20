@@ -2,6 +2,8 @@
 import React from 'react';
 import VideoControls from './controls/VideoControls';
 import PlayOverlay from './PlayOverlay';
+import VideoContainer from './VideoContainer';
+import VideoElement from './VideoElement';
 // import { useVideoPlayer } from '@/hooks/useVideoPlayer';
 import { useVideoPlayer360 } from '@/hooks/useVideoPlayer360';
 
@@ -45,28 +47,25 @@ const VideoPlayer = ({
     handleFullscreen
   } = useVideoPlayer360({ onPlay, onPause, onEnd });
 
+  // Handles mouse movement for showing/hiding controls
+  const handleMouseMove = () => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    if (isPlaying) {
+      controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
+    }
+  };
+
   return (
-    <div 
-      className={`relative group overflow-hidden ${className}`}
-      onMouseMove={() => {
-        setShowControls(true);
-        if (controlsTimeoutRef.current) {
-          clearTimeout(controlsTimeoutRef.current);
-        }
-        if (isPlaying) {
-          controlsTimeoutRef.current = setTimeout(() => setShowControls(false), 3000);
-        }
-      }}
-    >
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover cursor-pointer"
+    <VideoContainer className={className} onMouseMove={handleMouseMove}>
+      <VideoElement
+        videoRef={videoRef}
         src={src}
         poster={poster}
-        onClick={togglePlay}
-        preload="metadata"
-        playsInline
         autoPlay={autoPlay}
+        onClick={togglePlay}
       />
 
       {title && (
@@ -92,7 +91,7 @@ const VideoPlayer = ({
       )}
       
       <PlayOverlay isPlaying={isPlaying} onPlay={togglePlay} />
-    </div>
+    </VideoContainer>
   );
 };
 
