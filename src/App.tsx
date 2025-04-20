@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,7 @@ import AdminPanel from "./pages/AdminPanel";
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
+import AdminPromote from "./pages/AdminPromote";
 import { getBrowserLanguage } from "@/utils/languageRoutes";
 
 const queryClient = new QueryClient();
@@ -43,6 +43,9 @@ const App = () => {
                   <Route index element={<LanguageHome />} />
                   <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
                 </Route>
+                
+                {/* Add the promote route */}
+                <Route path="/admin/promote" element={<AdminPromote />} />
                 
                 {/* Handle 404 */}
                 <Route path="*" element={<NotFound />} />
