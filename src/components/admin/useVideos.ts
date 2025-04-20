@@ -1,7 +1,7 @@
 
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 export interface VideoData {
   id: string;
@@ -69,15 +69,10 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
-        // Create an update object with only the field that needs to be updated
-        const updateData: Record<string, any> = {
-          [field]: value,
-          updated_at: new Date().toISOString()
-        };
-        
+        // Use direct assignment for the field to update to avoid any ambiguity
         const { error } = await supabase
           .from('videos')
-          .update(updateData)
+          .update({ [field]: value, updated_at: new Date().toISOString() })
           .eq('id', id);
 
         if (error) throw error;
