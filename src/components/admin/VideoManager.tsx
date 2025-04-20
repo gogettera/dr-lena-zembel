@@ -53,13 +53,20 @@ const VideoManager = () => {
 
   const handleVideoUpdate = async (id: string, field: keyof VideoData, value: string | number) => {
     try {
+      // Create an update object with only the field to update
+      const updateData: Record<string, any> = { 
+        [field]: value,
+        updated_at: new Date().toISOString()
+      };
+
       const { error } = await supabase
         .from('videos')
-        .update({ [field]: value, updated_at: new Date().toISOString() })
+        .update(updateData)
         .eq('id', id);
 
       if (error) throw error;
 
+      // Update local state
       setVideos(videos.map(video => 
         video.id === id ? { ...video, [field]: value } : video
       ));
@@ -84,7 +91,7 @@ const VideoManager = () => {
         .insert({
           src: "",
           poster: "",
-          title: "",
+          title: "New Video",
           width: 1280,
           height: 720
         })

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Play } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -6,8 +7,10 @@ import OptimizedImage from '@/components/ui/optimized-image';
 import DeferredContent from './deferred-content';
 import SectionHeader from '@/components/ui/section-header';
 import VideoModal from './video/VideoModal';
+import { supabase } from '@/integrations/supabase/client';
 
 type VideoData = {
+  id: string;
   src: string; // Direct video file URL or YouTube link
   poster: string; // Cover photo URL
   title: string;
@@ -19,28 +22,32 @@ const VideoSection = () => {
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<VideoData | null>(null);
+  const [videos, setVideos] = useState<VideoData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // HOW TO CHANGE VIDEOS:
-  // To update, just modify/add items in this array.
-  // If src is a YouTube link (e.g., 'https://www.youtube.com/watch?v=abc...'), it will be embedded.
-  // Otherwise, the direct video file will be used.
-  const videos: VideoData[] = [
-    {
-      src: "https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4",
-      poster: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg", // CHANGE THIS to change cover photo
-      title: t('clinicTourVideo'),
-      width: 1280,
-      height: 720
-    },
-    {
-      src: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // YouTube demo video
-      poster: "/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png", // CHANGE THIS to set a thumbnail for this video
-      title: t('sampleYouTubeVideo'),
-      width: 1280,
-      height: 720
-    },
-    // Add more videos here!
-  ];
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('videos')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Error fetching videos:', error);
+          return;
+        }
+
+        setVideos(data || []);
+      } catch (error) {
+        console.error('Error in video fetch:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVideos();
+  }, []);
 
   const openVideoModal = (video: VideoData) => {
     setActiveVideo(video);
@@ -57,6 +64,27 @@ const VideoSection = () => {
     return url.includes('youtube.com/watch') || url.includes('youtu.be/');
   };
 
+  if (isLoading) {
+    return (
+      <section className="py-24 bg-gradient-to-b from-dental-beige/30 to-white">
+        <div className="container mx-auto px-4">
+          <SectionHeader 
+            title={t('watchOurClinic')}
+            subtitle={t('clinicTourDescription')}
+          />
+          <div className="flex justify-center py-12">
+            <div className="animate-spin h-8 w-8 border-4 border-dental-orange border-t-transparent rounded-full"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // If no videos are found, don't render the section
+  if (videos.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-24 bg-gradient-to-b from-dental-beige/30 to-white">
       <div className="container mx-auto px-4">
@@ -68,10 +96,10 @@ const VideoSection = () => {
         <div className="max-w-4xl mx-auto">
           <DeferredContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              {videos.map((video, i) => (
+              {videos.map((video) => (
                 <Card
                   className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-white rounded-2xl"
-                  key={i}
+                  key={video.id}
                 >
                   <div 
                     className="relative aspect-video group cursor-pointer"
@@ -85,7 +113,7 @@ const VideoSection = () => {
                       width={video.width}
                       height={video.height}
                       className="w-full h-full object-cover"
-                      priority={i === 0}
+                      priority={false}
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
                       <div className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform group-hover:scale-110 transition-transform">
