@@ -1,3 +1,4 @@
+
 import React from 'react';
 import VideoControls from './controls/VideoControls';
 import VideoOverlay from './VideoOverlay';
@@ -34,16 +35,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     controlsTimeoutRef,
     togglePlay,
     duration,
-    currentTime,
-    bufferedTime,
+    progress, // Using progress instead of currentTime
     volume,
     isMuted,
-    isFullscreen,
-    handleTimeUpdate,
-    handleVolumeChange,
-    handleMuteToggle,
-    handleFullscreenToggle,
-    handleSeek,
+    toggleMute, // Using toggleMute instead of handleMuteToggle
+    handleFullscreen, // Using handleFullscreen instead of handleFullscreenToggle
+    handleProgressChange, // Using handleProgressChange instead of handleSeek
   } = useVideoPlayer360({ onPlay, onPause, onEnd });
 
   // Mouse movement logic for showing/hiding controls
@@ -69,18 +66,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       <VideoOverlay isPlaying={isPlaying} title={title} onPlay={togglePlay} />
       <VideoControls
         isPlaying={isPlaying}
+        progress={progress}
         duration={duration}
-        currentTime={currentTime}
-        bufferedTime={bufferedTime}
         volume={volume}
         isMuted={isMuted}
-        isFullscreen={isFullscreen}
         showControls={showControls}
-        onPlayToggle={togglePlay}
+        onPlayPause={togglePlay}
         onVolumeChange={handleVolumeChange}
-        onMuteToggle={handleMuteToggle}
-        onFullscreenToggle={handleFullscreenToggle}
-        onSeek={handleSeek}
+        onProgressChange={handleProgressChange}
+        onMuteToggle={toggleMute}
+        onFullscreen={handleFullscreen}
       />
     </VideoContainer>
   );
