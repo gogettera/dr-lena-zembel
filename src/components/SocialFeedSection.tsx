@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
 import SocialPost from './social/SocialPost';
@@ -5,8 +6,20 @@ import SocialHeader from './social/SocialHeader';
 import SocialFeedTabs from './social/SocialFeedTabs';
 import SocialFollowButtons from './social/SocialFollowButtons';
 
+// Define the post type to match SocialPost requirements
+interface SocialPostType {
+  id: number;
+  content: string;
+  image: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  date: string;
+  platform: "facebook" | "instagram";
+}
+
 // Default posts as fallback
-const defaultPosts = [
+const defaultPosts: SocialPostType[] = [
   {
     id: 1,
     content: "מטופל חדש סיים היום טיפול והתוצאות מדהימות! תודה על האמון 😊",
@@ -50,7 +63,7 @@ const defaultPosts = [
 ];
 
 const SocialFeedSection = () => {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState<"all" | "facebook" | "instagram">("all");
   
   const filteredPosts = activeTab === "all" 
     ? defaultPosts 

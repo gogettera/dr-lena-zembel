@@ -1,27 +1,47 @@
 
 import React from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Facebook, Instagram } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+type TabType = "all" | "facebook" | "instagram";
 
 interface SocialFeedTabsProps {
-  activeTab: string;
-  onTabChange: (value: string) => void;
+  activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
 }
 
 const SocialFeedTabs = ({ activeTab, onTabChange }: SocialFeedTabsProps) => {
+  const { t } = useLanguage();
+  
+  const tabs = [
+    { id: 'all', label: 'הכל', icon: null },
+    { id: 'facebook', label: 'Facebook', icon: <Facebook className="w-4 h-4 text-[#1877F2]" /> },
+    { id: 'instagram', label: 'Instagram', icon: <Instagram className="w-4 h-4 text-[#E1306C]" /> }
+  ] as const;
+
   return (
-    <div className="max-w-5xl mx-auto mb-8">
-      <Tabs defaultValue={activeTab} className="w-full" onValueChange={onTabChange}>
-        <div className="flex justify-center">
-          <TabsList>
-            <TabsTrigger value="all">All Posts</TabsTrigger>
-            <TabsTrigger value="facebook">Facebook</TabsTrigger>
-            <TabsTrigger value="instagram">Instagram</TabsTrigger>
-          </TabsList>
-        </div>
-      </Tabs>
+    <div className="flex justify-center mb-8">
+      <div className="inline-flex bg-white rounded-full p-1 shadow-md">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => onTabChange(tab.id)}
+            className={cn(
+              "px-4 py-2 rounded-full flex items-center gap-2 transition-colors",
+              activeTab === tab.id
+                ? "bg-dental-orange text-white"
+                : "text-gray-600 hover:text-dental-navy"
+            )}
+            aria-label={`Show ${tab.label} posts`}
+          >
+            {tab.icon}
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default SocialFeedTabs;
-
