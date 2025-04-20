@@ -1,4 +1,3 @@
-
 type TranslationMeta = {
   maxLength: number;
   location: string;
@@ -56,5 +55,15 @@ export const translationMetadata: TranslationMetadataType = {
   clinicDescription: { maxLength: 100, location: "SEO" },
   watchOurClinic: { maxLength: 50, location: "Video Section" },
   clinicTourDescription: { maxLength: 100, location: "Video Section" },
-  readFullReview: { maxLength: 30, location: "Reviews" }
+  readFullReview: { maxLength: 30, location: "Reviews" },
+  
+  // Doctor profile section
+  doctorName: { maxLength: 30, location: "Doctor Profile" },
+  doctorEducation: { maxLength: 150, location: "Doctor Profile" },
+  doctorTreatments: { maxLength: 200, location: "Doctor Profile" },
+  doctorApproach: { maxLength: 200, location: "Doctor Profile" },
+  doctorPhilosophy: { maxLength: 200, location: "Doctor Profile" },
+  transparency: { maxLength: 100, location: "Doctor Values" },
+  xrayPolicy: { maxLength: 100, location: "Doctor Values" },
+  treatmentOptions: { maxLength: 100, location: "Doctor Values" }
 };
