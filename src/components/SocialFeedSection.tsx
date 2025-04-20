@@ -1,9 +1,12 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Facebook, Heart, MessageSquare, Share } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Facebook, Heart, MessageCircle, Share, Instagram } from 'lucide-react';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
 import { useLanguage } from '@/contexts/LanguageContext';
+import SocialShareButtons from './SocialShareButtons';
 
 // Default posts as fallback
 const defaultPosts = [
@@ -14,7 +17,8 @@ const defaultPosts = [
     likes: 45,
     comments: 12,
     shares: 3,
-    date: "לפני שעתיים"
+    date: "לפני שעתיים",
+    platform: "facebook"
   },
   {
     id: 2,
@@ -23,7 +27,8 @@ const defaultPosts = [
     likes: 38,
     comments: 8,
     shares: 2,
-    date: "לפני יומיים"
+    date: "לפני יומיים",
+    platform: "instagram"
   },
   {
     id: 3,
@@ -32,23 +37,44 @@ const defaultPosts = [
     likes: 62,
     comments: 15,
     shares: 7,
-    date: "לפני 3 ימים"
+    date: "לפני 3 ימים",
+    platform: "facebook"
+  },
+  {
+    id: 4,
+    content: "ד\"ר לנה בכנס השנתי של רופאי השיניים. תמיד מתעדכנים בחידושים האחרונים בתחום! 👩‍⚕️",
+    image: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg",
+    likes: 53,
+    comments: 7,
+    shares: 4,
+    date: "לפני שבוע",
+    platform: "instagram"
   }
 ];
 
 const SocialPost = ({ post }: { post: any }) => {
+  const [isSharing, setIsSharing] = useState(false);
+
+  const toggleSharing = () => {
+    setIsSharing(!isSharing);
+  };
+
+  const platformIcon = post.platform === "instagram" ? 
+    <Instagram className="w-5 h-5 text-[#E1306C]" /> : 
+    <Facebook className="w-5 h-5 text-[#1877F2]" />;
+
   return (
     <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
       <CardContent className="p-0">
         <div className="relative">
           <img
             src={post.image}
-            alt="תמונת פוסט פייסבוק"
+            alt="תמונת פוסט"
             className="w-full h-48 object-cover"
           />
           <div className="absolute top-4 right-4">
             <div className="bg-white/90 backdrop-blur-sm p-2 rounded-full">
-              <Facebook className="w-5 h-5 text-[#1877F2]" />
+              {platformIcon}
             </div>
           </div>
         </div>
@@ -63,16 +89,28 @@ const SocialPost = ({ post }: { post: any }) => {
                 <span>{post.likes}</span>
               </div>
               <div className="flex items-center gap-1">
-                <MessageSquare className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
                 <span>{post.comments}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Share className="w-4 h-4" />
-                <span>{post.shares}</span>
+                <button onClick={toggleSharing} className="flex items-center gap-1 hover:text-dental-orange transition-colors">
+                  <Share className="w-4 h-4" />
+                  <span>{post.shares}</span>
+                </button>
               </div>
             </div>
             <span className="text-xs">{post.date}</span>
           </div>
+          
+          {isSharing && (
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <SocialShareButtons 
+                url={`https://dental-love.com/social/${post.id}`} 
+                title={post.content.substring(0, 50) + "..."} 
+                compact={true}
+              />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -81,6 +119,11 @@ const SocialPost = ({ post }: { post: any }) => {
 
 const SocialFeedSection = () => {
   const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState("all");
+  
+  const filteredPosts = activeTab === "all" 
+    ? defaultPosts 
+    : defaultPosts.filter(post => post.platform === activeTab);
 
   return (
     <section className="py-24 bg-gradient-to-b from-white to-dental-beige/30">
@@ -95,9 +138,21 @@ const SocialFeedSection = () => {
           <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
         </div>
 
+        <div className="max-w-5xl mx-auto mb-8">
+          <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+            <div className="flex justify-center">
+              <TabsList>
+                <TabsTrigger value="all">All Posts</TabsTrigger>
+                <TabsTrigger value="facebook">Facebook</TabsTrigger>
+                <TabsTrigger value="instagram">Instagram</TabsTrigger>
+              </TabsList>
+            </div>
+          </Tabs>
+        </div>
+
         <div className="w-full relative">
           <EnhancedCarousel className="w-full max-w-5xl mx-auto">
-            {defaultPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <CarouselItem key={post.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
                   <SocialPost post={post} />
@@ -107,14 +162,29 @@ const SocialFeedSection = () => {
           </EnhancedCarousel>
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 flex flex-wrap justify-center gap-4">
           <Button 
             variant="outline" 
             size="lg" 
             className="rounded-full border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-colors duration-300"
+            asChild
           >
-            <Facebook className="mr-2 h-5 w-5" />
-            {t('followOnFacebook')}
+            <a href="https://www.facebook.com/drzembel" target="_blank" rel="noopener noreferrer">
+              <Facebook className="mr-2 h-5 w-5" />
+              {t('followOnFacebook')}
+            </a>
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="rounded-full border-[#E1306C] text-[#E1306C] hover:bg-[#E1306C] hover:text-white transition-colors duration-300"
+            asChild
+          >
+            <a href="https://www.instagram.com/lena.zembel/" target="_blank" rel="noopener noreferrer">
+              <Instagram className="mr-2 h-5 w-5" />
+              Follow on Instagram
+            </a>
           </Button>
         </div>
       </div>
