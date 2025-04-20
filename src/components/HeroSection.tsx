@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
+import OptimizedImage from '@/components/ui/optimized-image';
 
 const HeroSection = () => {
   return (
@@ -37,14 +37,14 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="md:w-1/2 md:order-2 order-1 mb-8 md:mb-0 opacity-0 animate-[slide-in_0.8s_ease-out_forwards]">
-            <div className="relative">
+            <div className="relative aspect-[4/3] w-full">
               <div className="absolute inset-0 bg-dental-orange rounded-2xl blur-2xl opacity-20 transform -rotate-6"></div>
-              <img 
-                alt="רופאת שיניים עם מטופלת" 
-                src="/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg" 
-                className="relative w-full h-auto rounded-2xl shadow-xl object-cover hover:scale-[1.02] transition-transform duration-300"
+              <OptimizedImage 
+                src="/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg"
+                alt="רופאת שיניים עם מטופלת"
+                className="relative w-full h-full rounded-2xl shadow-xl object-cover hover:scale-[1.02] transition-transform duration-300"
               />
-              <div className="absolute -bottom-4 -right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg opacity-0 animate-[fade-in_0.5s_ease-out_1s_forwards]">
+              <div className="absolute -bottom-4 -right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
                 <p className="text-dental-navy font-bold">שביעות רצון מלאה</p>
                 <div className="flex text-dental-orange mt-1">
                   ★★★★★
