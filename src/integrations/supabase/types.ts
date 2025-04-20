@@ -17,6 +17,7 @@ export type Database = {
           profile_photo_url: string | null
           rating: number
           relative_time_description: string | null
+          review_link: string | null
           text: string | null
         }
         Insert: {
@@ -26,6 +27,7 @@ export type Database = {
           profile_photo_url?: string | null
           rating: number
           relative_time_description?: string | null
+          review_link?: string | null
           text?: string | null
         }
         Update: {
@@ -35,6 +37,7 @@ export type Database = {
           profile_photo_url?: string | null
           rating?: number
           relative_time_description?: string | null
+          review_link?: string | null
           text?: string | null
         }
         Relationships: []
