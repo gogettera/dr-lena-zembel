@@ -1,25 +1,30 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
 import OptimizedImage from '@/components/ui/optimized-image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const HeroSection = () => {
+  const { t, language } = useLanguage();
+  
+  const getWhatsAppLink = () => {
+    const phone = "97235666915";
+    const message = encodeURIComponent(t('whatsappMessage'));
+    return `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
+  };
+
   return (
     <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 space-y-8">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading text-dental-navy leading-tight opacity-0 animate-[fade-in_0.8s_ease-out_forwards]">
-              רפואת שיניים 
-              <span className="block mt-2">
-                <span className="text-dental-orange">באהבה</span> וברמה 
-                <span className="text-dental-orange"> גבוהה</span>
-              </span>
+              {t('dentistryWithLove')}
             </h1>
             
             <p className="text-xl md:text-2xl text-dental-muted leading-relaxed opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards] max-w-2xl">
-              אנחנו מרפאה דנטלית מקומית שמתייחסת למטופלים שלנו כמו למשפחה.
-              איכות הטיפול והחוויה שלך חשובים לנו מעל הכל.
+              {t('localDental')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-[fade-in_0.5s_ease-out_0.6s_forwards]">
@@ -30,12 +35,12 @@ const HeroSection = () => {
                 asChild
               >
                 <a 
-                  href="https://api.whatsapp.com/send?phone=97235666915&text=היי%20ד%22ר%20לנה%20.%20הייתי%20רוצה%20לקבוע%20תור"
+                  href={getWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <Calendar className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
-                  לתיאום ביקור
+                  {t('bookVisit')}
                 </a>
               </Button>
               <Button 
@@ -43,7 +48,7 @@ const HeroSection = () => {
                 size="lg" 
                 className="rounded-full text-lg border-2 border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-all duration-300"
               >
-                לפרטים נוספים
+                {t('moreDetails')}
               </Button>
             </div>
           </div>
@@ -53,11 +58,11 @@ const HeroSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2.5rem] blur-3xl transform rotate-6"></div>
               <OptimizedImage 
                 src="/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg"
-                alt="רופאת שיניים עם מטופלת"
+                alt={t('dentistryWithLove')}
                 className="relative w-full h-full rounded-[2rem] shadow-soft hover:scale-[1.02] transition-all duration-500 object-cover"
               />
               <div className="absolute -bottom-4 -right-4 bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft">
-                <p className="text-dental-navy font-bold text-lg">שביעות רצון מלאה</p>
+                <p className="text-dental-navy font-bold text-lg">{t('completelyHappy')}</p>
                 <div className="flex text-dental-orange mt-2 text-xl">
                   ★★★★★
                 </div>

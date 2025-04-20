@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
@@ -62,9 +63,9 @@ const Navbar = () => {
             className="rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
             asChild
           >
-            <a href="tel:03-566-6915">
+            <a href={`tel:${t('phoneNumber')}`}>
               <Phone className="h-4 w-4" />
-              <span>03-566-6915</span>
+              <span>{t('phoneNumber')}</span>
             </a>
           </Button>
         </div>
