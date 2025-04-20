@@ -2,7 +2,8 @@
 import React from 'react';
 import VideoControls from './controls/VideoControls';
 import PlayOverlay from './PlayOverlay';
-import { useVideoPlayer } from '@/hooks/useVideoPlayer';
+// import { useVideoPlayer } from '@/hooks/useVideoPlayer';
+import { useVideoPlayer360 } from '@/hooks/useVideoPlayer360';
 
 interface VideoPlayerProps {
   src: string;
@@ -42,7 +43,7 @@ const VideoPlayer = ({
     toggleMute,
     handleProgressChange,
     handleFullscreen
-  } = useVideoPlayer({ onPlay, onPause, onEnd });
+  } = useVideoPlayer360({ onPlay, onPause, onEnd });
 
   return (
     <div 
