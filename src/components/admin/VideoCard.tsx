@@ -5,15 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import { Label } from "@/components/ui/label";
-
-interface VideoData {
-  id: string;
-  src: string;
-  poster: string;
-  title: string;
-  width: number;
-  height: number;
-}
+import type { VideoData } from './useVideos';
 
 interface VideoCardProps {
   video: VideoData;
