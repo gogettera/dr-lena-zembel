@@ -7,6 +7,7 @@ import BrandSection from '@/components/BrandSection';
 import TreatmentsSection from '@/components/TreatmentsSection';
 import VideoSection from '@/components/VideoSection';
 import SocialFeedSection from '@/components/SocialFeedSection';
+import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 import BackToTop from '@/components/BackToTop';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -30,6 +31,7 @@ const LanguageHome = () => {
         <VideoSection />
         <SocialFeedSection />
         <TestimonialSection />
+        <FAQSection />
       </main>
       <Footer />
       <BackToTop />
