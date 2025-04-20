@@ -86,10 +86,10 @@ const AdminRoute = () => {
           <p>{error}</p>
           <div className="mt-4">
             <button 
-              onClick={() => window.location.href = '/admin/login'} 
+              onClick={() => window.location.href = '/admin/promote'} 
               className="text-primary hover:underline"
             >
-              Return to login
+              Go to Admin Promotion
             </button>
           </div>
         </div>
@@ -97,7 +97,7 @@ const AdminRoute = () => {
     );
   }
 
-  return isAdmin ? <Outlet /> : <Navigate to="/admin/login" replace />;
+  return isAdmin ? <Outlet /> : <Navigate to="/admin/promote" replace />;
 };
 
 export default AdminRoute;
