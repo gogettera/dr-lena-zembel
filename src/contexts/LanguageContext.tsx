@@ -1,5 +1,7 @@
+
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
+import { supportedLanguages } from '@/utils/languageRoutes';
 
 export type Language = 'he' | 'en' | 'ru' | 'de' | 'ar';
 
