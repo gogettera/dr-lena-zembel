@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Table } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
@@ -94,7 +93,6 @@ const AdminPanel = () => {
             <TabsTrigger value="videos">Videos</TabsTrigger>
             <TabsTrigger value="export">Website Export</TabsTrigger>
             <TabsTrigger value="settings">Site Settings</TabsTrigger>
-            <TabsTrigger value="user-management">User Management</TabsTrigger>
           </TabsList>
 
           <TabsContent value="translations">
@@ -122,34 +120,6 @@ const AdminPanel = () => {
 
           <TabsContent value="settings">
             <SiteSettings />
-          </TabsContent>
-
-          <TabsContent value="user-management">
-            <div className="bg-white p-6 rounded-lg shadow-sm max-w-md">
-              <h2 className="text-xl font-semibold mb-4">Promote User to Admin</h2>
-              <form onSubmit={handlePromoteAdmin} className="space-y-4">
-                <div>
-                  <label htmlFor="promote-email" className="block text-sm font-medium text-gray-700 mb-1">
-                    User Email
-                  </label>
-                  <Input
-                    id="promote-email"
-                    type="email"
-                    required
-                    placeholder="Enter user's email"
-                    value={promoteEmail}
-                    onChange={e => setPromoteEmail(e.target.value)}
-                    disabled={promoteLoading}
-                  />
-                </div>
-                <Button type="submit" className="w-full" disabled={promoteLoading || promoteEmail.trim() === ''}>
-                  {promoteLoading ? "Promoting..." : "Promote to Admin"}
-                </Button>
-              </form>
-              <p className="text-sm text-gray-500 mt-3">
-                Enter the email address of a registered user to grant them admin rights.
-              </p>
-            </div>
           </TabsContent>
         </Tabs>
       </div>

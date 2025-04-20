@@ -28,9 +28,6 @@ const NotFound = () => {
           <Button variant="orange" asChild>
             <Link to={`/${language}`}>Home</Link>
           </Button>
-          <Button variant="outline" asChild>
-            <Link to="/admin/promote">Admin Access</Link>
-          </Button>
         </div>
       </div>
     </div>

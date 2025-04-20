@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 
@@ -12,28 +12,18 @@ const AdminRoute = () => {
   useEffect(() => {
     const checkAdminStatus = async () => {
       try {
-        console.log("Checking admin status...");
         setIsLoading(true);
-        
-        // Get current session
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        
+
         if (sessionError) {
-          console.error("Session error:", sessionError);
           setError(sessionError.message);
           setIsAdmin(false);
           return;
         }
-        
         if (!session) {
-          console.log("No active session found");
           setIsAdmin(false);
           return;
         }
-
-        console.log("Session found for user:", session.user.id);
-
-        // Check if user has admin role
         const { data: roleData, error: roleError } = await supabase
           .from('user_roles')
           .select('role')
@@ -41,16 +31,12 @@ const AdminRoute = () => {
           .maybeSingle();
 
         if (roleError) {
-          console.error("Role check error:", roleError);
           setError(roleError.message);
           setIsAdmin(false);
           return;
         }
-
-        console.log("Role data:", roleData);
         setIsAdmin(roleData?.role === 'admin');
       } catch (error: any) {
-        console.error("Admin check failed:", error);
         setError(error.message);
         setIsAdmin(false);
       } finally {
@@ -84,20 +70,21 @@ const AdminRoute = () => {
         <div className="bg-red-50 border border-red-200 p-4 rounded-md text-red-600 max-w-md">
           <h2 className="text-lg font-semibold mb-2">Error Checking Admin Status</h2>
           <p>{error}</p>
-          <div className="mt-4">
-            <button 
-              onClick={() => window.location.href = '/admin/promote'} 
-              className="text-primary hover:underline"
-            >
-              Go to Admin Promotion
-            </button>
-          </div>
         </div>
       </div>
     );
   }
 
-  return isAdmin ? <Outlet /> : <Navigate to="/admin/promote" replace />;
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <h2 className="text-xl font-semibold text-dental-navy mb-2">Access Denied</h2>
+        <p className="text-dental-muted">You do not have permission to access the admin panel.</p>
+      </div>
+    );
+  }
+
+  return <Outlet />;
 };
 
 export default AdminRoute;
