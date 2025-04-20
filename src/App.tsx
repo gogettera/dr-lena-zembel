@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import LanguageRoute from "@/components/LanguageRoute";
 import LanguageHome from "./pages/LanguageHome";
 import LanguageTreatmentPage from "./pages/LanguageTreatmentPage";
+import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import { getBrowserLanguage } from "@/utils/languageRoutes";
 
@@ -27,6 +28,9 @@ const App = () => {
               <Routes>
                 {/* Redirect root to language-specific home page */}
                 <Route path="/" element={<Navigate to={`/${defaultLanguage}`} replace />} />
+                
+                {/* Admin panel route */}
+                <Route path="/admin" element={<AdminPanel />} />
                 
                 {/* Language-specific routes */}
                 <Route path="/:lang" element={<LanguageRoute />}>
