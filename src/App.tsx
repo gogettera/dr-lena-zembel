@@ -8,7 +8,6 @@ import LanguageRoute from "@/components/LanguageRoute";
 import LanguageHome from "./pages/LanguageHome";
 import LanguageTreatmentPage from "./pages/LanguageTreatmentPage";
 import AdminPanel from "./pages/AdminPanel";
-import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 import AdminPromote from "./pages/AdminPromote";
@@ -33,7 +32,7 @@ const App = () => {
                 <Route path="/" element={<Navigate to="/he" replace />} />
                 
                 {/* Admin routes */}
-                <Route path="/admin/login" element={<AdminLogin />} />
+                {/* Removed: <Route path="/admin/login" element={<AdminLogin />} /> */}
                 <Route element={<AdminRoute />}>
                   <Route path="/admin" element={<AdminPanel />} />
                 </Route>
