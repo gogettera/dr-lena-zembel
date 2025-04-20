@@ -2,32 +2,35 @@
 import React from 'react';
 import { ArrowRight, CheckCircle, Calendar, Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const BrandSection = () => {
+  const { t, language } = useLanguage();
+  const isRTL = language === 'he' || language === 'ar';
+
   return (
-    <section id="patients" className="flex flex-col md:flex-row">
+    <section id="patients" className="flex flex-col md:flex-row" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="md:w-1/2 bg-dental-navy text-white p-8 md:p-16 flex flex-col justify-center">
         <div className="opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            מראה חדש, אותה רמת טיפול.
+            {t('newLook')}
           </h2>
           
           <p className="text-lg mb-8 leading-relaxed">
-            המרפאה שלנו עברה ריענון.<br />
-            עם צוות חדש ומקצועי, אנחנו עושים כמה שינויים קטנים —<br />
-            אבל הטיפול האכפתי והיחס האישי נשארים בדיוק אותו הדבר.
+            {t('practiceFresh')}
           </p>
           
           <div className="space-y-5 mb-10">
             {[
-              { icon: CheckCircle, text: "צוות רופאים מנוסה ומקצועי" },
-              { icon: Star, text: "ציוד מתקדם וטכנולוגיה חדישה" },
-              { icon: Clock, text: "זמני המתנה קצרים ושירות מהיר" }
+              { icon: CheckCircle, text: t('experiencedDoctors') },
+              { icon: Star, text: t('advancedEquipment') },
+              { icon: Clock, text: t('shortWaits') }
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-3 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]" style={{
-                animationDelay: `${0.3 + index * 0.2}s`
-              }}>
-                <item.icon className="h-6 w-6 text-dental-orange flex-shrink-0" />
+              <div key={index} 
+                className={`flex items-center gap-3 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]`} 
+                style={{ animationDelay: `${0.3 + index * 0.2}s` }}
+              >
+                <item.icon className={`h-6 w-6 text-dental-orange flex-shrink-0 ${isRTL ? 'ml-2' : 'mr-2'}`} />
                 <span className="text-white">{item.text}</span>
               </div>
             ))}
@@ -38,8 +41,8 @@ const BrandSection = () => {
             size="lg" 
             className="rounded-full text-base hover:scale-105 transition-transform duration-300 shadow-lg opacity-0 animate-[fade-in_0.5s_ease-out_0.8s_forwards]"
           >
-            <Calendar className="mr-2 h-5 w-5" />
-            לתיאום תור עכשיו
+            <Calendar className={`h-5 w-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
+            {t('bookNow')}
           </Button>
         </div>
       </div>

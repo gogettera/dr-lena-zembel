@@ -7,6 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const HeroSection = () => {
   const { t, language } = useLanguage();
+  const isRTL = language === 'he' || language === 'ar';
   
   const getWhatsAppLink = () => {
     const phone = "97235666915";
@@ -16,9 +17,9 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <div className="container mx-auto px-4 py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="md:w-1/2 space-y-8">
+          <div className={`md:w-1/2 space-y-8 ${isRTL ? 'md:order-1' : ''}`}>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading text-dental-navy leading-tight opacity-0 animate-[fade-in_0.8s_ease-out_forwards]">
               {t('dentistryWithLove')}
             </h1>
@@ -39,7 +40,7 @@ const HeroSection = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Calendar className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                  <Calendar className={`h-5 w-5 transition-transform group-hover:scale-110 ${isRTL ? 'ml-2' : 'mr-2'}`} />
                   {t('bookVisit')}
                 </a>
               </Button>
@@ -53,7 +54,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="md:w-1/2 opacity-0 animate-[slide-in_0.8s_ease-out_forwards]">
+          <div className={`md:w-1/2 opacity-0 animate-[slide-in_0.8s_ease-out_forwards] ${isRTL ? 'md:order-0' : ''}`}>
             <div className="relative aspect-square md:aspect-[4/3] w-full max-w-2xl mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2.5rem] blur-3xl transform rotate-6"></div>
               <OptimizedImage 
@@ -61,7 +62,7 @@ const HeroSection = () => {
                 alt={t('dentistryWithLove')}
                 className="relative w-full h-full rounded-[2rem] shadow-soft hover:scale-[1.02] transition-all duration-500 object-cover"
               />
-              <div className="absolute -bottom-4 -right-4 bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft">
+              <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft`}>
                 <p className="text-dental-navy font-bold text-lg">{t('completelyHappy')}</p>
                 <div className="flex text-dental-orange mt-2 text-xl">
                   ★★★★★
