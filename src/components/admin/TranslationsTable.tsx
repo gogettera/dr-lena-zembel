@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Table } from "@/components/ui/table";
 import { Translation, SortConfig } from './translations/types';
@@ -22,6 +23,17 @@ const LoadingState = () => (
   </div>
 );
 
+// Helper function to check if a value is a nested object
+const isNestedObject = (value: any): boolean => {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+};
+
+// Helper function to stringify nested objects for display/searching
+const stringifyNestedObject = (obj: any): string => {
+  if (!isNestedObject(obj)) return String(obj);
+  return JSON.stringify(obj);
+};
+
 const TranslationsTable = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState<string>('');
@@ -42,13 +54,26 @@ const TranslationsTable = () => {
   };
 
   const sortedAndFilteredTranslations = useMemo(() => {
-    let filtered = translations.filter(translation =>
-      (translation.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
-       Object.values(translation).some(value =>
-         typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
-       )) &&
-      (!locationFilter || translation.location === locationFilter)
-    );
+    let filtered = translations.filter(translation => {
+      // Filter by search query
+      const searchInTranslation = (obj: any): boolean => {
+        if (typeof obj === 'string') {
+          return obj.toLowerCase().includes(searchQuery.toLowerCase());
+        } else if (isNestedObject(obj)) {
+          return Object.values(obj).some(value => searchInTranslation(value));
+        }
+        return false;
+      };
+
+      return (
+        (translation.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        Object.entries(translation).some(([key, value]) => {
+          if (key === 'key') return false; // Already checked above
+          return searchInTranslation(value);
+        })) &&
+        (!locationFilter || translation.location === locationFilter)
+      );
+    });
 
     return filtered.sort((a, b) => {
       const aValue = a[sortConfig.key];
@@ -59,7 +84,14 @@ const TranslationsTable = () => {
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
-      return 0;
+      
+      // For nested objects, convert to string for comparison
+      const aStr = isNestedObject(aValue) ? JSON.stringify(aValue) : String(aValue);
+      const bStr = isNestedObject(bValue) ? JSON.stringify(bValue) : String(bValue);
+      
+      return sortConfig.direction === 'asc' 
+        ? aStr.localeCompare(bStr)
+        : bStr.localeCompare(aStr);
     });
   }, [translations, searchQuery, locationFilter, sortConfig]);
 

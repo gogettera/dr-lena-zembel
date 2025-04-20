@@ -1,3 +1,4 @@
+
 import type { Language } from '@/types/language';
 
 export const setDirection = (dir: 'rtl' | 'ltr') => {
@@ -27,4 +28,21 @@ export const setupDirectionByLanguage = (language: Language) => {
 // Helper function to handle RTL text in specific contexts
 export const getTextDirection = (language: Language): 'rtl' | 'ltr' => {
   return ['he', 'ar'].includes(language) ? 'rtl' : 'ltr';
+};
+
+// Helper to safely stringify objects if needed for display
+export const safelyStringifyIfObject = (value: any): string => {
+  if (value === null || value === undefined) {
+    return '';
+  }
+  
+  if (typeof value === 'object') {
+    try {
+      return JSON.stringify(value);
+    } catch (e) {
+      return '[Complex Object]';
+    }
+  }
+  
+  return String(value);
 };
