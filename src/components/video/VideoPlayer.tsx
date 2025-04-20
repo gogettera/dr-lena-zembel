@@ -1,53 +1,52 @@
-
 import React from 'react';
 import VideoControls from './controls/VideoControls';
-import PlayOverlay from './PlayOverlay';
+import VideoOverlay from './VideoOverlay';
 import VideoContainer from './VideoContainer';
 import VideoElement from './VideoElement';
-// import { useVideoPlayer } from '@/hooks/useVideoPlayer';
 import { useVideoPlayer360 } from '@/hooks/useVideoPlayer360';
 
 interface VideoPlayerProps {
   src: string;
   poster: string;
+  autoPlay?: boolean;
   title?: string;
   onPlay?: () => void;
   onPause?: () => void;
   onEnd?: () => void;
-  autoPlay?: boolean;
-  controls?: boolean;
   className?: string;
 }
 
-const VideoPlayer = ({
+const VideoPlayer: React.FC<VideoPlayerProps> = ({
   src,
   poster,
+  autoPlay = false,
   title,
   onPlay,
   onPause,
   onEnd,
-  autoPlay = false,
-  controls = true,
-  className = '',
-}: VideoPlayerProps) => {
+  className,
+}) => {
   const {
     videoRef,
     isPlaying,
-    isMuted,
-    progress,
-    duration,
-    volume,
     showControls,
     setShowControls,
     controlsTimeoutRef,
     togglePlay,
+    duration,
+    currentTime,
+    bufferedTime,
+    volume,
+    isMuted,
+    isFullscreen,
+    handleTimeUpdate,
     handleVolumeChange,
-    toggleMute,
-    handleProgressChange,
-    handleFullscreen
+    handleMuteToggle,
+    handleFullscreenToggle,
+    handleSeek,
   } = useVideoPlayer360({ onPlay, onPause, onEnd });
 
-  // Handles mouse movement for showing/hiding controls
+  // Mouse movement logic for showing/hiding controls
   const handleMouseMove = () => {
     setShowControls(true);
     if (controlsTimeoutRef.current) {
@@ -67,30 +66,22 @@ const VideoPlayer = ({
         autoPlay={autoPlay}
         onClick={togglePlay}
       />
-
-      {title && (
-        <div className="absolute top-4 left-4 bg-black/70 text-white px-4 py-2 rounded-md text-sm">
-          {title}
-        </div>
-      )}
-
-      {controls && (
-        <VideoControls
-          isPlaying={isPlaying}
-          progress={progress}
-          duration={duration}
-          volume={volume}
-          isMuted={isMuted}
-          showControls={showControls}
-          onPlayPause={togglePlay}
-          onVolumeChange={handleVolumeChange}
-          onProgressChange={handleProgressChange}
-          onMuteToggle={toggleMute}
-          onFullscreen={handleFullscreen}
-        />
-      )}
-      
-      <PlayOverlay isPlaying={isPlaying} onPlay={togglePlay} />
+      <VideoOverlay isPlaying={isPlaying} title={title} onPlay={togglePlay} />
+      <VideoControls
+        isPlaying={isPlaying}
+        duration={duration}
+        currentTime={currentTime}
+        bufferedTime={bufferedTime}
+        volume={volume}
+        isMuted={isMuted}
+        isFullscreen={isFullscreen}
+        showControls={showControls}
+        onPlayToggle={togglePlay}
+        onVolumeChange={handleVolumeChange}
+        onMuteToggle={handleMuteToggle}
+        onFullscreenToggle={handleFullscreenToggle}
+        onSeek={handleSeek}
+      />
     </VideoContainer>
   );
 };
