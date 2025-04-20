@@ -106,5 +106,21 @@ export const translationMetadata: TranslationMetadataType = {
   // Values and policies
   transparency: { maxLength: 100, location: "Doctor Values" },
   xrayPolicy: { maxLength: 100, location: "Doctor Values" },
-  treatmentOptions: { maxLength: 100, location: "Doctor Values" }
+  treatmentOptions: { maxLength: 100, location: "Doctor Values" },
+  
+  // Clinic Information
+  "clinicInfo.name": { maxLength: 50, location: "Global" },
+  "clinicInfo.address": { maxLength: 100, location: "Contact Information" },
+  "clinicInfo.phone": { maxLength: 20, location: "Contact Information" },
+  "clinicInfo.hours.weekdays": { maxLength: 50, location: "Business Hours" },
+  "clinicInfo.hours.friday": { maxLength: 30, location: "Business Hours" },
+  
+  // Doctor Information
+  "doctorInfo.name": { maxLength: 30, location: "Doctor Profile" },
+  "doctorInfo.title": { maxLength: 30, location: "Doctor Profile" },
+  "doctorInfo.education": { maxLength: 100, location: "Doctor Profile" },
+  "doctorInfo.languages": { maxLength: 100, location: "Doctor Profile" },
+  
+  // Copyright
+  "copyright": { maxLength: 100, location: "Footer" },
 };

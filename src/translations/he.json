@@ -93,5 +93,21 @@
   "treatmentOptions": "Treatment options - there is no single right way, there are always several",
   "clinicAddress": "רחוב בן צבי 2, תל אביב-יפו",
   "contactInfo": "פרטי התקשרות",
-  "allRightsReserved": "כל הזכויות שמורות © 2024"
+  "allRightsReserved": "כל הזכויות שמורות © 2024",
+  "clinicInfo": {
+    "name": "מרפאת השיניים של ד״ר לנה זמבל",
+    "address": "דרך בן צבי 2, תל אביב-יפו",
+    "phone": "03-566-6915",
+    "hours": {
+      "weekdays": "ראשון עד חמישי: 09:00-19:00",
+      "friday": "שישי: 09:00-13:00"
+    }
+  },
+  "doctorInfo": {
+    "name": "ד״ר לנה זמבל",
+    "title": "רופאת שיניים מומחית",
+    "education": "בוגרת הפקולטה לרפואת שיניים באוניברסיטת קלן, גרמניה",
+    "languages": "עברית, גרמנית, אנגלית ורוסית"
+  },
+  "copyright": "© 2024 מרפאת השיניים של ד״ר לנה זמבל. כל הזכויות שמורות"
 }

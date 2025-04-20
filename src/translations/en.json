@@ -92,5 +92,21 @@
   "unmute": "Unmute",
   "fullscreen": "Fullscreen",
   "close": "Close",
-  "clinicTourVideo": "Clinic Tour Video"
+  "clinicTourVideo": "Clinic Tour Video",
+  "clinicInfo": {
+    "name": "Dr. Lena Zembel's Dental Clinic",
+    "address": "2 Ben Zvi Road, Tel Aviv-Yafo",
+    "phone": "03-566-6915",
+    "hours": {
+      "weekdays": "Sunday to Thursday: 09:00-19:00",
+      "friday": "Friday: 09:00-13:00"
+    }
+  },
+  "doctorInfo": {
+    "name": "Dr. Lena Zembel",
+    "title": "Specialist Dentist",
+    "education": "Graduate of the Faculty of Dentistry at the University of Cologne, Germany",
+    "languages": "Hebrew, German, English, and Russian"
+  },
+  "copyright": "© 2024 Dr. Lena Zembel's Dental Clinic. All rights reserved"
 }
