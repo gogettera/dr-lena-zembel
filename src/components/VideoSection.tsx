@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Play } from 'lucide-react';
@@ -8,25 +7,54 @@ import DeferredContent from './deferred-content';
 import SectionHeader from '@/components/ui/section-header';
 import VideoModal from './video/VideoModal';
 
+type VideoData = {
+  src: string; // Direct video file URL or YouTube link
+  poster: string; // Cover photo URL
+  title: string;
+  width: number;
+  height: number;
+};
+
 const VideoSection = () => {
   const { t } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState<VideoData | null>(null);
 
-  // In a real application, these would come from a database or CMS
-  const videoData = {
-    src: "https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4", // Sample video URL
-    poster: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg",
-    title: t('clinicTourVideo'),
-    width: 1280,
-    height: 720
-  };
+  // HOW TO CHANGE VIDEOS:
+  // To update, just modify/add items in this array.
+  // If src is a YouTube link (e.g., 'https://www.youtube.com/watch?v=abc...'), it will be embedded.
+  // Otherwise, the direct video file will be used.
+  const videos: VideoData[] = [
+    {
+      src: "https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4",
+      poster: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg", // CHANGE THIS to change cover photo
+      title: t('clinicTourVideo'),
+      width: 1280,
+      height: 720
+    },
+    {
+      src: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // YouTube demo video
+      poster: "/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png", // CHANGE THIS to set a thumbnail for this video
+      title: t('sampleYouTubeVideo'),
+      width: 1280,
+      height: 720
+    },
+    // Add more videos here!
+  ];
 
-  const openVideoModal = () => {
+  const openVideoModal = (video: VideoData) => {
+    setActiveVideo(video);
     setIsModalOpen(true);
   };
 
   const closeVideoModal = () => {
     setIsModalOpen(false);
+    setActiveVideo(null);
+  };
+
+  // Helper to check if the src is YouTube
+  const isYouTubeUrl = (url: string) => {
+    return url.includes('youtube.com/watch') || url.includes('youtu.be/');
   };
 
   return (
@@ -39,38 +67,53 @@ const VideoSection = () => {
 
         <div className="max-w-4xl mx-auto">
           <DeferredContent>
-            <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-white rounded-2xl">
-              <div 
-                className="relative aspect-video group cursor-pointer"
-                onClick={openVideoModal}
-              >
-                <OptimizedImage
-                  src={videoData.poster}
-                  alt={t('clinicTourThumbnail')}
-                  width={videoData.width}
-                  height={videoData.height}
-                  className="w-full h-full object-cover"
-                  priority={true} // This is likely an LCP element
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                    <Play className="w-10 h-10 text-white fill-white" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {videos.map((video, i) => (
+                <Card
+                  className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-white rounded-2xl"
+                  key={i}
+                >
+                  <div 
+                    className="relative aspect-video group cursor-pointer"
+                    onClick={() => openVideoModal(video)}
+                    aria-label={video.title}
+                    tabIndex={0}
+                  >
+                    <OptimizedImage
+                      src={video.poster}
+                      alt={t('clinicTourThumbnail') + ` ${video.title}`}
+                      width={video.width}
+                      height={video.height}
+                      className="w-full h-full object-cover"
+                      priority={i === 0}
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+                      <div className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                        <Play className="w-10 h-10 text-white fill-white" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </Card>
+                  <div className="px-6 py-4">
+                    <h3 className="text-lg font-semibold text-dental-navy">{video.title}</h3>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </DeferredContent>
         </div>
       </div>
 
-      {/* Video Modal */}
-      <VideoModal
-        isOpen={isModalOpen}
-        onClose={closeVideoModal}
-        videoSrc={videoData.src}
-        posterSrc={videoData.poster}
-        title={videoData.title}
-      />
+      {/* Video Modal (handles both YouTube and file videos) */}
+      {activeVideo && (
+        <VideoModal
+          isOpen={isModalOpen}
+          onClose={closeVideoModal}
+          videoSrc={activeVideo.src}
+          posterSrc={activeVideo.poster}
+          title={activeVideo.title}
+          isYouTube={isYouTubeUrl(activeVideo.src)}
+        />
+      )}
     </section>
   );
 };

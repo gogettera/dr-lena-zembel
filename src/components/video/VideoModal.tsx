@@ -10,9 +10,18 @@ interface VideoModalProps {
   videoSrc: string;
   posterSrc: string;
   title?: string;
+  isYouTube?: boolean; // NEW: Support YouTube embeds
 }
 
-const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title }: VideoModalProps) => {
+// Parses YouTube video ID from a URL
+function getYouTubeId(url: string) {
+  const match = url.match(
+    /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+  );
+  return match ? match[1] : null;
+}
+
+const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title, isYouTube }: VideoModalProps) => {
   const { t } = useLanguage();
 
   // Lock body scroll when modal is open
@@ -21,8 +30,7 @@ const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title }: VideoModalP
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-    }
-    
+    }    
     return () => {
       document.body.style.overflow = '';
     };
@@ -35,11 +43,9 @@ const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title }: VideoModalP
         onClose();
       }
     };
-    
     if (isOpen) {
       window.addEventListener('keydown', handleEscape);
-    }
-    
+    }    
     return () => {
       window.removeEventListener('keydown', handleEscape);
     };
@@ -58,15 +64,29 @@ const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title }: VideoModalP
           <X className="w-8 h-8" />
         </button>
         
-        <div className="w-full max-h-[calc(100vh-120px)] aspect-video bg-black rounded-lg overflow-hidden">
-          <VideoPlayer
-            src={videoSrc}
-            poster={posterSrc}
-            title={title}
-            autoPlay={true}
-            className="w-full h-full"
-            onEnd={onClose}
-          />
+        <div className="w-full max-h-[calc(100vh-120px)] aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center">
+          {!isYouTube ? (
+            <VideoPlayer
+              src={videoSrc}
+              poster={posterSrc}
+              title={title}
+              autoPlay={true}
+              className="w-full h-full"
+              onEnd={onClose}
+            />
+          ) : (
+            // Embed YouTube player
+            <iframe
+              width="100%"
+              height="100%"
+              className="w-full h-full rounded-lg"
+              src={`https://www.youtube.com/embed/${getYouTubeId(videoSrc)}?autoplay=1&rel=0`}
+              title={title || 'YouTube video'}
+              frameBorder="0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+            />
+          )}
         </div>
       </div>
     </div>
@@ -74,3 +94,4 @@ const VideoModal = ({ isOpen, onClose, videoSrc, posterSrc, title }: VideoModalP
 };
 
 export default VideoModal;
+
