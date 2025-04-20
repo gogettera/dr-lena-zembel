@@ -6,8 +6,6 @@ import OptimizedImage from '@/components/ui/optimized-image';
 const HeroSection = () => {
   return (
     <section id="practice" className="relative bg-gradient-to-br from-dental-beige via-dental-pink to-dental-beige pt-32 pb-20 md:pb-32 overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg')] bg-cover bg-center opacity-20"></div>
-      
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-10 md:mb-0 md:order-1 order-2">
