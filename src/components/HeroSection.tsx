@@ -46,15 +46,18 @@ const HeroSection = () => {
             <div className="relative w-full max-w-xl mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2.5rem] blur-3xl transform rotate-6"></div>
               
-              <AspectRatio ratio={4/3} className="relative">
-                <OptimizedImage 
-                  alt={t('dentistryWithLove')} 
-                  src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
-                  width={800}
-                  height={600}
-                  priority={true}
-                  className="relative w-full h-full rounded-[2rem] shadow-soft hover:scale-[1.02] transition-all duration-500 object-cover" 
-                />
+              <div className="relative">
+                <AspectRatio ratio={4/3} className="overflow-hidden rounded-[2rem]">
+                  <OptimizedImage 
+                    alt={t('dentistryWithLove')} 
+                    src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
+                    width={800}
+                    height={600}
+                    priority={true}
+                    objectFit="cover"
+                    className="w-full h-full shadow-soft hover:scale-[1.02] transition-all duration-500" 
+                  />
+                </AspectRatio>
                 
                 <div className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-white/90 backdrop-blur rounded-2xl p-6 shadow-soft`}>
                   <p className="text-dental-navy font-bold text-lg">{t('completelyHappy')}</p>
@@ -62,7 +65,7 @@ const HeroSection = () => {
                     ★★★★★
                   </div>
                 </div>
-              </AspectRatio>
+              </div>
             </div>
           </div>
         </div>

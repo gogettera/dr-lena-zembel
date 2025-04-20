@@ -73,16 +73,7 @@ const OptimizedImage = ({
 
   return (
     <div 
-      className="relative overflow-hidden"
-      style={{ 
-        width: imgWidth ? `${imgWidth}px` : '100%',
-        height: imgHeight ? `${imgHeight}px` : 'auto',
-        aspectRatio: (!imgHeight && imgWidth) || (!imgWidth && imgHeight) 
-          ? 'auto' 
-          : (imgWidth && imgHeight) 
-            ? `${imgWidth}/${imgHeight}` 
-            : undefined
-      }}
+      className="relative overflow-hidden w-full h-full"
     >
       {isLoading && (
         <Skeleton 
@@ -103,7 +94,7 @@ const OptimizedImage = ({
         onError={() => setHasError(true)}
         className={cn(
           'w-full h-full transition-opacity duration-300',
-          `object-${objectFit}`,
+          objectFit ? `object-${objectFit}` : 'object-cover',
           isLoading ? 'opacity-0' : 'opacity-100',
           className
         )}
