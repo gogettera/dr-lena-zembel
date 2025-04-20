@@ -1,5 +1,5 @@
 
-import { Language } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 export const getNavigationPath = (language: Language, path: string = '') => {
   return `/${language}${path}`;

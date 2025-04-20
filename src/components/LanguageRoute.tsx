@@ -1,7 +1,8 @@
 
 import React, { useEffect } from 'react';
 import { Navigate, Outlet, useParams } from 'react-router-dom';
-import { useLanguage, Language } from '@/contexts/LanguageContext';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 import { setupDirectionByLanguage } from '@/utils/direction';
 
 // List of supported languages

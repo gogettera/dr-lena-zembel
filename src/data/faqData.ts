@@ -1,4 +1,4 @@
-import { Language } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 export type FAQ = {
   question: string;

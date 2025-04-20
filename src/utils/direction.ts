@@ -1,5 +1,4 @@
-
-import type { Language } from '@/contexts/LanguageContext';
+import type { Language } from '@/types/language';
 
 export const setDirection = (dir: 'rtl' | 'ltr') => {
   document.documentElement.dir = dir;

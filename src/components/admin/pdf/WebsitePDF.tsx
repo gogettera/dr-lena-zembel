@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import { pdfStyles } from './pdfStyles';
 import { websiteSections, websiteImages } from './pdfData';
-import { Language } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 // Register fonts for RTL languages
 Font.register({

@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { websiteSections, websiteImages } from './pdfData';
-import { Language } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 interface ExportPreviewProps {
   translations: Record<string, string>;

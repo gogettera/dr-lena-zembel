@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -10,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { WebsitePDF } from './pdf/WebsitePDF';
 import ExportPreview from './pdf/ExportPreview';
-import type { Language } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 const LanguageExport = () => {
   const { language } = useLanguage();
