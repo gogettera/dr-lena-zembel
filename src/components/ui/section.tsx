@@ -1,18 +1,24 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Container } from './container';
+import { getGradient } from '@/styles/gradients';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
   containerClass?: string;
   fullWidth?: boolean;
-  background?: 'white' | 'beige' | 'navy' | 'gradient' | 'none';
+  background?: 'white' | 'beige' | 'navy' | 'gradient' | 'none' | string;
   spacing?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   centered?: boolean;
   animated?: boolean;
   animationDelay?: number;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'none';
   id?: string;
+  divider?: 'none' | 'top' | 'bottom' | 'both';
+  directionAware?: boolean;
+  rounded?: boolean;
 }
 
 const Section = React.forwardRef<HTMLElement, SectionProps>(
@@ -28,15 +34,21 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
     animationDelay = 0,
     maxWidth = 'lg',
     id,
+    divider = 'none',
+    directionAware = true,
+    rounded = false,
     ...props 
   }, ref) => {
-    const backgroundClasses = {
-      white: 'bg-white',
-      beige: 'bg-dental-beige/20',
-      navy: 'bg-dental-navy text-white',
-      gradient: 'bg-gradient-to-br from-dental-beige/20 via-white to-dental-pink/10',
-      none: ''
-    };
+    const { isRTL } = useLanguage();
+
+    // Determine background class
+    let backgroundClass = '';
+    if (background === 'white') backgroundClass = 'bg-white';
+    else if (background === 'beige') backgroundClass = 'bg-dental-beige/20';
+    else if (background === 'navy') backgroundClass = 'bg-dental-navy text-white';
+    else if (background === 'gradient') backgroundClass = 'bg-gradient-to-br from-dental-beige/20 via-white to-dental-pink/10';
+    else if (background === 'none') backgroundClass = '';
+    else if (background.includes('.')) backgroundClass = getGradient(background);
 
     const spacingClasses = {
       none: '',
@@ -47,40 +59,51 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
       xl: 'py-20 md:py-32'
     };
 
-    const maxWidthClasses = {
-      xs: 'max-w-md',
-      sm: 'max-w-2xl',
-      md: 'max-w-4xl',
-      lg: 'max-w-7xl',
-      xl: 'max-w-[90rem]',
-      full: 'w-full',
-      none: ''
+    const dividerClasses = {
+      none: '',
+      top: 'border-t border-dental-beige/30',
+      bottom: 'border-b border-dental-beige/30',
+      both: 'border-t border-b border-dental-beige/30'
     };
 
     return (
       <section
         ref={ref}
         id={id}
+        dir={directionAware && isRTL ? 'rtl' : 'ltr'}
         className={cn(
-          'px-4',
-          backgroundClasses[background],
+          'px-4 relative',
+          backgroundClass,
           spacingClasses[spacing],
+          dividerClasses[divider],
+          rounded && 'rounded-3xl md:rounded-[3rem]',
           animated && 'opacity-0 animate-fade-in',
           className
         )}
         style={animated && animationDelay > 0 ? { animationDelay: `${animationDelay}ms` } : {}}
         {...props}
       >
-        <div 
-          className={cn(
-            fullWidth ? 'w-full' : 'mx-auto',
-            maxWidth !== 'none' && maxWidthClasses[maxWidth],
-            centered && 'text-center flex flex-col items-center',
-            containerClass
-          )}
-        >
-          {children}
-        </div>
+        {fullWidth ? (
+          <div 
+            className={cn(
+              'w-full',
+              centered && 'text-center flex flex-col items-center',
+              containerClass
+            )}
+          >
+            {children}
+          </div>
+        ) : (
+          <Container 
+            size={maxWidth === 'none' ? 'full' : maxWidth}
+            className={cn(
+              centered && 'text-center flex flex-col items-center',
+              containerClass
+            )}
+          >
+            {children}
+          </Container>
+        )}
       </section>
     );
   }
