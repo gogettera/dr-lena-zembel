@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -11,6 +12,7 @@ import { Check } from 'lucide-react';
 import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
+import AestheticTreatmentsLanding from '@/components/aesthetic-treatments/AestheticTreatmentsLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -34,6 +36,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   }
   if (treatmentType === "root-canal") {
     return <RootCanalLanding />;
+  }
+  if (treatmentType === "aesthetic-treatments") {
+    return <AestheticTreatmentsLanding />;
   }
 
   const defaultBenefits = [
