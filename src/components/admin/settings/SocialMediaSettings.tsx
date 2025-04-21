@@ -7,6 +7,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { useForm } from "react-hook-form";
 import { Facebook, Instagram, Linkedin, Share2, Twitter, Youtube } from 'lucide-react';
 import { Switch } from "@/components/ui/switch";
+import { supabase } from "@/integrations/supabase/client";
 
 interface SocialMediaSettings {
   facebook: string;
@@ -22,21 +23,75 @@ export const SocialMediaSettings = () => {
 
   const form = useForm<SocialMediaSettings>({
     defaultValues: {
-      facebook: 'https://www.facebook.com/drzembel',
-      instagram: 'https://www.instagram.com/lena.zembel/',
-      linkedin: 'https://il.linkedin.com/in/lena-zembel',
-      youtube: 'https://www.youtube.com/channel/UCyixFMfs8VjuTXaWzjD-BnQ/featured',
+      facebook: '',
+      instagram: '',
+      linkedin: '',
+      youtube: '',
       twitter: '',
       showSocialIcons: true
     }
   });
 
-  const onSubmit = (data: SocialMediaSettings) => {
-    console.log("Social Media Settings:", data);
-    toast({
-      title: "Social media settings updated",
-      description: "Your social media links have been updated successfully.",
-    });
+  const [loading, setLoading] = React.useState(false);
+
+  // Load settings from DB on mount
+  React.useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.from('site_social').select('*').maybeSingle();
+      if (data) {
+        form.reset({
+          facebook: data.facebook || '',
+          instagram: data.instagram || '',
+          linkedin: data.linkedin || '',
+          youtube: data.youtube || '',
+          twitter: data.twitter || '',
+          showSocialIcons: data.show_social_icons ?? true
+        });
+      }
+      if (error) {
+        toast({
+          title: "Error loading social settings",
+          description: error.message,
+          variant: "destructive"
+        });
+      }
+      setLoading(false);
+    };
+    load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onSubmit = async (data: SocialMediaSettings) => {
+    setLoading(true);
+    try {
+      const { error } = await supabase
+        .from('site_social')
+        .upsert({
+          id: 1,
+          facebook: data.facebook,
+          instagram: data.instagram,
+          linkedin: data.linkedin,
+          youtube: data.youtube,
+          twitter: data.twitter,
+          show_social_icons: data.showSocialIcons,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'id' });
+      if (error) {
+        toast({
+          title: "Error saving social media settings",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Social media settings updated",
+          description: "Your social media links have been updated successfully.",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -57,7 +112,7 @@ export const SocialMediaSettings = () => {
                 <FormControl>
                   <div className="flex items-center">
                     <Facebook className="w-5 h-5 text-[#1877F2] mr-2" />
-                    <Input {...field} placeholder="https://facebook.com/yourpage" />
+                    <Input {...field} placeholder="https://facebook.com/yourpage" disabled={loading} />
                   </div>
                 </FormControl>
               </FormItem>
@@ -73,7 +128,7 @@ export const SocialMediaSettings = () => {
                 <FormControl>
                   <div className="flex items-center">
                     <Instagram className="w-5 h-5 text-[#E1306C] mr-2" />
-                    <Input {...field} placeholder="https://instagram.com/yourprofile" />
+                    <Input {...field} placeholder="https://instagram.com/yourprofile" disabled={loading} />
                   </div>
                 </FormControl>
               </FormItem>
@@ -89,7 +144,7 @@ export const SocialMediaSettings = () => {
                 <FormControl>
                   <div className="flex items-center">
                     <Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />
-                    <Input {...field} placeholder="https://linkedin.com/in/yourprofile" />
+                    <Input {...field} placeholder="https://linkedin.com/in/yourprofile" disabled={loading} />
                   </div>
                 </FormControl>
               </FormItem>
@@ -105,7 +160,7 @@ export const SocialMediaSettings = () => {
                 <FormControl>
                   <div className="flex items-center">
                     <Youtube className="w-5 h-5 text-[#FF0000] mr-2" />
-                    <Input {...field} placeholder="https://youtube.com/channel/yourchannelid" />
+                    <Input {...field} placeholder="https://youtube.com/channel/yourchannelid" disabled={loading} />
                   </div>
                 </FormControl>
               </FormItem>
@@ -121,7 +176,7 @@ export const SocialMediaSettings = () => {
                 <FormControl>
                   <div className="flex items-center">
                     <Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />
-                    <Input {...field} placeholder="https://twitter.com/yourhandle" />
+                    <Input {...field} placeholder="https://twitter.com/yourhandle" disabled={loading} />
                   </div>
                 </FormControl>
               </FormItem>
@@ -143,15 +198,16 @@ export const SocialMediaSettings = () => {
                   <Switch
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    disabled={loading}
                   />
                 </FormControl>
               </FormItem>
             )}
           />
 
-          <Button type="submit">
+          <Button type="submit" disabled={loading}>
             <Share2 className="w-4 h-4 mr-2" />
-            Save Social Media Settings
+            {loading ? "Saving..." : "Save Social Media Settings"}
           </Button>
         </form>
       </Form>

@@ -42,6 +42,69 @@ export type Database = {
         }
         Relationships: []
       }
+      site_meta: {
+        Row: {
+          description: string
+          id: number
+          og_description: string
+          og_image_url: string | null
+          og_title: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          description: string
+          id?: number
+          og_description: string
+          og_image_url?: string | null
+          og_title: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          description?: string
+          id?: number
+          og_description?: string
+          og_image_url?: string | null
+          og_title?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      site_social: {
+        Row: {
+          facebook: string | null
+          id: number
+          instagram: string | null
+          linkedin: string | null
+          show_social_icons: boolean | null
+          twitter: string | null
+          updated_at: string | null
+          youtube: string | null
+        }
+        Insert: {
+          facebook?: string | null
+          id?: number
+          instagram?: string | null
+          linkedin?: string | null
+          show_social_icons?: boolean | null
+          twitter?: string | null
+          updated_at?: string | null
+          youtube?: string | null
+        }
+        Update: {
+          facebook?: string | null
+          id?: number
+          instagram?: string | null
+          linkedin?: string | null
+          show_social_icons?: boolean | null
+          twitter?: string | null
+          updated_at?: string | null
+          youtube?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null

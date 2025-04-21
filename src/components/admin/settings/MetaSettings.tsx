@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { Globe } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface MetaSettings {
   title: string;
@@ -14,22 +15,62 @@ interface MetaSettings {
   ogTitle: string;
   ogDescription: string;
   ogImage: File | null;
+  ogImageUrl?: string | null;
 }
+
+const DB_META_MAP = {
+  title: "title",
+  description: "description",
+  ogTitle: "og_title",
+  ogDescription: "og_description",
+  ogImageUrl: "og_image_url",
+};
 
 export const MetaSettings = () => {
   const [ogImageFile, setOgImageFile] = React.useState<File | null>(null);
   const [ogImagePreview, setOgImagePreview] = React.useState<string>('');
   const { toast } = useToast();
+  const [loading, setLoading] = React.useState(false);
 
   const form = useForm<MetaSettings>({
     defaultValues: {
-      title: 'דנטל לאב - מרפאת שיניים',
-      description: 'מרפאה דנטלית מקומית עם טיפול אישי ומקצועי',
-      ogTitle: 'דנטל לאב - מרפאת שיניים',
-      ogDescription: 'הכירו את מרפאת השיניים דנטל לאב - טיפול אישי ומקצועי',
-      ogImage: null
+      title: '',
+      description: '',
+      ogTitle: '',
+      ogDescription: '',
+      ogImage: null,
+      ogImageUrl: ''
     }
   });
+
+  // Load settings from the database when mounted
+  React.useEffect(() => {
+    const loadMeta = async () => {
+      setLoading(true);
+      const { data, error } = await supabase.from('site_meta').select('*').maybeSingle();
+      if (data) {
+        form.reset({
+          title: data.title,
+          description: data.description,
+          ogTitle: data.og_title,
+          ogDescription: data.og_description,
+          ogImage: null,
+          ogImageUrl: data.og_image_url || ''
+        });
+        if (data.og_image_url) setOgImagePreview(data.og_image_url);
+      }
+      if (error) {
+        toast({
+          title: "Error loading site meta",
+          description: error.message,
+          variant: "destructive"
+        });
+      }
+      setLoading(false);
+    };
+    loadMeta();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleOgImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -58,18 +99,38 @@ export const MetaSettings = () => {
     setOgImagePreview(url);
   };
 
-  const onSubmit = (data: MetaSettings) => {
-    console.log("Meta Settings:", data);
-    if (ogImageFile) {
-      const formData = new FormData();
-      formData.append('file', ogImageFile);
-      // TODO: Implement file upload logic
+  const onSubmit = async (data: MetaSettings) => {
+    setLoading(true);
+    try {
+      // For now, just save URL string (no upload flow implemented)
+      const og_image_url = ogImageFile ? ogImagePreview : data.ogImageUrl || '';
+      // Try upsert (single row, id always 1)
+      const { error } = await supabase
+        .from('site_meta')
+        .upsert({
+          id: 1,
+          title: data.title,
+          description: data.description,
+          og_title: data.ogTitle,
+          og_description: data.ogDescription,
+          og_image_url,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'id' });
+      if (error) {
+        toast({
+          title: "Failed to save SEO settings",
+          description: error.message,
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "SEO settings updated",
+          description: "Your site's meta information has been updated successfully.",
+        });
+      }
+    } finally {
+      setLoading(false);
     }
-    
-    toast({
-      title: "SEO settings updated",
-      description: "Your site's meta information has been updated successfully.",
-    });
   };
 
   return (
@@ -89,7 +150,7 @@ export const MetaSettings = () => {
                 <FormItem>
                   <FormLabel>Site Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} disabled={loading} />
                   </FormControl>
                   <FormDescription>
                     The title that appears in browser tabs and search results.
@@ -105,7 +166,7 @@ export const MetaSettings = () => {
                 <FormItem>
                   <FormLabel>Meta Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} disabled={loading} />
                   </FormControl>
                   <FormDescription>
                     A brief description of your site for search engines (150-160 characters recommended).
@@ -128,7 +189,7 @@ export const MetaSettings = () => {
                 <FormItem>
                   <FormLabel>Social Share Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} disabled={loading} />
                   </FormControl>
                 </FormItem>
               )}
@@ -141,14 +202,14 @@ export const MetaSettings = () => {
                 <FormItem>
                   <FormLabel>Social Share Description</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} disabled={loading} />
                   </FormControl>
                 </FormItem>
               )}
             />
 
             <div>
-              <FormLabel>Social Share Image</FormLabel>
+              <FormLabel>Social Share Image (URL only for now)</FormLabel>
               <div className="mt-1 mb-3">
                 {ogImagePreview && (
                   <div className="mb-3">
@@ -160,20 +221,31 @@ export const MetaSettings = () => {
                   </div>
                 )}
                 <Input
+                  type="text"
+                  value={form.getValues().ogImageUrl}
+                  onChange={e => form.setValue('ogImageUrl', e.target.value)}
+                  placeholder="https://example.com/og-image.jpg"
+                  disabled={loading}
+                />
+                {/*
+                <Input
                   type="file"
                   accept="image/png,image/jpeg"
                   onChange={handleOgImageChange}
                   className="cursor-pointer"
+                  disabled={loading}
                 />
+                */}
                 <FormDescription>
+                  Enter an image URL for Open Graph (upload flow not implemented)<br />
                   Recommended size: 1200x630 pixels (aspect ratio 1.91:1)
                 </FormDescription>
               </div>
             </div>
 
-            <Button type="submit">
+            <Button type="submit" disabled={loading}>
               <Globe className="w-4 h-4 mr-2" />
-              Save SEO Settings
+              {loading ? "Saving..." : "Save SEO Settings"}
             </Button>
           </form>
         </Form>
