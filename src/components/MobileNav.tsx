@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,14 @@ const MobileNav = () => {
   const styles = useDirectionalStyles();
   const [sheetOpen, setSheetOpen] = useState(false);
 
+  // Accessibility improvement: Focus trap for sheet
+  const firstFocusableRef = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    if (sheetOpen && firstFocusableRef.current) {
+      firstFocusableRef.current.focus();
+    }
+  }, [sheetOpen]);
+
   const handleSheetOpenChange = (open: boolean) => {
     setSheetOpen(open);
     // Reset submenu when sheet closes
@@ -33,6 +41,7 @@ const MobileNav = () => {
           size="icon"
           className="md:hidden hover:bg-dental-beige/20"
           aria-label={t('toggleMenu', 'Toggle menu')}
+          ref={firstFocusableRef}
         >
           <Menu className="h-5 w-5 text-dental-navy" />
           <span className="sr-only">{t('toggleMenu', 'Toggle menu')}</span>
@@ -40,9 +49,11 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent 
         side={isRTL ? "right" : "left"}
-        className="w-[300px] bg-white"
+        className={cn("w-[300px] bg-white", NAVIGATION_ANIMATIONS.slideDown)}
+        aria-modal="true"
+        role="dialog"
       >
-        <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'}>
+        <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('mainNavigation', 'Main navigation')}>
           <NavigationLinks
             links={navigation.main}
             vertical
@@ -61,4 +72,3 @@ const MobileNav = () => {
 };
 
 export default MobileNav;
-

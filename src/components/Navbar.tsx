@@ -20,7 +20,6 @@ const Navbar = () => {
   const navigation = createLocalizedNavigationConfig(language);
   const styles = useDirectionalStyles();
 
-  // Use debounced scroll handler for better performance
   useEffect(() => {
     const handleScroll = debounce(() => {
       setIsScrolled(window.scrollY > 10);
@@ -46,7 +45,6 @@ const Navbar = () => {
       )}>
         <div className="flex items-center justify-start">
           <MobileNav />
-          {/* Desktop navigation: shared navigation links */}
           <div className={cn("hidden md:flex items-center", styles.spaceDir)}>
             <NavigationLinks links={navigation.main} vertical={false} />
           </div>
@@ -86,4 +84,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

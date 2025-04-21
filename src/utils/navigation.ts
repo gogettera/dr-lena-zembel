@@ -1,4 +1,3 @@
-
 import { Language } from '@/types/language';
 import { formatTranslationValue, isNestedObject } from './translation-helpers';
 
@@ -6,8 +5,24 @@ export const getNavigationPath = (language: Language, path: string = '') => {
   return `/${language}${path}`;
 };
 
+/**
+ * Smarter active link detection: supports fragments, nested, and trailing slashes
+ */
 export const isActiveLink = (currentPath: string, linkPath: string): boolean => {
-  return currentPath === linkPath || currentPath.startsWith(`${linkPath}/`);
+  // Handle fragment links (e.g., /he#contact)
+  if (linkPath.includes("#")) {
+    const basePath = linkPath.split("#")[0];
+    return currentPath === basePath || currentPath === `${basePath}/`;
+  }
+  // Exact match, or match with trailing slash
+  if (currentPath === linkPath || currentPath === `${linkPath}/`) {
+    return true;
+  }
+  // Nested route (but exclude root "/")
+  if (linkPath !== "/" && currentPath.startsWith(linkPath)) {
+    return true;
+  }
+  return false;
 };
 
 // Helper for safely accessing nested properties in translation objects
