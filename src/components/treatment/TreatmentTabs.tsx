@@ -1,5 +1,3 @@
-
-// Add the import for ChildrenDentistryLanding at the top along with other imports
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,8 +8,8 @@ import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
 import { Check } from 'lucide-react';
-// IMPORT ADDED:
 import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
+import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -26,9 +24,12 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 }) => {
   const { t } = useLanguage();
 
-  // Render the custom landing page if this is the children dentistry route
+  // Render custom landing pages for specific treatment routes
   if (treatmentType === "children-dentistry") {
     return <ChildrenDentistryLanding />;
+  }
+  if (treatmentType === "orthodontics") {
+    return <OrthodonticsLanding />;
   }
 
   const defaultBenefits = [
