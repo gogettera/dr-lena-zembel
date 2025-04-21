@@ -10,6 +10,7 @@ import RelatedTreatments from './RelatedTreatments';
 import { Check } from 'lucide-react';
 import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
+import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -30,6 +31,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   }
   if (treatmentType === "orthodontics") {
     return <OrthodonticsLanding />;
+  }
+  if (treatmentType === "root-canal") {
+    return <RootCanalLanding />;
   }
 
   const defaultBenefits = [
