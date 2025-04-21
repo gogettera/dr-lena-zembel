@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -9,7 +10,6 @@ import TreatmentHero from '@/components/treatment/TreatmentHero';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import { createLocalizedPath } from '@/utils/languageRoutes';
-import VideoSection from "@/components/VideoSection";
 
 const LanguageTreatmentPage: React.FC = () => {
   const { treatmentType } = useParams<{ treatmentType: string }>();
@@ -49,9 +49,6 @@ const LanguageTreatmentPage: React.FC = () => {
           treatmentNameKey={treatmentNameKey}
           treatmentDescKey={treatmentDescKey}
         />
-        {treatmentType === "children-dentistry" && (
-          <VideoSection />
-        )}
         <TreatmentContent 
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
