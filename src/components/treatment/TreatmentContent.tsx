@@ -5,7 +5,6 @@ import type { TreatmentType } from '@/data/treatmentTypes';
 import TreatmentTabs from './TreatmentTabs';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Leaf, Star } from 'lucide-react';
-import ChildrenDentistryCard from '../children-dentistry/ChildrenDentistryCard';
 
 interface TreatmentContentProps {
   treatment: TreatmentType;
@@ -22,9 +21,6 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
 }) => {
   const { t } = useLanguage();
 
-  // Special case for children dentistry to include the card
-  const showSpecialCard = treatmentType === 'children-dentistry';
-
   return (
     <section className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Decorative Elements */}
@@ -38,31 +34,27 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          {showSpecialCard ? (
-            <ChildrenDentistryCard />
-          ) : (
-            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl mb-10 shadow-lg border border-dental-beige/50 relative overflow-hidden">
-              {/* Decorative corner stars */}
-              <div className="absolute top-4 right-4">
-                <Star className="h-6 w-6 text-dental-orange/30" />
-              </div>
-              <div className="absolute bottom-4 left-4">
-                <Star className="h-6 w-6 text-dental-orange/30" />
-              </div>
-              
-              <div className="relative">
-                <h2 className="text-2xl md:text-3xl font-bold text-dental-navy mb-4">
-                  {t(treatmentNameKey)}
-                </h2>
-                <p className="text-lg text-dental-navy/80 mb-6">
-                  {t(treatmentDescKey)}
-                </p>
-                <p className="text-lg text-dental-navy/80">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui. Curabitur et odio vel orci scelerisque malesuada.
-                </p>
-              </div>
+          <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl mb-10 shadow-lg border border-dental-beige/50 relative overflow-hidden">
+            {/* Decorative corner stars */}
+            <div className="absolute top-4 right-4">
+              <Star className="h-6 w-6 text-dental-orange/30" />
             </div>
-          )}
+            <div className="absolute bottom-4 left-4">
+              <Star className="h-6 w-6 text-dental-orange/30" />
+            </div>
+            
+            <div className="relative">
+              <h2 className="text-2xl md:text-3xl font-bold text-dental-navy mb-4">
+                {t(treatmentNameKey)}
+              </h2>
+              <p className="text-lg text-dental-navy/80 mb-6">
+                {t(treatmentDescKey)}
+              </p>
+              <p className="text-lg text-dental-navy/80">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui. Curabitur et odio vel orci scelerisque malesuada.
+              </p>
+            </div>
+          </div>
           
           <TreatmentTabs 
             treatmentType={treatmentType}

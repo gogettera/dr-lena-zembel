@@ -1,12 +1,17 @@
 
+// Add the import for ChildrenDentistryLanding at the top along with other imports
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import TreatmentBenefits from './TreatmentBenefits';
-import TreatmentProcedure from './TreatmentProcedure';
-import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentFAQ from './TreatmentFAQ';
+import TreatmentTestimonials from './TreatmentTestimonials';
+import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
+import { Check } from 'lucide-react';
+// IMPORT ADDED:
+import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -20,63 +25,98 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   treatmentDescKey
 }) => {
   const { t } = useLanguage();
-  
+
+  // Render the custom landing page if this is the children dentistry route
+  if (treatmentType === "children-dentistry") {
+    return <ChildrenDentistryLanding />;
+  }
+
+  const defaultBenefits = [
+    t('benefit1'),
+    t('benefit2'),
+    t('benefit3'),
+    t('benefit4')
+  ];
+
   return (
-    <Tabs defaultValue="benefits" className="w-full">
-      <TabsList className="grid grid-cols-2 md:grid-cols-5 mb-10 bg-transparent gap-2">
-        <TabsTrigger 
-          value="benefits" 
-          className="bg-white shadow-sm border border-dental-beige/30 hover:bg-dental-beige/10 data-[state=active]:bg-dental-orange data-[state=active]:text-white rounded-lg"
-        >
-          {t('benefits')}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="procedure" 
-          className="bg-white shadow-sm border border-dental-beige/30 hover:bg-dental-beige/10 data-[state=active]:bg-dental-orange data-[state=active]:text-white rounded-lg"
-        >
-          {t('procedure')}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="testimonials" 
-          className="bg-white shadow-sm border border-dental-beige/30 hover:bg-dental-beige/10 data-[state=active]:bg-dental-orange data-[state=active]:text-white rounded-lg"
-        >
-          {t('testimonials')}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="faq" 
-          className="bg-white shadow-sm border border-dental-beige/30 hover:bg-dental-beige/10 data-[state=active]:bg-dental-orange data-[state=active]:text-white rounded-lg"
-        >
-          {t('faq')}
-        </TabsTrigger>
-        <TabsTrigger 
-          value="related" 
-          className="bg-white shadow-sm border border-dental-beige/30 hover:bg-dental-beige/10 data-[state=active]:bg-dental-orange data-[state=active]:text-white rounded-lg"
-        >
-          {t('related')}
-        </TabsTrigger>
+    <Tabs defaultValue="overview" className="w-full mt-8">
+      <TabsList className="grid grid-cols-5 mb-8">
+        <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
+        <TabsTrigger value="procedure">{t('procedure')}</TabsTrigger>
+        <TabsTrigger value="faq">{t('faq')}</TabsTrigger>
+        <TabsTrigger value="testimonials">{t('testimonials')}</TabsTrigger>
+        <TabsTrigger value="related">{t('relatedTreatments')}</TabsTrigger>
       </TabsList>
       
-      <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 border border-dental-beige/50 shadow-lg">
-        <TabsContent value="benefits" className="mt-0">
-          <TreatmentBenefits treatmentType={treatmentType} />
-        </TabsContent>
-        
-        <TabsContent value="procedure" className="mt-0">
-          <TreatmentProcedure treatmentType={treatmentType} />
-        </TabsContent>
-        
-        <TabsContent value="testimonials" className="mt-0">
-          <TreatmentTestimonials treatmentType={treatmentType} />
-        </TabsContent>
-        
-        <TabsContent value="faq" className="mt-0">
-          <TreatmentFAQ treatmentType={treatmentType} />
-        </TabsContent>
-        
-        <TabsContent value="related" className="mt-0">
-          <RelatedTreatments currentTreatment={treatmentType} />
-        </TabsContent>
-      </div>
+      <TabsContent value="overview" className="space-y-6">
+        <Card>
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-dental-navy mb-4">
+                  {t(treatmentNameKey)}
+                </h3>
+                <p className="text-dental-navy/80 mb-6">
+                  {t(treatmentDescKey)}
+                </p>
+                <p className="text-dental-navy/80 mb-4">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui. Curabitur et odio vel orci scelerisque malesuada.
+                </p>
+                <div className="space-y-2">
+                  <h4 className="text-lg font-semibold text-dental-navy mb-2">
+                    {t('keyPoints')}
+                  </h4>
+                  <ul className="space-y-2">
+                    {defaultBenefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="bg-dental-pink/20 p-1 rounded-full mr-2 mt-0.5">
+                          <Check className="h-4 w-4 text-dental-orange" />
+                        </span>
+                        <span className="text-dental-navy/80">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <img 
+                  src={`/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg`} 
+                  alt={t(treatmentNameKey)} 
+                  className="rounded-xl shadow-lg w-full h-auto object-cover"
+                />
+                <div className="mt-6 bg-dental-beige/20 p-4 rounded-lg">
+                  <h4 className="text-lg font-semibold text-dental-navy mb-2">
+                    {t('idealFor')}
+                  </h4>
+                  <p className="text-dental-navy/80">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 border-t border-dental-beige pt-6">
+              <TreatmentBenefits benefits={defaultBenefits} showBooking={false} />
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+      
+      <TabsContent value="procedure">
+        <TreatmentProcedure treatmentType={treatmentType} />
+      </TabsContent>
+      
+      <TabsContent value="faq">
+        <TreatmentFAQ treatmentType={treatmentType} />
+      </TabsContent>
+      
+      <TabsContent value="testimonials">
+        <TreatmentTestimonials treatmentType={treatmentType} />
+      </TabsContent>
+      
+      <TabsContent value="related">
+        <RelatedTreatments currentTreatment={treatmentType} />
+      </TabsContent>
     </Tabs>
   );
 };
