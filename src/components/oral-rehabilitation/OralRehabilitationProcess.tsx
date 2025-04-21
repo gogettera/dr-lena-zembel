@@ -1,31 +1,31 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CircleCheck, MagnifyingGlass, ClipboardList, Stethoscope, CalendarCheck } from 'lucide-react';
+import { CheckCircle, Search, ClipboardList, Stethoscope, CalendarCheck } from 'lucide-react';
 
 const OralRehabilitationProcess = () => {
   const { t } = useLanguage();
 
   const steps = [
     {
-      icon: <MagnifyingGlass className="h-10 w-10 text-dental-orange" />,
-      title: t('oralRehabilitation.process.steps.0.title'),
-      description: t('oralRehabilitation.process.steps.0.description')
+      icon: <Search className="h-10 w-10 text-dental-orange" />,
+      title: t('oralRehabilitation.process.steps.0.title', 'אבחון והערכה מקיפה'),
+      description: t('oralRehabilitation.process.steps.0.description', 'בדיקה יסודית של מצב השיניים והחניכיים, צילומי רנטגן והדמיות תלת-ממדיות')
     },
     {
       icon: <ClipboardList className="h-10 w-10 text-dental-orange" />,
-      title: t('oralRehabilitation.process.steps.1.title'),
-      description: t('oralRehabilitation.process.steps.1.description')
+      title: t('oralRehabilitation.process.steps.1.title', 'הכנת תוכנית טיפול'),
+      description: t('oralRehabilitation.process.steps.1.description', 'הצגת אפשרויות הטיפול המתאימות, תכנון שלבי הטיפול והסבר מפורט על התהליך')
     },
     {
       icon: <Stethoscope className="h-10 w-10 text-dental-orange" />,
-      title: t('oralRehabilitation.process.steps.2.title'),
-      description: t('oralRehabilitation.process.steps.2.description')
+      title: t('oralRehabilitation.process.steps.2.title', 'ביצוע הטיפול'),
+      description: t('oralRehabilitation.process.steps.2.description', 'טיפולי הכנה נדרשים, ביצוע השיקום בשלבים והתאמות סופיות')
     },
     {
       icon: <CalendarCheck className="h-10 w-10 text-dental-orange" />,
-      title: t('oralRehabilitation.process.steps.3.title'),
-      description: t('oralRehabilitation.process.steps.3.description')
+      title: t('oralRehabilitation.process.steps.3.title', 'מעקב ותחזוקה'),
+      description: t('oralRehabilitation.process.steps.3.description', 'ביקורות תקופתיות, הנחיות לשמירה על השיקום וטיפולי תחזוקה שוטפים')
     }
   ];
 
@@ -33,10 +33,10 @@ const OralRehabilitationProcess = () => {
     <div className="container mx-auto px-4">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-4">
-          {t('procedure')}
+          {t('procedure', 'תהליך הטיפול')}
         </h2>
         <p className="text-lg text-dental-navy/70 max-w-2xl mx-auto">
-          {t('procedureDetails')}
+          {t('procedureDetails', 'שיקום פה הוא תהליך מדויק המותאם אישית לצרכים שלך')}
         </p>
       </div>
 
