@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +46,22 @@ export const MetaSettings = () => {
   React.useEffect(() => {
     const loadMeta = async () => {
       setLoading(true);
-      const { data, error } = await supabase.from('site_meta').select('*').maybeSingle();
+      let { data, error } = await supabase.from('site_meta').select('*').eq('id', 1).maybeSingle();
+      if (!data && !error) {
+        // Row doesn't exist: insert default with id=1
+        const { error: insertError } = await supabase.from('site_meta').insert([{ id: 1, title: '', description: '', og_title: '', og_description: '', og_image_url: null }]);
+        if (insertError) {
+          toast({
+            title: "Couldn't initialize SEO settings",
+            description: insertError.message,
+            variant: "destructive"
+          });
+          setLoading(false);
+          return;
+        }
+        const res = await supabase.from('site_meta').select('*').eq('id', 1).maybeSingle();
+        data = res.data;
+      }
       if (data) {
         form.reset({
           title: data.title,
@@ -102,20 +116,20 @@ export const MetaSettings = () => {
   const onSubmit = async (data: MetaSettings) => {
     setLoading(true);
     try {
-      // For now, just save URL string (no upload flow implemented)
       const og_image_url = ogImageFile ? ogImagePreview : data.ogImageUrl || '';
-      // Try upsert (single row, id always 1)
+      // Clean values for upsert (avoid undefined/null incompatibility)
+      const cleanValues = {
+        id: 1,
+        title: data.title || '',
+        description: data.description || '',
+        og_title: data.ogTitle || '',
+        og_description: data.ogDescription || '',
+        og_image_url: og_image_url || null,
+        updated_at: new Date().toISOString()
+      };
       const { error } = await supabase
         .from('site_meta')
-        .upsert({
-          id: 1,
-          title: data.title,
-          description: data.description,
-          og_title: data.ogTitle,
-          og_description: data.ogDescription,
-          og_image_url,
-          updated_at: new Date().toISOString(),
-        }, { onConflict: 'id' });
+        .upsert(cleanValues, { onConflict: 'id' });
       if (error) {
         toast({
           title: "Failed to save SEO settings",

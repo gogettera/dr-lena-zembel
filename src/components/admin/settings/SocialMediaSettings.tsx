@@ -38,7 +38,24 @@ export const SocialMediaSettings = () => {
   React.useEffect(() => {
     const load = async () => {
       setLoading(true);
-      const { data, error } = await supabase.from('site_social').select('*').maybeSingle();
+      // Try to fetch site_social row by id=1
+      let { data, error } = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
+      if (!data && !error) {
+        // Row doesn't exist: insert default row with id 1
+        const { error: insertError } = await supabase.from('site_social').insert([{ id: 1 }]);
+        if (insertError) {
+          toast({
+            title: "Couldn't initialize social settings",
+            description: insertError.message,
+            variant: "destructive"
+          });
+          setLoading(false);
+          return;
+        }
+        // Try fetching again
+        const res = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
+        data = res.data;
+      }
       if (data) {
         form.reset({
           facebook: data.facebook || '',
@@ -65,18 +82,20 @@ export const SocialMediaSettings = () => {
   const onSubmit = async (data: SocialMediaSettings) => {
     setLoading(true);
     try {
+      // Make sure null or undefined is not sent as a value
+      const cleanData = {
+        id: 1,
+        facebook: data.facebook || '',
+        instagram: data.instagram || '',
+        linkedin: data.linkedin || '',
+        youtube: data.youtube || '',
+        twitter: data.twitter || '',
+        show_social_icons: typeof data.showSocialIcons === 'boolean' ? data.showSocialIcons : true,
+        updated_at: new Date().toISOString()
+      };
       const { error } = await supabase
         .from('site_social')
-        .upsert({
-          id: 1,
-          facebook: data.facebook,
-          instagram: data.instagram,
-          linkedin: data.linkedin,
-          youtube: data.youtube,
-          twitter: data.twitter,
-          show_social_icons: data.showSocialIcons,
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'id' });
+        .upsert(cleanData, { onConflict: 'id' });
       if (error) {
         toast({
           title: "Error saving social media settings",
