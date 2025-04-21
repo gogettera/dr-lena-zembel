@@ -1,39 +1,33 @@
+
 export type TreatmentType = {
   icon: string;
   imageUrl: string;
-  slug?: string;
 };
 
 export const treatmentTypes: Record<string, TreatmentType> = {
   'children-dentistry': {
     icon: 'children.jpg',
-    imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg',
-    slug: 'children-dentistry'
+    imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg'
   },
   'aesthetic-treatments': {
     icon: 'aesthetic.jpg',
-    imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg',
-    slug: 'aesthetic-treatments'
+    imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg'
   },
   'preventive-medicine': {
     icon: 'preventive.jpg',
-    imageUrl: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg',
-    slug: 'preventive-medicine'
+    imageUrl: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg'
   },
   'root-canal': {
     icon: 'root-canal.jpg',
-    imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg',
-    slug: 'root-canal'
+    imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg'
   },
   'oral-rehabilitation': {
     icon: 'rehabilitation.jpg',
-    imageUrl: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg',
-    slug: 'oral-rehabilitation'
+    imageUrl: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg'
   },
   'orthodontics': {
     icon: 'orthodontics.jpg',
-    imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg',
-    slug: 'orthodontics'
+    imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg'
   }
 };
 
