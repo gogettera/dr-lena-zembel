@@ -34,10 +34,18 @@ const QuickContactForm = () => {
       }, 3000);
     }, 1500);
   };
-  
+
   return (
     <section id="contact" className="py-14 md:py-20 px-4 bg-white scroll-mt-24">
       <div className="container mx-auto max-w-lg">
+
+        {/* Added caption above contact form */}
+        <div className="mb-3 text-center">
+          <span className="inline-block text-dental-orange bg-[#FFDEE2]/60 rounded-full font-semibold px-4 py-1 text-base shadow-sm tracking-wide">
+            קפטן
+          </span>
+        </div>
+
         <h2 className="text-2xl font-bold text-dental-navy mb-6 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
           <Mail className="inline-block ml-2 text-dental-orange" />
           צור קשר - נחזור אליכם עם חיוך
