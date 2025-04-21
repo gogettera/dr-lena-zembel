@@ -12,6 +12,7 @@ import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDe
 import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 import AestheticTreatmentsLanding from '@/components/aesthetic-treatments/AestheticTreatmentsLanding';
+import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
