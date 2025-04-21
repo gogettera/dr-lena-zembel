@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
-// Removed Hero import
-import Plans from "./Plans"; // Now acting as Hero
+import Hero from "./Hero";
+// Removed WhyUs import
 import DoctorStory from "./DoctorStory";
 import VisitSteps from "./VisitSteps";
 import Testimonials from "./Testimonials";
@@ -9,6 +9,7 @@ import FAQ from "./FAQ";
 import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
+// No WhyUs or Plans imports
 
 const ChildrenDentistryLanding: React.FC = () => {
   // Scroll to top when component mounts
@@ -24,13 +25,18 @@ const ChildrenDentistryLanding: React.FC = () => {
       {/* Sticky Navigation */}
       <StickyNavigation />
 
-      {/* PLANS as HERO at the very top */}
-      <Plans />
+      {/* HERO at very top as page opener */}
+      <Hero />
+
+      {/* Removed WhyUs section */}
 
       <DoctorStory />
       <VisitSteps />
       <Testimonials />
       <FAQ />
+
+      {/* Removed Plans section */}
+
       <QuickContactForm />
       <BookVisitAnchor />
     </div>
