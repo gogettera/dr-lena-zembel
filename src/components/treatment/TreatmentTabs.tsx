@@ -1,3 +1,5 @@
+
+// Add the import for ChildrenDentistryLanding at the top along with other imports
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,6 +10,8 @@ import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
 import { Check } from 'lucide-react';
+// IMPORT ADDED:
+import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
