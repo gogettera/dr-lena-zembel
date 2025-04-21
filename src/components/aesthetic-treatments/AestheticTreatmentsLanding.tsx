@@ -18,35 +18,20 @@ const AestheticTreatmentsLanding: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-[#FFDEE2]/40 via-[#F1F0FB]/20 to-[#FDF4F0]/50 overflow-x-hidden">
-      {/* Skip to content link for accessibility */}
-      <a href="#hero" className="skip-to-content">
+    <div className="bg-white min-h-screen">
+      <a href="#hero" className="sr-only focus:not-sr-only">
         {t('skipToContent') || "דלג לתוכן העיקרי"}
       </a>
-
-      {/* Sticky Navigation */}
       <StickyNavigation />
-
-      {/* HERO at very top as page opener */}
       <Hero />
-
-      {/* Treatment Types */}
-      <TreatmentTypes />
-      
-      {/* Benefits */}
-      <Benefits />
-      
-      {/* Treatment Process */}
-      <Process />
-      
-      {/* Testimonials */}
-      <Testimonials />
-      
-      {/* FAQ */}
-      <FAQ />
-
-      {/* Book Visit Button */}
-      <BookVisitAnchor />
+      <div className="p-4">
+        <TreatmentTypes />
+        <Benefits />
+        <Process />
+        <Testimonials />
+        <FAQ />
+        <BookVisitAnchor />
+      </div>
     </div>
   );
 };
