@@ -1,27 +1,28 @@
 
 import React from "react";
 import SectionHeader from "@/components/ui/section-header";
+import { Card } from "@/components/ui/card";
 
 const Process: React.FC = () => {
   // Removed step 1 as per user request
   const steps = [
     {
-      number: "02",
+      number: "01",
       title: "תכנון דיגיטלי של החיוך",
       description: "באמצעות טכנולוגיה מתקדמת, נבצע תכנון דיגיטלי מדויק של התוצאה הסופית, כך שתוכל/י לראות את התוצאות הצפויות עוד לפני תחילת הטיפול.",
     },
     {
-      number: "03",
+      number: "02",
       title: "הכנת השיניים והטיפול",
       description: "בהתאם לסוג הטיפול שנבחר, נבצע את ההכנות הנדרשות ואת הטיפול עצמו, תוך הקפדה על נוחות מרבית ושימוש בחומרים איכותיים ביותר.",
     },
     {
-      number: "04",
+      number: "03",
       title: "ביקורת והתאמות סופיות",
       description: "לאחר השלמת הטיפול, נבצע ביקורת סופית לוודא שהתוצאות עומדות בציפיות ובסטנדרטים הגבוהים שלנו ונבצע התאמות אם יש צורך.",
     },
     {
-      number: "05",
+      number: "04",
       title: "מעקב ותחזוקה",
       description: "נספק הנחיות מפורטות לשמירה על התוצאות ונקבע תוכנית מעקב אישית כדי להבטיח את אריכות ימי הטיפול והשמירה על בריאות הפה.",
     }

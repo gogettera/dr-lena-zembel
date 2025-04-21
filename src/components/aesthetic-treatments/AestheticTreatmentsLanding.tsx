@@ -24,10 +24,12 @@ const AestheticTreatmentsLanding: React.FC = () => {
       </a>
       <StickyNavigation />
       <Hero />
-      <div className="p-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <TreatmentTypes />
         <Benefits />
-        <Process />
+      </div>
+      <Process />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Testimonials />
         <FAQ />
         <BookVisitAnchor />
