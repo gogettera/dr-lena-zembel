@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,7 +21,12 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   treatmentDescKey
 }) => {
   const { t } = useLanguage();
-  
+
+  // Render the custom landing page if this is the children dentistry route
+  if (treatmentType === "children-dentistry") {
+    return <ChildrenDentistryLanding />;
+  }
+
   const defaultBenefits = [
     t('benefit1'),
     t('benefit2'),
