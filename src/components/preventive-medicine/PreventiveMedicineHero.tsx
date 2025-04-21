@@ -23,6 +23,9 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
   const topImage =
     "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80";
 
+  // The user provided image url for the new image between h1 and h2
+  const middleImage = "/lovable-uploads/73010fad-f7db-4f4e-ac26-5de0dd04eea8.png";
+
   return (
     <section
       className="w-full bg-[#FFDEE2] relative pb-2 md:pb-8 pt-16 sm:pt-20"
@@ -44,6 +47,17 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
         <h1 className="text-2xl xs:text-3xl md:text-4xl font-bold text-dental-navy text-center leading-tight mb-3">
           {t(treatmentNameKey)}
         </h1>
+
+        {/* New image inserted between h1 and h2 */}
+        <div className="w-full max-w-xs mb-6 mx-auto rounded-lg overflow-hidden shadow-md border border-white/60">
+          <img
+            src={middleImage}
+            alt="Decorative preventive medicine visual"
+            className="w-full object-contain"
+            loading="lazy"
+          />
+        </div>
+
         <p className="text-base xs:text-lg md:text-xl text-dental-navy/80 text-center mb-6 max-w-xl mx-auto">
           {t(treatmentDescKey)}
         </p>
@@ -68,3 +82,4 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
 };
 
 export default PreventiveMedicineHero;
+
