@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
@@ -7,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TreatmentType } from '@/data/treatmentTypes';
 import { createLocalizedPath } from '@/utils/languageRoutes';
+import { ChildrenDentistryHero } from '@/components/children-dentistry/Hero';
 
 interface TreatmentHeroProps {
   treatment: TreatmentType;
@@ -21,11 +21,14 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
 }) => {
   const { t, language } = useLanguage();
 
+  if (treatment?.slug === "children-dentistry") {
+    return <ChildrenDentistryHero />;
+  }
+
   return (
     <section className="relative bg-gradient-to-br from-dental-beige via-dental-pink to-dental-beige py-20 md:py-32 overflow-hidden">
       <div className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay" style={{ backgroundImage: `url(${treatment.imageUrl})` }}></div>
       
-      {/* Decorative floating elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-[10%] animate-[bounce_6s_ease-in-out_infinite]">
           <Star className="h-8 w-8 text-dental-orange/30" />

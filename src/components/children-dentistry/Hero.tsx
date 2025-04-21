@@ -3,7 +3,8 @@ import React from "react";
 import { Smile } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
 
-const Hero = () => {
+// Named export for explicit import when needed as a hero override
+export const ChildrenDentistryHero: React.FC = () => {
   return (
     <section
       id="hero"
@@ -40,4 +41,6 @@ const Hero = () => {
   );
 };
 
+// Retain the default export in case it's used elsewhere
+const Hero = ChildrenDentistryHero;
 export default Hero;
