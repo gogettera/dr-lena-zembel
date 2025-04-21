@@ -5,26 +5,24 @@ import { TreatmentType } from "@/data/treatmentTypes";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
+// Props: add treatmentSubtitleKey for the "subtitle"/second headline row
 interface PreventiveMedicineHeroProps {
   treatment: TreatmentType;
-  treatmentNameKey: string;
+  treatmentNameKey: string; // main heading
+  treatmentSubtitleKey?: string; // new prop for subtitle
   treatmentDescKey: string;
 }
 
 const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
   treatment,
   treatmentNameKey,
+  treatmentSubtitleKey = "preventiveMedicine.headline2", // fallback translation key
   treatmentDescKey,
 }) => {
   const { t } = useLanguage();
 
-  // Example Unsplash image for healthy vibes:
-  // https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80
-  const topImage =
-    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80";
-
-  // The user provided image url for the new image between h1 and h2
-  const middleImage = "/lovable-uploads/73010fad-f7db-4f4e-ac26-5de0dd04eea8.png";
+  // User's uploaded image for under the heading
+  const mainImage = "/lovable-uploads/4a7a5648-9bbd-4a37-9d06-04531fc920b3.png";
 
   return (
     <section
@@ -36,31 +34,29 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
       }}
     >
       <div className="container mx-auto px-3 md:px-6 relative z-10 flex flex-col items-center">
-        <div className="w-full sm:w-64 md:w-96 max-w-xs mb-5 mx-auto rounded-2xl overflow-hidden shadow-lg border border-white/80">
-          <img
-            src={topImage}
-            alt={t(treatmentNameKey)}
-            className="aspect-[16/9] object-cover w-full h-auto bg-dental-beige"
-            style={{ display: "block" }}
-          />
-        </div>
-        <h1 className="text-2xl xs:text-3xl md:text-4xl font-bold text-dental-navy text-center leading-tight mb-3">
+        {/* Headings */}
+        <h1 className="text-2xl xs:text-3xl md:text-4xl font-bold text-dental-navy text-center leading-tight mb-1 md:mb-2">
           {t(treatmentNameKey)}
         </h1>
+        <h2 className="text-xl xs:text-2xl md:text-3xl font-heading font-semibold text-dental-navy text-center leading-snug mb-4 md:mb-5">
+          {t(treatmentSubtitleKey)}
+        </h2>
 
-        {/* New image inserted between h1 and h2 */}
-        <div className="w-full max-w-xs mb-6 mx-auto rounded-lg overflow-hidden shadow-md border border-white/60">
+        {/* The illustrative image; placed just below the h1/h2 block */}
+        <div className="w-full sm:w-64 md:w-96 max-w-xs mb-6 mx-auto rounded-2xl overflow-hidden shadow-lg border border-white/80 bg-white animate-fade-in">
           <img
-            src={middleImage}
-            alt="Decorative preventive medicine visual"
-            className="w-full object-contain"
-            loading="lazy"
+            src={mainImage}
+            alt={t(treatmentNameKey)}
+            className="aspect-[16/10] object-cover w-full"
+            style={{ display: "block" }}
+            loading="eager"
           />
         </div>
-
+        {/* Description paragraph */}
         <p className="text-base xs:text-lg md:text-xl text-dental-navy/80 text-center mb-6 max-w-xl mx-auto">
           {t(treatmentDescKey)}
         </p>
+        {/* Book Visit Button */}
         <Button
           variant="orange"
           size="lg"
@@ -68,6 +64,7 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
         >
           {t("bookVisit")}
         </Button>
+        {/* Down icon with scroll hint */}
         <div className="w-full flex flex-col items-center">
           <div className="flex items-center justify-center animate-bounce mb-1">
             <ChevronDown className="h-7 w-7 text-dental-orange/70" />
