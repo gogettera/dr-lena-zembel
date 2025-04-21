@@ -8,6 +8,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { Separator } from './ui/separator';
 import LanguageSwitcher from './LanguageSwitcher';
 import { createLocalizedNavigationConfig, isActiveLink } from '@/config/navigation';
+import { useDirectionalStyles } from '@/utils/direction';
+import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
+import { cn } from '@/lib/utils';
 
 const MobileNav = () => {
   const { t, language } = useLanguage();
@@ -15,6 +18,7 @@ const MobileNav = () => {
   const location = useLocation();
   const navigation = createLocalizedNavigationConfig(language);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const styles = useDirectionalStyles();
 
   const toggleSubmenu = (key: string) => {
     setOpenSubmenu(openSubmenu === key ? null : key);
@@ -27,9 +31,10 @@ const MobileNav = () => {
           variant="ghost" 
           size="icon"
           className="md:hidden hover:bg-dental-beige/20"
+          aria-label={t('toggleMenu', 'Toggle menu')}
         >
           <Menu className="h-5 w-5 text-dental-navy" />
-          <span className="sr-only">{t('toggleMenu')}</span>
+          <span className="sr-only">{t('toggleMenu', 'Toggle menu')}</span>
         </Button>
       </SheetTrigger>
       <SheetContent 
@@ -43,30 +48,38 @@ const MobileNav = () => {
                 <>
                   <button
                     onClick={() => toggleSubmenu(item.key)}
-                    className={`flex justify-between items-center text-lg font-medium px-2 py-1 rounded-md transition-colors ${
+                    className={cn(
+                      "flex justify-between items-center text-lg font-medium px-2 py-1 rounded-md",
+                      NAVIGATION_ANIMATIONS.backgroundTransition,
                       isActiveLink(location.pathname, item.path)
                         ? 'text-dental-orange bg-dental-beige/10'
                         : 'text-dental-navy hover:text-dental-orange hover:bg-dental-beige/10'
-                    }`}
+                    )}
                   >
                     {t(item.labelKey)}
                     {openSubmenu === item.key ? (
-                      <ChevronUp className="h-4 w-4" />
+                      <ChevronUp className={cn("h-4 w-4", styles.icon.chevron)} />
                     ) : (
-                      <ChevronDown className="h-4 w-4" />
+                      <ChevronDown className={cn("h-4 w-4", styles.icon.chevron)} />
                     )}
                   </button>
                   {openSubmenu === item.key && (
-                    <div className="ml-4 mt-1 flex flex-col space-y-1">
+                    <div className={cn(
+                      "mt-1 flex flex-col space-y-1",
+                      isRTL ? "mr-4" : "ml-4",
+                      NAVIGATION_ANIMATIONS.fadeIn
+                    )}>
                       {item.children.map((child) => (
                         <Link
                           key={child.key}
                           to={child.path}
-                          className={`text-base px-2 py-1 rounded-md transition-colors ${
+                          className={cn(
+                            "text-base px-2 py-1 rounded-md",
+                            NAVIGATION_ANIMATIONS.backgroundTransition,
                             isActiveLink(location.pathname, child.path)
                               ? 'text-dental-orange bg-dental-beige/10'
                               : 'text-dental-navy hover:text-dental-orange hover:bg-dental-beige/10'
-                          }`}
+                          )}
                         >
                           {t(child.labelKey)}
                         </Link>
@@ -77,11 +90,13 @@ const MobileNav = () => {
               ) : (
                 <Link
                   to={item.path}
-                  className={`text-lg font-medium px-2 py-1 rounded-md transition-colors ${
+                  className={cn(
+                    "text-lg font-medium px-2 py-1 rounded-md",
+                    NAVIGATION_ANIMATIONS.backgroundTransition,
                     isActiveLink(location.pathname, item.path)
                       ? 'text-dental-orange bg-dental-beige/10'
                       : 'text-dental-navy hover:text-dental-orange hover:bg-dental-beige/10'
-                  }`}
+                  )}
                 >
                   {t(item.labelKey)}
                 </Link>

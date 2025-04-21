@@ -15,12 +15,13 @@ const AestheticTreatmentsLanding: React.FC = () => {
   const { t, isRTL } = useLanguage();
   
   useEffect(() => {
+    // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="bg-white min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
-      <a href="#hero" className="sr-only focus:not-sr-only">
+      <a href="#hero" className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-4 focus:left-4 focus:bg-white focus:text-dental-navy focus:px-4 focus:py-2 focus:rounded-md">
         {t('skipToContent', "Skip to main content")}
       </a>
       <StickyNavigation />

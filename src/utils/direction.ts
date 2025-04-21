@@ -41,5 +41,34 @@ export const useDirectionalStyles = () => {
     marginRight: isRTL ? 'mr-auto' : '',
     left: isRTL ? 'right-0' : 'left-0',
     right: isRTL ? 'left-0' : 'right-0',
+    padding: isRTL ? 'pl-4 pr-2' : 'pr-4 pl-2',
+    borderSide: isRTL ? 'border-r' : 'border-l',
+    transformOrigin: isRTL ? 'origin-right' : 'origin-left',
+    scroll: isRTL ? 'rtl-scrollbar' : '',
+    icon: {
+      chevron: isRTL ? 'rotate-180' : '',
+    }
+  };
+};
+
+/**
+ * Debounce function to improve scroll performance
+ * @param callback The function to debounce
+ * @param wait Debounce timeout in ms
+ */
+export const debounce = <T extends (...args: any[]) => any>(
+  callback: T,
+  wait: number
+): ((...args: Parameters<T>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+  
+  return (...args: Parameters<T>) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    
+    timeoutId = setTimeout(() => {
+      callback(...args);
+    }, wait);
   };
 };
