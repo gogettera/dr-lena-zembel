@@ -4,11 +4,11 @@ import React from "react";
 const testimonials = [
   {
     name: "ענת מ.",
-    text: "הגעתי בחשש רב – הרופא היה סבלני והסביר כל שלב. עברתי טיפול שורש ללא כאב, ממליצה בחום!"
+    text: "הגעתי בחשש, אך הרופא הסביר כל שלב בסבלנות. עברתי טיפול שורש ללא כאב, ממליץ בחום."
   },
   {
     name: "רוני ש.",
-    text: "השירות היה מעבר למצופה, קיבלתי תמיכה מהצוות גם אחרי סיום הטיפול. תודה רבה!"
+    text: "שירות מעולה, קיבלתי תמיכה מהצוות גם אחרי הטיפול. תודה רבה!"
   }
 ];
 
@@ -16,7 +16,7 @@ const Testimonials = () => (
   <section className="py-14 md:py-20 px-4 bg-white">
     <div className="container mx-auto max-w-3xl">
       <h2 className="text-2xl font-bold text-[#6E59A5] mb-8 text-center">
-        חוות דעת של מטופלים
+        המלצות מטופלים
       </h2>
       <div className="space-y-8">
         {testimonials.map((t, i) => (

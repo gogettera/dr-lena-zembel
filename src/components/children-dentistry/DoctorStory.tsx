@@ -30,10 +30,10 @@ const DoctorStory = () => {
             <div className="bg-[#F1F0FB] rounded-2xl p-8 shadow-soft border border-dental-beige/40 text-right opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]">
               <h2 className="text-2xl font-bold text-dental-navy mb-4">המומחיות שלנו</h2>
               <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                במהלך שנות ההתמחות, פיתחנו גישה ייחודית לטיפול בילדים - שילוב של מקצועיות, רגישות ויצירת אווירה בטוחה ונעימה.
+                לאורך שנות ההתמחות, פיתחנו גישה ייחודית המשלבת מקצועיות, הבנה עמוקה של צרכי המטופל ויצירת סביבת טיפול בטוחה ונעימה.
               </p>
               <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                במרפאה שלנו, כל ילד מקבל את תשומת הלב המלאה והטיפול המותאם לו. אנו מבינים את החששות ומעניקים מענה מקצועי ורגיש לכל מטופל.
+                במרפאה, כל מטופל זוכה לתשומת לב מלאה וטיפול מותאם אישית. אנו מבינים את החששות ומעניקים מענה מקצועי ומקיף לכל מטופל.
               </p>
               
               <div className="flex flex-wrap gap-3 mt-6">
@@ -41,7 +41,7 @@ const DoctorStory = () => {
                   13 שנות ניסיון
                 </div>
                 <div className="bg-dental-navy/5 px-3 py-1 rounded text-sm text-dental-navy">
-                  התמחות ברפואת שיניים לילדים
+                  התמחות ברפואת שיניים
                 </div>
                 <div className="bg-dental-navy/5 px-3 py-1 rounded text-sm text-dental-navy">
                   צוות מקצועי ומיומן
