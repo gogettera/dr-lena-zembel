@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { Facebook, Instagram, Linkedin, Share2, Twitter, Youtube } from 'lucide-react';
 import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
+import SocialInputRow from "./SocialInputRow";
 
 interface SocialMediaSettings {
   facebook: string;
@@ -34,14 +34,11 @@ export const SocialMediaSettings = () => {
 
   const [loading, setLoading] = React.useState(false);
 
-  // Load settings from DB on mount
   React.useEffect(() => {
     const load = async () => {
       setLoading(true);
-      // Try to fetch site_social row by id=1
       let { data, error } = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
       if (!data && !error) {
-        // Row doesn't exist: insert default row with id 1
         const { error: insertError } = await supabase.from('site_social').insert([{ id: 1 }]);
         if (insertError) {
           toast({
@@ -52,7 +49,6 @@ export const SocialMediaSettings = () => {
           setLoading(false);
           return;
         }
-        // Try fetching again
         const res = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
         data = res.data;
       }
@@ -76,13 +72,11 @@ export const SocialMediaSettings = () => {
       setLoading(false);
     };
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = async (data: SocialMediaSettings) => {
     setLoading(true);
     try {
-      // Make sure null or undefined is not sent as a value
       const cleanData = {
         id: 1,
         facebook: data.facebook || '',
@@ -126,79 +120,65 @@ export const SocialMediaSettings = () => {
             control={form.control}
             name="facebook"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Facebook Page URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center">
-                    <Facebook className="w-5 h-5 text-[#1877F2] mr-2" />
-                    <Input {...field} placeholder="https://facebook.com/yourpage" disabled={loading} />
-                  </div>
-                </FormControl>
-              </FormItem>
+              <SocialInputRow
+                icon={<Facebook className="w-5 h-5 text-[#1877F2] mr-2" />}
+                label="Facebook Page URL"
+                placeholder="https://facebook.com/yourpage"
+                field={field}
+                loading={loading}
+              />
             )}
           />
-
           <FormField
             control={form.control}
             name="instagram"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Instagram Profile URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center">
-                    <Instagram className="w-5 h-5 text-[#E1306C] mr-2" />
-                    <Input {...field} placeholder="https://instagram.com/yourprofile" disabled={loading} />
-                  </div>
-                </FormControl>
-              </FormItem>
+              <SocialInputRow
+                icon={<Instagram className="w-5 h-5 text-[#E1306C] mr-2" />}
+                label="Instagram Profile URL"
+                placeholder="https://instagram.com/yourprofile"
+                field={field}
+                loading={loading}
+              />
             )}
           />
-
           <FormField
             control={form.control}
             name="linkedin"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>LinkedIn Profile URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center">
-                    <Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />
-                    <Input {...field} placeholder="https://linkedin.com/in/yourprofile" disabled={loading} />
-                  </div>
-                </FormControl>
-              </FormItem>
+              <SocialInputRow
+                icon={<Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />}
+                label="LinkedIn Profile URL"
+                placeholder="https://linkedin.com/in/yourprofile"
+                field={field}
+                loading={loading}
+              />
             )}
           />
-
           <FormField
             control={form.control}
             name="youtube"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>YouTube Channel URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center">
-                    <Youtube className="w-5 h-5 text-[#FF0000] mr-2" />
-                    <Input {...field} placeholder="https://youtube.com/channel/yourchannelid" disabled={loading} />
-                  </div>
-                </FormControl>
-              </FormItem>
+              <SocialInputRow
+                icon={<Youtube className="w-5 h-5 text-[#FF0000] mr-2" />}
+                label="YouTube Channel URL"
+                placeholder="https://youtube.com/channel/yourchannelid"
+                field={field}
+                loading={loading}
+              />
             )}
           />
-
           <FormField
             control={form.control}
             name="twitter"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Twitter Profile URL</FormLabel>
-                <FormControl>
-                  <div className="flex items-center">
-                    <Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />
-                    <Input {...field} placeholder="https://twitter.com/yourhandle" disabled={loading} />
-                  </div>
-                </FormControl>
-              </FormItem>
+              <SocialInputRow
+                icon={<Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />}
+                label="Twitter Profile URL"
+                placeholder="https://twitter.com/yourhandle"
+                field={field}
+                loading={loading}
+              />
             )}
           />
 
