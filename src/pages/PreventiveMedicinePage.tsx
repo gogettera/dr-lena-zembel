@@ -5,14 +5,13 @@ import Footer from '@/components/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import BackToTop from '@/components/BackToTop';
-import TreatmentHero from '@/components/treatment/TreatmentHero';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
+import PreventiveMedicineHero from '@/components/preventive-medicine/PreventiveMedicineHero';
 
 const PreventiveMedicinePage: React.FC = () => {
   const { t } = useLanguage();
 
-  // The 'preventive-medicine' config is present in treatmentTypes
   const treatmentType = 'preventive-medicine';
   const treatment = treatmentTypes[treatmentType];
 
@@ -39,10 +38,10 @@ const PreventiveMedicinePage: React.FC = () => {
   const treatmentDescKey = getTreatmentDescKey(treatmentType);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <Navbar />
-      <main className="pt-20">
-        <TreatmentHero 
+      <main className="pt-0">
+        <PreventiveMedicineHero 
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
           treatmentDescKey={treatmentDescKey}
@@ -61,4 +60,3 @@ const PreventiveMedicinePage: React.FC = () => {
 };
 
 export default PreventiveMedicinePage;
-
