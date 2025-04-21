@@ -1,30 +1,22 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { Phone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger
-} from "@/components/ui/navigation-menu";
 import MobileNav from './MobileNav';
 import LanguageSwitcher from './LanguageSwitcher';
-import { createLocalizedNavigationConfig, isActiveLink } from '@/config/navigation';
+import { createLocalizedNavigationConfig } from '@/config/navigation';
 import { useDirectionalStyles } from '@/utils/direction';
 import { debounce } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
+import NavigationLinks from './ui/NavigationLinks';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language, isRTL } = useLanguage();
-  const location = useLocation();
   const navigation = createLocalizedNavigationConfig(language);
   const styles = useDirectionalStyles();
 
@@ -54,58 +46,9 @@ const Navbar = () => {
       )}>
         <div className="flex items-center justify-start">
           <MobileNav />
-          <div className={cn("hidden md:flex items-center space-x-1", styles.spaceDir)}>
-            <NavigationMenu>
-              <NavigationMenuList className={styles.spaceDir}>
-                {navigation.main.map((item) => (
-                  <NavigationMenuItem key={item.key}>
-                    {item.children ? (
-                      <>
-                        <NavigationMenuTrigger className={cn(
-                          isActiveLink(location.pathname, item.path) ? 'text-dental-orange' : 'text-dental-navy',
-                          NAVIGATION_ANIMATIONS.backgroundTransition
-                        )}>
-                          {t(item.labelKey)}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <ul className={cn("grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]", styles.textAlign)}>
-                            {item.children.map((child) => (
-                              <li key={child.key}>
-                                <Link 
-                                  to={child.path}
-                                  className={cn(
-                                    "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                                    NAVIGATION_ANIMATIONS.backgroundTransition,
-                                    isActiveLink(location.pathname, child.path) 
-                                      ? "bg-dental-beige/20 text-dental-orange" 
-                                      : "hover:bg-dental-beige/10 hover:text-dental-orange"
-                                  )}
-                                >
-                                  <div className="text-sm font-medium leading-none">{t(child.labelKey)}</div>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </NavigationMenuContent>
-                      </>
-                    ) : (
-                      <Link 
-                        to={item.path}
-                        className={cn(
-                          "block select-none space-y-1 rounded-md px-4 py-2 text-sm font-medium leading-none no-underline outline-none transition-colors",
-                          NAVIGATION_ANIMATIONS.backgroundTransition,
-                          isActiveLink(location.pathname, item.path) 
-                            ? "text-dental-orange" 
-                            : "text-dental-navy hover:text-dental-orange"
-                        )}
-                      >
-                        {t(item.labelKey)}
-                      </Link>
-                    )}
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
+          {/* Desktop navigation: shared navigation links */}
+          <div className={cn("hidden md:flex items-center", styles.spaceDir)}>
+            <NavigationLinks links={navigation.main} vertical={false} />
           </div>
         </div>
 
@@ -143,3 +86,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
