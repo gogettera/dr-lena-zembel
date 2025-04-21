@@ -12,7 +12,7 @@ const DoctorStory = () => (
             <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-4 border-[#E5DEFF] shadow-lg">
               <OptimizedImage
                 src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
-                alt="רופא מומחה לטיפולי שורש"
+                alt="ד״ר לנה זמבל - מומחית לטיפולי שורש"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -25,10 +25,10 @@ const DoctorStory = () => (
           <div className="bg-[#F1F0FB] rounded-2xl p-8 shadow-soft border border-dental-beige/40 text-right opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]">
             <h2 className="text-2xl font-bold text-[#6E59A5] mb-4">המומחית שלנו לטיפולי שורש</h2>
             <p className="text-[#6E59A5]/80 text-lg leading-relaxed mb-3">
-              עם שנים של ניסיון מקצועי בתחום האנדודונטיה – הדוקטור שלנו רואה כל טיפול כהזדמנות ליצור שינוי מהותי באיכות חיי המטופל.
+              עם שנים של ניסיון מקצועי בתחום האנדודונטיה – ד״ר לנה זמבל רואה בכל טיפול הזדמנות ליצור שינוי מהותי באיכות חיי המטופל.
             </p>
             <p className="text-[#6E59A5]/80 text-lg leading-relaxed mb-3">
-              הגישה במרפאה: סבלנות, שקיפות, והתאמת פתרון לכל אחד ואחת.
+              הגישה שלה: הקשבה, שקיפות והתאמת פתרון אישי לכל מטופל ומטופלת.
             </p>
             <div className="flex flex-wrap gap-3 mt-6">
               <div className="bg-[#E5DEFF]/50 px-3 py-1 rounded text-sm text-[#6E59A5]">
@@ -38,7 +38,7 @@ const DoctorStory = () => (
                 טיפולים ללא כאב
               </div>
               <div className="bg-[#E5DEFF]/50 px-3 py-1 rounded text-sm text-[#6E59A5]">
-                הצלחה מתועדת
+                ניסיון רב שנים
               </div>
             </div>
           </div>
