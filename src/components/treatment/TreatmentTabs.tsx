@@ -38,6 +38,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   if (treatmentType === "aesthetic-treatments") {
     return <AestheticTreatmentsLanding />;
   }
+  if (treatmentType === "preventive-medicine") {
+    return <PreventiveMedicineLanding />;
+  }
 
   const defaultBenefits = [
     t('benefit1'),
