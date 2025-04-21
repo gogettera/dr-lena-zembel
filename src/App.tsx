@@ -12,10 +12,22 @@ import AdminPanel from "./pages/AdminPanel";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 import { getBrowserLanguage } from "@/utils/languageRoutes";
+import { supportedLanguages } from "@/utils/languageRoutes";
 
-const queryClient = new QueryClient();
+// Create and configure the query client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
+  // Determine initial language from browser or localStorage
+  const initialLanguage = getBrowserLanguage();
+
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
@@ -28,8 +40,8 @@ const App = () => {
             </a>
             <div className="min-h-screen w-full">
               <Routes>
-                {/* Redirect root to Hebrew by default */}
-                <Route path="/" element={<Navigate to="/he" replace />} />
+                {/* Redirect root to initial language by default */}
+                <Route path="/" element={<Navigate to={`/${initialLanguage}`} replace />} />
                 
                 {/* Admin routes */}
                 <Route element={<AdminRoute />}>
@@ -41,9 +53,6 @@ const App = () => {
                   <Route index element={<LanguageHome />} />
                   <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
                 </Route>
-                
-                {/* Remove the promote route */}
-                {/* <Route path="/admin/promote" element={<AdminPromote />} /> */}
                 
                 {/* Handle 404 */}
                 <Route path="*" element={<NotFound />} />

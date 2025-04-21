@@ -3,12 +3,13 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 import { supportedLanguages } from '@/utils/languageRoutes';
 import { Language } from '@/types/language';
-import { getNestedTranslation } from '@/utils/translation-helpers';
+import { flattenTranslations, getTranslation } from '@/utils/translation';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, fallback?: string) => string;
+  isRTL: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -23,13 +24,17 @@ export const useLanguage = () => {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('he');
-  const [translations, setTranslations] = useState<Record<string, any>>({});
+  const [flatTranslations, setFlatTranslations] = useState<Record<string, string>>({});
+  const [isRTL, setIsRTL] = useState<boolean>(true);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('preferredLanguage', lang);
     
-    if (lang === 'he' || lang === 'ar') {
+    const isRightToLeft = lang === 'he' || lang === 'ar';
+    setIsRTL(isRightToLeft);
+    
+    if (isRightToLeft) {
       setDirection('rtl');
     } else {
       setDirection('ltr');
@@ -39,24 +44,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const loadTranslations = async (lang: Language) => {
     try {
       const translations = await import(`../translations/${lang}.json`);
-      setTranslations(translations.default);
+      // Flatten the nested translations
+      const flattened = flattenTranslations(translations.default);
+      setFlatTranslations(flattened);
     } catch (error) {
       console.error(`Failed to load translations for ${lang}:`, error);
       if (lang !== 'he') {
         const heTranslations = await import(`../translations/he.json`);
-        setTranslations(heTranslations.default);
+        setFlatTranslations(flattenTranslations(heTranslations.default));
       }
     }
   };
 
-  const t = (key: string): string => {
-    if (!key) return '';
-    
-    // Always use getNestedTranslation to safely handle nested properties
-    const result = getNestedTranslation(translations, key);
-    
-    // Return empty string if translation is not found
-    return result || '';
+  const t = (key: string, fallback: string = ''): string => {
+    if (!key) return fallback;
+    return getTranslation(flatTranslations, key, fallback);
   };
 
   useEffect(() => {
@@ -74,7 +76,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     
     setLanguageState(initialLanguage);
     
-    if (initialLanguage === 'he' || initialLanguage === 'ar') {
+    const isRightToLeft = initialLanguage === 'he' || initialLanguage === 'ar';
+    setIsRTL(isRightToLeft);
+    
+    if (isRightToLeft) {
       setDirection('rtl');
     } else {
       setDirection('ltr');
@@ -86,7 +91,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isRTL }}>
       {children}
     </LanguageContext.Provider>
   );

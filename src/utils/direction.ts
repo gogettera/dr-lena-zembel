@@ -1,48 +1,45 @@
 
-import type { Language } from '@/types/language';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-export const setDirection = (dir: 'rtl' | 'ltr') => {
-  document.documentElement.dir = dir;
-  document.documentElement.lang = dir === 'rtl' ? 'he' : 'en';
+/**
+ * Set the text direction of the document
+ * @param direction 'rtl' or 'ltr'
+ */
+export const setDirection = (direction: 'rtl' | 'ltr'): void => {
+  document.documentElement.dir = direction;
+  document.documentElement.lang = direction === 'rtl' ? 'he' : 'en';
   
-  // Add RTL-specific CSS class for better styling control
-  if (dir === 'rtl') {
-    document.documentElement.classList.add('rtl');
-  } else {
-    document.documentElement.classList.remove('rtl');
-  }
+  // Add appropriate class to body for styling
+  document.body.classList.remove('rtl', 'ltr');
+  document.body.classList.add(direction);
 };
 
-export const setupDirectionByLanguage = (language: Language) => {
-  const rtlLanguages: Language[] = ['he', 'ar'];
-  
-  if (rtlLanguages.includes(language)) {
+/**
+ * Setup direction based on the current language
+ * @param language Current language code
+ */
+export const setupDirectionByLanguage = (language: string): void => {
+  if (language === 'he' || language === 'ar') {
     setDirection('rtl');
   } else {
     setDirection('ltr');
   }
-  
-  document.documentElement.lang = language;
 };
 
-// Helper function to handle RTL text in specific contexts
-export const getTextDirection = (language: Language): 'rtl' | 'ltr' => {
-  return ['he', 'ar'].includes(language) ? 'rtl' : 'ltr';
-};
-
-// Helper to safely stringify objects if needed for display
-export const safelyStringifyIfObject = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
+/**
+ * A hook to get the correct CSS class for directional styles
+ * @returns CSS classes for RTL/LTR support
+ */
+export const useDirectionalStyles = () => {
+  const { isRTL } = useLanguage();
   
-  if (typeof value === 'object') {
-    try {
-      return JSON.stringify(value);
-    } catch (e) {
-      return '[Complex Object]';
-    }
-  }
-  
-  return String(value);
+  return {
+    textAlign: isRTL ? 'text-right' : 'text-left',
+    spaceDir: isRTL ? 'space-x-reverse' : '',
+    flexDir: isRTL ? 'flex-row-reverse' : 'flex-row',
+    marginLeft: isRTL ? 'ml-auto' : '',
+    marginRight: isRTL ? 'mr-auto' : '',
+    left: isRTL ? 'right-0' : 'left-0',
+    right: isRTL ? 'left-0' : 'right-0',
+  };
 };

@@ -10,13 +10,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-const languageOptions: { value: Language; label: string }[] = [
-  { value: 'he', label: 'עב' },
-  { value: 'en', label: 'EN' },
-  { value: 'ru', label: 'RU' },
-  { value: 'de', label: 'DE' },
-  { value: 'ar', label: 'ع' }
+const languageOptions: { value: Language; label: string; name: string }[] = [
+  { value: 'he', label: 'עב', name: 'עברית' },
+  { value: 'en', label: 'EN', name: 'English' },
+  { value: 'ru', label: 'RU', name: 'Русский' },
+  { value: 'de', label: 'DE', name: 'Deutsch' },
+  { value: 'ar', label: 'ع', name: 'العربية' }
 ];
 
 const LanguageSwitcher: React.FC = () => {
@@ -36,8 +37,11 @@ const LanguageSwitcher: React.FC = () => {
     const pathSegments = location.pathname.split('/').filter(Boolean);
     const pathWithoutLanguage = pathSegments.length > 1 ? `/${pathSegments.slice(1).join('/')}` : '/';
     
+    // Preserve hash if exists
+    const hash = location.hash;
+    
     // Navigate to the same path but with new language prefix
-    navigate(`/${newLanguage}${pathWithoutLanguage}`);
+    navigate(`/${newLanguage}${pathWithoutLanguage}${hash}`);
   };
 
   return (
@@ -46,19 +50,23 @@ const LanguageSwitcher: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="px-2"
+          className="px-2 hover:bg-dental-beige/20 transition-colors"
         >
           <span className="text-sm font-medium">{currentLanguage?.label}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-20 bg-white">
+      <DropdownMenuContent align="end" className="w-24 bg-white">
         {languageOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
-            className={`flex items-center justify-center text-sm ${language === option.value ? 'bg-dental-beige/30' : ''}`}
+            className={cn(
+              "flex items-center justify-between text-sm cursor-pointer",
+              language === option.value ? 'bg-dental-beige/30 text-dental-navy font-medium' : 'text-dental-navy/80'
+            )}
             onClick={() => handleLanguageChange(option.value)}
           >
-            {option.label}
+            <span>{option.label}</span>
+            <span className="text-xs opacity-70">{option.name}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
