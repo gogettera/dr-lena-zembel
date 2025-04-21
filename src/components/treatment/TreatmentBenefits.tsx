@@ -2,17 +2,21 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { getTreatmentBenefits } from '@/data/treatmentTypes';
 
 interface TreatmentBenefitsProps {
-  benefits: string[];
+  treatmentType: string;
   showBooking?: boolean;
 }
 
 const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({ 
-  benefits = [], 
+  treatmentType,
   showBooking = true 
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Get the benefits for the current treatment and language
+  const benefits = getTreatmentBenefits(treatmentType, language);
 
   return (
     <div className="space-y-6">
