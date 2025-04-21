@@ -3,12 +3,8 @@ import React from "react";
 import SectionHeader from "@/components/ui/section-header";
 
 const Process: React.FC = () => {
+  // Removed step 1 as per user request
   const steps = [
-    {
-      number: "01",
-      title: "פגישת ייעוץ ואבחון ראשוני",
-      description: "בפגישה הראשונית נבצע הערכה מקיפה של מצב השיניים והחניכיים, נשוחח על המטרות האסתטיות שלך ונדון באפשרויות הטיפול המתאימות ביותר.",
-    },
     {
       number: "02",
       title: "תכנון דיגיטלי של החיוך",
