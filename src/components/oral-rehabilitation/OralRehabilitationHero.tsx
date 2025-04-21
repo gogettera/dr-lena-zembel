@@ -1,11 +1,22 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Sparkles, Tooth } from 'lucide-react';
+import { Sparkles, StarIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { TreatmentType } from '@/data/treatmentTypes';
 
-const OralRehabilitationHero = () => {
+interface OralRehabilitationHeroProps {
+  treatment: TreatmentType;
+  treatmentNameKey: string;
+  treatmentDescKey: string;
+}
+
+const OralRehabilitationHero: React.FC<OralRehabilitationHeroProps> = ({
+  treatment,
+  treatmentNameKey,
+  treatmentDescKey
+}) => {
   const { t } = useLanguage();
 
   return (
@@ -14,17 +25,17 @@ const OralRehabilitationHero = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="mb-8">
             <span className="inline-flex items-center gap-2 bg-dental-orange/10 text-dental-orange px-4 py-2 rounded-full">
-              <Tooth className="h-5 w-5" />
+              <StarIcon className="h-5 w-5" />
               {t('treatments')}
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dental-navy mb-6">
-            {t('oralRehabilitationHeadline1')}
+            {t('oralRehabilitation.headline1')}
           </h1>
           
           <p className="text-xl md:text-2xl text-dental-navy/80 mb-8">
-            {t('oralRehabilitationHeadline2')}
+            {t('oralRehabilitation.headline2')}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
@@ -35,7 +46,7 @@ const OralRehabilitationHero = () => {
               </p>
             </Card>
             <Card className="p-6 bg-white/80 backdrop-blur">
-              <Tooth className="h-8 w-8 text-dental-orange mb-4" />
+              <StarIcon className="h-8 w-8 text-dental-orange mb-4" />
               <p className="text-sm text-dental-navy/80">
                 {t('oralRehabilitation.mobileTip')}
               </p>

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Section } from '@/components/ui/section';
 import OralRehabilitationHero from './OralRehabilitationHero';
 import OralRehabilitationBenefits from './OralRehabilitationBenefits';
