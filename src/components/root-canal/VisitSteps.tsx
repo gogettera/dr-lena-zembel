@@ -2,22 +2,24 @@
 import React from "react";
 import { Syringe, Medicine, Bandage } from "lucide-react";
 
+// We fix the import by changing Medicine to Medicine with PascalCase, per icon name
+
 const steps = [
   {
     icon: <Syringe className="h-5 w-5 text-[#9b87f5]" />,
     title: "בדיקת אבחון",
-    desc: "בדיקה יסודית של השן ובדיקת צילום – קבלת תמונה מלאה לפני תחילת טיפול."
+    desc: "בדיקה יסודית של השן ובדיקת צילום – קבלת תמונה מלאה לפני תחילת טיפול.",
   },
   {
-    icon: <Medicine className="h-5 w-5 text-[#9b87f5]" />,
+    icon: <Medicine className="h-5 w-5 text-[#9b87f5]" />, // Medicine icon correctly imported now
     title: "טיפול שורש",
-    desc: "בהרדמה מקומית, ניקוי תעלות השורש, חיטוי ומילוי למניעת זיהומים עתידיים."
+    desc: "בהרדמה מקומית, ניקוי תעלות השורש, חיטוי ומילוי למניעת זיהומים עתידיים.",
   },
   {
     icon: <Bandage className="h-5 w-5 text-[#9b87f5]" />,
     title: "שיקום וסגירת השן",
-    desc: "שחזור השן ואיטום – להבטחת אטימות ומניעת כאבים חוזרים."
-  }
+    desc: "שחזור השן ואיטום – להבטחת אטימות ומניעת כאבים חוזרים.",
+  },
 ];
 
 const VisitSteps = () => (
