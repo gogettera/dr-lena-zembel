@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import Hero from "./Hero";
+// Removed WhyUs import
 import DoctorStory from "./DoctorStory";
 import VisitSteps from "./VisitSteps";
 import Testimonials from "./Testimonials";
@@ -8,8 +9,7 @@ import FAQ from "./FAQ";
 import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
-// Removed: import WhyUs from "./WhyUs";
-// Removed: import Plans from "./Plans";
+// No WhyUs or Plans imports
 
 const ChildrenDentistryLanding: React.FC = () => {
   // Scroll to top when component mounts
@@ -25,11 +25,10 @@ const ChildrenDentistryLanding: React.FC = () => {
       {/* Sticky Navigation */}
       <StickyNavigation />
 
-      {/* Hero at the very top */}
+      {/* HERO at very top as page opener */}
       <Hero />
 
       {/* Removed WhyUs section */}
-      {/* <WhyUs /> */}
 
       <DoctorStory />
       <VisitSteps />
@@ -37,7 +36,6 @@ const ChildrenDentistryLanding: React.FC = () => {
       <FAQ />
 
       {/* Removed Plans section */}
-      {/* <Plans /> */}
 
       <QuickContactForm />
       <BookVisitAnchor />
