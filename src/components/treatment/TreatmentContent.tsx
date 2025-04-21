@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { TreatmentType } from '@/data/treatmentTypes';
@@ -20,6 +19,10 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
   treatmentType
 }) => {
   const { t } = useLanguage();
+
+  if (treatmentType === "children-dentistry") {
+    return null;
+  }
 
   return (
     <section className="py-16 md:py-24 bg-white relative overflow-hidden">

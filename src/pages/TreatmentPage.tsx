@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -9,6 +8,7 @@ import BackToTop from '@/components/BackToTop';
 import TreatmentHero from '@/components/treatment/TreatmentHero';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
+import VideoSection from "@/components/VideoSection";
 
 const TreatmentPage: React.FC = () => {
   const { treatmentType } = useParams<{ treatmentType: string }>();
@@ -47,6 +47,9 @@ const TreatmentPage: React.FC = () => {
           treatmentNameKey={treatmentNameKey}
           treatmentDescKey={treatmentDescKey}
         />
+        {treatmentType === "children-dentistry" && (
+          <VideoSection />
+        )}
         <TreatmentContent 
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
