@@ -34,16 +34,12 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
       }}
     >
       <div className="container mx-auto px-3 md:px-6 relative z-10 flex flex-col items-center">
-        {/* Headings */}
+        {/* Main Heading */}
         <h1 className="text-2xl xs:text-3xl md:text-4xl font-bold text-dental-navy text-center leading-tight mb-1 md:mb-2">
           {t(treatmentNameKey)}
         </h1>
-        <h2 className="text-xl xs:text-2xl md:text-3xl font-heading font-semibold text-dental-navy text-center leading-snug mb-4 md:mb-5">
-          {t(treatmentSubtitleKey)}
-        </h2>
-
-        {/* The illustrative image; placed just below the h1/h2 block */}
-        <div className="w-full sm:w-64 md:w-96 max-w-xs mb-6 mx-auto rounded-2xl overflow-hidden shadow-lg border border-white/80 bg-white animate-fade-in">
+        {/* Image placed exactly between h1 and h2 */}
+        <div className="w-full sm:w-64 md:w-96 max-w-xs mb-2 mx-auto rounded-2xl overflow-hidden shadow-lg border border-white/80 bg-white animate-fade-in">
           <img
             src={mainImage}
             alt={t(treatmentNameKey)}
@@ -52,6 +48,10 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
             loading="eager"
           />
         </div>
+        {/* Subtitle */}
+        <h2 className="text-xl xs:text-2xl md:text-3xl font-heading font-semibold text-dental-navy text-center leading-snug mb-4 md:mb-5">
+          {t(treatmentSubtitleKey)}
+        </h2>
         {/* Description paragraph */}
         <p className="text-base xs:text-lg md:text-xl text-dental-navy/80 text-center mb-6 max-w-xl mx-auto">
           {t(treatmentDescKey)}
@@ -79,4 +79,3 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
 };
 
 export default PreventiveMedicineHero;
-
