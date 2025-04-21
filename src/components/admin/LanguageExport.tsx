@@ -1,15 +1,17 @@
+
 import React, { useState, useEffect } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
-import { Download, FileText } from 'lucide-react';
+import { Download, FileText, AlertCircle } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { WebsitePDF } from './pdf/WebsitePDF';
 import ExportPreview from './pdf/ExportPreview';
 import { Language } from '@/types/language';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const LanguageExport = () => {
   const { language } = useLanguage();
@@ -18,19 +20,29 @@ const LanguageExport = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [includeImages, setIncludeImages] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   const loadTranslations = async (lang: Language) => {
     setIsLoading(true);
+    setError(null);
     setProgress(10);
     try {
       const content = await import(`../../translations/${lang}.json`);
-      setTranslations(content.default);
+      
+      // Process translations to ensure all values are strings
+      const processedTranslations: Record<string, string> = {};
+      Object.entries(content.default).forEach(([key, value]) => {
+        processedTranslations[key] = typeof value === 'string' ? value : JSON.stringify(value);
+      });
+      
+      setTranslations(processedTranslations);
       setProgress(100);
       toast({
         title: "Translations loaded",
         description: `Successfully loaded translations for ${lang}`,
       });
     } catch (error) {
+      setError("Failed to load translations. Please try again.");
       toast({
         title: "Error loading translations",
         description: "Failed to load translations",
@@ -50,6 +62,43 @@ const LanguageExport = () => {
 
   const handleLanguageChange = (value: string) => {
     setSelectedLanguage(value as Language);
+  };
+
+  const renderPDFDownloadLink = () => {
+    if (Object.keys(translations).length === 0) {
+      return (
+        <Button disabled className="opacity-50">
+          <Download className="mr-2 h-4 w-4" />
+          Download Complete Website PDF
+        </Button>
+      );
+    }
+
+    return (
+      <PDFDownloadLink
+        document={<WebsitePDF translations={translations} language={selectedLanguage} includeImages={includeImages} />}
+        fileName={`website-export-${selectedLanguage}.pdf`}
+        className="inline-block"
+      >
+        {({ loading, error }) => {
+          if (error) {
+            console.error("PDF generation error:", error);
+            return (
+              <Button variant="destructive">
+                <AlertCircle className="mr-2 h-4 w-4" />
+                Error Generating PDF
+              </Button>
+            );
+          }
+          return (
+            <Button disabled={loading || isLoading}>
+              <Download className="mr-2 h-4 w-4" />
+              {loading ? "Generating PDF..." : "Download Complete Website PDF"}
+            </Button>
+          );
+        }}
+      </PDFDownloadLink>
+    );
   };
 
   return (
@@ -82,6 +131,14 @@ const LanguageExport = () => {
         </div>
       )}
       
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      
       <div className="flex flex-col gap-5">
         <div className="flex items-center space-x-2">
           <input 
@@ -110,18 +167,7 @@ const LanguageExport = () => {
                 This includes all text content, images, and layout information.
               </p>
               
-              <PDFDownloadLink
-                document={<WebsitePDF translations={translations} language={selectedLanguage} includeImages={includeImages} />}
-                fileName={`website-export-${selectedLanguage}.pdf`}
-                className="inline-block"
-              >
-                {({ loading, error }) => (
-                  <Button disabled={loading || isLoading || Object.keys(translations).length === 0}>
-                    <Download className="mr-2 h-4 w-4" />
-                    {loading ? "Generating PDF..." : "Download Complete Website PDF"}
-                  </Button>
-                )}
-              </PDFDownloadLink>
+              {renderPDFDownloadLink()}
               
               {Object.keys(translations).length === 0 && !isLoading && (
                 <p className="text-sm text-red-500 mt-2">

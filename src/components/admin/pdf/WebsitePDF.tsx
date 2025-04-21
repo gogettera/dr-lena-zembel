@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import { pdfStyles } from './pdfStyles';
@@ -54,7 +55,8 @@ export const WebsitePDF: React.FC<WebsitePDFProps> = ({
     if (!groupedTranslations[section]) {
       groupedTranslations[section] = {};
     }
-    groupedTranslations[section][key] = value;
+    // Ensure that the value is always a string
+    groupedTranslations[section][key] = typeof value === 'string' ? value : JSON.stringify(value);
   });
 
   // Get relevant images for a section
@@ -79,7 +81,7 @@ export const WebsitePDF: React.FC<WebsitePDFProps> = ({
           </Text>
           {includeImages && (
             <Image
-              src={websiteImages[1].src}
+              src={websiteImages[1]?.src || ''}
               style={{ width: 300, marginBottom: 30 }}
             />
           )}
