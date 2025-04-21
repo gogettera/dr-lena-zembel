@@ -53,3 +53,25 @@ export const safeDisplayObject = (obj: any): string => {
     return '[Complex Object]';
   }
 };
+
+/**
+ * Safely access a nested property in a translation object using dot notation
+ * For example: getNestedTranslation(translations, 'aestheticTreatments.headline1')
+ */
+export const getNestedTranslation = (obj: any, path: string): string => {
+  if (!obj || !path) return '';
+  
+  const keys = path.split('.');
+  let current = obj;
+  
+  for (const key of keys) {
+    if (current === undefined || current === null) return '';
+    current = current[key];
+  }
+  
+  if (typeof current === 'object') {
+    return safeDisplayObject(current);
+  }
+  
+  return current?.toString() || '';
+};

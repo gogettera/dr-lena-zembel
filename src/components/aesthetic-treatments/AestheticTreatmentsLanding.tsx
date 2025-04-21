@@ -1,5 +1,6 @@
 
 import React, { useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import Hero from "./Hero";
 import TreatmentTypes from "./TreatmentTypes";
 import Benefits from "./Benefits";
@@ -10,6 +11,8 @@ import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
 
 const AestheticTreatmentsLanding: React.FC = () => {
+  const { t } = useLanguage();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

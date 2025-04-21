@@ -3,8 +3,11 @@ import React from "react";
 import { Star } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section
       id="hero"

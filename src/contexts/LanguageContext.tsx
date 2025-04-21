@@ -1,7 +1,9 @@
+
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 import { supportedLanguages } from '@/utils/languageRoutes';
 import { Language } from '@/types/language';
+import { getNestedTranslation } from '@/utils/translation-helpers';
 
 interface LanguageContextType {
   language: Language;
@@ -48,22 +50,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const t = (key: string): string => {
+    if (!key) return '';
+    
     if (key.includes('.')) {
-      const keys = key.split('.');
-      let current: any = translations;
-      
-      for (const k of keys) {
-        if (current && typeof current === 'object' && k in current) {
-          current = current[k];
-        } else {
-          return key;
-        }
-      }
-      
-      return typeof current === 'string' ? current : key;
+      return getNestedTranslation(translations, key);
     }
     
-    return translations[key] || key;
+    const value = translations[key];
+    
+    // Make sure we don't return an object directly as a React child
+    if (typeof value === 'object' && value !== null) {
+      console.warn(`Translation key "${key}" is an object, not a string`);
+      return key; // Return the key instead of the object
+    }
+    
+    return value || key;
   };
 
   useEffect(() => {
