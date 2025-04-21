@@ -121,3 +121,65 @@ export const generateTranslationKey = (
 ): string => {
   return `${prefix}.${name.toLowerCase().replace(/\s+/g, '-')}`;
 };
+
+// Load translations from modular structure by language
+export const loadModularTranslations = async (
+  language: Language
+): Promise<Record<string, any>> => {
+  try {
+    // List of modules to load
+    const modules = [
+      'common',
+      'navigation',
+      'treatments',
+      'aestheticTreatments',
+      'childrenDentistry',
+      'about',
+      'clinic',
+      'contact',
+      'info',
+      'testimonials'
+    ];
+
+    // Load all modules
+    const translations: Record<string, any> = {};
+    
+    // Use Promise.all to load modules in parallel
+    await Promise.all(
+      modules.map(async (module) => {
+        try {
+          const moduleData = await import(`../translations/${language}/${module}.json`);
+          translations[module] = moduleData.default || moduleData;
+        } catch (error) {
+          console.warn(`Failed to load ${module} translations for ${language}`);
+          // Silently fail for missing modules
+        }
+      })
+    );
+
+    return translations;
+  } catch (error) {
+    console.error(`Error loading modular translations for ${language}:`, error);
+    throw error;
+  }
+};
+
+// Combine all translation modules into a single flat object
+export const combineTranslations = (
+  translations: Record<string, any>
+): Record<string, string> => {
+  const result: Record<string, string> = {};
+  
+  // For each module
+  Object.keys(translations).forEach((module) => {
+    const moduleData = translations[module];
+    const flattened = flattenTranslations(moduleData);
+    
+    // Add all module translations to result
+    Object.keys(flattened).forEach((key) => {
+      result[key] = flattened[key];
+    });
+  });
+  
+  return result;
+};

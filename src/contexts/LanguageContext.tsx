@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 import { supportedLanguages } from '@/utils/languageRoutes';
 import { Language } from '@/types/language';
-import { flattenTranslations, getTranslation } from '@/utils/translation';
+import { flattenTranslations, getTranslation, loadModularTranslations, combineTranslations } from '@/utils/translation';
 
 interface LanguageContextType {
   language: Language;
@@ -43,6 +43,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const loadTranslations = async (lang: Language) => {
     try {
+      // Try to load modular translations first
+      try {
+        const moduleTranslations = await loadModularTranslations(lang);
+        const combinedTranslations = combineTranslations(moduleTranslations);
+        setFlatTranslations(combinedTranslations);
+        return;
+      } catch (moduleError) {
+        console.warn(`Failed to load modular translations for ${lang}, falling back to legacy format:`, moduleError);
+      }
+
+      // Fallback to legacy single file format
       const translations = await import(`../translations/${lang}.json`);
       // Flatten the nested translations
       const flattened = flattenTranslations(translations.default);
@@ -50,8 +61,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } catch (error) {
       console.error(`Failed to load translations for ${lang}:`, error);
       if (lang !== 'he') {
-        const heTranslations = await import(`../translations/he.json`);
-        setFlatTranslations(flattenTranslations(heTranslations.default));
+        try {
+          // Try modular fallback first
+          const heModuleTranslations = await loadModularTranslations('he');
+          const heCombinedTranslations = combineTranslations(heModuleTranslations);
+          setFlatTranslations(heCombinedTranslations);
+        } catch (heModuleError) {
+          // Fall back to legacy format for Hebrew
+          const heTranslations = await import(`../translations/he.json`);
+          setFlatTranslations(flattenTranslations(heTranslations.default));
+        }
       }
     }
   };
