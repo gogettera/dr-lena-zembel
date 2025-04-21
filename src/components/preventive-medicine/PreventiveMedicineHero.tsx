@@ -4,72 +4,152 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { TreatmentType } from "@/data/treatmentTypes";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
+import OptimizedImage from "@/components/ui/optimized-image";
 
-// Props: add treatmentSubtitleKey for the "subtitle"/second headline row
 interface PreventiveMedicineHeroProps {
   treatment: TreatmentType;
-  treatmentNameKey: string; // main heading
-  treatmentSubtitleKey?: string; // new prop for subtitle
+  treatmentNameKey: string;
+  treatmentSubtitleKey?: string;
   treatmentDescKey: string;
 }
 
 const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
   treatment,
   treatmentNameKey,
-  treatmentSubtitleKey = "preventiveMedicine.headline2", // fallback translation key
+  treatmentSubtitleKey = "preventiveMedicine.headline2",
   treatmentDescKey,
 }) => {
-  const { t } = useLanguage();
-
-  // User's uploaded image for under the heading
+  const { t, language } = useLanguage();
+  const isMobile = useIsMobile();
+  const isRTL = language === "he" || language === "ar";
   const mainImage = "/lovable-uploads/4a7a5648-9bbd-4a37-9d06-04531fc920b3.png";
 
+  // Mobile optimized hero
+  if (isMobile) {
+    return (
+      <section 
+        className="relative w-full overflow-hidden bg-gradient-to-b from-[#FFDEE2] to-[#FFE8EB] pb-6 pt-12"
+        style={{
+          borderBottomLeftRadius: "2rem",
+          borderBottomRightRadius: "2rem",
+        }}
+      >
+        {/* Decorative elements */}
+        <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-dental-orange/10 opacity-70"></div>
+        <div className="absolute bottom-20 -left-20 h-40 w-40 rounded-full bg-dental-azure/20 opacity-50"></div>
+        
+        <div className="container px-4 mx-auto">
+          {/* Content card with subtle shadow */}
+          <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-5 border border-white">
+            {/* Main heading - large and prominent */}
+            <h1 className="text-2xl sm:text-3xl font-bold text-dental-navy text-center mb-3">
+              {t(treatmentNameKey)}
+            </h1>
+            
+            {/* Image with enhanced styling */}
+            <div className="relative -mx-2 mb-4">
+              <OptimizedImage
+                src={mainImage}
+                alt={t(treatmentNameKey)}
+                className="w-full h-auto object-cover rounded-xl shadow-md transform -rotate-1"
+                priority={true}
+              />
+              {/* Image decorative element */}
+              <div className="absolute -bottom-2 -right-1 h-12 w-12 rounded-full bg-dental-azure/30 z-0"></div>
+            </div>
+            
+            {/* Subtitle with accent color */}
+            <h2 className="text-xl font-heading font-semibold text-dental-orange text-center mb-3 px-2">
+              {t(treatmentSubtitleKey)}
+            </h2>
+            
+            {/* Description with improved readability */}
+            <p className="text-base text-dental-navy/80 text-center mb-5 px-1 leading-relaxed">
+              {t(treatmentDescKey)}
+            </p>
+            
+            {/* CTA button with enhanced styling */}
+            <Button
+              variant="orange"
+              size="lg"
+              className="w-full rounded-full text-base font-medium shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              {t("bookVisit")}
+            </Button>
+          </div>
+          
+          {/* Scroll indicator with animation */}
+          <div className="w-full flex flex-col items-center mt-4">
+            <div className="flex items-center justify-center animate-bounce mb-1">
+              <ChevronDown className="h-6 w-6 text-dental-navy/60" />
+            </div>
+            <span className="text-xs text-dental-navy/60 font-medium">
+              {t("scrollForMore")}
+            </span>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop version with different layout
   return (
     <section
-      className="w-full bg-[#FFDEE2] relative pb-2 md:pb-8 pt-16 sm:pt-20"
+      className="w-full bg-[#FFDEE2] relative pb-10 pt-20"
       style={{
-        minHeight: 360,
+        minHeight: 420,
         borderBottomLeftRadius: "2.5rem",
         borderBottomRightRadius: "2.5rem",
       }}
     >
-      <div className="container mx-auto px-3 md:px-6 relative z-10 flex flex-col items-center">
-        {/* Main Heading */}
-        <h1 className="text-2xl xs:text-3xl md:text-4xl font-bold text-dental-navy text-center leading-tight mb-1 md:mb-2">
-          {t(treatmentNameKey)}
-        </h1>
-        {/* Image placed exactly between h1 and h2 */}
-        <div className="w-full sm:w-64 md:w-96 max-w-xs mb-2 mx-auto rounded-2xl overflow-hidden shadow-lg border border-white/80 bg-white animate-fade-in">
-          <img
-            src={mainImage}
-            alt={t(treatmentNameKey)}
-            className="aspect-[16/10] object-cover w-full"
-            style={{ display: "block" }}
-            loading="eager"
-          />
-        </div>
-        {/* Subtitle */}
-        <h2 className="text-xl xs:text-2xl md:text-3xl font-heading font-semibold text-dental-navy text-center leading-snug mb-4 md:mb-5">
-          {t(treatmentSubtitleKey)}
-        </h2>
-        {/* Description paragraph */}
-        <p className="text-base xs:text-lg md:text-xl text-dental-navy/80 text-center mb-6 max-w-xl mx-auto">
-          {t(treatmentDescKey)}
-        </p>
-        {/* Book Visit Button */}
-        <Button
-          variant="orange"
-          size="lg"
-          className="rounded-full text-base md:text-lg px-8 w-full xs:w-auto max-w-xs mb-6"
-        >
-          {t("bookVisit")}
-        </Button>
-        {/* Down icon with scroll hint */}
-        <div className="w-full flex flex-col items-center">
-          <div className="flex items-center justify-center animate-bounce mb-1">
-            <ChevronDown className="h-7 w-7 text-dental-orange/70" />
+      {/* Decorative elements */}
+      <div className="absolute top-32 left-1/4 h-32 w-32 rounded-full bg-dental-azure/20 opacity-50 blur-md"></div>
+      <div className="absolute bottom-20 right-1/4 h-24 w-24 rounded-full bg-dental-orange/10 opacity-70 blur-sm"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Two column layout for desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Left column: Text content */}
+          <div className={`flex flex-col ${isRTL ? 'items-end' : 'items-start'} text-${isRTL ? 'right' : 'left'}`}>
+            <h1 className="text-4xl font-bold text-dental-navy leading-tight mb-3">
+              {t(treatmentNameKey)}
+            </h1>
+            <h2 className="text-2xl font-heading font-semibold text-dental-orange mb-4">
+              {t(treatmentSubtitleKey)}
+            </h2>
+            <p className="text-lg text-dental-navy/80 mb-6 max-w-md">
+              {t(treatmentDescKey)}
+            </p>
+            <Button
+              variant="orange"
+              size="lg"
+              className="rounded-full text-base md:text-lg px-8 shadow-md hover:scale-105 transition-all duration-300"
+            >
+              {t("bookVisit")}
+            </Button>
           </div>
-          <span className="text-xs text-dental-ocean/60">
+          
+          {/* Right column: Image */}
+          <div className="flex justify-center md:justify-end">
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/30 rounded-2xl blur-xl transform -rotate-3 scale-95"></div>
+              <OptimizedImage
+                src={mainImage}
+                alt={t(treatmentNameKey)}
+                className="w-full max-w-md rounded-2xl shadow-lg border-2 border-white/80 transform rotate-1 hover:rotate-0 transition-transform duration-500"
+                priority={true}
+              />
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll indicator at the bottom */}
+        <div className="w-full flex flex-col items-center mt-10">
+          <div className="flex items-center justify-center animate-bounce mb-1">
+            <ChevronDown className="h-7 w-7 text-dental-navy/60" />
+          </div>
+          <span className="text-xs font-medium text-dental-navy/60">
             {t("scrollForMore")}
           </span>
         </div>

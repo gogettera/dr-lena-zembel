@@ -36,6 +36,8 @@ const PreventiveMedicinePage: React.FC = () => {
 
   const treatmentNameKey = getTreatmentNameKey(treatmentType);
   const treatmentDescKey = getTreatmentDescKey(treatmentType);
+  // Also get the subtitle key for our enhanced hero
+  const treatmentSubtitleKey = "preventiveMedicine.headline2";
 
   return (
     <div className="min-h-screen bg-white">
@@ -44,6 +46,7 @@ const PreventiveMedicinePage: React.FC = () => {
         <PreventiveMedicineHero 
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
+          treatmentSubtitleKey={treatmentSubtitleKey}
           treatmentDescKey={treatmentDescKey}
         />
         <TreatmentContent 
