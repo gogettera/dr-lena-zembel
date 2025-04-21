@@ -28,12 +28,12 @@ const DoctorStory = () => {
           
           <div className="md:col-span-2 order-1 md:order-2">
             <div className="bg-[#F1F0FB] rounded-2xl p-8 shadow-soft border border-dental-beige/40 text-right opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]">
-              <h2 className="text-2xl font-bold text-dental-navy mb-4">הסיפור של ד"ר לנה</h2>
+              <h2 className="text-2xl font-bold text-dental-navy mb-4">המומחיות שלנו</h2>
               <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                כבר במהלך ההתמחות הבנתי שילדים זקוקים לגישה שונה לגמרי – לא רק מקצועיות, אלא גם רגישות, שקט ותחושת ביטחון.
+                במהלך שנות ההתמחות, פיתחנו גישה ייחודית לטיפול בילדים - שילוב של מקצועיות, רגישות ויצירת אווירה בטוחה ונעימה.
               </p>
               <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                כאם לילדים בעצמי, אני יודעת כמה חשוב שירגישו שמבינים אותם. במרפאה שלי, לכל ילד יש מקום – גם אם הוא חושש, גם אם הוא לא משתף פעולה. זה בסדר. אנחנו נגיע ביחד לחיוך.
+                במרפאה שלנו, כל ילד מקבל את תשומת הלב המלאה והטיפול המותאם לו. אנו מבינים את החששות ומעניקים מענה מקצועי ורגיש לכל מטופל.
               </p>
               
               <div className="flex flex-wrap gap-3 mt-6">
@@ -41,10 +41,10 @@ const DoctorStory = () => {
                   13 שנות ניסיון
                 </div>
                 <div className="bg-dental-navy/5 px-3 py-1 rounded text-sm text-dental-navy">
-                  מומחית לילדים
+                  התמחות ברפואת שיניים לילדים
                 </div>
                 <div className="bg-dental-navy/5 px-3 py-1 rounded text-sm text-dental-navy">
-                  הדרכות צוות מיוחדות
+                  צוות מקצועי ומיומן
                 </div>
               </div>
             </div>

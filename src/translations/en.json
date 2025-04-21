@@ -1,4 +1,3 @@
-
 {
   "home": "Home",
   "about": "About",
@@ -15,7 +14,7 @@
   "followOnFacebook": "Follow us on Facebook for regular updates",
   "followOnFacebookButton": "Follow on Facebook",
   "dentistryWithLove": "Dentistry with Love and Excellence",
-  "localDental": "We are a local dental clinic that treats our patients like family. The quality of your treatment and experience are our top priorities.",
+  "localDental": "We are a local dental clinic in North Jaffa that treats our patients like family. The quality of your treatment and experience are our top priorities.",
   "bookVisit": "Book a Visit",
   "moreDetails": "More Details",
   "completelyHappy": "Complete Satisfaction",
@@ -39,12 +38,11 @@
   "orthodonticsDesc": "Clear and traditional orthodontic treatments for all ages",
   "learnMore": "Learn More",
   "openingHours": "Opening Hours",
-  "sundayToThursday": "Sunday to Thursday",
-  "friday": "Friday",
+  "sundayToFriday": "Sunday to Friday: 8:30-14:00",
   "contactUs": "Contact Us",
-  "address": "2 Ben-Zvi Road, Tel Aviv-Yafo",
+  "address": "2 Ben Zvi Road, North Jaffa",
   "allRightsReserved": "All Rights Reserved",
-  "clinicDescription": "Your trusted local dental clinic in Tel Aviv",
+  "clinicDescription": "Your trusted local dental clinic in North Jaffa",
   "watchOurClinic": "Watch Our Clinic Tour",
   "clinicTourDescription": "Take a virtual tour of our modern dental clinic",
   "clinicTourThumbnail": "Dental Clinic Tour Video Thumbnail",
@@ -62,7 +60,6 @@
   "readyToStart": "Ready to Start Your Treatment?",
   "treatmentNotFound": "Treatment Not Found",
   "backToHome": "Back to Home",
-  "sundayToFriday": "Sunday to Friday: 8:30-14:00",
   "copyright": "© Dr. Lena's Dental Clinic. All rights reserved",
   "whatsappMessage": "Hi Dr. Lena, I would like to schedule an appointment",
   "phoneNumber": "03-566-6915",
@@ -96,11 +93,10 @@
   "clinicTourVideo": "Clinic Tour Video",
   "clinicInfo": {
     "name": "Dr. Lena Zembel's Dental Clinic",
-    "address": "2 Ben Zvi Road, Tel Aviv-Yafo",
+    "address": "2 Ben Zvi Road, North Jaffa",
     "phone": "03-566-6915",
     "hours": {
-      "weekdays": "Sunday to Thursday: 09:00-19:00",
-      "friday": "Friday: 09:00-13:00"
+      "weekdays": "Sunday to Friday: 8:30-14:00"
     }
   },
   "doctorInfo": {

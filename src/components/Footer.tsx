@@ -24,7 +24,6 @@ const Footer = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-10 mb-16">
-          {/* Logo and Description Section */}
           <div className="text-center md:text-right md:w-1/3">
             <div className="mb-6">
               <Logo />
@@ -60,7 +59,6 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Opening Hours Section */}
           <div className="text-center md:text-right md:w-1/3">
             <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">
               {t('openingHours')}
@@ -69,14 +67,12 @@ const Footer = () => {
               <div className="flex items-center justify-center md:justify-end gap-3">
                 <Clock className="h-5 w-5 text-dental-orange flex-shrink-0" />
                 <div>
-                  <p className="text-white font-medium">{t('sundayToFriday')}</p>
-                  <p className="text-white/80">8:30-14:00</p>
+                  <p className="text-white/80">{t('sundayToFriday')}</p>
                 </div>
               </div>
             </div>
           </div>
           
-          {/* Contact Section */}
           <div className="text-center md:text-right md:w-1/3">
             <h3 className="text-xl font-bold text-white mb-6 inline-block pb-2 border-b-2 border-dental-orange">
               {t('contact')}
@@ -88,13 +84,12 @@ const Footer = () => {
               </div>
               <div className="flex items-center justify-center md:justify-end gap-3">
                 <MapPin className="h-5 w-5 text-dental-orange flex-shrink-0" />
-                <span className="text-white">דרך בן-צבי 2, תל-אביב יפו</span>
+                <span className="text-white">{t('clinicInfo.address')}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Site Map */}
         <nav className="mt-8 pt-8 border-t border-white/10" aria-label="Site Map">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
@@ -136,7 +131,6 @@ const Footer = () => {
           </div>
         </nav>
 
-        {/* Copyright */}
         <div className="mt-16 pt-6 border-t border-white/10 text-center">
           <p className="text-sm text-white/60">© {new Date().getFullYear()} {t('copyright')}.</p>
         </div>
