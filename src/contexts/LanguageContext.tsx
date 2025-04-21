@@ -52,19 +52,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const t = (key: string): string => {
     if (!key) return '';
     
-    if (key.includes('.')) {
-      return getNestedTranslation(translations, key);
-    }
+    // Always use getNestedTranslation to safely handle nested properties
+    const result = getNestedTranslation(translations, key);
     
-    const value = translations[key];
-    
-    // Make sure we don't return an object directly as a React child
-    if (typeof value === 'object' && value !== null) {
-      console.warn(`Translation key "${key}" is an object, not a string`);
-      return key; // Return the key instead of the object
-    }
-    
-    return value || key;
+    // Return empty string if translation is not found
+    return result || '';
   };
 
   useEffect(() => {

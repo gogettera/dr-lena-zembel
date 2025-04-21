@@ -17,7 +17,7 @@ export const formatTranslationValue = (value: any): string => {
   if (typeof value === 'object') {
     try {
       // For nested objects, convert to JSON string with indentation for better readability
-      return JSON.stringify(value, null, 2);
+      return '[Complex Object]'; // Return a placeholder instead of the object
     } catch (e) {
       // Fallback in case of circular references or other JSON stringify issues
       return '[Complex Object]';
@@ -47,11 +47,7 @@ export const safeDisplayObject = (obj: any): string => {
     return String(obj);
   }
   
-  try {
-    return JSON.stringify(obj, null, 2);
-  } catch (e) {
-    return '[Complex Object]';
-  }
+  return '[Complex Object]'; // Return a placeholder instead of trying to stringify
 };
 
 /**
@@ -69,8 +65,9 @@ export const getNestedTranslation = (obj: any, path: string): string => {
     current = current[key];
   }
   
-  if (typeof current === 'object') {
-    return safeDisplayObject(current);
+  if (typeof current === 'object' && current !== null) {
+    // If we get an object, return empty string instead of trying to render it
+    return '';
   }
   
   return current?.toString() || '';

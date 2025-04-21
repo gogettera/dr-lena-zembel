@@ -20,7 +20,9 @@ const AestheticTreatmentsLanding: React.FC = () => {
   return (
     <div className="bg-gradient-to-br from-[#FFDEE2]/40 via-[#F1F0FB]/20 to-[#FDF4F0]/50 overflow-x-hidden">
       {/* Skip to content link for accessibility */}
-      <a href="#hero" className="skip-to-content">דלג לתוכן העיקרי</a>
+      <a href="#hero" className="skip-to-content">
+        {t('skipToContent') || "דלג לתוכן העיקרי"}
+      </a>
 
       {/* Sticky Navigation */}
       <StickyNavigation />
