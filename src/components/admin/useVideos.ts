@@ -69,13 +69,16 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
-        // Use direct assignment for the field to update to avoid any ambiguity
+        // Only update the specific field, not updated_at
         const { error } = await supabase
           .from('videos')
-          .update({ [field]: value, updated_at: new Date().toISOString() })
+          .update({ [field]: value })
           .eq('id', id);
 
-        if (error) throw error;
+        if (error) {
+          console.error("Update error details:", error);
+          throw error;
+        }
 
         // Update the local state to reflect the change
         setVideos(prev =>
@@ -86,13 +89,13 @@ export const useVideos = () => {
 
         toast({
           title: "Video updated",
-          description: "The video has been successfully updated."
+          description: `The ${field} has been successfully updated.`
         });
       } catch (error: any) {
         toast({
           variant: "destructive",
           title: "Error updating video",
-          description: error.message
+          description: error.message || "An error occurred while updating the video"
         });
         console.error("Update error:", error);
       }
