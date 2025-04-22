@@ -1,44 +1,25 @@
 
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { Section } from '@/components/ui/section';
-import OralRehabilitationHero from './OralRehabilitationHero';
+import OralRehabilitationConversionHero from './OralRehabilitationConversionHero';
 import OralRehabilitationBenefits from './OralRehabilitationBenefits';
+import OralRehabilitationBeforeAfter from './OralRehabilitationBeforeAfter';
 import OralRehabilitationProcess from './OralRehabilitationProcess';
-import OralRehabilitationTreatments from './OralRehabilitationTreatments';
+import OralRehabilitationSocialProof from './OralRehabilitationSocialProof';
+import OralRehabilitationTrustDoctor from './OralRehabilitationTrustDoctor';
 import FAQ from './FAQ';
-import DoctorStory from './DoctorStory';
-import { treatmentTypes } from '@/data/treatmentTypes';
+import OralRehabilitationBookingCTA from './OralRehabilitationBookingCTA';
 
-const OralRehabilitationLanding = () => {
-  const { t } = useLanguage();
-  const treatmentType = 'oral-rehabilitation';
-  const treatment = treatmentTypes[treatmentType];
-
-  return (
-    <>
-      <OralRehabilitationHero
-        treatment={treatment}
-        treatmentNameKey="oralRehabilitation"
-        treatmentDescKey="oralRehabilitationDesc"
-      />
-      <Section spacing="lg" background="gradient" containerClass="px-4 md:px-6">
-        <OralRehabilitationBenefits />
-      </Section>
-      <Section spacing="lg" background="white" containerClass="px-4 md:px-6">
-        <OralRehabilitationTreatments />
-      </Section>
-      <Section spacing="lg" background="none" containerClass="px-0">
-        <DoctorStory />
-      </Section>
-      <Section spacing="lg" background="beige" containerClass="px-4 md:px-6">
-        <OralRehabilitationProcess />
-      </Section>
-      <Section spacing="lg" background="white" containerClass="px-4 md:px-6">
-        <FAQ />
-      </Section>
-    </>
-  );
-};
+const OralRehabilitationLanding = () => (
+  <div>
+    <OralRehabilitationConversionHero />
+    <OralRehabilitationBenefits />
+    <OralRehabilitationBeforeAfter />
+    <OralRehabilitationProcess />
+    <OralRehabilitationSocialProof />
+    <OralRehabilitationTrustDoctor />
+    <FAQ />
+    <OralRehabilitationBookingCTA />
+  </div>
+);
 
 export default OralRehabilitationLanding;
