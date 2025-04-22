@@ -28,7 +28,7 @@ function App() {
       <Routes>
         {/* Root route - redirects to browser language or default to Hebrew */}
         <Route path="/" element={<Index />} />
-        <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
+        <Route path="/admin" element={<AdminRoute element={<AdminPanel />} />} />
         <Route path="/accessibility-statement" element={<AccessibilityStatementPage />} />
         
         {/* Language-specific routes */}
