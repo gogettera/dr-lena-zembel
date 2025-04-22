@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { useImageLibrary } from './useImageLibrary';
+import { useImageLibraryActions } from './useImageLibraryActions';
 import ImageUploadSection from './ImageUploadSection';
 import ImageGrid from './ImageGrid';
 import BucketErrorAlert from './BucketErrorAlert';
@@ -23,7 +23,7 @@ const ImageLibrary: React.FC = () => {
     handleRetry,
     handleCreateBucket,
     fetchImages,
-  } = useImageLibrary();
+  } = useImageLibraryActions();
 
   useEffect(() => {
     fetchImages();
@@ -58,9 +58,7 @@ const ImageLibrary: React.FC = () => {
           <div className="animate-spin h-8 w-8 border-4 border-dental-orange border-t-transparent rounded-full"></div>
         </div>
       ) : bucketExists && images.length === 0 ? (
-        <div className="text-gray-400 text-center py-8">
-          No images found in bucket.
-        </div>
+        <div className="text-gray-400 text-center py-8">No images found in bucket.</div>
       ) : bucketExists ? (
         <ImageGrid images={images} onDelete={handleDelete} />
       ) : null}
