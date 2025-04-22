@@ -26,8 +26,8 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-gradient-to-br from-white via-dental-beige/10 to-white">
-      <div className="container mx-auto">
+    <div className="w-full bg-gradient-to-br from-white via-dental-beige/10 to-white">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         <SectionHeader
           title="שאלות נפוצות"
           subtitle="תשובות לשאלות הנפוצות ביותר על רפואה מונעת"
@@ -55,7 +55,7 @@ const FAQ = () => {
           </Accordion>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

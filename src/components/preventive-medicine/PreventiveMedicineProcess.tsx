@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SectionHeader from '@/components/ui/section-header';
@@ -30,8 +29,8 @@ const PreventiveMedicineProcess = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-gradient-to-br from-dental-beige/20 via-white to-dental-pink/10">
-      <div className="container mx-auto">
+    <div className="w-full bg-gradient-to-br from-dental-beige/20 via-white to-dental-pink/10 py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
         <SectionHeader
           title="תהליך הטיפול המונע"
           subtitle="הצעדים לשמירה על בריאות השיניים שלך"
@@ -60,7 +59,7 @@ const PreventiveMedicineProcess = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

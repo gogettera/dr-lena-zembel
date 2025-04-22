@@ -21,12 +21,16 @@ const PreventiveMedicineLanding = () => {
         treatmentNameKey="preventiveMedicine"
         treatmentDescKey="preventiveMedicineDesc"
       />
-      <Section spacing="lg" background="gradient">
+      <Section spacing="lg" background="gradient" fullWidth={true} containerClass="px-4 md:px-6">
         <PreventiveMedicineBenefits />
       </Section>
       <DoctorStory />
-      <PreventiveMedicineProcess />
-      <FAQ />
+      <Section fullWidth={true}>
+        <PreventiveMedicineProcess />
+      </Section>
+      <Section fullWidth={true} containerClass="px-4 md:px-6">
+        <FAQ />
+      </Section>
     </>
   );
 };
