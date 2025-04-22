@@ -6,14 +6,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const FooterBrand: React.FC = () => {
   const { t } = useLanguage();
-
   return (
-    <div className="flex flex-col items-center md:items-start gap-5">
+    <div className="flex flex-col items-center gap-4">
+      {/* Logo */}
       <Logo />
-      <div className="mt-1 mb-2 text-center md:text-start">
-        <h3 className="text-xl md:text-2xl font-bold text-white mb-1">{t('dentistryWithLove', 'רפואת שיניים מקצועית')}</h3>
-        <p className="text-sm text-dental-beige/80 max-w-xs">{t('localDental', 'מרפאת שיניים מקצועית בצפון יפו, המעניקה טיפול איכותי ומקיף למטופלינו.')}</p>
+      {/* Tagline */}
+      <div>
+        <h3 className="text-base font-bold text-dental-navy mb-1">{t('dentistryWithLove', 'רפואת שיניים מקצועית')}</h3>
       </div>
+      {/* Minimal Social */}
       <FooterSocial />
     </div>
   );

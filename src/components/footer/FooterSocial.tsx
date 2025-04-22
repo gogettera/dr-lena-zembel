@@ -4,24 +4,24 @@ import { Facebook, Instagram } from 'lucide-react';
 
 const FooterSocial = () => {
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex gap-4 mt-1">
       <a 
         href="https://www.facebook.com/drlena.dental" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="text-dental-beige hover:text-white transition-colors duration-300"
+        className="text-dental-navy hover:text-dental-orange transition-colors"
         aria-label="Facebook"
       >
-        <Facebook className="h-5 w-5" />
+        <Facebook size={20} />
       </a>
       <a 
         href="https://www.instagram.com/dr.lena.dental" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="text-dental-beige hover:text-white transition-colors duration-300"
+        className="text-dental-navy hover:text-dental-orange transition-colors"
         aria-label="Instagram"
       >
-        <Instagram className="h-5 w-5" />
+        <Instagram size={20} />
       </a>
     </div>
   );
