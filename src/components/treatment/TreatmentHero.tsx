@@ -30,7 +30,7 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
   }
 
   return (
-    <section className="relative bg-gradient-to-br from-dental-beige via-dental-pink to-dental-beige py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-dental-beige via-dental-pink to-dental-beige py-16 md:py-24 lg:py-32 overflow-hidden w-full">
       <div className="absolute inset-0 bg-cover bg-center opacity-10 mix-blend-overlay" style={{ backgroundImage: `url(${treatment.imageUrl})` }}></div>
       
       <div className="absolute inset-0">
@@ -48,7 +48,7 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
         </div>
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         <Breadcrumb className="mb-6 md:mb-8 overflow-x-auto max-w-full flex py-2">
           <BreadcrumbList className="flex-nowrap">
             <BreadcrumbItem>

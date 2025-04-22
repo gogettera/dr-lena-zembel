@@ -22,17 +22,19 @@ const OralRehabilitationLanding = () => {
         treatmentNameKey="oralRehabilitation"
         treatmentDescKey="oralRehabilitationDesc"
       />
-      <Section spacing="lg" background="gradient">
+      <Section spacing="lg" background="gradient" containerClass="px-4 md:px-6">
         <OralRehabilitationBenefits />
       </Section>
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="white" containerClass="px-4 md:px-6">
         <OralRehabilitationTreatments />
       </Section>
-      <DoctorStory />
-      <Section spacing="lg" background="beige">
+      <Section spacing="lg" background="none" containerClass="px-0">
+        <DoctorStory />
+      </Section>
+      <Section spacing="lg" background="beige" containerClass="px-4 md:px-6">
         <OralRehabilitationProcess />
       </Section>
-      <Section spacing="lg" background="white">
+      <Section spacing="lg" background="white" containerClass="px-4 md:px-6">
         <FAQ />
       </Section>
     </>

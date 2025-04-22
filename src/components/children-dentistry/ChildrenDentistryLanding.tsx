@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
+import { Section } from "@/components/ui/section";
 import Hero from "./Hero";
-// Removed WhyUs import
 import DoctorStory from "./DoctorStory";
 import VisitSteps from "./VisitSteps";
 import Testimonials from "./Testimonials";
@@ -9,7 +9,6 @@ import FAQ from "./FAQ";
 import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
-// No WhyUs or Plans imports
 
 const ChildrenDentistryLanding: React.FC = () => {
   // Scroll to top when component mounts
@@ -18,7 +17,7 @@ const ChildrenDentistryLanding: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-[#FFDEE2]/40 via-[#D3E4FD]/20 to-[#F1F0FB]/50 overflow-x-hidden">
+    <div className="overflow-x-hidden">
       {/* Skip to content link for accessibility */}
       <a href="#hero" className="skip-to-content">דלג לתוכן העיקרי</a>
 
@@ -26,19 +25,33 @@ const ChildrenDentistryLanding: React.FC = () => {
       <StickyNavigation />
 
       {/* HERO at very top as page opener */}
-      <Hero />
+      <Section background="none" spacing="none" containerClass="px-0">
+        <Hero />
+      </Section>
 
-      {/* Removed WhyUs section */}
-
-      <DoctorStory />
-      <VisitSteps />
-      <Testimonials />
-      <FAQ />
-
-      {/* Removed Plans section */}
-
-      <QuickContactForm />
-      <BookVisitAnchor />
+      <Section background="none" spacing="none" containerClass="px-0">
+        <DoctorStory />
+      </Section>
+      
+      <Section background="none" spacing="none" containerClass="px-0">
+        <VisitSteps />
+      </Section>
+      
+      <Section background="none" spacing="none" containerClass="px-0">
+        <Testimonials />
+      </Section>
+      
+      <Section background="none" spacing="none" containerClass="px-0">
+        <FAQ />
+      </Section>
+      
+      <Section background="none" spacing="none" containerClass="px-0">
+        <QuickContactForm />
+      </Section>
+      
+      <Section background="none" spacing="none" containerClass="px-0">
+        <BookVisitAnchor />
+      </Section>
     </div>
   );
 };

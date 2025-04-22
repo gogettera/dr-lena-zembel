@@ -13,6 +13,7 @@ import BackToTop from '@/components/BackToTop';
 import AboutSection from '@/components/AboutSection';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { setupDirectionByLanguage } from '@/utils/direction';
+import { Section } from '@/components/ui/section';
 
 const Index = () => {
   const { language } = useLanguage();
@@ -22,17 +23,40 @@ const Index = () => {
   }, [language]);
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="overflow-hidden">
       <Navbar />
       <main>
-        <HeroSection />
-        <AboutSection />
-        <BrandSection />
-        <TreatmentsSection />
-        <VideoSection />
-        <SocialFeedSection />
-        <TestimonialSection />
-        <FAQSection />
+        <Section background="none" spacing="none" containerClass="px-0">
+          <HeroSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <AboutSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <BrandSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <TreatmentsSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <VideoSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <SocialFeedSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <TestimonialSection />
+        </Section>
+        
+        <Section background="none" spacing="none" containerClass="px-0">
+          <FAQSection />
+        </Section>
       </main>
       <Footer />
       <BackToTop />

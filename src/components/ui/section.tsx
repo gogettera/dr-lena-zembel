@@ -26,7 +26,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
     children, 
     className, 
     containerClass, 
-    fullWidth = false, 
+    fullWidth = true, // Changed default to true
     background = 'white',
     spacing = 'md',
     centered = false,

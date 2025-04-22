@@ -8,6 +8,7 @@ import BackToTop from '@/components/BackToTop';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import PreventiveMedicineHero from '@/components/preventive-medicine/PreventiveMedicineHero';
+import { Section } from '@/components/ui/section';
 
 const PreventiveMedicinePage: React.FC = () => {
   const { t } = useLanguage();
@@ -21,14 +22,16 @@ const PreventiveMedicinePage: React.FC = () => {
 
   if (!treatment) {
     return (
-      <div className="min-h-screen">
+      <div>
         <Navbar />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
-          <Button className="mt-4" asChild>
-            <a href="/">{t('backToHome')}</a>
-          </Button>
-        </div>
+        <Section spacing="lg">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
+            <Button className="mt-4" asChild>
+              <a href="/">{t('backToHome')}</a>
+            </Button>
+          </div>
+        </Section>
         <Footer />
       </div>
     );
@@ -40,15 +43,18 @@ const PreventiveMedicinePage: React.FC = () => {
   const treatmentSubtitleKey = "preventiveMedicine.headline2";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       <Navbar />
       <main className="pt-0">
-        <PreventiveMedicineHero 
-          treatment={treatment}
-          treatmentNameKey={treatmentNameKey}
-          treatmentSubtitleKey={treatmentSubtitleKey}
-          treatmentDescKey={treatmentDescKey}
-        />
+        <Section background="none" spacing="none" containerClass="px-0">
+          <PreventiveMedicineHero 
+            treatment={treatment}
+            treatmentNameKey={treatmentNameKey}
+            treatmentSubtitleKey={treatmentSubtitleKey}
+            treatmentDescKey={treatmentDescKey}
+          />
+        </Section>
+        
         <TreatmentContent 
           treatment={treatment}
           treatmentNameKey={treatmentNameKey}
