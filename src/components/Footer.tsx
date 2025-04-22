@@ -9,22 +9,21 @@ const Footer: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-dental-navy text-dental-beige border-t border-dental-beige/10 pt-12 pb-6" aria-label={t('navigation.footer', 'Footer')}>
-      <Container size="5xl" className="flex flex-col md:flex-row md:justify-between md:items-start gap-12">
-        <div className="mb-8 md:mb-0 flex-shrink-0">
-          <FooterContactInfo />
-        </div>
-        <div className="w-full md:w-auto">
-          <FooterNavigation />
-        </div>
+    <footer className="bg-dental-navy text-dental-beige border-t border-dental-beige/10">
+      <Container size="5xl" className="py-12 flex flex-col md:flex-row md:items-start md:justify-between gap-12">
+        <FooterContactInfo />
+        <FooterNavigation />
       </Container>
-      <div className="mt-10 pt-6 border-t border-dental-beige/20 text-center">
-        <p className="text-xs text-dental-beige/70">
-          © {new Date().getFullYear()} {t('contact.allRightsReserved')}
-        </p>
+      <div className="bg-dental-navy border-t border-dental-beige/20 py-4">
+        <Container size="5xl" className="text-center">
+          <p className="text-sm text-dental-beige/70">
+            © {new Date().getFullYear()} {t('contact.allRightsReserved')}
+          </p>
+        </Container>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

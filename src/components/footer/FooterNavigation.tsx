@@ -1,50 +1,45 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import NavList from '@/components/ui/NavList';
-import NavItem from '@/components/ui/NavItem';
 import { createLocalizedNavigationConfig } from '@/config/navigation';
+import NavItem from '@/components/ui/NavItem';
 
 const FooterNavigation = () => {
   const { t, language } = useLanguage();
   const navigation = createLocalizedNavigationConfig(language);
 
   return (
-    <div className="flex flex-col md:flex-row gap-10">
-      <div>
-        <h4 className="text-xl font-bold text-white mb-3">
-          {t('navigation.sitemap', 'מפת האתר')}
-        </h4>
-        <NavList vertical className="space-y-2">
-          {navigation.footer.info.map((link) => (
+    <nav aria-label={t('navigation.sitemap', 'מפת האתר')}>
+      <ul className="space-y-3">
+        {navigation.footer.info.map(link => (
+          <li key={link.key}>
             <NavItem
-              key={link.key}
               to={link.path}
-              className="text-sm underline text-dental-beige hover:text-dental-orange transition-colors"
+              className="text-sm underline hover:text-dental-orange transition-colors"
             >
               {t(link.labelKey)}
             </NavItem>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-8">
+        <h5 className="text-lg font-semibold text-white mb-3">{t('navigation.ourTreatments', 'הטיפולים שלנו')}</h5>
+        <ul className="space-y-2">
+          {navigation.footer.treatments.map(link => (
+            <li key={link.key}>
+              <NavItem
+                to={link.path}
+                className="text-sm underline hover:text-dental-orange transition-colors"
+              >
+                {t(link.labelKey)}
+              </NavItem>
+            </li>
           ))}
-        </NavList>
+        </ul>
       </div>
-      <div>
-        <h4 className="text-xl font-bold text-white mb-3">
-          {t('navigation.ourTreatments', 'הטיפולים שלנו')}
-        </h4>
-        <NavList vertical className="space-y-2">
-          {navigation.footer.treatments.map((link) => (
-            <NavItem
-              key={link.key}
-              to={link.path}
-              className="text-sm underline text-dental-beige hover:text-dental-orange transition-colors"
-            >
-              {t(link.labelKey)}
-            </NavItem>
-          ))}
-        </NavList>
-      </div>
-    </div>
+    </nav>
   );
 };
 
 export default FooterNavigation;
+
