@@ -22,6 +22,7 @@ interface EnhancedImageProps extends React.DetailedHTMLProps<React.ImgHTMLAttrib
   placeholderColor?: string;
   hover?: 'none' | 'zoom' | 'lift' | 'brighten' | 'darken';
   loadingStrategy?: 'eager' | 'lazy' | 'auto';
+  useNextGenFormat?: boolean;
 }
 
 const EnhancedImage = ({
@@ -41,19 +42,35 @@ const EnhancedImage = ({
   placeholderColor = 'bg-gray-100',
   hover = 'none',
   loadingStrategy,
+  useNextGenFormat = true,
   ...props
 }: EnhancedImageProps) => {
   const [isLoading, setIsLoading] = useState(!priority);
   const [hasError, setHasError] = useState(false);
   const [isVisible, setIsVisible] = useState(priority);
+  const [imgSrc, setImgSrc] = useState(src);
+  const uniqueId = `image-${src.replace(/[^a-zA-Z0-9]/g, '')}-${Math.floor(Math.random() * 1000)}`;
 
   // If priority is true, preload the image
   usePreloadImages(priority ? [src] : []);
 
+  // Convert to WebP format if supported and enabled
+  useEffect(() => {
+    if (useNextGenFormat && src && !src.includes('?format=') && !src.endsWith('.svg') && !src.endsWith('.webp')) {
+      // Add a webp parameter to the URL if the backend supports it
+      // This is a hypothetical implementation - adjust based on your image processing backend
+      const hasParams = src.includes('?');
+      const webpSrc = `${src}${hasParams ? '&' : '?'}format=webp`;
+      setImgSrc(webpSrc);
+    } else {
+      setImgSrc(src);
+    }
+  }, [src, useNextGenFormat]);
+
   // Setup IntersectionObserver for lazy loading
   useEffect(() => {
     if (!priority && 'IntersectionObserver' in window) {
-      const element = document.getElementById(`image-${src.replace(/[^a-zA-Z0-9]/g, '')}`);
+      const element = document.getElementById(uniqueId);
       if (!element) return;
 
       const observer = new IntersectionObserver(
@@ -73,7 +90,7 @@ const EnhancedImage = ({
     }
     
     return undefined;
-  }, [src, priority]);
+  }, [uniqueId, priority]);
 
   // Determine loading strategy
   const imgLoading = loading || (priority ? 'eager' : 'lazy');
@@ -121,18 +138,23 @@ const EnhancedImage = ({
     return (
       <>
         {isLoading && hasPlaceholder && (
-          <Skeleton
+          <div
             className={cn(
               "absolute inset-0 z-10",
               roundedClasses[rounded],
               placeholderColor
             )}
+            style={{
+              width: width ? `${width}px` : '100%',
+              height: height ? `${height}px` : '100%',
+            }}
+            aria-hidden="true"
           />
         )}
         {isVisible && (
           <img
-            id={`image-${src.replace(/[^a-zA-Z0-9]/g, '')}`}
-            src={src}
+            id={uniqueId}
+            src={imgSrc}
             alt={alt}
             width={width}
             height={height}

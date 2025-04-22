@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
-import OptimizedImage from '@/components/ui/optimized-image';
+import { NextGenImage } from '@/components/ui/next-gen-image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
@@ -17,8 +17,7 @@ const HeroSection = () => {
   };
 
   return (
-    // Added overflow-x-hidden to section to prevent scrolling
-    <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden overflow-x-hidden">
+    <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
       <div className="container mx-auto px-4 py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className={`md:w-1/2 space-y-8 ${isRTL ? 'md:order-1' : ''}`}>
@@ -45,17 +44,17 @@ const HeroSection = () => {
 
           <div className={`md:w-1/2 opacity-0 animate-[slide-in_0.8s_ease-out_forwards] ${isRTL ? 'md:order-0' : ''}`}>
             <div className="relative w-full max-w-xl mx-auto">
+              {/* Decorative background effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2.5rem] blur-3xl transform rotate-6 pointer-events-none" aria-hidden="true"></div>
 
               <div className="relative">
                 <AspectRatio ratio={4/3} className="overflow-hidden rounded-[2rem]">
-                  <OptimizedImage 
+                  <NextGenImage 
                     alt={t('dentistryWithLove')} 
                     src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
                     width={800}
                     height={600}
                     priority={true}
-                    objectFit="cover"
                     className="w-full h-full shadow-soft hover:scale-[1.02] transition-all duration-500" 
                   />
                 </AspectRatio>
@@ -80,11 +79,18 @@ const HeroSection = () => {
       </div>
 
       {/* Make sure decorative blobs are contained and don't overflow on mobile */}
-      <div className="absolute top-1/4 left-10 w-24 h-24 bg-dental-accent/20 rounded-full blur-3xl pointer-events-none" style={{maxWidth: '90vw'}} aria-hidden="true"></div>
-      <div className="absolute bottom-1/4 right-10 w-32 h-32 bg-dental-orange/10 rounded-full blur-3xl pointer-events-none" style={{maxWidth: '90vw'}} aria-hidden="true"></div>
+      <div 
+        className="absolute top-1/4 left-10 w-24 h-24 bg-dental-accent/20 rounded-full blur-3xl pointer-events-none" 
+        style={{maxWidth: '90vw'}} 
+        aria-hidden="true"
+      ></div>
+      <div 
+        className="absolute bottom-1/4 right-10 w-32 h-32 bg-dental-orange/10 rounded-full blur-3xl pointer-events-none" 
+        style={{maxWidth: '90vw'}} 
+        aria-hidden="true"
+      ></div>
     </section>
   );
 };
 
 export default HeroSection;
-

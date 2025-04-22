@@ -7,11 +7,40 @@ import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { applyMetaTags } from './utils/meta-utils';
 
-// Create a client
-const queryClient = new QueryClient();
+// Create a client with optimized settings
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // Reduce unnecessary network requests
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+      retry: 1, // Reduce retries to improve performance
+    },
+  },
+});
 
 // Apply meta tags from the database
 applyMetaTags().catch(console.error);
+
+// Custom event to measure First Input Delay
+const reportWebVitals = () => {
+  try {
+    const onFID = (metric: any) => {
+      // Send to analytics or log
+      console.log('FID:', metric);
+    };
+
+    // Check if web vitals are available
+    if ('web-vitals' in window) {
+      (window as any)['web-vitals'].getFID(onFID);
+    }
+  } catch (error) {
+    console.error('Error measuring web vitals:', error);
+  }
+};
+
+// Initialize performance monitoring
+reportWebVitals();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

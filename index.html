@@ -13,26 +13,45 @@
     <link rel="apple-touch-icon" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" id="favicon-apple" />
     
     <!-- Performance and resource hints -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" as="style" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" />
     
-    <!-- Preload logo image (critical for LCP) -->
-    <link rel="preload" as="image" href="/lovable-uploads/c1007b41-5fb4-451a-a540-744c4643c25e.png" />
+    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="/lovable-uploads/c1007b41-5fb4-451a-a540-744c4643c25e.png" fetchpriority="high" />
     <link rel="preload" as="image" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" />
+    <link rel="preload" as="image" href="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" fetchpriority="high" />
     
     <!-- DNS prefetching -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     
-    <!-- Disable layout shifting during font loading -->
+    <!-- Prevent layout shifting during font loading -->
     <style>
-      html {
-        font-display: swap;
+      /* CSS Variables for faster recalculation */
+      :root {
+        --font-assistant: 'Assistant', sans-serif;
       }
+      
+      /* Font display swap to prevent invisible text */
+      @font-face {
+        font-family: 'Assistant';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local('Assistant Regular'), local('Assistant-Regular');
+      }
+      
+      /* Pre-allocate space for critical elements to prevent layout shifts */
+      .hero-image-container {
+        min-height: 300px;
+      }
+      
       body {
-        font-family: 'Assistant', sans-serif;
+        font-family: var(--font-assistant);
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
       }
     </style>
 

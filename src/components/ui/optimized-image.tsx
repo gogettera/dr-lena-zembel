@@ -13,6 +13,8 @@ interface OptimizedImageProps extends React.DetailedHTMLProps<React.ImgHTMLAttri
   className?: string;
   fallback?: React.ReactNode;
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  eager?: boolean;
+  aspectRatio?: number;
 }
 
 const OptimizedImage = ({ 
@@ -24,82 +26,134 @@ const OptimizedImage = ({
   className,
   fallback,
   objectFit = 'cover',
+  eager = false,
+  aspectRatio,
   ...props 
 }: OptimizedImageProps) => {
-  const [isLoading, setIsLoading] = useState(!priority);
+  const [isLoading, setIsLoading] = useState(!priority && !eager);
   const [hasError, setHasError] = useState(false);
   const [imgSrc, setImgSrc] = useState<string>(src);
+  const [isVisible, setIsVisible] = useState(priority || eager);
+  const uniqueId = `img-${src.replace(/[^a-zA-Z0-9]/g, '')}-${Math.floor(Math.random() * 1000)}`;
   
   // If priority is true, preload the image
   usePreloadImages(priority ? [src] : []);
 
-  // Extract dimensions from props
-  const imgWidth = width;
-  const imgHeight = height;
-
-  // Determine if we're dealing with an absolute URL or a relative path
-  const isAbsoluteUrl = src.startsWith('http') || src.startsWith('//');
-  
-  // If using Lovable's upload service, we can add dimensions query params
-  // for automatic resizing (assuming a resize service is available)
+  // Try to convert to WebP format if appropriate
   useEffect(() => {
-    if (!isAbsoluteUrl && src.includes('/lovable-uploads/') && imgWidth && imgHeight) {
-      // Append dimensions to URL for automatic server-side resizing
-      // This is a placeholder - actual implementation depends on your image service
-      // setImgSrc(`${src}?width=${imgWidth}&height=${imgHeight}`);
+    // Don't try to convert SVGs or already WebP images
+    if (!src.includes('?format=') && !src.endsWith('.svg') && !src.endsWith('.webp')) {
+      // This is hypothetical - you would need a backend service that can convert images
+      const hasParams = src.includes('?');
+      const webpSrc = `${src}${hasParams ? '&' : '?'}format=webp`;
+      
+      // Only for demonstration. In reality, you'd check browser support or use a service
+      if (hasModernImageSupport()) {
+        setImgSrc(webpSrc);
+      }
     }
-  }, [src, imgWidth, imgHeight, isAbsoluteUrl]);
+  }, [src]);
 
-  // Determine loading strategy
-  const loadingAttribute = priority ? 'eager' : 'lazy';
+  // Setup IntersectionObserver for lazy loading
+  useEffect(() => {
+    if (!priority && !eager && 'IntersectionObserver' in window) {
+      const element = document.getElementById(uniqueId);
+      if (!element) return;
 
-  if (hasError) {
-    return fallback || (
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setIsVisible(true);
+              observer.disconnect();
+            }
+          });
+        },
+        { rootMargin: '200px' }
+      );
+
+      observer.observe(element);
+      return () => observer.disconnect();
+    }
+    
+    return undefined;
+  }, [uniqueId, priority, eager]);
+
+  // Helper function to check for modern image format support
+  const hasModernImageSupport = () => {
+    const canvas = document.createElement('canvas');
+    return !!(canvas.getContext && canvas.getContext('2d')) && 
+           canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+  };
+
+  // Determine loading strategy based on priority
+  const loadingAttribute = priority || eager ? 'eager' : 'lazy';
+
+  // Create proper aspect ratio style if both dimensions provided
+  const aspectRatioStyle = (width && height) ? 
+    { aspectRatio: `${width}/${height}` } : 
+    (aspectRatio ? { aspectRatio: aspectRatio } : {});
+
+  // Create a placeholder while waiting for the image to load
+  const renderPlaceholder = () => (
+    <Skeleton 
+      className={cn(
+        "absolute inset-0 z-10",
+        className
+      )} 
+    />
+  );
+
+  // Create error fallback
+  const renderError = () => (
+    fallback || (
       <div 
         className={cn(
           "bg-gray-100 flex items-center justify-center rounded overflow-hidden", 
           className
         )}
         style={{ 
-          width: imgWidth ? `${imgWidth}px` : '100%',
-          height: imgHeight ? `${imgHeight}px` : '240px',
-          aspectRatio: imgWidth && imgHeight ? `${imgWidth}/${imgHeight}` : undefined
+          width: width ? `${width}px` : '100%',
+          height: height ? `${height}px` : '240px',
+          ...aspectRatioStyle
         }}
       >
         <span className="text-sm text-gray-500">Failed to load image</span>
       </div>
-    );
+    )
+  );
+
+  if (hasError) {
+    return renderError();
   }
 
   return (
     <div 
+      id={uniqueId}
       className="relative overflow-hidden w-full h-full"
+      style={aspectRatioStyle}
     >
-      {isLoading && (
-        <Skeleton 
+      {isLoading && renderPlaceholder()}
+      
+      {isVisible && (
+        <img
+          src={imgSrc}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={loadingAttribute}
+          decoding={priority ? "sync" : "async"}
+          onLoad={() => setIsLoading(false)}
+          onError={() => setHasError(true)}
           className={cn(
-            "absolute inset-0 z-10",
+            'w-full h-full transition-opacity duration-300',
+            objectFit ? `object-${objectFit}` : 'object-cover',
+            isLoading ? 'opacity-0' : 'opacity-100',
             className
-          )} 
+          )}
+          {...props}
         />
       )}
-      <img
-        src={imgSrc}
-        alt={alt}
-        width={imgWidth}
-        height={imgHeight}
-        loading={loadingAttribute}
-        decoding={priority ? "sync" : "async"}
-        onLoad={() => setIsLoading(false)}
-        onError={() => setHasError(true)}
-        className={cn(
-          'w-full h-full transition-opacity duration-300',
-          objectFit ? `object-${objectFit}` : 'object-cover',
-          isLoading ? 'opacity-0' : 'opacity-100',
-          className
-        )}
-        {...props}
-      />
     </div>
   );
 };

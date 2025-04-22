@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle, Calendar, Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import OptimizedImage from '@/components/ui/optimized-image';
+import { NextGenImage } from '@/components/ui/next-gen-image';
 
 const BrandSection = () => {
   const { t, language } = useLanguage();
@@ -54,12 +54,12 @@ const BrandSection = () => {
         <div className="h-full flex items-center justify-center p-8">
           <div className="relative">
             <div className="absolute inset-0 bg-dental-orange rounded-xl blur-xl opacity-20 transform rotate-3"></div>
-            <OptimizedImage 
+            <NextGenImage 
               src="/lovable-uploads/5f625d79-c4c0-4279-8df1-06890084db8c.png"
               alt="רופאת שיניים במרפאה" 
               width={640}
               height={480}
-              priority={false} // Not an LCP element, can be lazy loaded
+              priority={false}
               className="relative max-h-full rounded-xl shadow-xl hover:scale-105 transition-transform duration-300 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards] object-cover" 
             />
           </div>

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Smile } from "lucide-react";
-import OptimizedImage from "@/components/ui/optimized-image";
+import { NextGenImage } from "@/components/ui/next-gen-image";
 
 // Named export for explicit import when needed as a hero override
 export const ChildrenDentistryHero: React.FC = () => {
@@ -17,11 +17,14 @@ export const ChildrenDentistryHero: React.FC = () => {
       <div className="container mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-20 relative z-10">
         {/* Hero left: IMAGE is now most dominant, per screenshot */}
         <div className="md:w-1/2 flex justify-center mb-5 md:mb-0">
-          <div className="relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-            <OptimizedImage
+          <div className="relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]" style={{width: '340px', height: '340px'}}>
+            <NextGenImage
               src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
               alt="ילדה מחייכת על כיסא טיפולים"
-              className="rounded-3xl shadow-lg w-[340px] md:w-[420px] h-auto object-cover border-4 border-white"
+              className="rounded-3xl shadow-lg object-cover border-4 border-white"
+              width={340}
+              height={340}
+              priority={true}
             />
             <Smile className="absolute -top-8 rtl:-right-8 left-1/2 -translate-x-1/2 h-14 w-14 text-dental-orange bg-white rounded-full border shadow-lg p-2 animate-pulse" />
           </div>
