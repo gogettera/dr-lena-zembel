@@ -94,7 +94,7 @@ const VideoSection = () => {
           subtitle={t('clinicTourDescription')}
         />
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <DeferredContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {videos.map((video) => (
@@ -103,26 +103,32 @@ const VideoSection = () => {
                   key={video.id}
                 >
                   <div 
-                    className="relative aspect-video group cursor-pointer"
+                    className="relative aspect-video cursor-pointer"
                     onClick={() => openVideoModal(video)}
                     aria-label={video.title}
                     tabIndex={0}
                   >
-                    <OptimizedImage
-                      src={video.poster}
-                      alt={t('clinicTourThumbnail') + ` ${video.title}`}
-                      width={video.width}
-                      height={video.height}
-                      className="w-full h-full object-cover"
-                      priority={false}
-                    />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-full bg-dental-orange flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                        <Play className="w-10 h-10 text-white fill-white" />
+                    {video.poster ? (
+                      <OptimizedImage
+                        src={video.poster}
+                        alt={t('clinicTourThumbnail') + ` ${video.title}`}
+                        width={640}
+                        height={360}
+                        className="w-full h-full object-cover"
+                        priority={false}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">{t('noThumbnail') || 'No thumbnail'}</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/40 hover:bg-black/50 transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-dental-orange flex items-center justify-center transform hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 text-white fill-white" />
                       </div>
                     </div>
                   </div>
-                  <div className="px-6 py-4">
+                  <div className="px-4 py-3">
                     <h3 className="text-lg font-semibold text-dental-navy">{video.title}</h3>
                   </div>
                 </Card>
