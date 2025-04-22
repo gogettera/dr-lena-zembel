@@ -43,40 +43,39 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const loadTranslations = async (lang: Language) => {
     try {
-      // Try to load modular translations first
-      try {
-        const moduleTranslations = await loadModularTranslations(lang);
-        const combinedTranslations = combineTranslations(moduleTranslations);
-        setFlatTranslations(combinedTranslations);
-        return;
-      } catch (moduleError) {
-        console.warn(`Failed to load modular translations for ${lang}, falling back to legacy format:`, moduleError);
+      if (lang === 'he') {
+        // Modular for Hebrew only
+        try {
+          const moduleTranslations = await loadModularTranslations(lang);
+          const combinedTranslations = combineTranslations(moduleTranslations);
+          setFlatTranslations(combinedTranslations);
+          return;
+        } catch (moduleError) {
+          console.warn(`Failed to load modular translations for ${lang}, falling back to legacy format:`, moduleError);
+        }
+        // Fallback to legacy Hebrew
+        const translations = await import(`../translations/${lang}.json`);
+        const flattened = flattenTranslations(translations.default);
+        setFlatTranslations(flattened);
+      } else {
+        // For ALL other languages, use only the .json file - never modular import!
+        const translations = await import(`../translations/${lang}.json`);
+        const flattened = flattenTranslations(translations.default);
+        setFlatTranslations(flattened);
       }
-
-      // Fallback to legacy single file format
-      const translations = await import(`../translations/${lang}.json`);
-      // Flatten the nested translations
-      const flattened = flattenTranslations(translations.default);
-      setFlatTranslations(flattened);
     } catch (error) {
       console.error(`Failed to load translations for ${lang}:`, error);
-      
-      // If we failed to load translations and we're not already trying Hebrew
+      // Fallback logic: try Hebrew default if not already tried
       if (lang !== 'he') {
         try {
-          // Try to load Hebrew translations as a fallback
-          // Import the Hebrew modules directory
           const heModules = await import('../translations/he');
           const heFlattened = combineTranslations(heModules);
           setFlatTranslations(heFlattened);
         } catch (heModuleError) {
           console.error('Could not load Hebrew translations as fallback:', heModuleError);
-          // Set empty translations as last resort
           setFlatTranslations({});
         }
       } else {
-        // We're already trying to load Hebrew and failed
-        console.error('Could not load Hebrew translations:', error);
         setFlatTranslations({});
       }
     }
@@ -122,3 +121,4 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
+
