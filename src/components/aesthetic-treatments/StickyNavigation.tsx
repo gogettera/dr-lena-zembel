@@ -5,7 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Section } from "@/hooks/use-active-section";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
-import { WhatsappLogo } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 
 const StickyNavigation: React.FC = () => {
   const { t, isRTL } = useLanguage();
