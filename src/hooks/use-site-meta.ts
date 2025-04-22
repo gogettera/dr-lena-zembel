@@ -25,15 +25,19 @@ export const useSiteMeta = () => {
   const fetchMeta = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
+      console.log('Fetching site meta...');
+      
+      const { data, error: fetchError } = await supabase
         .from('site_meta')
         .select('*')
         .eq('id', 1)
         .maybeSingle();
 
-      if (error) throw error;
+      if (fetchError) throw fetchError;
       
+      console.log('Fetched site meta:', data);
       setMeta(data as SiteMeta);
+      
     } catch (err) {
       console.error('Error fetching site meta:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch site metadata'));
@@ -51,41 +55,41 @@ export const useSiteMeta = () => {
   const updateMeta = async (newMeta: Partial<SiteMeta>) => {
     try {
       setLoading(true);
-      
-      // Ensure we have the current meta data before updating
-      if (!meta) {
-        await fetchMeta();
-        if (!meta) throw new Error('No metadata available to update');
-      }
+      console.log('Updating site meta with:', newMeta);
       
       const updates = {
-        // Include all required fields from existing meta
-        title: newMeta.title ?? meta!.title,
-        description: newMeta.description ?? meta!.description,
-        og_title: newMeta.og_title ?? meta!.og_title,
-        og_description: newMeta.og_description ?? meta!.og_description,
-        // Include optional fields
-        og_image_url: newMeta.og_image_url !== undefined ? newMeta.og_image_url : meta!.og_image_url,
-        twitter_title: newMeta.twitter_title !== undefined ? newMeta.twitter_title : meta!.twitter_title,
-        twitter_description: newMeta.twitter_description !== undefined ? newMeta.twitter_description : meta!.twitter_description,
-        twitter_card: newMeta.twitter_card ?? meta!.twitter_card,
-        favicon_url: newMeta.favicon_url !== undefined ? newMeta.favicon_url : meta!.favicon_url,
+        id: 1,
+        title: newMeta.title,
+        description: newMeta.description,
+        og_title: newMeta.og_title,
+        og_description: newMeta.og_description,
+        og_image_url: newMeta.og_image_url,
+        twitter_title: newMeta.twitter_title,
+        twitter_description: newMeta.twitter_description,
+        twitter_card: newMeta.twitter_card,
+        favicon_url: newMeta.favicon_url,
         updated_at: new Date().toISOString(),
       };
       
-      const { error } = await supabase
+      const { error: updateError } = await supabase
         .from('site_meta')
-        .upsert({ id: 1, ...updates }, { onConflict: 'id' });
+        .upsert(updates);
 
-      if (error) throw error;
+      if (updateError) {
+        console.error('Supabase update error:', updateError);
+        throw updateError;
+      }
       
-      // Refresh meta data
-      await fetchMeta();
+      // Update local state
+      setMeta(prevMeta => ({ ...prevMeta, ...updates } as SiteMeta));
       
       toast({
         title: 'Meta updated',
         description: 'Site meta information has been updated successfully',
       });
+      
+      // Refresh meta data to ensure we have the latest state
+      await fetchMeta();
       
       return true;
     } catch (err) {
