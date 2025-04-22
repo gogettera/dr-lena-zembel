@@ -1,19 +1,46 @@
-import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import AccessibleLayout from './components/layout/AccessibleLayout';
 import './index.css';
 
-// Disable React.StrictMode in production to prevent double mounting
-const root = createRoot(document.getElementById('root')!);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <AccessibleLayout>
+      <App />
+    </AccessibleLayout>
+  </React.StrictMode>,
+);
+</lov-code>
 
-// Defer non-critical initialization
-const initApp = () => {
-  root.render(<App />);
-};
+### 2.2 תוספות לקובץ התרגומים
 
-// Check if the browser is idle
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(initApp);
-} else {
-  // Fallback for browsers that don't support requestIdleCallback
-  setTimeout(initApp, 1);
+כעת נוסיף את תרגומי הנגישות לקבצי התרגום:
+
+<lov-code>
+<lov-write file_path="src/translations/he/accessibility.json">
+{
+  "title": "אפשרויות נגישות",
+  "toggle": "אפשרויות נגישות",
+  "fontSize": "גודל טקסט",
+  "highContrast": "ניגודיות גבוהה",
+  "on": "מופעל",
+  "off": "כבוי",
+  "reset": "איפוס הגדרות",
+  "statement": "הצהרת נגישות",
+  "statementTitle": "הצהרת נגישות",
+  "introText": "אנו במרפאת השיניים של ד״ר לנה זמבל מאמינים כי לכל אדם מגיעה הזכות לנגישות מלאה לשירותי רפואת שיניים ולמידע באתר. אנו פועלים להנגשת האתר והשירותים שאנו מספקים בהתאם לחוק שוויון זכויות לאנשים עם מוגבלות תשנ\"ח-1998 ולתקנות שהותקנו מכוחו.",
+  "featuresTitle": "אמצעי הנגישות באתר",
+  "feature1": "האתר תומך בהגדלת הטקסט עד 200% מבלי לפגוע בתצוגה ובתפקוד",
+  "feature2": "האתר ניתן לניווט באמצעות המקלדת בלבד",
+  "feature3": "כל התמונות באתר כוללות תיאורי טקסט חלופיים",
+  "feature4": "האתר נתמך ע״י תוכנות הקראה",
+  "feature5": "האתר מאפשר התאמת ניגודיות צבעים לשיפור הקריאות",
+  "feature6": "תמיכה בתצוגה מותאמת למכשירים ניידים וטאבלטים",
+  "standardsTitle": "תקנים ותאימות",
+  "standardsText": "אתר זה תואם את דרישות תקנות הנגישות לשירות של מדינת ישראל בהתאם לת״י 5568 המבוסס על הנחיות WCAG 2.1 ברמה AA.",
+  "contactTitle": "פניות בנושא נגישות",
+  "contactText": "אם נתקלתם בבעיית נגישות באתר או אם יש לכם שאלות או הצעות לשיפור הנגישות, אנא פנו אלינו:",
+  "lastUpdated": "הצהרת נגישות זו עודכנה לאחרונה בתאריך"
 }

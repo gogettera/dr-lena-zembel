@@ -14,6 +14,7 @@ import clinicJson from './clinic.json';
 import contactJson from './contact.json';
 import infoJson from './info.json';
 import testimonialsJson from './testimonials.json';
+import accessibilityJson from './accessibility.json';
 
 // Re-export all translations as named exports
 export const common = commonJson;
@@ -28,6 +29,7 @@ export const clinic = clinicJson;
 export const contact = contactJson;
 export const info = infoJson;
 export const testimonials = testimonialsJson;
+export const accessibility = accessibilityJson;
 
 // Export a combined object with all translations
 export default {
@@ -42,5 +44,6 @@ export default {
   clinic: clinicJson,
   contact: contactJson,
   info: infoJson,
-  testimonials: testimonialsJson
+  testimonials: testimonialsJson,
+  accessibility: accessibilityJson
 };
