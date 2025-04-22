@@ -30,9 +30,18 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
   const { t, isRTL } = useLanguage();
   const location = useLocation();
   const styles = useDirectionalStyles();
+
+  // Separate state for desktop submenu hover/focus
   const [_submenu, _setSubmenu] = useState<string | null>(null);
-  const realOpenSubmenu = setSubmenuOpenKey ? submenuOpenKey : _submenu;
-  const openHandler = setSubmenuOpenKey ?? _setSubmenu;
+  const desktopSubmenuKey = !vertical ? _submenu : null;
+
+  // Use props for mobile menu (vertical), internal state for desktop
+  const realOpenSubmenu = vertical
+    ? (setSubmenuOpenKey ? submenuOpenKey : _submenu)
+    : desktopSubmenuKey;
+  const openHandler = vertical
+    ? (setSubmenuOpenKey || _setSubmenu)
+    : _setSubmenu;
 
   return (
     <NavList
@@ -58,17 +67,43 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
           );
         }
 
+        // Desktop: open submenu only on hover or focus
+        let submenuTriggers: any = {};
+        if (!vertical) {
+          submenuTriggers = {
+            onMouseEnter: () => _setSubmenu(item.key),
+            onMouseLeave: () => _setSubmenu(null),
+            onFocus: () => _setSubmenu(item.key),
+            onBlur: (e: React.FocusEvent) => {
+              // Only close if focus moves outside this menu item
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                _setSubmenu(null);
+              }
+            },
+          };
+        }
+
         const isExpanded = realOpenSubmenu === item.key;
+
         return (
           <NavItem
             key={item.key}
-            as="button"
+            as={vertical ? "button" : "div"}
             active={isActive}
             aria-haspopup="true"
             aria-expanded={isExpanded}
-            onClick={() => openHandler(isExpanded ? null : item.key)}
+            onClick={
+              vertical
+                ? () => openHandler(isExpanded ? null : item.key)
+                : undefined
+            }
             tabIndex={0}
-            className={vertical ? "flex justify-between items-center" : "inline-flex items-center"}
+            className={
+              vertical
+                ? "flex justify-between items-center"
+                : "inline-flex items-center relative"
+            }
+            {...submenuTriggers}
           >
             <>
               <span>{t(item.labelKey)}</span>
@@ -78,7 +113,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
                 <ChevronDown className={styles.icon.chevron + " ml-1 h-4 w-4"} />
               )}
               {/* Submenu */}
-              {(vertical ? isExpanded : true) && (
+              {(vertical ? isExpanded : isExpanded) && (
                 <NavList
                   vertical={true}
                   className={
