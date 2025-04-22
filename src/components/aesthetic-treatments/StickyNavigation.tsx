@@ -5,13 +5,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Section } from "@/hooks/use-active-section";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
-import { MessageSquare } from "lucide-react";
 
 const StickyNavigation: React.FC = () => {
   const { t, isRTL } = useLanguage();
   const isMobile = useIsMobile();
 
-  // Define sections from translation keys
   const sections: Section[] = [
     { id: "hero", label: t('aestheticTreatments.nav.intro', 'מבוא') },
     { id: "treatments", label: t('aestheticTreatments.nav.types', 'סוגי טיפולים') },
@@ -24,7 +22,6 @@ const StickyNavigation: React.FC = () => {
   const ctaButton = {
     label: t('bookVisit', 'לקביעת ביקור'),
     onClick: () => {
-      // Open WhatsApp or a booking modal
       window.open('https://wa.me/972035666915', '_blank');
     }
   };
@@ -35,7 +32,7 @@ const StickyNavigation: React.FC = () => {
       ctaButton={ctaButton}
       scrollOffset={isMobile ? 150 : 300}
       showBackToTop={true}
-      className={`px-4 py-3 ${isRTL ? 'rtl' : 'ltr'} transition-all duration-300 backdrop-blur-md`}
+      className={`px-6 py-3 max-w-6xl mx-auto ${isRTL ? 'rtl' : 'ltr'} transition-all duration-300 backdrop-blur-md`}
     />
   );
 };
