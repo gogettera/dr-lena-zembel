@@ -9,8 +9,8 @@ interface SiteMeta {
   og_title: string;
   og_description: string;
   og_image_url: string | null;
-  twitter_title: string;
-  twitter_description: string;
+  twitter_title: string | null;
+  twitter_description: string | null;
   twitter_card: string;
   favicon_url: string | null;
   updated_at: string | null;

@@ -45,29 +45,41 @@ export type Database = {
       site_meta: {
         Row: {
           description: string
+          favicon_url: string | null
           id: number
           og_description: string
           og_image_url: string | null
           og_title: string
           title: string
+          twitter_card: string | null
+          twitter_description: string | null
+          twitter_title: string | null
           updated_at: string | null
         }
         Insert: {
           description: string
+          favicon_url?: string | null
           id?: number
           og_description: string
           og_image_url?: string | null
           og_title: string
           title: string
+          twitter_card?: string | null
+          twitter_description?: string | null
+          twitter_title?: string | null
           updated_at?: string | null
         }
         Update: {
           description?: string
+          favicon_url?: string | null
           id?: number
           og_description?: string
           og_image_url?: string | null
           og_title?: string
           title?: string
+          twitter_card?: string | null
+          twitter_description?: string | null
+          twitter_title?: string | null
           updated_at?: string | null
         }
         Relationships: []

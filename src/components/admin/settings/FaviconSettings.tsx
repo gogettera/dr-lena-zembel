@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -64,8 +63,8 @@ export const FaviconSettings = () => {
     }
 
     setFaviconFile(file);
-    const previewUrl = await createFilePreview(file);
-    setPreviewUrl(previewUrl);
+    const preview = await createFilePreview(file);
+    setPreviewUrl(preview);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -82,7 +81,7 @@ export const FaviconSettings = () => {
       // Update site_meta table with the favicon URL
       const { error } = await supabase
         .from('site_meta')
-        .upsert({
+        .upsert({ 
           id: 1, 
           favicon_url: faviconUrl,
           updated_at: new Date().toISOString()
