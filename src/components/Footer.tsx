@@ -1,81 +1,39 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Link } from 'react-router-dom';
-import { Section } from '@/components/ui/section';
 import { Container } from '@/components/ui/container';
 import { Grid } from '@/components/ui/grid';
 import { cn } from '@/lib/utils';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
-import ScrollToTopButton from '@/components/ScrollToTopButton';
-import AccessibilityWidget from '@/components/AccessibilityWidget';
 import FooterContactInfo from './footer/FooterContactInfo';
-import FooterSocial from './footer/FooterSocial';
 import FooterNavigation from './footer/FooterNavigation';
+import FooterSocial from './footer/FooterSocial';
+import ScrollToTopButton from './ScrollToTopButton';
+import AccessibilityWidget from './AccessibilityWidget';
 
 const Footer: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   return (
-    <footer className="bg-dental-navy text-dental-beige relative" aria-label="Footer">
-      <Section spacing="lg" background="navy" containerClass="px-4 md:px-6">
-        <Container size="5xl">
-          <FooterSocial />
-
-          <Grid cols={1} mdCols={2} lgCols={4} gap={6} className="mb-8">
+    <footer className="bg-dental-navy pt-16 pb-8 relative" aria-label="Footer">
+      <Container size="5xl">
+        <Grid cols={1} mdCols={2} lgCols={4} gap={8} className="mb-16">
+          <div className="order-1 md:col-span-2 lg:col-span-1">
             <FooterContactInfo />
-            <FooterNavigation />
-
-            {/* Legal Links */}
-            <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-white">
-                {t('navigation.info')}
-              </h4>
-              <nav className="flex flex-col space-y-2">
-                <Link 
-                  to={`/${language}/privacy`} 
-                  className="text-dental-beige hover:text-white transition-colors duration-300"
-                >
-                  {t('privacy')}
-                </Link>
-                <Link 
-                  to={`/${language}/terms`} 
-                  className="text-dental-beige hover:text-white transition-colors duration-300"
-                >
-                  {t('terms')}
-                </Link>
-                <Link 
-                  to={`/${language}/accessibility-statement`} 
-                  className="text-dental-beige hover:text-white transition-colors duration-300"
-                >
-                  {t('accessibility.statement')}
-                </Link>
-              </nav>
-            </div>
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* Bottom Footer */}
-      <Section spacing="xs" background="navy" containerClass="px-4 md:px-6 border-t border-dental-beige/20">
-        <Container size="5xl">
-          <div className="flex flex-col md:flex-row items-center justify-between py-4">
-            <p className="text-sm text-dental-beige/80">
+          </div>
+          <FooterNavigation />
+        </Grid>
+        
+        <div className="border-t border-dental-beige/20 pt-8">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-dental-beige/70">
               {t('contact.allRightsReserved')}
             </p>
-            <div className="mt-4 md:mt-0">
-              <LanguageSwitcher />
-            </div>
+            <FooterSocial />
           </div>
-        </Container>
-      </Section>
-      
-      {/* Floating Elements */}
-      <ScrollToTopButton 
-        position="bottom-right" 
-        className="z-50"
-        buttonClassName="bg-dental-orange hover:bg-dental-orange/90"
-      />
+        </div>
+      </Container>
+
+      <ScrollToTopButton />
       <AccessibilityWidget />
     </footer>
   );
