@@ -1,9 +1,13 @@
 
-import { Outlet } from 'react-router-dom';
+import React from 'react';
 
-const AdminRoute = () => {
+interface AdminRouteProps {
+  element: React.ReactNode;
+}
+
+const AdminRoute: React.FC<AdminRouteProps> = ({ element }) => {
   // Admin check removed - open access for everyone
-  return <Outlet />;
+  return <>{element}</>;
 };
 
 export default AdminRoute;
