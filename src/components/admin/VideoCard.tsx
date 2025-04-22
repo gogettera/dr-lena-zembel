@@ -1,34 +1,27 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Card } from "@/components/ui/card";
 import type { VideoData } from './useVideos';
 import EditableField from './video/EditableField';
 import VideoActions from './video/VideoActions';
 import ErrorAlert from './video/ErrorAlert';
+import { useVideoError } from './video/hooks/useVideoError';
+import { useVideoForm } from './video/hooks/useVideoForm';
 
 interface VideoCardProps {
   video: VideoData;
-  onUpdate: (id: string, field: keyof VideoData, value: string | number) => void;
+  onUpdate: (id: string, field: keyof VideoData, value: string | number) => Promise<void>;
   onRemove: (id: string) => void;
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
-  const [error, setError] = useState<string | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-
-  const handleUpdate = async (field: keyof VideoData) => {
-    return async (value: string) => {
-      setIsSaving(true);
-      try {
-        await onUpdate(video.id, field, value);
-        setError(null);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsSaving(false);
-      }
-    };
-  };
+  const { error, handleError, clearError } = useVideoError();
+  const { isSaving, handleUpdate } = useVideoForm({
+    video,
+    onUpdate,
+    onError: handleError,
+    onSuccess: clearError
+  });
 
   return (
     <Card className="p-4 space-y-4">
