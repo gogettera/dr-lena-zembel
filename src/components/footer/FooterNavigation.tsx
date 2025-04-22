@@ -11,8 +11,8 @@ const FooterNavigation = () => {
   const navigation = createLocalizedNavigationConfig(language);
 
   return (
-    <>
-      <div className="space-y-6 order-2">
+    <Grid cols={1} mdCols={2} gap={8} className="w-full">
+      <div className="space-y-6">
         <h4 className="text-xl font-semibold text-white">
           {t('navigation.sitemap')}
         </h4>
@@ -29,12 +29,12 @@ const FooterNavigation = () => {
         </NavList>
       </div>
 
-      <div className="space-y-6 order-3">
+      <div className="space-y-6">
         <h4 className="text-xl font-semibold text-white">
           {t('navigation.ourTreatments')}
         </h4>
         <NavList vertical className="space-y-3">
-          {[...navigation.main[2].children || []].map((link) => (
+          {navigation.footer.treatments.map((link) => (
             <NavItem 
               key={link.key}
               to={link.path}
@@ -45,7 +45,7 @@ const FooterNavigation = () => {
           ))}
         </NavList>
       </div>
-    </>
+    </Grid>
   );
 };
 

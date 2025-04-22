@@ -27,7 +27,7 @@ const FooterContactInfo = () => {
           className="flex items-center gap-3 text-dental-beige hover:text-white transition-colors duration-300"
         >
           <Phone className="h-5 w-5 shrink-0" />
-          <span className="text-sm">{t('contact.phone')}</span>
+          <span className="text-sm" dir="ltr">03-566-6915</span>
         </a>
         
         <div className="flex items-start gap-3">
