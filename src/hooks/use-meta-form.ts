@@ -20,14 +20,14 @@ export const useMetaForm = () => {
   
   const form = useForm<MetaFormData>({
     defaultValues: {
-      title: '',
-      description: '',
-      ogTitle: '',
-      ogDescription: '',
+      title: 'My Dental Clinic',
+      description: 'Professional dental care services in a modern and comfortable environment',
+      ogTitle: 'My Dental Clinic',
+      ogDescription: 'Professional dental care services in a modern and comfortable environment',
       ogImage: null,
       ogImageUrl: '',
-      twitterTitle: '',
-      twitterDescription: '',
+      twitterTitle: 'My Dental Clinic',
+      twitterDescription: 'Professional dental care services in a modern and comfortable environment',
       twitterCard: 'summary_large_image'
     }
   });
@@ -36,14 +36,14 @@ export const useMetaForm = () => {
   useEffect(() => {
     if (meta) {
       form.reset({
-        title: meta.title || '',
-        description: meta.description || '',
-        ogTitle: meta.og_title || '',
-        ogDescription: meta.og_description || '',
+        title: meta.title || 'My Dental Clinic',
+        description: meta.description || 'Professional dental care services in a modern and comfortable environment',
+        ogTitle: meta.og_title || 'My Dental Clinic',
+        ogDescription: meta.og_description || 'Professional dental care services in a modern and comfortable environment',
         ogImage: null,
         ogImageUrl: meta.og_image_url || '',
-        twitterTitle: meta.twitter_title || meta.og_title || '',
-        twitterDescription: meta.twitter_description || meta.og_description || '',
+        twitterTitle: meta.twitter_title || meta.og_title || 'My Dental Clinic',
+        twitterDescription: meta.twitter_description || meta.og_description || 'Professional dental care services in a modern and comfortable environment',
         twitterCard: meta.twitter_card || 'summary_large_image'
       });
     }
