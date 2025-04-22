@@ -15,6 +15,7 @@ interface ImageCardProps {
 
 const ImageCard: React.FC<ImageCardProps> = ({ image, onDelete }) => {
   const [deleting, setDeleting] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const handleDeleteClick = async () => {
     if (!window.confirm("Are you sure you want to delete this image?")) return;
@@ -27,12 +28,19 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onDelete }) => {
 
   return (
     <Card className="relative rounded-lg overflow-hidden shadow max-w-xs hover:shadow-lg transition-all group">
-      <img
-        src={image.url}
-        alt={image.name}
-        className="w-full h-40 object-cover rounded-t-lg"
-        style={{ background: "#f8fafc" }}
-      />
+      <div className="w-full h-40 bg-gray-100 flex items-center justify-center">
+        <img
+          src={image.url}
+          alt={image.name}
+          className={`w-full h-40 object-cover rounded-t-lg ${imageError ? 'hidden' : ''}`}
+          onError={() => setImageError(true)}
+        />
+        {imageError && (
+          <div className="text-xs text-gray-500 p-2 text-center">
+            Image preview unavailable
+          </div>
+        )}
+      </div>
       {onDelete && (
         <Button
           variant="destructive"
