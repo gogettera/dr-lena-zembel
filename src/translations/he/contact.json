@@ -2,11 +2,13 @@
 {
   "openingHours": "שעות פעילות",
   "sundayToThursday": "ראשון עד שישי: 8:30-14:00",
-  "friday": "שישי: 8:30-14:00",
+  "friday": "שישי: 8:30-13:00",
   "contactUs": "צור קשר",
   "address": "דרך בן צבי 2, צפון יפו",
   "allRightsReserved": "כל הזכויות שמורות",
   "clinicAddress": "דרך בן צבי 2, צפון יפו",
   "contactInfo": "פרטי התקשרות",
-  "phone": "03-566-6915"
+  "phone": "03-566-6915",
+  "callClinic": "התקשר למרפאה",
+  "emailClinic": "שלח אימייל למרפאה"
 }
