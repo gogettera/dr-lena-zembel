@@ -30,7 +30,7 @@ export const useMetaForm = () => {
       twitterTitle: 'דר לנה - מרפאת שיניים - יפו - תל אביב',
       twitterDescription: 'מרפאת שיניים מודרנית ביפו תל אביב בהובלת ד"ר לנה. טיפול שיניים ברמה גבוהה למשפחות ולקוחות פרטיים באווירה אישית ונעימה.',
       twitterCard: 'summary_large_image',
-      canonicalUrl: 'https://dental-love.com/',
+      canonicalUrl: 'https://dr-zembel.com/',
     }
   });
 
@@ -47,7 +47,7 @@ export const useMetaForm = () => {
         twitterTitle: meta.twitter_title || meta.og_title,
         twitterDescription: meta.twitter_description || meta.og_description,
         twitterCard: meta.twitter_card,
-        canonicalUrl: meta.canonical_url || 'https://dental-love.com/',
+        canonicalUrl: meta.canonical_url || 'https://dr-zembel.com/',
       });
     }
   }, [meta, form]);

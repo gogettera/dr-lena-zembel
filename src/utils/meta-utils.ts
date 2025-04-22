@@ -32,6 +32,13 @@ export const applyMetaTags = async () => {
     updateMetaTag('twitter:title', data.twitter_title || data.og_title);
     updateMetaTag('twitter:description', data.twitter_description || data.og_description);
     updateMetaTag('twitter:image', data.og_image_url);
+
+    // Canonical (set the default canonical if missing)
+    if (data.canonical_url) {
+      updateCanonicalLink(data.canonical_url);
+    } else {
+      updateCanonicalLink('https://dr-zembel.com/');
+    }
     
     // Favicon
     if (data.favicon_url) {
@@ -63,6 +70,18 @@ export const updateMetaTag = (
     meta.setAttribute('content', content);
     document.head.appendChild(meta);
   }
+};
+
+// Update or create canonical link
+export const updateCanonicalLink = (canonicalUrl: string) => {
+  if (!canonicalUrl) return;
+  let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.rel = 'canonical';
+    document.head.appendChild(link);
+  }
+  link.href = canonicalUrl;
 };
 
 // Update favicons in the document head

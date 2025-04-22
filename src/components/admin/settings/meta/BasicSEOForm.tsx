@@ -54,7 +54,7 @@ export const BasicSEOForm = ({ form, loading }: BasicSEOFormProps) => {
           <FormItem className="mt-4">
             <FormLabel>Canonical URL</FormLabel>
             <FormControl>
-              <Input {...field} disabled={loading} placeholder="https://dental-love.com/" />
+              <Input {...field} disabled={loading} placeholder="https://dr-zembel.com/" />
             </FormControl>
             <FormDescription>
               The primary URL for search engines (avoid duplicate content penalties).
