@@ -6,6 +6,8 @@ import commonJson from './common.json';
 import navigationJson from './navigation.json';
 import treatmentsJson from './treatments.json';
 import aestheticTreatmentsJson from './aestheticTreatments.json';
+import orthodonticsJson from './orthodontics.json';
+import rootCanalJson from './rootCanal.json';
 import childrenDentistryJson from './childrenDentistry.json';
 import aboutJson from './about.json';
 import clinicJson from './clinic.json';
@@ -18,6 +20,8 @@ export const common = commonJson;
 export const navigation = navigationJson;
 export const treatments = treatmentsJson;
 export const aestheticTreatments = aestheticTreatmentsJson;
+export const orthodontics = orthodonticsJson;
+export const rootCanal = rootCanalJson;
 export const childrenDentistry = childrenDentistryJson;
 export const about = aboutJson;
 export const clinic = clinicJson;
@@ -31,6 +35,8 @@ export default {
   navigation: navigationJson,
   treatments: treatmentsJson,
   aestheticTreatments: aestheticTreatmentsJson,
+  orthodontics: orthodonticsJson,
+  rootCanal: rootCanalJson,
   childrenDentistry: childrenDentistryJson,
   about: aboutJson,
   clinic: clinicJson,
