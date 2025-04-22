@@ -48,6 +48,17 @@ export const FaviconSettings = () => {
                   No favicon set
                 </div>
               )}
+              {/* Example upload image */}
+              <div className="w-full flex flex-col items-center mt-4">
+                <span className="text-xs text-gray-400 mb-1">Example image for upload:</span>
+                <img
+                  src="/lovable-uploads/0220ac9e-7ca5-472e-9bcc-e630090c6ff2.png"
+                  alt="Example upload"
+                  className="w-20 h-20 rounded-full object-cover border border-gray-200 shadow"
+                  style={{ objectFit: 'cover' }}
+                  loading="lazy"
+                />
+              </div>
             </Card>
           </div>
 
