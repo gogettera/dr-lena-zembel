@@ -7,6 +7,7 @@ import { validateImageFile, createFilePreview } from '@/utils/fileUtils';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 
+// Changed from "site-images" to match exact bucket name created in SQL
 const BUCKET = 'site-images';
 
 type Img = {
@@ -23,14 +24,17 @@ const ImageLibrary: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [bucketExists, setBucketExists] = useState(true);
-  const [checkInProgress, setCheckInProgress] = useState(false); // for UX so user knows we're retrying
+  const [checkInProgress, setCheckInProgress] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const checkBucket = async () => {
     setCheckInProgress(true);
     try {
+      console.log(`Checking if bucket "${BUCKET}" exists...`);
       const { data, error } = await supabase.storage.getBucket(BUCKET);
-      if (error || !data) {
+      
+      if (error) {
+        console.error(`Error checking bucket:`, error);
         setBucketExists(false);
         setErrorMsg(
           `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
@@ -38,11 +42,24 @@ const ImageLibrary: React.FC = () => {
         setCheckInProgress(false);
         return false;
       }
+      
+      if (!data) {
+        console.error(`Bucket data is null or undefined`);
+        setBucketExists(false);
+        setErrorMsg(
+          `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
+        );
+        setCheckInProgress(false);
+        return false;
+      }
+      
+      console.log(`Bucket "${BUCKET}" exists:`, data);
       setBucketExists(true);
       setErrorMsg("");
       setCheckInProgress(false);
       return true;
     } catch (error) {
+      console.error(`Unexpected error checking bucket:`, error);
       setBucketExists(false);
       setErrorMsg(
         `Error checking bucket "${BUCKET}". Please ensure Supabase is properly configured.`
@@ -61,15 +78,18 @@ const ImageLibrary: React.FC = () => {
     }
 
     try {
+      console.log(`Fetching images from bucket "${BUCKET}"...`);
       const { data, error } = await supabase
         .storage
         .from(BUCKET)
         .list('', { limit: 200, offset: 0, sortBy: { column: 'updated_at', order: 'desc' } });
 
       if (error) {
+        console.error(`Error listing files:`, error);
         setImages([]);
         setErrorMsg(`Could not fetch images: ${error.message}`);
       } else if (data) {
+        console.log(`Found ${data.length} files in bucket:`, data);
         const imgs: Img[] = data
           .filter(file => file && !file.name.endsWith('/'))
           .map(file => {
@@ -84,6 +104,7 @@ const ImageLibrary: React.FC = () => {
         setErrorMsg("");
       }
     } catch (error) {
+      console.error(`Unexpected error fetching images:`, error);
       setErrorMsg("An unexpected error occurred while fetching images.");
     }
     setLoading(false);
@@ -138,11 +159,11 @@ const ImageLibrary: React.FC = () => {
     }
     setUploading(true);
     setErrorMsg("");
-    const fileExt = selectedFile.name.split('.').pop();
     const fileName = `${Date.now()}_${selectedFile.name.replace(/\s+/g, '_')}`;
     const filePath = fileName;
 
     try {
+      console.log(`Uploading file "${fileName}" to bucket "${BUCKET}"...`);
       const { error: uploadError } = await supabase.storage
         .from(BUCKET)
         .upload(filePath, selectedFile, {
@@ -150,9 +171,11 @@ const ImageLibrary: React.FC = () => {
         });
 
       if (uploadError) {
+        console.error(`Upload error:`, uploadError);
         setErrorMsg(uploadError.message || "Failed to upload.");
         toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
       } else {
+        console.log(`File uploaded successfully`);
         toast({ title: "Image uploaded successfully", variant: "default" });
         setSelectedFile(null);
         setPreviewUrl(null);
@@ -160,6 +183,7 @@ const ImageLibrary: React.FC = () => {
         fetchImages();
       }
     } catch (error) {
+      console.error(`Unexpected error during upload:`, error);
       toast({ 
         title: "Upload failed", 
         description: "An unexpected error occurred during upload", 
@@ -183,16 +207,20 @@ const ImageLibrary: React.FC = () => {
     }
     setLoading(true);
     try {
+      console.log(`Deleting file "${name}" from bucket "${BUCKET}"...`);
       const { error } = await supabase.storage
         .from(BUCKET)
         .remove([name]);
       if (error) {
+        console.error(`Delete error:`, error);
         toast({ title: "Failed to delete", description: error.message, variant: "destructive" });
       } else {
+        console.log(`File deleted successfully`);
         toast({ title: "Image deleted" });
         fetchImages();
       }
     } catch (error) {
+      console.error(`Unexpected error during delete:`, error);
       toast({ 
         title: "Delete failed", 
         description: "An unexpected error occurred", 
@@ -299,4 +327,3 @@ const ImageLibrary: React.FC = () => {
 };
 
 export default ImageLibrary;
-
