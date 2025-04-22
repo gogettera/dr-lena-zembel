@@ -1,29 +1,30 @@
 
 import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { useImageLibraryActions } from './useImageLibraryActions';
+import { useImageLibrary } from './hooks/useImageLibrary';
+import { useImageUpload } from './hooks/useImageUpload';
+import { useBucketCheck } from './hooks/useBucketCheck';
 import ImageUploadSection from './ImageUploadSection';
 import ImageGrid from './ImageGrid';
 import BucketErrorAlert from './BucketErrorAlert';
 
 const ImageLibrary: React.FC = () => {
-  const {
-    images,
-    loading,
-    uploading,
-    previewUrl,
-    selectedFile,
-    errorMsg,
-    bucketExists,
-    checkInProgress,
-    fileInputRef,
-    handleFileChange,
-    handleUpload,
-    handleDelete,
-    handleRetry,
-    handleCreateBucket,
-    fetchImages,
-  } = useImageLibraryActions();
+  const { images, loading, bucketExists, fetchImages, handleDelete } = useImageLibrary();
+  const { 
+    uploading, 
+    previewUrl, 
+    selectedFile, 
+    errorMsg: uploadErrorMsg, 
+    fileInputRef, 
+    handleFileChange, 
+    handleUpload 
+  } = useImageUpload();
+  const { 
+    checkInProgress, 
+    errorMsg: bucketErrorMsg, 
+    handleRetry, 
+    handleCreateBucket 
+  } = useBucketCheck();
 
   useEffect(() => {
     fetchImages();
@@ -39,7 +40,7 @@ const ImageLibrary: React.FC = () => {
         checkInProgress={checkInProgress}
         handleRetry={handleRetry}
         handleCreateBucket={handleCreateBucket}
-        errorMsg={errorMsg}
+        errorMsg={bucketErrorMsg}
       />
 
       <ImageUploadSection
@@ -48,7 +49,7 @@ const ImageLibrary: React.FC = () => {
         fileInputRef={fileInputRef}
         handleFileChange={handleFileChange}
         handleUpload={handleUpload}
-        errorMsg={errorMsg}
+        errorMsg={uploadErrorMsg}
         previewUrl={previewUrl}
         bucketExists={bucketExists}
       />
