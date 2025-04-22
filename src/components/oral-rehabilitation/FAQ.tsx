@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const FAQ = () => {
   const { t } = useLanguage();
-
+  
   const defaultFaqs = [
     {
       question: 'כמה זמן נמשך תהליך שיקום הפה?',
@@ -21,8 +21,9 @@ const FAQ = () => {
     }
   ];
 
-  // Use the translation key with a fallback to default FAQs
-  const faqs = t('oralRehabilitation.faq', { defaultValue: defaultFaqs });
+  // Attempt to get the translated FAQs, or fall back to the default ones
+  const translatedFaqsKey = 'oralRehabilitation.faq';
+  const faqs = t(translatedFaqsKey) ? JSON.parse(t(translatedFaqsKey)) : defaultFaqs;
 
   return (
     <div className="container mx-auto px-4">

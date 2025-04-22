@@ -14,8 +14,9 @@ const OralRehabilitationBenefits = () => {
     'מניעת אובדן עצם והידרדרות נוספת'
   ];
 
-  // Use the translation key with a fallback to default benefits
-  const benefits = t('oralRehabilitation.benefits', { defaultValue: defaultBenefits });
+  // Attempt to get the translated benefits, or fall back to the default ones
+  const translatedBenefitsKey = 'oralRehabilitation.benefits';
+  const benefits = t(translatedBenefitsKey) ? JSON.parse(t(translatedBenefitsKey)) : defaultBenefits;
 
   return (
     <div className="container mx-auto px-4">
