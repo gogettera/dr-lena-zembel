@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
@@ -22,23 +23,31 @@ const ImageLibrary: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [bucketExists, setBucketExists] = useState(true);
+  const [checkInProgress, setCheckInProgress] = useState(false); // for UX so user knows we're retrying
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const checkBucket = async () => {
+    setCheckInProgress(true);
     try {
       const { data, error } = await supabase.storage.getBucket(BUCKET);
-      if (error) {
-        console.error('Bucket check error:', error.message);
+      if (error || !data) {
         setBucketExists(false);
-        setErrorMsg(`Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`);
+        setErrorMsg(
+          `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
+        );
+        setCheckInProgress(false);
         return false;
       }
       setBucketExists(true);
+      setErrorMsg("");
+      setCheckInProgress(false);
       return true;
     } catch (error) {
-      console.error('Bucket check exception:', error);
       setBucketExists(false);
-      setErrorMsg(`Error checking bucket "${BUCKET}". Please ensure Supabase is properly configured.`);
+      setErrorMsg(
+        `Error checking bucket "${BUCKET}". Please ensure Supabase is properly configured.`
+      );
+      setCheckInProgress(false);
       return false;
     }
   };
@@ -58,7 +67,6 @@ const ImageLibrary: React.FC = () => {
         .list('', { limit: 200, offset: 0, sortBy: { column: 'updated_at', order: 'desc' } });
 
       if (error) {
-        console.error('Error listing images:', error.message);
         setImages([]);
         setErrorMsg(`Could not fetch images: ${error.message}`);
       } else if (data) {
@@ -76,16 +84,23 @@ const ImageLibrary: React.FC = () => {
         setErrorMsg("");
       }
     } catch (error) {
-      console.error('Exception fetching images:', error);
       setErrorMsg("An unexpected error occurred while fetching images.");
     }
-    
     setLoading(false);
   };
 
+  // Try to reload when component mounts or on retry
   useEffect(() => {
     fetchImages();
   }, []);
+
+  const handleRetry = async () => {
+    setErrorMsg("");
+    setBucketExists(true);
+    setCheckInProgress(true);
+    await fetchImages();
+    setCheckInProgress(false);
+  };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -110,7 +125,6 @@ const ImageLibrary: React.FC = () => {
       setErrorMsg("Select an image to upload first.");
       return;
     }
-
     if (!bucketExists) {
       const bucketOk = await checkBucket();
       if (!bucketOk) {
@@ -122,7 +136,6 @@ const ImageLibrary: React.FC = () => {
         return;
       }
     }
-
     setUploading(true);
     setErrorMsg("");
     const fileExt = selectedFile.name.split('.').pop();
@@ -147,14 +160,12 @@ const ImageLibrary: React.FC = () => {
         fetchImages();
       }
     } catch (error) {
-      console.error('Upload exception:', error);
       toast({ 
         title: "Upload failed", 
         description: "An unexpected error occurred during upload", 
         variant: "destructive" 
       });
     }
-    
     setUploading(false);
   };
 
@@ -170,7 +181,6 @@ const ImageLibrary: React.FC = () => {
         return;
       }
     }
-
     setLoading(true);
     try {
       const { error } = await supabase.storage
@@ -183,14 +193,12 @@ const ImageLibrary: React.FC = () => {
         fetchImages();
       }
     } catch (error) {
-      console.error('Delete exception:', error);
       toast({ 
         title: "Delete failed", 
         description: "An unexpected error occurred", 
         variant: "destructive" 
       });
     }
-    
     setLoading(false);
   };
 
@@ -207,21 +215,31 @@ const ImageLibrary: React.FC = () => {
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold mb-4">Image Library</h2>
 
-      {!bucketExists && (
-        <div className="mb-6 p-4 border border-red-300 bg-red-50 rounded-md">
+      {!bucketExists ? (
+        <div className="mb-6 p-4 border border-red-300 bg-red-50 rounded-md flex flex-col gap-2">
           <h3 className="text-red-700 font-medium mb-2">Storage Bucket Not Found</h3>
-          <p className="text-red-600 mb-3">
+          <p className="text-red-600 mb-1">
             The storage bucket "{BUCKET}" was not found in your Supabase project.
           </p>
+          <Button 
+            variant="secondary"
+            size="sm"
+            onClick={handleRetry}
+            disabled={checkInProgress}
+            className="w-fit"
+          >
+            {checkInProgress ? "Checking..." : "Retry Now"}
+          </Button>
           <Button 
             variant="destructive" 
             size="sm" 
             onClick={handleCreateBucket}
+            className="w-fit"
           >
             How to Fix
           </Button>
         </div>
-      )}
+      ) : null}
 
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-end gap-4">
@@ -281,3 +299,4 @@ const ImageLibrary: React.FC = () => {
 };
 
 export default ImageLibrary;
+
