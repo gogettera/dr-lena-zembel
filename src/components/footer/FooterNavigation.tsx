@@ -4,48 +4,46 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import NavList from '@/components/ui/NavList';
 import NavItem from '@/components/ui/NavItem';
 import { createLocalizedNavigationConfig } from '@/config/navigation';
-import { Grid } from '@/components/ui/grid';
 
 const FooterNavigation = () => {
   const { t, language } = useLanguage();
   const navigation = createLocalizedNavigationConfig(language);
 
   return (
-    <Grid cols={1} mdCols={2} gap={8} className="w-full">
-      <div className="space-y-6">
-        <h4 className="text-xl font-semibold text-white">
-          {t('navigation.sitemap')}
+    <div className="flex flex-col md:flex-row gap-10">
+      <div>
+        <h4 className="text-xl font-bold text-white mb-3">
+          {t('navigation.sitemap', 'מפת האתר')}
         </h4>
-        <NavList vertical className="space-y-3">
+        <NavList vertical className="space-y-2">
           {navigation.footer.info.map((link) => (
-            <NavItem 
+            <NavItem
               key={link.key}
               to={link.path}
-              className="text-sm text-dental-beige hover:text-white transition-colors duration-300"
+              className="text-sm underline text-dental-beige hover:text-dental-orange transition-colors"
             >
               {t(link.labelKey)}
             </NavItem>
           ))}
         </NavList>
       </div>
-
-      <div className="space-y-6">
-        <h4 className="text-xl font-semibold text-white">
-          {t('navigation.ourTreatments')}
+      <div>
+        <h4 className="text-xl font-bold text-white mb-3">
+          {t('navigation.ourTreatments', 'הטיפולים שלנו')}
         </h4>
-        <NavList vertical className="space-y-3">
+        <NavList vertical className="space-y-2">
           {navigation.footer.treatments.map((link) => (
-            <NavItem 
+            <NavItem
               key={link.key}
               to={link.path}
-              className="text-sm text-dental-beige hover:text-white transition-colors duration-300"
+              className="text-sm underline text-dental-beige hover:text-dental-orange transition-colors"
             >
               {t(link.labelKey)}
             </NavItem>
           ))}
         </NavList>
       </div>
-    </Grid>
+    </div>
   );
 };
 
