@@ -52,8 +52,24 @@ export const useSiteMeta = () => {
     try {
       setLoading(true);
       
+      // Ensure we have the current meta data before updating
+      if (!meta) {
+        await fetchMeta();
+        if (!meta) throw new Error('No metadata available to update');
+      }
+      
       const updates = {
-        ...newMeta,
+        // Include all required fields from existing meta
+        title: newMeta.title ?? meta!.title,
+        description: newMeta.description ?? meta!.description,
+        og_title: newMeta.og_title ?? meta!.og_title,
+        og_description: newMeta.og_description ?? meta!.og_description,
+        // Include optional fields
+        og_image_url: newMeta.og_image_url !== undefined ? newMeta.og_image_url : meta!.og_image_url,
+        twitter_title: newMeta.twitter_title !== undefined ? newMeta.twitter_title : meta!.twitter_title,
+        twitter_description: newMeta.twitter_description !== undefined ? newMeta.twitter_description : meta!.twitter_description,
+        twitter_card: newMeta.twitter_card ?? meta!.twitter_card,
+        favicon_url: newMeta.favicon_url !== undefined ? newMeta.favicon_url : meta!.favicon_url,
         updated_at: new Date().toISOString(),
       };
       

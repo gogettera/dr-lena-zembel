@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +15,7 @@ export const FaviconSettings = () => {
   const [currentFaviconUrl, setCurrentFaviconUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
+  const [currentMeta, setCurrentMeta] = useState<any>(null);
   const { toast } = useToast();
 
   // Fetch current favicon setting
@@ -23,15 +25,18 @@ export const FaviconSettings = () => {
         setIsFetching(true);
         const { data, error } = await supabase
           .from('site_meta')
-          .select('favicon_url')
+          .select('*')
           .eq('id', 1)
           .maybeSingle();
         
         if (error) throw error;
         
-        if (data?.favicon_url) {
-          setCurrentFaviconUrl(data.favicon_url);
-          setPreviewUrl(data.favicon_url);
+        if (data) {
+          setCurrentMeta(data);
+          if (data.favicon_url) {
+            setCurrentFaviconUrl(data.favicon_url);
+            setPreviewUrl(data.favicon_url);
+          }
         }
       } catch (error) {
         console.error('Error fetching favicon:', error);
@@ -69,7 +74,7 @@ export const FaviconSettings = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!faviconFile) return;
+    if (!faviconFile || !currentMeta) return;
 
     try {
       setIsLoading(true);
@@ -79,12 +84,23 @@ export const FaviconSettings = () => {
       const faviconUrl = URL.createObjectURL(faviconFile);
       
       // Update site_meta table with the favicon URL
+      // We need to preserve all the required fields
       const { error } = await supabase
         .from('site_meta')
         .upsert({ 
           id: 1, 
           favicon_url: faviconUrl,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
+          // Include all the required fields from existing data
+          title: currentMeta.title,
+          description: currentMeta.description,
+          og_title: currentMeta.og_title,
+          og_description: currentMeta.og_description,
+          // Include optional fields for consistency
+          og_image_url: currentMeta.og_image_url,
+          twitter_title: currentMeta.twitter_title,
+          twitter_description: currentMeta.twitter_description,
+          twitter_card: currentMeta.twitter_card
         }, { 
           onConflict: 'id' 
         });
