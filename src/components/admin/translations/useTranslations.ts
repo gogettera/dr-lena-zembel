@@ -2,12 +2,14 @@
 import { useMemo, useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import en from '@/translations/en.json';
-import he from '@/translations/he.json';
+// Import modular Hebrew translations
+import * as he from '@/translations/he';
 import de from '@/translations/de.json';
 import ru from '@/translations/ru.json';
 import ar from '@/translations/ar.json';
 import { translationMetadata } from '@/config/translationMetadata';
 import { Translation } from './types';
+import { combineTranslations } from '@/utils/translation';
 
 export const useTranslations = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,9 +17,12 @@ export const useTranslations = () => {
 
   const translations: Translation[] = useMemo(() => {
     try {
+      // Combine Hebrew modular translations into a single object
+      const heTranslations = combineTranslations(he);
+      
       const allKeys = new Set([
         ...Object.keys(en || {}),
-        ...Object.keys(he || {}),
+        ...Object.keys(heTranslations || {}),
         ...Object.keys(de || {}),
         ...Object.keys(ru || {}),
         ...Object.keys(ar || {})
@@ -27,7 +32,7 @@ export const useTranslations = () => {
       return Array.from(allKeys).map(key => ({
         key,
         en: (en as any)[key] || '',
-        he: (he as any)[key] || '',
+        he: (heTranslations as any)[key] || '',
         de: (de as any)[key] || '',
         ru: (ru as any)[key] || '',
         ar: (ar as any)[key] || '',

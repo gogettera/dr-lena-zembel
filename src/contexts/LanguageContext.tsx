@@ -62,15 +62,33 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       console.error(`Failed to load translations for ${lang}:`, error);
       if (lang !== 'he') {
         try {
-          // Try modular fallback first
+          // For Hebrew, first try to use the modular format since we know it exists
+          if (lang === 'he') {
+            // Import the index directly for Hebrew since we know it's already modular
+            const heModules = await import('../translations/he');
+            const heFlattened = combineTranslations(heModules);
+            setFlatTranslations(heFlattened);
+            return;
+          }
+          
+          // Try modular fallback for other languages
           const heModuleTranslations = await loadModularTranslations('he');
           const heCombinedTranslations = combineTranslations(heModuleTranslations);
           setFlatTranslations(heCombinedTranslations);
         } catch (heModuleError) {
-          // Fall back to legacy format for Hebrew
-          const heTranslations = await import(`../translations/he.json`);
-          setFlatTranslations(flattenTranslations(heTranslations.default));
+          // Attempt to fall back to legacy format for Hebrew (if it exists)
+          try {
+            const heTranslations = await import(`../translations/he.json`);
+            setFlatTranslations(flattenTranslations(heTranslations.default));
+          } catch (legacyError) {
+            console.error('Could not load any Hebrew translations as fallback:', legacyError);
+            // Set empty translations as last resort
+            setFlatTranslations({});
+          }
         }
+      } else {
+        // Set empty translations if we can't load anything
+        setFlatTranslations({});
       }
     }
   };
