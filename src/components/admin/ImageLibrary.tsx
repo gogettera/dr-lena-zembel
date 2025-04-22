@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card } from '@/components/ui/card';
@@ -25,7 +24,6 @@ const ImageLibrary: React.FC = () => {
   const [bucketExists, setBucketExists] = useState(true);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Check if bucket exists
   const checkBucket = async () => {
     try {
       const { data, error } = await supabase.storage.getBucket(BUCKET);
@@ -66,11 +64,14 @@ const ImageLibrary: React.FC = () => {
       } else if (data) {
         const imgs: Img[] = data
           .filter(file => file && !file.name.endsWith('/'))
-          .map(file => ({
-            name: file.name,
-            url: `${supabase.storageUrl}/object/public/${BUCKET}/${file.name}`,
-            updated_at: file.updated_at ?? null,
-          }));
+          .map(file => {
+            const { data: publicUrlData } = supabase.storage.from(BUCKET).getPublicUrl(file.name);
+            return {
+              name: file.name,
+              url: publicUrlData.publicUrl,
+              updated_at: file.updated_at ?? null,
+            };
+          });
         setImages(imgs);
         setErrorMsg("");
       }
@@ -86,7 +87,6 @@ const ImageLibrary: React.FC = () => {
     fetchImages();
   }, []);
 
-  // Handle file input change
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setSelectedFile(file);
@@ -99,14 +99,12 @@ const ImageLibrary: React.FC = () => {
       setSelectedFile(null);
       return;
     }
-    // Create preview
     if (file) {
       const preview = await createFilePreview(file);
       setPreviewUrl(preview);
     }
   };
 
-  // Upload image to Supabase
   const handleUpload = async () => {
     if (!selectedFile) {
       setErrorMsg("Select an image to upload first.");
@@ -132,11 +130,10 @@ const ImageLibrary: React.FC = () => {
     const filePath = fileName;
 
     try {
-      // Upload file
       const { error: uploadError } = await supabase.storage
         .from(BUCKET)
         .upload(filePath, selectedFile, {
-          upsert: false, // Don't overwrite existing files
+          upsert: false,
         });
 
       if (uploadError) {
@@ -161,7 +158,6 @@ const ImageLibrary: React.FC = () => {
     setUploading(false);
   };
 
-  // Remove image (called by card)
   const handleDelete = async (name: string) => {
     if (!bucketExists) {
       const bucketOk = await checkBucket();
@@ -198,7 +194,6 @@ const ImageLibrary: React.FC = () => {
     setLoading(false);
   };
 
-  // Create bucket button handler
   const handleCreateBucket = async () => {
     setErrorMsg("Creating a storage bucket requires administrator access to your Supabase project. Please create a bucket named 'site-images' in the Supabase dashboard.");
     toast({ 
@@ -228,7 +223,6 @@ const ImageLibrary: React.FC = () => {
         </div>
       )}
 
-      {/* Upload section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-end gap-4">
           <input
@@ -263,7 +257,6 @@ const ImageLibrary: React.FC = () => {
         )}
       </div>
       
-      {/* Images grid */}
       {loading ? (
         <div className="flex justify-center items-center py-12">
           <div className="animate-spin h-8 w-8 border-4 border-dental-orange border-t-transparent rounded-full"></div>
