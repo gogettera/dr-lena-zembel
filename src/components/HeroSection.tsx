@@ -20,7 +20,7 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
-      <div className="container mx-auto px-4 py-12 md:py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="container mx-auto px-4 py-6 md:py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Mobile-optimized text content */}
           <div className={`md:w-1/2 space-y-6 ${isMobile ? 'text-center' : isRTL ? 'md:order-1 text-right' : 'text-left'}`}>
@@ -46,35 +46,44 @@ const HeroSection = () => {
           </div>
 
           {/* Image section - optimized for mobile */}
-          <div className={`mt-8 md:mt-0 md:w-1/2 opacity-0 animate-[slide-in_0.8s_ease-out_forwards] ${isRTL ? 'md:order-0' : ''}`}>
-            <div className="relative w-full max-w-md mx-auto">
-              {/* Decorative background effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2rem] blur-3xl transform rotate-6 pointer-events-none" aria-hidden="true"></div>
+          <div 
+            className={`mt-4 md:mt-0 md:w-1/2 z-20 w-full max-w-md mx-auto relative
+              ${isMobile ? 'pt-2 pb-7 px-2' : ''}
+              opacity-0 animate-[slide-in_0.8s_ease-out_forwards] 
+              ${isRTL ? 'md:order-0' : ''}`}
+            style={isMobile ? { minWidth: 0, overflow: "visible" } : {}}
+          >
+            {/* Decorative background effect */}
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2rem] blur-3xl transform rotate-6 pointer-events-none z-0"
+              aria-hidden="true"
+            ></div>
 
-              <div className="relative">
-                <AspectRatio ratio={4/3} className="overflow-hidden rounded-2xl">
-                  <NextGenImage 
-                    alt={t('dentistryWithLove')} 
-                    src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
-                    width={800}
-                    height={600}
-                    priority={true}
-                    className="w-full h-full shadow-soft hover:scale-[1.02] transition-all duration-500" 
-                  />
-                </AspectRatio>
+            <div className="relative z-10">
+              <AspectRatio ratio={4/3} className="overflow-visible rounded-2xl">
+                <NextGenImage 
+                  alt={t('dentistryWithLove')} 
+                  src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
+                  width={800}
+                  height={600}
+                  priority={true}
+                  className="w-full h-full shadow-soft hover:scale-[1.02] transition-all duration-500" 
+                />
+              </AspectRatio>
 
-                {/* Mobile-optimized review card */}
-                <div 
-                  className={`absolute -bottom-4 ${isRTL ? '-left-4' : '-right-4'} bg-white/90 backdrop-blur rounded-2xl p-4 md:p-6 shadow-soft`}
-                  style={{
-                    maxWidth: isMobile ? '240px' : '290px',
-                    width: isMobile ? 'calc(100% - 32px)' : '290px'
-                  }}
-                >
-                  <p className="text-dental-navy font-bold text-base md:text-lg">{t('completelyHappy')}</p>
-                  <div className="flex text-dental-orange mt-2 text-lg md:text-xl">
-                    ★★★★★
-                  </div>
+              {/* Mobile-optimized review card */}
+              <div
+                className={`absolute left-1/2 -translate-x-1/2 ${isMobile ? 'bottom-1' : isRTL ? '-left-4 bottom-4' : '-right-4 bottom-4'} 
+                  bg-white/90 backdrop-blur rounded-2xl p-4 md:p-6 shadow-soft
+                  flex flex-col items-center`}
+                style={{
+                  maxWidth: isMobile ? '250px' : '290px',
+                  width: isMobile ? 'calc(100% - 32px)' : '290px'
+                }}
+              >
+                <p className="text-dental-navy font-bold text-base md:text-lg">{t('completelyHappy')}</p>
+                <div className="flex text-dental-orange mt-2 text-lg md:text-xl">
+                  ★★★★★
                 </div>
               </div>
             </div>
@@ -96,3 +105,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
