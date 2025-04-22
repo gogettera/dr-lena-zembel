@@ -14,6 +14,7 @@ interface SiteMeta {
   twitter_card: string;
   favicon_url: string | null;
   updated_at: string | null;
+  canonical_url: string | null;
 }
 
 export const useSiteMeta = () => {
@@ -27,7 +28,6 @@ export const useSiteMeta = () => {
       setLoading(true);
       console.log('[Meta] Fetching site meta...');
       
-      // For development, we'll use a special header to bypass RLS
       const { data, error: fetchError } = await supabase
         .from('site_meta')
         .select('*')
@@ -70,10 +70,9 @@ export const useSiteMeta = () => {
         twitter_card: newMeta.twitter_card,
         favicon_url: newMeta.favicon_url,
         updated_at: new Date().toISOString(),
+        canonical_url: newMeta.canonical_url,
       };
       
-      // For development, use RPC call to bypass RLS
-      // This ensures admin operations work without auth
       const { error: updateError } = await supabase
         .rpc('admin_update_site_meta', { 
           meta_data: updates
@@ -84,7 +83,6 @@ export const useSiteMeta = () => {
         throw updateError;
       }
       
-      // Update local state
       setMeta(prevMeta => ({ ...prevMeta, ...updates } as SiteMeta));
       
       toast({
@@ -92,10 +90,7 @@ export const useSiteMeta = () => {
         description: 'Site meta information has been updated successfully',
       });
       
-      // Refresh meta data to ensure we have the latest state
       await fetchMeta();
-      
-      // Extra log for verification
       console.log('[Meta] DB update confirmed. Latest meta:', updates);
 
       return true;
@@ -115,7 +110,6 @@ export const useSiteMeta = () => {
     }
   };
 
-  // Initial fetch
   useEffect(() => {
     fetchMeta();
   }, []);

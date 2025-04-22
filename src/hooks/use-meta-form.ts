@@ -13,11 +13,12 @@ export interface MetaFormData {
   twitterTitle: string;
   twitterDescription: string;
   twitterCard: string;
+  canonicalUrl: string;
 }
 
 export const useMetaForm = () => {
   const { meta, loading: metaLoading } = useSiteMeta();
-  
+
   const form = useForm<MetaFormData>({
     defaultValues: {
       title: 'דר לנה - מרפאת שיניים - יפו - תל אביב',
@@ -28,11 +29,11 @@ export const useMetaForm = () => {
       ogImageUrl: '',
       twitterTitle: 'דר לנה - מרפאת שיניים - יפו - תל אביב',
       twitterDescription: 'מרפאת שיניים מודרנית ביפו תל אביב בהובלת ד"ר לנה. טיפול שיניים ברמה גבוהה למשפחות ולקוחות פרטיים באווירה אישית ונעימה.',
-      twitterCard: 'summary_large_image'
+      twitterCard: 'summary_large_image',
+      canonicalUrl: 'https://dental-love.com/',
     }
   });
 
-  // Load settings from meta when available
   useEffect(() => {
     if (meta) {
       console.log('Updating form with meta:', meta);
@@ -45,7 +46,8 @@ export const useMetaForm = () => {
         ogImageUrl: meta.og_image_url || '',
         twitterTitle: meta.twitter_title || meta.og_title,
         twitterDescription: meta.twitter_description || meta.og_description,
-        twitterCard: meta.twitter_card
+        twitterCard: meta.twitter_card,
+        canonicalUrl: meta.canonical_url || 'https://dental-love.com/',
       });
     }
   }, [meta, form]);

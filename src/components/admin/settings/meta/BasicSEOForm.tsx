@@ -46,6 +46,22 @@ export const BasicSEOForm = ({ form, loading }: BasicSEOFormProps) => {
           </FormItem>
         )}
       />
+
+      <FormField
+        control={form.control}
+        name="canonicalUrl"
+        render={({ field }) => (
+          <FormItem className="mt-4">
+            <FormLabel>Canonical URL</FormLabel>
+            <FormControl>
+              <Input {...field} disabled={loading} placeholder="https://dental-love.com/" />
+            </FormControl>
+            <FormDescription>
+              The primary URL for search engines (avoid duplicate content penalties).
+            </FormDescription>
+          </FormItem>
+        )}
+      />
     </Card>
   );
 };

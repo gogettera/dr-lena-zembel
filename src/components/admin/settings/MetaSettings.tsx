@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -22,12 +21,10 @@ export const MetaSettings = () => {
   const onSubmit = async (data: any) => {
     setLoading(true);
     try {
-      // For now, using object URL for demo purposes
-      // In production, you'd upload to a storage bucket
       const og_image_url = data.ogImage 
         ? URL.createObjectURL(data.ogImage) 
         : data.ogImageUrl || null;
-      
+
       const success = await updateMeta({
         title: data.title,
         description: data.description,
@@ -36,7 +33,8 @@ export const MetaSettings = () => {
         og_image_url,
         twitter_title: data.twitterTitle || data.ogTitle,
         twitter_description: data.twitterDescription || data.ogDescription,
-        twitter_card: data.twitterCard
+        twitter_card: data.twitterCard,
+        canonical_url: data.canonicalUrl,
       });
 
       if (!success) {

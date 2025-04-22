@@ -161,6 +161,7 @@ export type Database = {
       }
       site_meta: {
         Row: {
+          canonical_url: string | null
           description: string
           favicon_url: string | null
           id: number
@@ -174,6 +175,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          canonical_url?: string | null
           description: string
           favicon_url?: string | null
           id?: number
@@ -187,6 +189,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          canonical_url?: string | null
           description?: string
           favicon_url?: string | null
           id?: number
