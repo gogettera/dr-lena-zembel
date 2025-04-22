@@ -1,6 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { LanguageProvider } from '@/contexts/LanguageContext';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LanguageRoute from '@/components/LanguageRoute';
 import Index from '@/pages/Index';
 import LanguageHome from '@/pages/LanguageHome';
@@ -12,9 +11,9 @@ import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
 import { useEffect } from 'react';
 import { setupDirectionByLanguage } from '@/utils/direction';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
-import { Toaster } from "@/components/ui/toaster";
 import AdminPanel from '@/pages/AdminPanel';
 import AdminRoute from '@/components/AdminRoute';
+import AccessibleLayout from './components/layout/AccessibleLayout';
 
 import './App.css';
 
@@ -26,28 +25,25 @@ function App() {
   }, []);
 
   return (
-    <LanguageProvider>
-      <Router>
-        <Routes>
-          {/* Root route - redirects to browser language or default to Hebrew */}
-          <Route path="/" element={<Index />} />
-          <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
-          <Route path="/accessibility-statement" element={<AccessibilityStatementPage />} />
-          
-          {/* Language-specific routes */}
-          <Route path="/:lang" element={<LanguageRoute />}>
-            <Route index element={<LanguageHome />} />
-            <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-            <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
-            <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
-          </Route>
+    <Router>
+      <Routes>
+        {/* Root route - redirects to browser language or default to Hebrew */}
+        <Route path="/" element={<Index />} />
+        <Route path="/admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
+        <Route path="/accessibility-statement" element={<AccessibilityStatementPage />} />
+        
+        {/* Language-specific routes */}
+        <Route path="/:lang" element={<LanguageRoute />}>
+          <Route index element={<LanguageHome />} />
+          <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+          <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
+          <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
+        </Route>
 
-          {/* Catch all 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-      <Toaster />
-    </LanguageProvider>
+        {/* Catch all 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
 
