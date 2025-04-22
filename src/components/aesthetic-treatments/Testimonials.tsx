@@ -5,9 +5,12 @@ import { Star } from "lucide-react";
 import SectionHeader from "@/components/ui/section-header";
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Section } from "@/components/ui/section";
 
 const Testimonials: React.FC = () => {
   const isMobile = useIsMobile();
+  const { isRTL } = useLanguage();
 
   const testimonials = [
     {
@@ -49,50 +52,48 @@ const Testimonials: React.FC = () => {
     <Card 
       className="h-full border-none shadow-md hover:shadow-lg transition-all duration-300 bg-white/90 backdrop-blur-sm"
     >
-      <CardContent className="p-6 h-full flex flex-col">
-        <div className="flex items-center mb-4">
-          <div className="w-10 h-10 rounded-full bg-dental-pink/20 flex items-center justify-center text-lg font-bold text-dental-navy mr-3">
+      <CardContent className="p-4 sm:p-6 h-full flex flex-col">
+        <div className={`flex items-center mb-4 ${isRTL ? 'flex-row' : 'flex-row-reverse'}`}>
+          <div className={`w-10 h-10 rounded-full bg-dental-pink/20 flex items-center justify-center text-lg font-bold text-dental-navy ${isRTL ? 'ml-3' : 'mr-3'}`}>
             {testimonial.name.charAt(0)}
           </div>
-          <div>
+          <div className={`${isRTL ? 'text-right' : 'text-left'}`}>
             <h4 className="font-bold text-dental-navy">{testimonial.name}</h4>
             <div className="flex">{renderStars(testimonial.rating)}</div>
           </div>
         </div>
-        <p className="text-dental-navy/70 flex-grow">{testimonial.text}</p>
+        <p className={`text-dental-navy/70 text-sm sm:text-base flex-grow ${isRTL ? 'text-right' : 'text-left'}`}>{testimonial.text}</p>
       </CardContent>
     </Card>
   );
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 px-4 bg-gradient-to-br from-white via-dental-pink/5 to-white">
-      <div className="container mx-auto">
-        <SectionHeader
-          title="המלצות ממטופלים"
-          subtitle="מה אומרים המטופלים שלנו על הטיפולים האסתטיים"
-        />
+    <Section id="testimonials" spacing="lg" background="beige" maxWidth="xl" directionAware={true}>
+      <SectionHeader
+        title="המלצות ממטופלים"
+        subtitle="מה אומרים המטופלים שלנו על הטיפולים האסתטיים"
+      />
 
-        {isMobile ? (
-          <div className="w-full relative pb-14">
-            <EnhancedCarousel className="w-full">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-4 basis-4/5 sm:basis-1/2 md:basis-1/2">
-                  {renderTestimonialCard(testimonial, index)}
-                </CarouselItem>
-              ))}
-            </EnhancedCarousel>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+      {isMobile ? (
+        <div className="w-full relative pb-14">
+          <EnhancedCarousel className="w-full" dir={isRTL ? 'rtl' : 'ltr'}>
             {testimonials.map((testimonial, index) => (
-              <div key={index} style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+              <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/2">
                 {renderTestimonialCard(testimonial, index)}
-              </div>
+              </CarouselItem>
             ))}
-          </div>
-        )}
-      </div>
-    </section>
+          </EnhancedCarousel>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} style={{ animationDelay: `${0.2 + index * 0.1}s` }}>
+              {renderTestimonialCard(testimonial, index)}
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
   );
 };
 

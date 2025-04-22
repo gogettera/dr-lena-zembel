@@ -7,8 +7,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import SectionHeader from "@/components/ui/section-header";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getResponsiveClasses } from "@/utils/responsiveUtils";
+import { Section } from "@/components/ui/section";
 
 const FAQ: React.FC = () => {
+  const { isRTL } = useLanguage();
+  const responsive = getResponsiveClasses();
+  
   const faqs = [
     {
       question: "כמה זמן נמשכים טיפולים אסתטיים שונים?",
@@ -37,36 +43,34 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-16 md:py-24 px-4 bg-gradient-to-br from-dental-beige/20 via-white to-white">
-      <div className="container mx-auto">
-        <SectionHeader
-          title="שאלות נפוצות"
-          subtitle="תשובות לשאלות הנפוצות ביותר על טיפולים אסתטיים"
-        />
+    <Section id="faq" spacing="lg" background="white" maxWidth="xl" directionAware={true}>
+      <SectionHeader
+        title="שאלות נפוצות"
+        subtitle="תשובות לשאלות הנפוצות ביותר על טיפולים אסתטיים"
+      />
 
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-white/80 backdrop-blur-sm rounded-xl border border-dental-beige/20 px-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-                style={{ animationDelay: `${0.1 * index}s` }}
-              >
-                <AccordionTrigger className="hover:no-underline py-6">
-                  <span className="text-dental-navy text-right font-medium">
-                    {faq.question}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="text-dental-navy/70 text-right">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
+      <div className="max-w-3xl mx-auto">
+        <Accordion type="single" collapsible className="w-full space-y-3 sm:space-y-4">
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="bg-white/80 backdrop-blur-sm rounded-xl border border-dental-beige/20 px-4 sm:px-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
+              style={{ animationDelay: `${0.1 * index}s` }}
+            >
+              <AccordionTrigger className="hover:no-underline py-5 sm:py-6 text-left rtl:text-right">
+                <span className={`text-dental-navy font-medium text-sm sm:text-base md:text-lg ${isRTL ? 'text-right' : 'text-left'}`}>
+                  {faq.question}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className={`text-dental-navy/70 text-sm md:text-base ${isRTL ? 'text-right' : 'text-left'}`}>
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
-    </section>
+    </Section>
   );
 };
 

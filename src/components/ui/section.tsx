@@ -50,13 +50,14 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
     else if (background === 'none') backgroundClass = '';
     else if (background.includes('.')) backgroundClass = getGradient(background);
 
+    // More mobile-friendly spacing classes
     const spacingClasses = {
       none: '',
-      xs: 'py-4 md:py-6',
-      sm: 'py-8 md:py-12',
-      md: 'py-12 md:py-16',
-      lg: 'py-16 md:py-24',
-      xl: 'py-20 md:py-32'
+      xs: 'py-3 md:py-4 lg:py-6',
+      sm: 'py-6 md:py-8 lg:py-12',
+      md: 'py-8 md:py-12 lg:py-16',
+      lg: 'py-12 md:py-16 lg:py-24',
+      xl: 'py-16 md:py-20 lg:py-32'
     };
 
     const dividerClasses = {
@@ -76,7 +77,7 @@ const Section = React.forwardRef<HTMLElement, SectionProps>(
           backgroundClass,
           spacingClasses[spacing],
           dividerClasses[divider],
-          rounded && 'rounded-3xl md:rounded-[3rem]',
+          rounded && 'rounded-2xl md:rounded-3xl lg:rounded-[3rem]',
           animated && 'opacity-0 animate-fade-in',
           className
         )}

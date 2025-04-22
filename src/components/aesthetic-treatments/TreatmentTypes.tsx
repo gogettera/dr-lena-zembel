@@ -2,8 +2,14 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import SectionHeader from "@/components/ui/section-header";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getResponsiveClasses } from "@/utils/responsiveUtils";
+import { Section } from "@/components/ui/section";
 
 const TreatmentTypes: React.FC = () => {
+  const { isRTL } = useLanguage();
+  const responsive = getResponsiveClasses();
+  
   const treatments = [
     {
       title: "הלבנת שיניים",
@@ -38,36 +44,34 @@ const TreatmentTypes: React.FC = () => {
   ];
 
   return (
-    <section id="treatments" className="py-16 md:py-24 px-4 bg-gradient-to-b from-[#E5DEFF]/60 to-white">
-      <div className="container mx-auto">
-        <SectionHeader
-          title="סוגי טיפולים אסתטיים"
-          subtitle="מגוון פתרונות מתקדמים להשגת חיוך מושלם"
-        />
+    <Section id="treatments" spacing="lg" background="white" maxWidth="xl" directionAware={true}>
+      <SectionHeader
+        title="סוגי טיפולים אסתטיים"
+        subtitle="מגוון פתרונות מתקדמים להשגת חיוך מושלם"
+      />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {treatments.map((treatment, index) => (
-            <Card 
-              key={index} 
-              className="border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-              style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-            >
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-start">
-                  <div className="bg-dental-pink/20 w-12 h-12 rounded-full flex items-center justify-center mr-4 shrink-0">
-                    <span className="text-2xl">{treatment.icon}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-dental-navy mb-2">{treatment.title}</h3>
-                    <p className="text-dental-navy/70 text-sm md:text-base">{treatment.description}</p>
-                  </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-8">
+        {treatments.map((treatment, index) => (
+          <Card 
+            key={index} 
+            className="border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
+            style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+          >
+            <CardContent className="p-5 sm:p-6 md:p-8">
+              <div className={`flex items-start ${isRTL ? 'rtl:space-x-reverse' : ''} gap-3`}>
+                <div className="bg-dental-pink/20 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0">
+                  <span className="text-xl sm:text-2xl">{treatment.icon}</span>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-bold text-dental-navy mb-1 sm:mb-2">{treatment.title}</h3>
+                  <p className="text-sm sm:text-base text-dental-navy/70">{treatment.description}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 };
 
