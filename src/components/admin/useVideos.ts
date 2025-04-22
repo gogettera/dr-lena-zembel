@@ -1,3 +1,4 @@
+
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -68,27 +69,9 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
-        // Validate required fields
-        if ((field === 'src' || field === 'poster') && !value) {
-          throw new Error(`${field} cannot be empty`);
-        }
-
-        // If updating src or poster, make sure both are updated together
-        let updateData: Partial<VideoData> = { [field]: value };
-        if (field === 'src') {
-          // Find the current video to get the poster
-          const video = videos.find(v => v.id === id);
-          if (!video?.poster) {
-            throw new Error('Please set both video source and poster image');
-          }
-        } else if (field === 'poster') {
-          // Find the current video to get the src
-          const video = videos.find(v => v.id === id);
-          if (!video?.src) {
-            throw new Error('Please set both video source and poster image');
-          }
-        }
-
+        // Create an update object with just the field being updated
+        const updateData: Partial<VideoData> = { [field]: value };
+        
         const { error } = await supabase
           .from('videos')
           .update(updateData)
@@ -96,6 +79,7 @@ export const useVideos = () => {
 
         if (error) throw error;
 
+        // Update local state
         setVideos(prev =>
           prev.map(video =>
             video.id === id ? { ...video, [field]: value } : video
@@ -115,7 +99,7 @@ export const useVideos = () => {
         console.error("Update error:", error);
       }
     },
-    [toast, videos]
+    [toast]
   );
 
   const removeVideo = useCallback(
