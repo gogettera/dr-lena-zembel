@@ -1,0 +1,50 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <!-- Hebrew (default) -->
+  <url>
+    <loc>https://dr-zembel.com/</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://dr-zembel.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dr-zembel.com/en" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dr-zembel.com/ru" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://dr-zembel.com/de" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://dr-zembel.com/ar" />
+  </url>
+  <url>
+    <loc>https://dr-zembel.com/treatments</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://dr-zembel.com/treatments" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dr-zembel.com/en/treatments" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dr-zembel.com/ru/treatments" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://dr-zembel.com/de/treatments" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://dr-zembel.com/ar/treatments" />
+  </url>
+  <url>
+    <loc>https://dr-zembel.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://dr-zembel.com/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dr-zembel.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dr-zembel.com/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://dr-zembel.com/de/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://dr-zembel.com/ar/contact" />
+  </url>
+  <url>
+    <loc>https://dr-zembel.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://dr-zembel.com/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dr-zembel.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dr-zembel.com/ru/about" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://dr-zembel.com/de/about" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://dr-zembel.com/ar/about" />
+  </url>
+  <!-- Example for a treatment landing page -->
+  <url>
+    <loc>https://dr-zembel.com/treatments/children-dentistry</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://dr-zembel.com/treatments/children-dentistry" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://dr-zembel.com/en/treatments/children-dentistry" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://dr-zembel.com/ru/treatments/children-dentistry" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://dr-zembel.com/de/treatments/children-dentistry" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://dr-zembel.com/ar/treatments/children-dentistry" />
+  </url>
+  <!-- Add more <url> entries here for each main route/treatment as needed -->
+</urlset>
