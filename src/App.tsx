@@ -13,7 +13,6 @@ import { setupDirectionByLanguage } from '@/utils/direction';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
 import AdminPanel from '@/pages/AdminPanel';
 import AdminRoute from '@/components/AdminRoute';
-import AccessibleLayout from './components/layout/AccessibleLayout';
 
 import './App.css';
 
