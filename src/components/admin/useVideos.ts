@@ -1,12 +1,11 @@
-
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 export interface VideoData {
   id: string;
-  src: string;
-  poster: string;
+  src: string | null;
+  poster: string | null;
   title: string;
   width: number;
   height: number;
@@ -39,13 +38,12 @@ export const useVideos = () => {
 
   const addVideo = useCallback(async () => {
     try {
-      // Create a simple insert without depending on user_id
       const { data, error } = await supabase
         .from('videos')
         .insert({
-          src: "",
-          poster: "",
           title: "New Video",
+          src: null,
+          poster: null,
           width: 1280,
           height: 720
         })
@@ -70,18 +68,34 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
-        // Only update the specific field
-        const { error } = await supabase
-          .from('videos')
-          .update({ [field]: value })
-          .eq('id', id);
-
-        if (error) {
-          console.error("Update error details:", error);
-          throw error;
+        // Validate required fields
+        if ((field === 'src' || field === 'poster') && !value) {
+          throw new Error(`${field} cannot be empty`);
         }
 
-        // Update the local state to reflect the change
+        // If updating src or poster, make sure both are updated together
+        let updateData: Partial<VideoData> = { [field]: value };
+        if (field === 'src') {
+          // Find the current video to get the poster
+          const video = videos.find(v => v.id === id);
+          if (!video?.poster) {
+            throw new Error('Please set both video source and poster image');
+          }
+        } else if (field === 'poster') {
+          // Find the current video to get the src
+          const video = videos.find(v => v.id === id);
+          if (!video?.src) {
+            throw new Error('Please set both video source and poster image');
+          }
+        }
+
+        const { error } = await supabase
+          .from('videos')
+          .update(updateData)
+          .eq('id', id);
+
+        if (error) throw error;
+
         setVideos(prev =>
           prev.map(video =>
             video.id === id ? { ...video, [field]: value } : video
@@ -96,12 +110,12 @@ export const useVideos = () => {
         toast({
           variant: "destructive",
           title: "Error updating video",
-          description: error.message || "An error occurred while updating the video"
+          description: error.message
         });
         console.error("Update error:", error);
       }
     },
-    [toast]
+    [toast, videos]
   );
 
   const removeVideo = useCallback(

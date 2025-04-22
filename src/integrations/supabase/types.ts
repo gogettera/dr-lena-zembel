@@ -260,8 +260,8 @@ export type Database = {
           created_at: string
           height: number
           id: string
-          poster: string
-          src: string
+          poster: string | null
+          src: string | null
           title: string
           updated_at: string
           width: number
@@ -270,8 +270,8 @@ export type Database = {
           created_at?: string
           height?: number
           id?: string
-          poster: string
-          src: string
+          poster?: string | null
+          src?: string | null
           title: string
           updated_at?: string
           width?: number
@@ -280,8 +280,8 @@ export type Database = {
           created_at?: string
           height?: number
           id?: string
-          poster?: string
-          src?: string
+          poster?: string | null
+          src?: string | null
           title?: string
           updated_at?: string
           width?: number

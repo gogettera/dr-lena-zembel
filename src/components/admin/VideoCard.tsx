@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Edit, Save, X } from "lucide-react";
+import { Edit, Save, X, AlertCircle } from "lucide-react";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { VideoData } from './useVideos';
 
 interface VideoCardProps {
@@ -14,38 +15,37 @@ interface VideoCardProps {
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
-  // Which field is being edited: "src" | "poster" | "title" | null
   const [editingField, setEditingField] = useState<null | 'src' | 'poster' | 'title'>(null);
-  // Value being edited
   const [editValue, setEditValue] = useState<string>("");
-  // Track saving state
   const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Start editing a field
   const handleEdit = (field: 'src' | 'poster' | 'title') => {
     setEditingField(field);
-    setEditValue(video[field] as string);
+    setEditValue(video[field] || '');
+    setError(null);
   };
 
-  // Save the edit
   const handleSave = async () => {
-    if (editingField && editValue !== video[editingField]) {
+    if (editingField && editValue.trim() !== video[editingField]) {
       setIsSaving(true);
       try {
-        await onUpdate(video.id, editingField, editValue);
+        await onUpdate(video.id, editingField, editValue.trim());
+        setEditingField(null);
+        setError(null);
+      } catch (err: any) {
+        setError(err.message);
       } finally {
         setIsSaving(false);
-        setEditingField(null);
       }
     } else {
-      // If no changes or no editing field, just close the edit mode
       setEditingField(null);
     }
   };
 
-  // Cancel edit
   const handleCancel = () => {
     setEditingField(null);
+    setError(null);
   };
 
   return (
@@ -60,20 +60,19 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
                 autoFocus
                 className="flex-1"
                 placeholder="Enter video title"
+                required
               />
               <Button 
                 variant="ghost" 
                 size="icon" 
-                aria-label="Save"
                 onClick={handleSave}
-                disabled={isSaving}
+                disabled={isSaving || !editValue.trim()}
               >
                 <Save className="w-4 h-4" />
               </Button>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                aria-label="Cancel"
                 onClick={handleCancel}
                 disabled={isSaving}
               >
@@ -86,7 +85,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
               <Button
                 variant="ghost"
                 size="icon"
-                aria-label="Edit title"
                 onClick={() => handleEdit('title')}
               >
                 <Edit className="w-4 h-4" />
@@ -102,10 +100,17 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
           Remove
         </Button>
       </div>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+
       <div className="grid gap-4">
-        {/* Video source field */}
         <div>
-          <Label htmlFor={`src-${video.id}`}>Video Source (URL or YouTube link)</Label>
+          <Label htmlFor={`src-${video.id}`}>Video Source URL</Label>
           <div className="flex gap-2 items-center">
             {editingField === "src" ? (
               <>
@@ -115,20 +120,20 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
                   onChange={e => setEditValue(e.target.value)}
                   autoFocus
                   className="flex-1"
+                  placeholder="Enter video URL"
+                  required
                 />
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  aria-label="Save" 
                   onClick={handleSave}
-                  disabled={isSaving}
+                  disabled={isSaving || !editValue.trim()}
                 >
                   <Save className="w-4 h-4" />
                 </Button>
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  aria-label="Cancel" 
                   onClick={handleCancel}
                   disabled={isSaving}
                 >
@@ -139,14 +144,14 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
               <>
                 <Input
                   id={`src-${video.id}`}
-                  value={video.src}
+                  value={video.src || ''}
                   disabled
-                  className="flex-1 bg-gray-100 cursor-not-allowed"
+                  className="flex-1 bg-gray-100"
+                  placeholder="No video source set"
                 />
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Edit"
                   onClick={() => handleEdit('src')}
                 >
                   <Edit className="w-4 h-4" />
@@ -155,7 +160,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
             )}
           </div>
         </div>
-        {/* Poster (image) field */}
+
         <div>
           <Label htmlFor={`poster-${video.id}`}>Cover Image URL</Label>
           <div className="flex gap-2 items-center">
@@ -167,20 +172,20 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
                   onChange={e => setEditValue(e.target.value)}
                   autoFocus
                   className="flex-1"
+                  placeholder="Enter poster image URL"
+                  required
                 />
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  aria-label="Save" 
                   onClick={handleSave}
-                  disabled={isSaving}
+                  disabled={isSaving || !editValue.trim()}
                 >
                   <Save className="w-4 h-4" />
                 </Button>
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  aria-label="Cancel" 
                   onClick={handleCancel}
                   disabled={isSaving}
                 >
@@ -191,14 +196,14 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onUpdate, onRemove }) => {
               <>
                 <Input
                   id={`poster-${video.id}`}
-                  value={video.poster}
+                  value={video.poster || ''}
                   disabled
-                  className="flex-1 bg-gray-100 cursor-not-allowed"
+                  className="flex-1 bg-gray-100"
+                  placeholder="No poster image set"
                 />
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Edit"
                   onClick={() => handleEdit('poster')}
                 >
                   <Edit className="w-4 h-4" />
