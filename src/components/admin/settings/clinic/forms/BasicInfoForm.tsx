@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect } from "react";
+import { Json } from "@/integrations/supabase/types";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -53,6 +54,15 @@ export const BasicInfoForm = () => {
       }
 
       if (data) {
+        // Check if hours is an object with the weekdays property
+        let hoursValue = "";
+        if (data.hours && typeof data.hours === 'object') {
+          const hoursObj = data.hours as Record<string, unknown>;
+          if (hoursObj.weekdays && typeof hoursObj.weekdays === 'string') {
+            hoursValue = hoursObj.weekdays;
+          }
+        }
+
         form.reset({
           name: data.name,
           address: data.address,
@@ -60,7 +70,7 @@ export const BasicInfoForm = () => {
           email: data.email || "",
           website: data.website || "",
           description: data.description || "",
-          hours: data.hours?.weekdays || "",
+          hours: hoursValue,
         });
       }
     };
@@ -69,13 +79,23 @@ export const BasicInfoForm = () => {
   }, [form, toast]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Ensure all required fields are present
+    const payload = {
+      name: values.name,
+      address: values.address,
+      phone: values.phone,
+      hours: { weekdays: values.hours },
+      email: values.email || null,
+      website: values.website || null,
+      description: values.description || null,
+      updated_at: new Date().toISOString(),
+    };
+
     const { error } = await supabase
       .from('clinic_info')
       .upsert({
         id: 1,
-        ...values,
-        hours: { weekdays: values.hours },
-        updated_at: new Date().toISOString(),
+        ...payload
       });
 
     if (error) {

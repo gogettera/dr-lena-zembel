@@ -72,12 +72,24 @@ export const DoctorInfoForm = () => {
   }, [form, toast]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Create a complete payload with all required fields
+    const payload = {
+      full_name: values.full_name,
+      display_name: values.display_name,
+      title: values.title,
+      education: values.education || null,
+      languages: values.languages || null,
+      experience: values.experience || null,
+      approach: values.approach || null,
+      profile_image: values.profile_image || null,
+      updated_at: new Date().toISOString(),
+    };
+
     const { error } = await supabase
       .from('doctor_info')
       .upsert({
         id: 1,
-        ...values,
-        updated_at: new Date().toISOString(),
+        ...payload,
       });
 
     if (error) {
