@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Section } from '@/components/ui/section';
 import { Container } from '@/components/ui/container';
 import { Grid } from '@/components/ui/grid';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { createLocalizedNavigationConfig } from '@/config/navigation';
 import { cn } from '@/lib/utils';
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 shrink-0" />
                   <a 
-                    href="https://maps.app.goo.gl/SqdeJxuJjRzD984t6" 
+                    href="https://maps.app.goo.gl/qxrRjRQXFwKPuodw6" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
@@ -43,19 +43,9 @@ const Footer: React.FC = () => {
                     {t('clinicInfo.phone')}
                   </a>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 shrink-0" />
-                  <a 
-                    href="mailto:info@dental-clinic.co.il"
-                    className="hover:text-white transition-colors"
-                  >
-                    info@dental-clinic.co.il
-                  </a>
-                </div>
                 <div className="pt-2">
                   <div className="font-semibold">{t('openingHours')}</div>
                   <div>{t('clinicInfo.hours.weekdays')}</div>
-                  <div>{t('clinicInfo.hours.friday')}</div>
                 </div>
               </div>
             </div>
