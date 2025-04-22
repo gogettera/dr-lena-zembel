@@ -32,17 +32,20 @@ const OptimizedImage = ({
 }: OptimizedImageProps) => {
   const [isLoading, setIsLoading] = useState(!priority && !eager);
   const [hasError, setHasError] = useState(false);
-  const [imgSrc, setImgSrc] = useState<string>(src);
+  const [imgSrc, setImgSrc] = useState<string>(src || '');
   const [isVisible, setIsVisible] = useState(priority || eager);
-  const uniqueId = `img-${src.replace(/[^a-zA-Z0-9]/g, '')}-${Math.floor(Math.random() * 1000)}`;
+  const uniqueId = `img-${(src || '').replace(/[^a-zA-Z0-9]/g, '')}-${Math.floor(Math.random() * 1000)}`;
   
   // If priority is true, preload the image
-  usePreloadImages(priority ? [src] : []);
+  usePreloadImages(priority && src ? [src] : []);
 
   // Try to convert to WebP format if appropriate
   useEffect(() => {
-    // Don't try to convert SVGs or already WebP images
-    if (!src.includes('?format=') && !src.endsWith('.svg') && !src.endsWith('.webp')) {
+    // Set imgSrc to src (or empty string if src is null/undefined)
+    setImgSrc(src || '');
+    
+    // Don't try to convert SVGs or already WebP images or null/undefined srcs
+    if (src && !src.includes('?format=') && !src.endsWith('.svg') && !src.endsWith('.webp')) {
       // This is hypothetical - you would need a backend service that can convert images
       const hasParams = src.includes('?');
       const webpSrc = `${src}${hasParams ? '&' : '?'}format=webp`;
@@ -122,6 +125,11 @@ const OptimizedImage = ({
       </div>
     )
   );
+
+  // If src is null or undefined, return error fallback
+  if (!src) {
+    return renderError();
+  }
 
   if (hasError) {
     return renderError();
