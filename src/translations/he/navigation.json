@@ -17,5 +17,8 @@
   "backToHome": "חזרה לדף הבית",
   "treatmentNotFound": "הטיפול לא נמצא",
   "info": "מידע",
-  "followUs": "עקבו אחרינו"
+  "followUs": "עקבו אחרינו",
+  "accessibility": {
+    "skipToContent": "דלג לתוכן העיקרי"
+  }
 }

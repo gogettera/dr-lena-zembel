@@ -5,48 +5,36 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const VisitSteps = () => {
   const { t, language } = useLanguage();
-  const steps =
-    language === "he"
-      ? [
-          {
-            icon: <Syringe className="h-5 w-5 text-[#9b87f5]" />,
-            title: "בדיקת אבחון",
-            desc: "בדיקה יסודית של השן ובדיקת צילום – קבלת תמונה מלאה לפני תחילת טיפול.",
-          },
-          {
-            icon: <Plus className="h-5 w-5 text-[#9b87f5]" />,
-            title: "טיפול שורש",
-            desc: "בהרדמה מקומית, ניקוי תעלות השורש, חיטוי ומילוי למניעת זיהומים עתידיים.",
-          },
-          {
-            icon: <Bandage className="h-5 w-5 text-[#9b87f5]" />,
-            title: "שיקום וסגירת השן",
-            desc: "שחזור השן ואיטום – להבטחת אטימות ומניעת כאבים חוזרים.",
-          },
-        ]
-      : [
-          {
-            icon: <Syringe className="h-5 w-5 text-[#9b87f5]" />,
-            title: "Diagnostic Exam",
-            desc: "Thorough examination of the tooth and X-ray – ensuring a complete picture before treatment.",
-          },
-          {
-            icon: <Plus className="h-5 w-5 text-[#9b87f5]" />,
-            title: "Root Canal Treatment",
-            desc: "Local anesthesia, cleaning the root canals, sterilization, and filling to prevent future infections.",
-          },
-          {
-            icon: <Bandage className="h-5 w-5 text-[#9b87f5]" />,
-            title: "Restoration & Sealing",
-            desc: "Restoring and sealing the tooth – for long-term comfort and pain prevention.",
-          },
-        ];
+  
+  const steps = [
+    {
+      icon: <Syringe className="h-5 w-5 text-[#9b87f5]" />,
+      title: t("rootCanal.steps.step1.title", language === "he" ? "בדיקת אבחון" : "Diagnostic Exam"),
+      desc: t("rootCanal.steps.step1.desc", language === "he" 
+        ? "בדיקה יסודית של השן ובדיקת צילום – קבלת תמונה מלאה לפני תחילת טיפול."
+        : "Thorough examination of the tooth and X-ray – ensuring a complete picture before treatment."),
+    },
+    {
+      icon: <Plus className="h-5 w-5 text-[#9b87f5]" />,
+      title: t("rootCanal.steps.step2.title", language === "he" ? "טיפול שורש" : "Root Canal Treatment"),
+      desc: t("rootCanal.steps.step2.desc", language === "he"
+        ? "בהרדמה מקומית, ניקוי תעלות השורש, חיטוי ומילוי למניעת זיהומים עתידיים."
+        : "Local anesthesia, cleaning the root canals, sterilization, and filling to prevent future infections."),
+    },
+    {
+      icon: <Bandage className="h-5 w-5 text-[#9b87f5]" />,
+      title: t("rootCanal.steps.step3.title", language === "he" ? "שיקום וסגירת השן" : "Restoration & Sealing"),
+      desc: t("rootCanal.steps.step3.desc", language === "he"
+        ? "שחזור השן ואיטום – להבטחת אטימות ומניעת כאבים חוזרים."
+        : "Restoring and sealing the tooth – for long-term comfort and pain prevention."),
+    },
+  ];
 
   return (
     <section className="py-14 md:py-20 px-4 bg-[#E5DEFF]/20">
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-2xl font-bold text-[#6E59A5] mb-10 text-center">
-          {language === "he" ? "שלבי הטיפול" : "Treatment Steps"}
+          {t("rootCanal.stepsTitle", language === "he" ? "שלבי הטיפול" : "Treatment Steps")}
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, i) => (

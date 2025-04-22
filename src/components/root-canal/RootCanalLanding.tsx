@@ -8,15 +8,20 @@ import VisitSteps from "./VisitSteps";
 import Testimonials from "./Testimonials";
 import FAQ from "./FAQ";
 import BookVisitAnchor from "./BookVisitAnchor";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const RootCanalLanding: React.FC = () => {
+  const { t } = useLanguage();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="overflow-x-hidden">
-      <a href="#hero" className="skip-to-content">דלג לתוכן העיקרי</a>
+      <a href="#hero" className="skip-to-content">
+        {t("accessibility.skipToContent", "Skip to main content")}
+      </a>
       
       <Section background="none" spacing="none" containerClass="px-0">
         <Hero />

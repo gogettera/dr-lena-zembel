@@ -11,30 +11,29 @@ const BookVisitAnchor = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const ctaTitle =
-    language === "he"
-      ? "רוצים סיום מהיר לכאב?"
-      : "Want Fast Relief from Pain?";
-  const ctaDesc =
-    language === "he"
-      ? "לקביעת תור דחוף או שאלה – אנחנו כאן!"
-      : "For urgent appointments or any questions – we're here for you!";
-  const calendarText =
-    language === "he"
-      ? "טיפולים מהיום להיום לפי זמינות"
-      : "Same-day treatments based on availability";
-  const syringeText =
-    language === "he"
-      ? "צוות רגיש ותומך, כל הדרך"
-      : "Sensitive and supportive team all the way";
-  const bookBtn =
-    language === "he"
-      ? "לקביעת ייעוץ חינם"
-      : "Book a Free Consultation";
-  const backToTop =
-    language === "he"
-      ? "חזרה למעלה"
-      : "Back to Top";
+  const ctaTitle = t("rootCanal.cta.title", language === "he"
+    ? "רוצים סיום מהיר לכאב?"
+    : "Want Fast Relief from Pain?");
+    
+  const ctaDesc = t("rootCanal.cta.description", language === "he"
+    ? "לקביעת תור דחוף או שאלה – אנחנו כאן!"
+    : "For urgent appointments or any questions – we're here for you!");
+    
+  const calendarText = t("rootCanal.cta.calendarText", language === "he"
+    ? "טיפולים מהיום להיום לפי זמינות"
+    : "Same-day treatments based on availability");
+    
+  const syringeText = t("rootCanal.cta.syringeText", language === "he"
+    ? "צוות רגיש ותומך, כל הדרך"
+    : "Sensitive and supportive team all the way");
+    
+  const bookBtn = t("rootCanal.cta.bookButton", language === "he"
+    ? "לקביעת ייעוץ חינם"
+    : "Book a Free Consultation");
+    
+  const backToTop = t("rootCanal.cta.backToTop", language === "he"
+    ? "חזרה למעלה"
+    : "Back to Top");
 
   return (
     <section className="py-14 md:py-20 px-4 bg-[#9b87f5]/10">

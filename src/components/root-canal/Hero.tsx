@@ -7,15 +7,14 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const RootCanalHero: React.FC = () => {
   const { t, language } = useLanguage();
 
-  // Hero headline with English fallback
-  const headline =
-    language === "he"
-      ? "טיפולי שורש בטכניקה מתקדמת, עם דגש על נוחות ותמיכה"
-      : "Advanced Root Canal Treatment Focused On Comfort and Support";
-  const subtext =
-    language === "he"
-      ? "מענה מקצועי ומרגיע – כך שתוכלו לשמור על השן ולחזור לחייך ללא חשש."
-      : "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.";
+  // Use translation keys instead of hardcoded text
+  const headline = t("rootCanal.headline", language === "he" 
+    ? "טיפולי שורש בטכניקה מתקדמת, עם דגש על נוחות ותמיכה"
+    : "Advanced Root Canal Treatment Focused On Comfort and Support");
+  
+  const subtext = t("rootCanal.subtext", language === "he"
+    ? "מענה מקצועי ומרגיע – כך שתוכלו לשמור על השן ולחזור לחייך ללא חשש."
+    : "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.");
 
   return (
     <section id="hero" className="relative py-10 md:py-24 px-4 bg-[#E5DEFF] overflow-hidden scroll-mt-24">
