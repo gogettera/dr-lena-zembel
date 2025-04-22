@@ -1,308 +1,58 @@
 
-import React, { useEffect, useState, useRef } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import ImageCard from './ImageCard';
-import { validateImageFile, createFilePreview } from '@/utils/fileUtils';
-import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/use-toast';
-
-// Changed from "site-images" to match exact bucket name created in SQL
-const BUCKET = 'site-images';
-
-type Img = {
-  name: string;
-  url: string;
-  updated_at: string | null;
-};
+import { useImageLibrary } from './useImageLibrary';
+import ImageUploadSection from './ImageUploadSection';
+import ImageGrid from './ImageGrid';
+import BucketErrorAlert from './BucketErrorAlert';
 
 const ImageLibrary: React.FC = () => {
-  const [images, setImages] = useState<Img[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [errorMsg, setErrorMsg] = useState<string>("");
-  const [bucketExists, setBucketExists] = useState(true);
-  const [checkInProgress, setCheckInProgress] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const {
+    images,
+    loading,
+    uploading,
+    previewUrl,
+    selectedFile,
+    errorMsg,
+    bucketExists,
+    checkInProgress,
+    fileInputRef,
+    handleFileChange,
+    handleUpload,
+    handleDelete,
+    handleRetry,
+    handleCreateBucket,
+    fetchImages,
+  } = useImageLibrary();
 
-  const checkBucket = async () => {
-    setCheckInProgress(true);
-    try {
-      console.log(`Checking if bucket "${BUCKET}" exists...`);
-      const { data, error } = await supabase.storage.getBucket(BUCKET);
-      
-      if (error) {
-        console.error(`Error checking bucket:`, error);
-        setBucketExists(false);
-        setErrorMsg(
-          `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
-        );
-        setCheckInProgress(false);
-        return false;
-      }
-      
-      if (!data) {
-        console.error(`Bucket data is null or undefined`);
-        setBucketExists(false);
-        setErrorMsg(
-          `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
-        );
-        setCheckInProgress(false);
-        return false;
-      }
-      
-      console.log(`Bucket "${BUCKET}" exists:`, data);
-      setBucketExists(true);
-      setErrorMsg("");
-      setCheckInProgress(false);
-      return true;
-    } catch (error) {
-      console.error(`Unexpected error checking bucket:`, error);
-      setBucketExists(false);
-      setErrorMsg(
-        `Error checking bucket "${BUCKET}". Please ensure Supabase is properly configured.`
-      );
-      setCheckInProgress(false);
-      return false;
-    }
-  };
-
-  const fetchImages = async () => {
-    setLoading(true);
-    const bucketOk = await checkBucket();
-    if (!bucketOk) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      console.log(`Fetching images from bucket "${BUCKET}"...`);
-      const { data, error } = await supabase
-        .storage
-        .from(BUCKET)
-        .list('', { limit: 200, offset: 0, sortBy: { column: 'updated_at', order: 'desc' } });
-
-      if (error) {
-        console.error(`Error listing files:`, error);
-        setImages([]);
-        setErrorMsg(`Could not fetch images: ${error.message}`);
-      } else if (data) {
-        console.log(`Found ${data.length} files in bucket:`, data);
-        const imgs: Img[] = data
-          .filter(file => file && !file.name.endsWith('/'))
-          .map(file => {
-            const { data: publicUrlData } = supabase.storage.from(BUCKET).getPublicUrl(file.name);
-            return {
-              name: file.name,
-              url: publicUrlData.publicUrl,
-              updated_at: file.updated_at ?? null,
-            };
-          });
-        setImages(imgs);
-        setErrorMsg("");
-      }
-    } catch (error) {
-      console.error(`Unexpected error fetching images:`, error);
-      setErrorMsg("An unexpected error occurred while fetching images.");
-    }
-    setLoading(false);
-  };
-
-  // Try to reload when component mounts or on retry
   useEffect(() => {
     fetchImages();
+    // eslint-disable-next-line
   }, []);
-
-  const handleRetry = async () => {
-    setErrorMsg("");
-    setBucketExists(true);
-    setCheckInProgress(true);
-    await fetchImages();
-    setCheckInProgress(false);
-  };
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setSelectedFile(file);
-    setErrorMsg("");
-    setPreviewUrl(null);
-
-    const { valid, message } = validateImageFile(file, 5);
-    if (!valid) {
-      setErrorMsg(message || "Invalid file.");
-      setSelectedFile(null);
-      return;
-    }
-    if (file) {
-      const preview = await createFilePreview(file);
-      setPreviewUrl(preview);
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      setErrorMsg("Select an image to upload first.");
-      return;
-    }
-    if (!bucketExists) {
-      const bucketOk = await checkBucket();
-      if (!bucketOk) {
-        toast({ 
-          title: "Upload failed", 
-          description: `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`, 
-          variant: "destructive" 
-        });
-        return;
-      }
-    }
-    setUploading(true);
-    setErrorMsg("");
-    const fileName = `${Date.now()}_${selectedFile.name.replace(/\s+/g, '_')}`;
-    const filePath = fileName;
-
-    try {
-      console.log(`Uploading file "${fileName}" to bucket "${BUCKET}"...`);
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET)
-        .upload(filePath, selectedFile, {
-          upsert: false,
-        });
-
-      if (uploadError) {
-        console.error(`Upload error:`, uploadError);
-        setErrorMsg(uploadError.message || "Failed to upload.");
-        toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
-      } else {
-        console.log(`File uploaded successfully`);
-        toast({ title: "Image uploaded successfully", variant: "default" });
-        setSelectedFile(null);
-        setPreviewUrl(null);
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        fetchImages();
-      }
-    } catch (error) {
-      console.error(`Unexpected error during upload:`, error);
-      toast({ 
-        title: "Upload failed", 
-        description: "An unexpected error occurred during upload", 
-        variant: "destructive" 
-      });
-    }
-    setUploading(false);
-  };
-
-  const handleDelete = async (name: string) => {
-    if (!bucketExists) {
-      const bucketOk = await checkBucket();
-      if (!bucketOk) {
-        toast({ 
-          title: "Delete failed", 
-          description: `Storage bucket "${BUCKET}" not found`, 
-          variant: "destructive" 
-        });
-        return;
-      }
-    }
-    setLoading(true);
-    try {
-      console.log(`Deleting file "${name}" from bucket "${BUCKET}"...`);
-      const { error } = await supabase.storage
-        .from(BUCKET)
-        .remove([name]);
-      if (error) {
-        console.error(`Delete error:`, error);
-        toast({ title: "Failed to delete", description: error.message, variant: "destructive" });
-      } else {
-        console.log(`File deleted successfully`);
-        toast({ title: "Image deleted" });
-        fetchImages();
-      }
-    } catch (error) {
-      console.error(`Unexpected error during delete:`, error);
-      toast({ 
-        title: "Delete failed", 
-        description: "An unexpected error occurred", 
-        variant: "destructive" 
-      });
-    }
-    setLoading(false);
-  };
-
-  const handleCreateBucket = async () => {
-    setErrorMsg("Creating a storage bucket requires administrator access to your Supabase project. Please create a bucket named 'site-images' in the Supabase dashboard.");
-    toast({ 
-      title: "Action required", 
-      description: "Please create a 'site-images' bucket in your Supabase dashboard", 
-      variant: "default" 
-    });
-  };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold mb-4">Image Library</h2>
 
-      {!bucketExists ? (
-        <div className="mb-6 p-4 border border-red-300 bg-red-50 rounded-md flex flex-col gap-2">
-          <h3 className="text-red-700 font-medium mb-2">Storage Bucket Not Found</h3>
-          <p className="text-red-600 mb-1">
-            The storage bucket "{BUCKET}" was not found in your Supabase project.
-          </p>
-          <Button 
-            variant="secondary"
-            size="sm"
-            onClick={handleRetry}
-            disabled={checkInProgress}
-            className="w-fit"
-          >
-            {checkInProgress ? "Checking..." : "Retry Now"}
-          </Button>
-          <Button 
-            variant="destructive" 
-            size="sm" 
-            onClick={handleCreateBucket}
-            className="w-fit"
-          >
-            How to Fix
-          </Button>
-        </div>
-      ) : null}
+      <BucketErrorAlert
+        bucketExists={bucketExists}
+        checkInProgress={checkInProgress}
+        handleRetry={handleRetry}
+        handleCreateBucket={handleCreateBucket}
+        errorMsg={errorMsg}
+      />
 
-      <div className="mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-end gap-4">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/png,image/jpeg,image/svg+xml"
-            onChange={handleFileChange}
-            className="block border p-2 rounded w-full sm:max-w-xs"
-            disabled={uploading || !bucketExists}
-          />
-          <Button
-            variant="orange"
-            size="default"
-            onClick={handleUpload}
-            disabled={!selectedFile || uploading || !bucketExists}
-          >
-            {uploading ? "Uploading..." : "Upload"}
-          </Button>
-        </div>
-        {errorMsg ? (
-          <div className="text-sm text-red-600 mt-2">{errorMsg}</div>
-        ) : null}
-        {previewUrl && (
-          <div className="mt-4">
-            <span className="block mb-1 text-xs text-gray-500">Preview:</span>
-            <img
-              src={previewUrl}
-              alt="Preview"
-              className="h-32 border rounded shadow bg-gray-50 object-contain"
-            />
-          </div>
-        )}
-      </div>
-      
+      <ImageUploadSection
+        uploading={uploading}
+        selectedFile={selectedFile}
+        fileInputRef={fileInputRef}
+        handleFileChange={handleFileChange}
+        handleUpload={handleUpload}
+        errorMsg={errorMsg}
+        previewUrl={previewUrl}
+        bucketExists={bucketExists}
+      />
+
       {loading ? (
         <div className="flex justify-center items-center py-12">
           <div className="animate-spin h-8 w-8 border-4 border-dental-orange border-t-transparent rounded-full"></div>
@@ -312,15 +62,7 @@ const ImageLibrary: React.FC = () => {
           No images found in bucket.
         </div>
       ) : bucketExists ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {images.map(img => (
-            <ImageCard
-              key={img.name}
-              image={img}
-              onDelete={handleDelete}
-            />
-          ))}
-        </div>
+        <ImageGrid images={images} onDelete={handleDelete} />
       ) : null}
     </div>
   );
