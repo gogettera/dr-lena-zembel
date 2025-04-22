@@ -10,16 +10,17 @@ import { Label } from "@/components/ui/label";
 export const FaviconSettings = () => {
   const [currentFaviconUrl, setCurrentFaviconUrl] = useState<string>('');
   const { isFetching, fetchFavicon, updateFavicon } = useFavicon();
+  const defaultFaviconUrl = '/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png';
 
   useEffect(() => {
     const loadFavicon = async () => {
       console.log('Loading favicon...');
       const url = await fetchFavicon();
       console.log('Favicon URL loaded:', url);
-      setCurrentFaviconUrl(url);
+      setCurrentFaviconUrl(url || defaultFaviconUrl);
     };
     loadFavicon();
-  }, [fetchFavicon]);
+  }, [fetchFavicon, defaultFaviconUrl]);
 
   return (
     <div>
@@ -50,10 +51,10 @@ export const FaviconSettings = () => {
               )}
               {/* Example upload image */}
               <div className="w-full flex flex-col items-center mt-4">
-                <span className="text-xs text-gray-400 mb-1">Example image for upload:</span>
+                <span className="text-xs text-gray-400 mb-1">Default favicon:</span>
                 <img
-                  src="/lovable-uploads/0220ac9e-7ca5-472e-9bcc-e630090c6ff2.png"
-                  alt="Example upload"
+                  src="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png"
+                  alt="Default favicon"
                   className="w-20 h-20 rounded-full object-cover border border-gray-200 shadow"
                   style={{ objectFit: 'cover' }}
                   loading="lazy"

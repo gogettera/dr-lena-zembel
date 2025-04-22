@@ -1,5 +1,5 @@
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { updateFavicon as updateDocumentFavicon } from "@/utils/meta-utils";
@@ -8,6 +8,7 @@ export const useFavicon = () => {
   const [currentMeta, setCurrentMeta] = useState<any>(null);
   const [isFetching, setIsFetching] = useState(true);
   const { toast } = useToast();
+  const defaultFaviconUrl = '/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png';
 
   const fetchFavicon = useCallback(async () => {
     try {
@@ -27,7 +28,16 @@ export const useFavicon = () => {
       
       console.log('Favicon metadata fetched:', data);
       setCurrentMeta(data);
-      return data?.favicon_url || '';
+      
+      // If no favicon is set, use the default one
+      const faviconUrl = data?.favicon_url || defaultFaviconUrl;
+      
+      // Apply the favicon to the document
+      if (faviconUrl) {
+        updateDocumentFavicon(faviconUrl);
+      }
+      
+      return faviconUrl;
     } catch (error) {
       console.error('Error fetching favicon:', error);
       toast({
@@ -35,11 +45,18 @@ export const useFavicon = () => {
         description: "Couldn't retrieve the current favicon setting.",
         variant: "destructive",
       });
-      return '';
+      return defaultFaviconUrl;
     } finally {
       setIsFetching(false);
     }
-  }, [toast]);
+  }, [toast, defaultFaviconUrl]);
+
+  // Apply default favicon on first load if none exists
+  useEffect(() => {
+    if (!currentMeta || !currentMeta.favicon_url) {
+      updateDocumentFavicon(defaultFaviconUrl);
+    }
+  }, [currentMeta, defaultFaviconUrl]);
 
   const updateFavicon = async (file: File): Promise<{success: boolean, url: string}> => {
     if (!currentMeta) {

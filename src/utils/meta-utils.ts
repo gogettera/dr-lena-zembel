@@ -29,9 +29,12 @@ export const applyMetaTags = async () => {
     updateMetaTag('twitter:description', data.twitter_description || data.og_description);
     updateMetaTag('twitter:image', data.og_image_url);
     
-    // Update favicon if available
+    // Update favicon if available or use default
     if (data.favicon_url) {
       updateFavicon(data.favicon_url);
+    } else {
+      // Use the default favicon 
+      updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
     }
   } catch (err) {
     console.error('Error applying meta tags:', err);
