@@ -10,7 +10,7 @@ import { FaviconPreview } from "./FaviconPreview";
 
 interface FaviconFormProps {
   currentFaviconUrl: string;
-  onUpdate: (url: string) => Promise<boolean>;
+  onUpdate: (file: File) => Promise<{ success: boolean, url: string }>;
 }
 
 export const FaviconForm = ({ currentFaviconUrl, onUpdate }: FaviconFormProps) => {
@@ -44,10 +44,12 @@ export const FaviconForm = ({ currentFaviconUrl, onUpdate }: FaviconFormProps) =
 
     try {
       setIsLoading(true);
-      const faviconUrl = URL.createObjectURL(faviconFile);
-      const success = await onUpdate(faviconUrl);
+      console.log('Submitting favicon update...');
       
-      if (success) {
+      const result = await onUpdate(faviconFile);
+      
+      if (result.success) {
+        setPreviewUrl(result.url);
         toast({
           title: "Favicon updated",
           description: "The site favicon has been updated successfully.",
@@ -100,7 +102,6 @@ export const FaviconForm = ({ currentFaviconUrl, onUpdate }: FaviconFormProps) =
 
       <Button
         type="submit"
-        onClick={handleSubmit}
         disabled={!faviconFile || isLoading}
         className="w-full sm:w-auto"
       >

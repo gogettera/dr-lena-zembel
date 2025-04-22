@@ -13,7 +13,9 @@ export const FaviconSettings = () => {
 
   useEffect(() => {
     const loadFavicon = async () => {
+      console.log('Loading favicon...');
       const url = await fetchFavicon();
+      console.log('Favicon URL loaded:', url);
       setCurrentFaviconUrl(url);
     };
     loadFavicon();
@@ -52,12 +54,12 @@ export const FaviconSettings = () => {
           <div className="w-full md:w-2/3">
             <FaviconForm 
               currentFaviconUrl={currentFaviconUrl}
-              onUpdate={async (url) => {
-                const success = await updateFavicon(url);
-                if (success) {
-                  setCurrentFaviconUrl(url);
+              onUpdate={async (file) => {
+                const result = await updateFavicon(file);
+                if (result.success) {
+                  setCurrentFaviconUrl(result.url);
                 }
-                return success;
+                return result;
               }}
             />
           </div>
