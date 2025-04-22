@@ -1,30 +1,33 @@
 
 import React, { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { useImageLibrary } from './hooks/useImageLibrary';
-import { useImageUpload } from './hooks/useImageUpload';
-import { useBucketCheck } from './hooks/useBucketCheck';
+import { useImageLibraryActions } from './useImageLibraryActions';
 import ImageUploadSection from './ImageUploadSection';
 import ImageGrid from './ImageGrid';
 import BucketErrorAlert from './BucketErrorAlert';
 
 const ImageLibrary: React.FC = () => {
-  const { images, loading, bucketExists, fetchImages, handleDelete } = useImageLibrary();
-  const { 
-    uploading, 
-    previewUrl, 
-    selectedFile, 
-    errorMsg: uploadErrorMsg, 
-    fileInputRef, 
-    handleFileChange, 
-    handleUpload 
-  } = useImageUpload();
-  const { 
-    checkInProgress, 
-    errorMsg: bucketErrorMsg, 
-    handleRetry, 
-    handleCreateBucket 
-  } = useBucketCheck();
+  const {
+    // State
+    images,
+    loading,
+    bucketExists,
+    bucketErrorMsg,
+    checkInProgress,
+    uploading,
+    previewUrl,
+    selectedFile,
+    uploadErrorMsg,
+    fileInputRef,
+    
+    // Actions
+    fetchImages,
+    handleRetry,
+    handleCreateBucket,
+    handleFileChange,
+    handleUpload,
+    handleDelete
+  } = useImageLibraryActions();
 
   useEffect(() => {
     fetchImages();

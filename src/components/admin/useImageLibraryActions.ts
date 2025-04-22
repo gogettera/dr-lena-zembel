@@ -1,4 +1,5 @@
 
+import { useImageLibraryState } from "./hooks/useImageLibraryState";
 import { useBucketCheckActions } from "./hooks/useBucketCheckActions";
 import { useImageFetchActions } from "./hooks/useImageFetchActions";
 import { useImageUploadActions } from "./hooks/useImageUploadActions";
@@ -11,45 +12,49 @@ export type Img = {
 };
 
 export function useImageLibraryActions() {
-  const bucketCheck = useBucketCheckActions();
-  const fetcher = useImageFetchActions(bucketCheck.checkBucket);
-
+  // Create shared state
+  const state = useImageLibraryState();
+  
+  // Extract needed state values for passing to child hooks
+  const { bucketExists } = state;
+  
+  // Initialize all action hooks with shared state
+  const bucketCheck = useBucketCheckActions(state);
+  const fetcher = useImageFetchActions(bucketCheck.checkBucket, state);
+  
   const upload = useImageUploadActions(
-    bucketCheck.bucketExists,
+    bucketExists,
     bucketCheck.checkBucket,
-    fetcher.fetchImages
+    fetcher.fetchImages,
+    state
   );
-  const { handleDelete } = useImageDeleteActions(
-    bucketCheck.bucketExists,
+  
+  const imageDelete = useImageDeleteActions(
+    bucketExists,
     bucketCheck.checkBucket,
-    fetcher.fetchImages
+    fetcher.fetchImages,
+    state
   );
 
   return {
-    // bucket check state
-    bucketExists: bucketCheck.bucketExists,
-    checkInProgress: bucketCheck.checkInProgress,
-    bucketErrorMsg: bucketCheck.errorMsg,
+    // Expose state
+    ...state,
+    
+    // Expose bucket check actions
     handleRetry: async () => {
       await bucketCheck.handleRetry(fetcher.fetchImages);
     },
     handleCreateBucket: bucketCheck.handleCreateBucket,
-
-    // image list state
-    images: fetcher.images,
-    loading: fetcher.loading,
+    
+    // Expose image fetch actions
     fetchImages: fetcher.fetchImages,
-
-    // upload section state
-    uploading: upload.uploading,
-    selectedFile: upload.selectedFile,
+    
+    // Expose upload actions
     fileInputRef: upload.fileInputRef,
     handleFileChange: upload.handleFileChange,
     handleUpload: upload.handleUpload,
-    uploadErrorMsg: upload.errorMsg,
-    previewUrl: upload.previewUrl,
-
-    // delete action
-    handleDelete,
+    
+    // Expose delete actions
+    handleDelete: imageDelete.handleDelete,
   };
 }
