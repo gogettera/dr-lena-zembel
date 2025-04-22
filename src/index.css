@@ -1,159 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'Assistant', 'Heebo', sans-serif;
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    @apply bg-gradient-to-br from-white via-dental-beige/30 to-white text-dental-textDark antialiased;
-  }
-  
-  [dir="rtl"] {
-    text-align: right;
-  }
-  
-  [dir="ltr"] {
-    text-align: left;
-  }
-  
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222 47% 11%;
-    --radius: 1rem;
-  }
-
-  /* Accessibility improvements */
-  :focus {
-    outline: 2px solid #4A90E2;
-    outline-offset: 2px;
-  }
-
-  /* Skip to main content link - hidden by default, visible on focus */
-  .skip-to-content {
-    @apply sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-4 focus:left-4 focus:bg-white focus:text-dental-navy focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg;
-  }
-
-  /* Ensure sufficient color contrast */
-  .text-white\/80 {
-    @apply hover:text-white focus:text-white;
-  }
+/* Custom styles */
+html {
+  font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv03" on;
+  text-rendering: optimizeLegibility;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-dental-navy via-dental-ocean to-dental-sky bg-clip-text text-transparent;
-  }
-  
-  .glass-effect {
-    @apply backdrop-blur-md bg-white/70 border border-white/20;
-  }
-  
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .hide-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+/* High contrast mode for accessibility */
+body.high-contrast {
+  background: black;
+  color: white;
 }
 
-/* Accessibility Styles */
-.high-contrast {
-  filter: contrast(1.4);
-  background: white !important;
+body.high-contrast .bg-white,
+body.high-contrast .bg-dental-beige,
+body.high-contrast .bg-dental-beige\/10,
+body.high-contrast .bg-dental-beige\/20 {
+  background-color: black !important;
 }
 
-.high-contrast * {
+body.high-contrast .text-dental-navy,
+body.high-contrast .text-dental-navy\/80,
+body.high-contrast .text-dental-navy\/70,
+body.high-contrast .text-dental-navy\/60 {
+  color: white !important;
+}
+
+body.high-contrast a,
+body.high-contrast button:not(.bg-dental-orange) {
+  border: 1px solid white !important;
+}
+
+body.high-contrast img,
+body.high-contrast svg {
+  filter: grayscale(100%) contrast(120%);
+}
+
+body.high-contrast .bg-dental-orange,
+body.high-contrast .bg-dental-navy {
   background-color: white !important;
   color: black !important;
-  border-color: black !important;
-}
-
-.high-contrast img,
-.high-contrast svg {
-  filter: grayscale(100%) contrast(1.5);
-}
-
-.high-contrast button,
-.high-contrast a {
-  border: 2px solid black !important;
-}
-
-.high-contrast input,
-.high-contrast textarea,
-.high-contrast select {
-  background-color: white !important;
-  color: black !important;
-  border: 2px solid black !important;
-}
-
-.skip-to-content {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-.skip-to-content:focus {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
-  padding: 0.5rem 1rem;
-  background-color: white;
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
-  border: 2px solid black;
-  margin: 0.5rem;
-}
-
-@layer base {
-  :focus-visible {
-    @apply outline-2 outline-offset-2 outline-dental-orange;
-  }
-  
-  /* Improved focus indicators for interactive elements */
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    @apply outline-2 outline-offset-2 outline-dental-orange ring-2 ring-dental-orange/50;
-  }
 }
