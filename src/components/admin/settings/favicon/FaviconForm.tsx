@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,9 +15,16 @@ interface FaviconFormProps {
 
 export const FaviconForm = ({ currentFaviconUrl, onUpdate }: FaviconFormProps) => {
   const [faviconFile, setFaviconFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>(currentFaviconUrl);
+  const [previewUrl, setPreviewUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  // Update preview when currentFaviconUrl changes
+  useEffect(() => {
+    if (currentFaviconUrl) {
+      setPreviewUrl(currentFaviconUrl);
+    }
+  }, [currentFaviconUrl]);
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -54,6 +61,10 @@ export const FaviconForm = ({ currentFaviconUrl, onUpdate }: FaviconFormProps) =
           title: "Favicon updated",
           description: "The site favicon has been updated successfully.",
         });
+        // Clear file input
+        const fileInput = document.getElementById('favicon-upload') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+        setFaviconFile(null);
       } else {
         throw new Error("Failed to update favicon");
       }

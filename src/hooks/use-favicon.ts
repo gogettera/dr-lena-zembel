@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { updateFavicon as updateDocumentFavicon } from "@/utils/meta-utils";
 
 export const useFavicon = () => {
   const [currentMeta, setCurrentMeta] = useState<any>(null);
@@ -85,20 +86,11 @@ export const useFavicon = () => {
       // Update the favicon URL in the database
       const { error: updateError } = await supabase
         .from('site_meta')
-        .upsert({ 
-          id: 1, 
+        .update({ 
           favicon_url: faviconUrl,
           updated_at: new Date().toISOString(),
-          // Preserve existing meta fields
-          title: currentMeta.title,
-          description: currentMeta.description,
-          og_title: currentMeta.og_title,
-          og_description: currentMeta.og_description,
-          og_image_url: currentMeta.og_image_url,
-          twitter_title: currentMeta.twitter_title,
-          twitter_description: currentMeta.twitter_description,
-          twitter_card: currentMeta.twitter_card
-        });
+        })
+        .eq('id', 1);
 
       if (updateError) {
         console.error('Error updating favicon metadata:', updateError);
@@ -106,6 +98,9 @@ export const useFavicon = () => {
       }
       
       console.log('Favicon metadata updated successfully');
+      
+      // Apply the favicon to the document
+      updateDocumentFavicon(faviconUrl);
       
       // Update local state
       setCurrentMeta({

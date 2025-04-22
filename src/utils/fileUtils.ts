@@ -59,6 +59,8 @@ export const createFilePreview = (file: File): Promise<string> => {
  * @returns HTML string with appropriate link tags
  */
 export const generateFaviconTags = (faviconUrl: string, fileType: string): string => {
+  if (!faviconUrl) return '';
+  
   let tags = '';
   
   if (fileType === 'image/svg+xml') {
@@ -79,4 +81,21 @@ export const generateFaviconTags = (faviconUrl: string, fileType: string): strin
   }
   
   return tags;
+};
+
+/**
+ * Checks if the given URL is accessible
+ * @param url URL to check
+ * @returns Promise that resolves to a boolean indicating if the URL is accessible
+ */
+export const isUrlAccessible = async (url: string): Promise<boolean> => {
+  if (!url) return false;
+  
+  try {
+    const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+    return true; // If no error is thrown, assume the URL is accessible
+  } catch (error) {
+    console.error('URL check failed:', error);
+    return false;
+  }
 };

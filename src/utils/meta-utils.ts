@@ -60,15 +60,51 @@ export const updateMetaTag = (
 
 // Update favicons in the document head
 export const updateFavicon = (faviconUrl: string) => {
-  // Update main favicon
-  const mainFavicon = document.getElementById('favicon-main') as HTMLLinkElement;
-  if (mainFavicon) {
-    mainFavicon.href = faviconUrl;
-  }
+  if (!faviconUrl) return;
+  console.log('Updating favicon to:', faviconUrl);
   
-  // Update Apple touch icon
-  const appleFavicon = document.getElementById('favicon-apple') as HTMLLinkElement;
-  if (appleFavicon) {
-    appleFavicon.href = faviconUrl;
+  try {
+    // Get file extension to determine icon type
+    const fileExtMatch = faviconUrl.match(/\.([^.]+)$/);
+    const fileExt = fileExtMatch ? fileExtMatch[1].toLowerCase() : 'png';
+    let mimeType = 'image/png'; // Default mime type
+    
+    // Set the appropriate mime type based on file extension
+    if (fileExt === 'svg') {
+      mimeType = 'image/svg+xml';
+    } else if (fileExt === 'jpg' || fileExt === 'jpeg') {
+      mimeType = 'image/jpeg';
+    }
+    
+    // Remove existing favicon links
+    const existingFavicons = document.querySelectorAll('link[rel*="icon"]');
+    existingFavicons.forEach(favicon => favicon.remove());
+    
+    // Create standard favicon link
+    let link = document.querySelector('link#favicon-main') as HTMLLinkElement;
+    if (!link) {
+      link = document.createElement('link');
+      link.id = 'favicon-main';
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.type = mimeType;
+    link.href = faviconUrl;
+    
+    // Create Apple touch icon
+    let appleLink = document.querySelector('link#favicon-apple') as HTMLLinkElement;
+    if (!appleLink) {
+      appleLink = document.createElement('link');
+      appleLink.id = 'favicon-apple';
+      appleLink.rel = 'apple-touch-icon';
+      document.head.appendChild(appleLink);
+    }
+    appleLink.href = faviconUrl;
+    
+    console.log('Favicon updated successfully');
+    return true;
+  } catch (error) {
+    console.error('Error updating favicon:', error);
+    return false;
   }
 };
