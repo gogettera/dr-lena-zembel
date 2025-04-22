@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -25,7 +24,7 @@ export const useSiteMeta = () => {
   const fetchMeta = async () => {
     try {
       setLoading(true);
-      console.log('Fetching site meta...');
+      console.log('[Meta] Fetching site meta...');
       
       const { data, error: fetchError } = await supabase
         .from('site_meta')
@@ -35,11 +34,11 @@ export const useSiteMeta = () => {
 
       if (fetchError) throw fetchError;
       
-      console.log('Fetched site meta:', data);
+      console.log('[Meta] Fetched data from DB:', data);
       setMeta(data as SiteMeta);
       
     } catch (err) {
-      console.error('Error fetching site meta:', err);
+      console.error('[Meta] Error fetching site meta:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch site metadata'));
       
       toast({
@@ -55,7 +54,7 @@ export const useSiteMeta = () => {
   const updateMeta = async (newMeta: Partial<SiteMeta>) => {
     try {
       setLoading(true);
-      console.log('Updating site meta with:', newMeta);
+      console.log('[Meta] Updating site meta with:', newMeta);
       
       const updates = {
         id: 1,
@@ -76,7 +75,7 @@ export const useSiteMeta = () => {
         .upsert(updates);
 
       if (updateError) {
-        console.error('Supabase update error:', updateError);
+        console.error('[Meta] Supabase update error:', updateError);
         throw updateError;
       }
       
@@ -91,9 +90,12 @@ export const useSiteMeta = () => {
       // Refresh meta data to ensure we have the latest state
       await fetchMeta();
       
+      // Extra log for verification
+      console.log('[Meta] DB update confirmed. Latest meta:', updates);
+
       return true;
     } catch (err) {
-      console.error('Error updating site meta:', err);
+      console.error('[Meta] Error updating site meta:', err);
       setError(err instanceof Error ? err : new Error('Failed to update site metadata'));
       
       toast({

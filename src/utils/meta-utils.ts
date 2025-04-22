@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 
 // Apply meta information to the document head
@@ -12,32 +11,36 @@ export const applyMetaTags = async () => {
       .maybeSingle();
       
     if (error) throw error;
-    if (!data) return;
+    if (!data) {
+      console.log('[Meta Utils] No meta row found for id 1');
+      return;
+    }
+    console.log('[Meta Utils] Applying meta:', data);
     
     // Apply basic meta tags
     if (data.title) document.title = data.title;
     updateMetaTag('description', data.description);
     
-    // Apply Open Graph meta tags
+    // Open Graph
     updateMetaTag('og:title', data.og_title, 'property');
     updateMetaTag('og:description', data.og_description, 'property');
     updateMetaTag('og:image', data.og_image_url, 'property');
     
-    // Apply Twitter meta tags
+    // Twitter
     updateMetaTag('twitter:card', data.twitter_card);
     updateMetaTag('twitter:title', data.twitter_title || data.og_title);
     updateMetaTag('twitter:description', data.twitter_description || data.og_description);
     updateMetaTag('twitter:image', data.og_image_url);
     
-    // Update favicon if available or use default
+    // Favicon
     if (data.favicon_url) {
       updateFavicon(data.favicon_url);
     } else {
-      // Use the default favicon 
       updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
     }
+    console.log('[Meta Utils] Meta tags applied to <head>');
   } catch (err) {
-    console.error('Error applying meta tags:', err);
+    console.error('[Meta Utils] Error applying meta tags:', err);
   }
 };
 

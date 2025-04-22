@@ -41,6 +41,13 @@ export const MetaSettings = () => {
 
       if (!success) {
         throw new Error('Failed to update meta settings');
+      } else {
+        toast({
+          title: "Meta data saved",
+          description: "המידע נשמר בהצלחה במסד הנתונים",
+          variant: "default"
+        });
+        console.log("Meta update was successful. Reload your site to see changes applied to meta tags.");
       }
     } catch (err) {
       console.error('Error saving meta settings:', err);
