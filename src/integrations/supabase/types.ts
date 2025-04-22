@@ -9,6 +9,123 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      clinic_info: {
+        Row: {
+          address: string
+          description: string | null
+          email: string | null
+          hours: Json
+          id: number
+          name: string
+          phone: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          address: string
+          description?: string | null
+          email?: string | null
+          hours?: Json
+          id?: number
+          name: string
+          phone: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string
+          description?: string | null
+          email?: string | null
+          hours?: Json
+          id?: number
+          name?: string
+          phone?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      clinic_staff: {
+        Row: {
+          bio: string | null
+          created_at: string
+          id: number
+          image_url: string | null
+          is_active: boolean
+          name: string
+          role: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          id?: number
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          role: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          id?: number
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          role?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      doctor_info: {
+        Row: {
+          approach: string | null
+          display_name: string
+          education: string | null
+          experience: string | null
+          full_name: string
+          id: number
+          languages: string | null
+          profile_image: string | null
+          specialties: Json
+          tags: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          approach?: string | null
+          display_name: string
+          education?: string | null
+          experience?: string | null
+          full_name: string
+          id?: number
+          languages?: string | null
+          profile_image?: string | null
+          specialties?: Json
+          tags?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          approach?: string | null
+          display_name?: string
+          education?: string | null
+          experience?: string | null
+          full_name?: string
+          id?: number
+          languages?: string | null
+          profile_image?: string | null
+          specialties?: Json
+          tags?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       google_reviews: {
         Row: {
           author_name: string
