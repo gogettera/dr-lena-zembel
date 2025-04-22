@@ -5,6 +5,7 @@ import TranslationsTable from '@/components/admin/TranslationsTable';
 import ContentManager from '@/components/admin/ContentManager';
 import SiteSettings from '@/components/admin/SiteSettings';
 import VideoManager from '@/components/admin/VideoManager';
+import ImageLibrary from '@/components/admin/ImageLibrary';
 
 const AdminPanel = () => {
   const { language } = useLanguage();
@@ -19,6 +20,7 @@ const AdminPanel = () => {
             <TabsTrigger value="translations">Copy Management</TabsTrigger>
             <TabsTrigger value="content">Content Manager</TabsTrigger>
             <TabsTrigger value="videos">Videos</TabsTrigger>
+            <TabsTrigger value="images">Image Library</TabsTrigger>
             <TabsTrigger value="settings">Site Settings</TabsTrigger>
           </TabsList>
 
@@ -32,6 +34,10 @@ const AdminPanel = () => {
 
           <TabsContent value="videos">
             <VideoManager />
+          </TabsContent>
+
+          <TabsContent value="images">
+            <ImageLibrary />
           </TabsContent>
 
           <TabsContent value="settings">
