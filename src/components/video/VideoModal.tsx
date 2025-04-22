@@ -15,6 +15,8 @@ interface VideoModalProps {
 
 // Parses YouTube video ID from a URL
 function getYouTubeId(url: string) {
+  if (!url) return null;
+  
   const match = url.match(
     /(?:youtube\.com\/.*v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/
   );
@@ -58,6 +60,9 @@ const VideoModal = ({
 
   if (!isOpen) return null;
 
+  // If no video source is provided, show an error message
+  const hasValidSource = Boolean(videoSrc);
+
   return (
     <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-0 sm:p-8">
       <div
@@ -91,7 +96,11 @@ const VideoModal = ({
             sm:aspect-video sm:rounded-lg sm:w-full sm:h-auto
           "
         >
-          {!isYouTube ? (
+          {!hasValidSource ? (
+            <div className="text-white text-center p-8">
+              <p>{t('videoNotAvailable') || 'Video not available'}</p>
+            </div>
+          ) : !isYouTube ? (
             <VideoPlayer
               src={videoSrc}
               poster={posterSrc}

@@ -11,8 +11,8 @@ import { supabase } from '@/integrations/supabase/client';
 
 type VideoData = {
   id: string;
-  src: string; // Direct video file URL or YouTube link
-  poster: string; // Cover photo URL
+  src: string | null; // Changed to allow null
+  poster: string | null; // Changed to allow null
   title: string;
   width: number;
   height: number;
@@ -59,8 +59,9 @@ const VideoSection = () => {
     setActiveVideo(null);
   };
 
-  // Helper to check if the src is YouTube
-  const isYouTubeUrl = (url: string) => {
+  // Helper to check if the src is YouTube - UPDATED with null check
+  const isYouTubeUrl = (url: string | null): boolean => {
+    if (!url) return false;
     return url.includes('youtube.com/watch') || url.includes('youtu.be/');
   };
 
@@ -136,8 +137,8 @@ const VideoSection = () => {
         <VideoModal
           isOpen={isModalOpen}
           onClose={closeVideoModal}
-          videoSrc={activeVideo.src}
-          posterSrc={activeVideo.poster}
+          videoSrc={activeVideo.src || ''} // Provide default empty string if null
+          posterSrc={activeVideo.poster || ''} // Provide default empty string if null
           title={activeVideo.title}
           isYouTube={isYouTubeUrl(activeVideo.src)}
         />
