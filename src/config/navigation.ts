@@ -1,4 +1,3 @@
-
 import { Language } from '@/types/language';
 
 export interface NavigationLink {
@@ -69,7 +68,7 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           },
           {
             key: 'orthodontics',
-            labelKey: 'orthodontics', 
+            labelKey: 'orthodontics',
             path: `/${language}/treatments/orthodontics`
           }
         ]
@@ -83,6 +82,11 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
     footer: {
       info: [
         {
+          key: 'home',
+          labelKey: 'home',
+          path: `/${language}`
+        },
+        {
           key: 'about',
           labelKey: 'about',
           path: `/${language}#about`
@@ -91,6 +95,16 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           key: 'practice',
           labelKey: 'practice',
           path: `/${language}#practice`
+        },
+        {
+          key: 'team',
+          labelKey: 'team',
+          path: `/${language}#team`
+        },
+        {
+          key: 'testimonials',
+          labelKey: 'testimonials',
+          path: `/${language}#testimonials`
         },
         {
           key: 'contact',
@@ -113,18 +127,28 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           key: 'preventive-medicine',
           labelKey: 'preventiveMedicine',
           path: `/${language}/treatments/preventive-medicine`
+        },
+        {
+          key: 'root-canal',
+          labelKey: 'rootCanal',
+          path: `/${language}/treatments/root-canal`
+        },
+        {
+          key: 'oral-rehabilitation',
+          labelKey: 'oralRehabilitation',
+          path: `/${language}/treatments/oral-rehabilitation`
+        },
+        {
+          key: 'orthodontics',
+          labelKey: 'orthodontics',
+          path: `/${language}/treatments/orthodontics`
         }
       ],
       legal: [
         {
-          key: 'privacy',
-          labelKey: 'privacy',
-          path: `/${language}/privacy`
-        },
-        {
-          key: 'terms',
-          labelKey: 'terms',
-          path: `/${language}/terms`
+          key: 'accessibility',
+          labelKey: 'accessibility.statement',
+          path: `/${language}/accessibility-statement`
         }
       ]
     },

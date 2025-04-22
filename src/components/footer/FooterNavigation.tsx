@@ -34,7 +34,7 @@ const FooterNavigation = () => {
           {t('navigation.ourTreatments')}
         </h4>
         <NavList vertical className="space-y-3">
-          {navigation.footer.treatments.map((link) => (
+          {[...navigation.main[2].children || []].map((link) => (
             <NavItem 
               key={link.key}
               to={link.path}
