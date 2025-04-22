@@ -52,7 +52,7 @@ export const BaseStickyNavigation: React.FC<StickyNavigationProps> = ({
   return (
     <div 
       className={cn(
-        "fixed top-4 left-0 right-0 z-40 px-4 transition-all duration-300 ease-in-out",
+        "fixed top-4 left-0 right-0 z-40 transition-all duration-300 ease-in-out px-4",
         className
       )}
       dir={isRTL ? 'rtl' : 'ltr'}
@@ -60,7 +60,7 @@ export const BaseStickyNavigation: React.FC<StickyNavigationProps> = ({
       <div className="bg-white/90 shadow-soft backdrop-blur-sm rounded-full max-w-3xl mx-auto border border-dental-beige/30">
         {isMobile ? (
           <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-            <div className={cn("flex items-center justify-between px-4 py-2", styles.flexDir)}>
+            <div className={cn("flex items-center justify-between px-4 py-3", styles.flexDir)}>
               {ctaButton && (
                 <Button 
                   variant="orange" 
@@ -83,7 +83,7 @@ export const BaseStickyNavigation: React.FC<StickyNavigationProps> = ({
               </CollapsibleTrigger>
             </div>
             <CollapsibleContent>
-              <div className="py-2 px-4 space-y-2">
+              <div className="py-3 px-4 space-y-2 max-h-[60vh] overflow-y-auto">
                 {sections.map((section) => (
                   <NavigationButton
                     key={section.id}
@@ -102,14 +102,14 @@ export const BaseStickyNavigation: React.FC<StickyNavigationProps> = ({
             </CollapsibleContent>
           </Collapsible>
         ) : (
-          <div className={cn("flex items-center justify-between px-4 py-2", styles.flexDir)}>
-            <div className={cn("flex items-center space-x-1", styles.spaceDir)}>
+          <div className={cn("flex items-center justify-between px-6 py-3", styles.flexDir)}>
+            <div className={cn("flex items-center overflow-x-auto hide-scrollbar", styles.spaceDir)}>
               {sections.map((section) => (
                 <NavigationButton
                   key={section.id}
                   variant="ghost"
                   size="sm"
-                  className="px-3 rounded-full"
+                  className="px-3 mx-1 rounded-full whitespace-nowrap"
                   isActive={activeSection === section.id}
                   onClick={() => scrollToSection(section.id)}
                 >
@@ -118,12 +118,12 @@ export const BaseStickyNavigation: React.FC<StickyNavigationProps> = ({
               ))}
             </div>
             
-            <div className={cn("flex items-center space-x-2", styles.spaceDir)}>
+            <div className={cn("flex items-center ml-4 space-x-2", styles.spaceDir)}>
               {ctaButton && (
                 <Button 
                   variant="orange" 
                   size="sm" 
-                  className="rounded-full text-sm font-bold"
+                  className="rounded-full text-sm font-bold whitespace-nowrap"
                   onClick={ctaButton.onClick}
                   asChild={!!ctaButton.href}
                 >

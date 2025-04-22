@@ -4,6 +4,8 @@ import { BaseStickyNavigation } from "@/components/ui/base-sticky-navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Section } from "@/hooks/use-active-section";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
+import { WhatsappLogo } from "lucide-react";
 
 const StickyNavigation: React.FC = () => {
   const { t, isRTL } = useLanguage();
@@ -19,15 +21,21 @@ const StickyNavigation: React.FC = () => {
     { id: "faq", label: t('aestheticTreatments.nav.faq', 'שאלות נפוצות') },
   ];
 
-  // For mobile, limit the menu items to fit the screen better
-  const mobileSections = isMobile ? sections.slice(0, 4) : sections;
+  const ctaButton = {
+    label: t('bookVisit', 'לקביעת ביקור'),
+    onClick: () => {
+      // Open WhatsApp or a booking modal
+      window.open('https://wa.me/972035666915', '_blank');
+    }
+  };
 
   return (
     <BaseStickyNavigation 
-      sections={mobileSections} 
+      sections={sections}
+      ctaButton={ctaButton}
       scrollOffset={isMobile ? 150 : 300}
       showBackToTop={true}
-      className={`${isMobile ? 'px-2 py-2' : 'px-4 py-3'} ${isRTL ? 'rtl' : 'ltr'}`}
+      className={`px-4 py-3 ${isRTL ? 'rtl' : 'ltr'} transition-all duration-300 backdrop-blur-md`}
     />
   );
 };
