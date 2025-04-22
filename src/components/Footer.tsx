@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
@@ -111,7 +112,7 @@ const Footer: React.FC = () => {
         <Container size="5xl">
           <div className="flex flex-col md:flex-row items-center justify-between py-4">
             <p className="text-sm text-dental-beige/80">
-              {t('copyright', { year: 2025 })}
+              {t('copyright')}
             </p>
             <div className="mt-4 md:mt-0">
               <LanguageSwitcher />
