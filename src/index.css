@@ -9,6 +9,19 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+/* Mobile-optimized hero typography */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.125rem !important;
+    line-height: 1.5 !important;
+  }
+}
+
 /* High contrast mode for accessibility */
 body.high-contrast {
   background: black;
@@ -44,3 +57,4 @@ body.high-contrast .bg-dental-navy {
   background-color: white !important;
   color: black !important;
 }
+
