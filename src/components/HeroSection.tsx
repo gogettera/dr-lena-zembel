@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
@@ -20,9 +19,11 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center bg-gradient-to-br from-dental-beige via-white to-dental-pink overflow-hidden">
-      <div className="container mx-auto px-4 py-6 md:py-20 relative z-10" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div
+        className="container mx-auto px-4 pt-24 pb-6 md:pt-20 md:pb-20 relative z-10"
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* Mobile-optimized text content */}
           <div className={`md:w-1/2 space-y-6 ${isMobile ? 'text-center' : isRTL ? 'md:order-1 text-right' : 'text-left'}`}>
             <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold font-heading text-dental-navy leading-tight opacity-0 animate-[fade-in_0.8s_ease-out_forwards]">
               {t('dentistryWithLove')}
@@ -45,7 +46,6 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Image section - optimized for mobile */}
           <div 
             className={`mt-4 md:mt-0 md:w-1/2 z-20 w-full max-w-md mx-auto relative
               ${isMobile ? 'pt-2 pb-7 px-2' : ''}
@@ -53,7 +53,6 @@ const HeroSection = () => {
               ${isRTL ? 'md:order-0' : ''}`}
             style={isMobile ? { minWidth: 0, overflow: "visible" } : {}}
           >
-            {/* Decorative background effect */}
             <div
               className="absolute inset-0 bg-gradient-to-br from-dental-orange/20 to-dental-accent/20 rounded-[2rem] blur-3xl transform rotate-6 pointer-events-none z-0"
               aria-hidden="true"
@@ -71,7 +70,6 @@ const HeroSection = () => {
                 />
               </AspectRatio>
 
-              {/* Mobile-optimized review card */}
               <div
                 className={`absolute left-1/2 -translate-x-1/2 ${isMobile ? 'bottom-1' : isRTL ? '-left-4 bottom-4' : '-right-4 bottom-4'} 
                   bg-white/90 backdrop-blur rounded-2xl p-4 md:p-6 shadow-soft
@@ -91,7 +89,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Decorative elements - optimized positioning for mobile */}
       <div 
         className="absolute top-1/3 left-4 w-16 h-16 md:w-24 md:h-24 bg-dental-accent/20 rounded-full blur-3xl pointer-events-none" 
         aria-hidden="true"
@@ -105,4 +102,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
