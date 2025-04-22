@@ -39,6 +39,7 @@ export const useVideos = () => {
 
   const addVideo = useCallback(async () => {
     try {
+      // Create a simple insert without depending on user_id
       const { data, error } = await supabase
         .from('videos')
         .insert({
@@ -69,7 +70,7 @@ export const useVideos = () => {
   const updateVideo = useCallback(
     async (id: string, field: keyof VideoData, value: string | number) => {
       try {
-        // Only update the specific field, not updated_at
+        // Only update the specific field
         const { error } = await supabase
           .from('videos')
           .update({ [field]: value })
