@@ -87,7 +87,8 @@ export const getOptimizedImageUrl = ({
       } else if (supportsImageFormat('webp')) {
         params.set('fm', 'webp');
       }
-    } else if (format !== 'auto') {
+    } else {
+      // Changed from format !== 'auto' to fix type comparison
       params.set('fm', format);
     }
     
