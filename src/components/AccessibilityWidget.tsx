@@ -51,7 +51,7 @@ const AccessibilityWidget: React.FC = () => {
         <Button
           variant="outline"
           size="icon"
-          className="rounded-full w-10 h-10 border-dental-navy/30 hover:border-dental-navy/60 fixed bottom-20 left-4 z-50 bg-white shadow-md"
+          className="rounded-full w-10 h-10 border-dental-navy/30 hover:border-dental-navy/60 fixed bottom-24 left-6 z-50 bg-white shadow-md"
           aria-label={t('accessibility.toggle', 'אפשרויות נגישות')}
         >
           <Accessibility className="h-5 w-5" />

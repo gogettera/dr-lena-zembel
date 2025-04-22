@@ -22,44 +22,65 @@ const Footer: React.FC = () => {
     <footer className="bg-dental-navy text-dental-beige relative" aria-label="Footer">
       <Section spacing="lg" background="navy" containerClass="px-4 md:px-6">
         <Container size="5xl">
-          <Grid cols={1} mdCols={2} lgCols={4} gap={8} className="mb-8">
+          {/* Social Media Links */}
+          <div className="flex justify-center gap-6 mb-12">
+            <a 
+              href="https://www.facebook.com/drlena.dental" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-full hover:bg-dental-beige/10 transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook className="h-6 w-6" />
+            </a>
+            <a 
+              href="https://www.instagram.com/dr.lena.dental" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="p-3 rounded-full hover:bg-dental-beige/10 transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram className="h-6 w-6" />
+            </a>
+          </div>
+
+          <Grid cols={1} mdCols={2} lgCols={4} gap={6} className="mb-8">
             {/* Contact Info */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold mb-4" id="contact-info">{t('contact.contactInfo')}</h4>
-              <div className="space-y-3">
+              <h4 className="text-lg font-semibold text-white mb-4" id="contact-info">
+                {t('contact.contactInfo')}
+              </h4>
+              <div className="space-y-4">
                 <a 
                   href="https://maps.app.goo.gl/qxrRjRQXFwKPuodw6" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-white transition-colors group"
-                  aria-labelledby="clinic-address"
+                  className="flex items-start gap-3 hover:text-white transition-colors group"
                 >
-                  <MapPin className="h-4 w-4 shrink-0 group-hover:text-dental-orange" />
-                  <span id="clinic-address">{t('contact.clinicAddress')}</span>
+                  <MapPin className="h-5 w-5 shrink-0 mt-1 group-hover:text-dental-orange" />
+                  <span>{t('contact.clinicAddress')}</span>
                 </a>
                 <a 
                   href="tel:03-566-6915"
-                  className="flex items-center gap-2 hover:text-white transition-colors group"
-                  aria-label={t('contact.callClinic', 'Call clinic')}
+                  className="flex items-center gap-3 hover:text-white transition-colors group"
                 >
-                  <Phone className="h-4 w-4 shrink-0 group-hover:text-dental-orange" />
+                  <Phone className="h-5 w-5 shrink-0 group-hover:text-dental-orange" />
                   <span>03-566-6915</span>
                 </a>
                 <a 
                   href="mailto:info@drlena.co.il"
-                  className="flex items-center gap-2 hover:text-white transition-colors group"
-                  aria-label={t('contact.emailClinic', 'Email clinic')}
+                  className="flex items-center gap-3 hover:text-white transition-colors group"
                 >
-                  <Mail className="h-4 w-4 shrink-0 group-hover:text-dental-orange" />
+                  <Mail className="h-5 w-5 shrink-0 group-hover:text-dental-orange" />
                   <span>info@drlena.co.il</span>
                 </a>
                 <div className="pt-2">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 shrink-0 text-dental-orange" />
+                  <div className="flex items-start gap-3">
+                    <Clock className="h-5 w-5 shrink-0 text-dental-orange mt-1" />
                     <div>
-                      <div className="font-semibold">{t('contact.openingHours')}</div>
-                      <div>{t('contact.sundayToThursday')}</div>
-                      <div>{t('contact.friday')}</div>
+                      <div className="font-semibold text-white">{t('contact.openingHours')}</div>
+                      <div className="opacity-90">{t('contact.sundayToThursday')}</div>
+                      <div className="opacity-90">{t('contact.friday')}</div>
                     </div>
                   </div>
                 </div>
@@ -68,14 +89,13 @@ const Footer: React.FC = () => {
 
             {/* Navigation Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold">{t('navigation.sitemap')}</h4>
-              <NavList vertical>
+              <h4 className="text-lg font-semibold text-white">{t('navigation.sitemap')}</h4>
+              <NavList vertical className="space-y-2">
                 {navigation.footer.info.map((link) => (
                   <NavItem 
                     key={link.key}
                     to={link.path}
-                    as="a"
-                    className="hover:text-white py-1.5 px-0"
+                    className="text-dental-beige/90 hover:text-white py-1"
                   >
                     {t(link.labelKey)}
                   </NavItem>
@@ -85,15 +105,14 @@ const Footer: React.FC = () => {
 
             {/* Treatments */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold">{t('navigation.ourTreatments')}</h4>
-              <NavList vertical>
+              <h4 className="text-lg font-semibold text-white">{t('navigation.ourTreatments')}</h4>
+              <NavList vertical className="space-y-2">
                 {navigation.footer.treatments.map((link) => (
                   <NavItem 
                     key={link.key}
                     to={link.path}
-                    as="a"
                     className={cn(
-                      "hover:text-white py-1.5 px-0",
+                      "text-dental-beige/90 hover:text-white py-1",
                       link.path.includes('children-dentistry') && "text-dental-orange"
                     )}
                   >
@@ -103,45 +122,20 @@ const Footer: React.FC = () => {
               </NavList>
             </div>
 
-            {/* Social & Contact */}
+            {/* Legal Links */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold">{t('navigation.followUs', 'Follow Us')}</h4>
-              <div className="flex gap-3">
-                <a 
-                  href="https://www.facebook.com/drlena.dental" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 bg-dental-navy hover:bg-dental-beige/10 rounded-full transition-colors"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="h-5 w-5 text-dental-beige hover:text-dental-orange transition-colors" />
-                </a>
-                <a 
-                  href="https://www.instagram.com/dr.lena.dental" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="p-2 bg-dental-navy hover:bg-dental-beige/10 rounded-full transition-colors"
-                  aria-label="Instagram"
-                >
-                  <Instagram className="h-5 w-5 text-dental-beige hover:text-dental-orange transition-colors" />
-                </a>
-              </div>
-              
-              <div className="mt-6">
-                <h4 className="text-lg font-semibold mb-4">{t('navigation.info')}</h4>
-                <NavList vertical>
-                  {navigation.footer.legal.map((link) => (
-                    <NavItem 
-                      key={link.key}
-                      to={link.path}
-                      as="a"
-                      className="hover:text-white py-1.5 px-0"
-                    >
-                      {t(link.labelKey)}
-                    </NavItem>
-                  ))}
-                </NavList>
-              </div>
+              <h4 className="text-lg font-semibold text-white">{t('navigation.info')}</h4>
+              <NavList vertical className="space-y-2">
+                {navigation.footer.legal.map((link) => (
+                  <NavItem 
+                    key={link.key}
+                    to={link.path}
+                    className="text-dental-beige/90 hover:text-white py-1"
+                  >
+                    {t(link.labelKey)}
+                  </NavItem>
+                ))}
+              </NavList>
             </div>
           </Grid>
         </Container>
@@ -152,7 +146,7 @@ const Footer: React.FC = () => {
         <Container size="5xl">
           <div className="flex flex-col md:flex-row items-center justify-between py-4">
             <p className="text-sm text-dental-beige/80">
-              {t('info.copyright')}
+              {t('contact.allRightsReserved')}
             </p>
             <div className="mt-4 md:mt-0">
               <LanguageSwitcher />

@@ -43,8 +43,8 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
   };
 
   const positionClasses = {
-    'bottom-right': 'bottom-6 right-6',
-    'bottom-left': 'bottom-6 left-6',
+    'bottom-right': 'bottom-24 right-6',
+    'bottom-left': 'bottom-24 left-6',
   };
 
   if (!isVisible) return null;
@@ -59,19 +59,17 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
       )}
     >
       <Button
-        variant="outline"
+        variant="orange"
         size="icon"
         className={cn(
-          'rounded-full bg-white shadow-md border-dental-beige',
-          'hover:bg-dental-beige/10 hover:border-dental-orange',
-          'focus:outline-none focus:ring-2 focus:ring-dental-orange focus:ring-offset-2',
-          'transition-all duration-300',
+          'rounded-full w-10 h-10 shadow-md',
+          'hover:shadow-lg transition-all duration-300',
           buttonClassName
         )}
         onClick={scrollToTop}
         aria-label="Scroll to top"
       >
-        <ChevronUp className="h-5 w-5 text-dental-navy" />
+        <ChevronUp className="h-5 w-5" />
       </Button>
     </div>
   );
