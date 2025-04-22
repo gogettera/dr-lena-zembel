@@ -27,7 +27,6 @@ const StickyNavigation: React.FC = () => {
       sections={mobileSections} 
       scrollOffset={isMobile ? 150 : 300}
       showBackToTop={true}
-      rtl={isRTL}
       className={`${isMobile ? 'px-2 py-2' : 'px-4 py-3'} ${isRTL ? 'rtl' : 'ltr'}`}
     />
   );
