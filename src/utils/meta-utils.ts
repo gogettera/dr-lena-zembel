@@ -42,12 +42,26 @@ export const applyMetaTags = async () => {
       updateMetaTag('twitter:image', data.og_image_url);
     }
 
-    // Canonical (set the default canonical if missing)
-    if (data.canonical_url) {
-      updateCanonicalLink(data.canonical_url);
-    } else {
-      updateCanonicalLink('https://dr-zembel.com/');
+    // Set canonical URL with current path but no index.html/index.php
+    // This helps prevent duplicate content issues
+    const currentPath = window.location.pathname;
+    let canonicalPath = currentPath;
+    
+    // Remove index.html or index.php if present
+    if (canonicalPath.endsWith('index.html') || canonicalPath.endsWith('index.php')) {
+      canonicalPath = canonicalPath.replace(/(index\.html|index\.php)$/, '');
     }
+    
+    // Ensure trailing slash consistency
+    if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
+      canonicalPath = canonicalPath.slice(0, -1);
+    }
+    
+    // Build the full canonical URL
+    const canonicalUrl = `https://dr-zembel.com${canonicalPath}`;
+    
+    // Canonical (set the current path as canonical or use default)
+    updateCanonicalLink(canonicalUrl);
     
     // Favicon
     if (data.favicon_url) {

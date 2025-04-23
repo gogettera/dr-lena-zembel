@@ -9,10 +9,27 @@ const NotFound = () => {
   const { language } = useLanguage();
 
   useEffect(() => {
+    // Log the 404 error for analytics
     console.error(
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+
+    // Set the correct HTTP status code for 404 pages
+    document.title = "404 - Page Not Found | Dr. Zembel";
+    
+    // This is the critical part - we use the document property to set the status code
+    if (typeof window !== 'undefined') {
+      // Create or select the meta tag for status code
+      let metaStatus = document.querySelector('meta[name="http-status"]');
+      if (!metaStatus) {
+        metaStatus = document.createElement('meta');
+        metaStatus.setAttribute('name', 'http-status');
+        document.head.appendChild(metaStatus);
+      }
+      // Set the status code to 404
+      metaStatus.setAttribute('content', '404');
+    }
   }, [location.pathname]);
 
   return (

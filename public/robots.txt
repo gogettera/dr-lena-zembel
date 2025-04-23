@@ -1,3 +1,4 @@
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,5 +13,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Prevent crawling of duplicate URLs
+Disallow: /index.html
+Disallow: /index.php
 
 Sitemap: https://dr-zembel.com/sitemap.xml

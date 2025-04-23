@@ -1,0 +1,43 @@
+
+# Enable rewriting
+RewriteEngine On
+
+# Remove trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# Redirect index.html and index.php to the root domain
+RewriteRule ^index\.html$ / [L,R=301]
+RewriteRule ^index\.php$ / [L,R=301]
+
+# Handle 404 errors with correct status code
+ErrorDocument 404 /index.html
+
+# Set environment variable so React app can detect 404s
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ - [E=HTTP_STATUS:404]
+RewriteRule ^ - [E=REQUEST_PATH:%{REQUEST_URI}]
+
+# Serve the main application for any path
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# Set security headers
+<IfModule mod_headers.c>
+  # Set X-Robots-Tag header to manage indexing
+  Header set X-Robots-Tag "index, follow"
+  
+  # Set Content-Security-Policy
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.gpteng.co https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://lovable.dev; connect-src 'self' https://www.facebook.com https://www.google-analytics.com;"
+  
+  # Enable HTTP Strict Transport Security
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  
+  # Prevent MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+  
+  # Send appropriate status code for 404 requests
+  Header set Status "404 Not Found" env=HTTP_STATUS
+</IfModule>

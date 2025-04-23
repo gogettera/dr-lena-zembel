@@ -1,0 +1,7 @@
+
+# Redirect index.html and index.php to root domain
+/index.html    /              301
+/index.php     /              301
+
+# Handle 404s properly - this maps all non-matched routes to index.html but keeps the 404 status
+/*    /index.html   404

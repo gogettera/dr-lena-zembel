@@ -87,6 +87,13 @@ function AppEffects() {
   useEffect(() => {
     // This ensures Google sees fresh meta tags on every SPA navigation:
     applyMetaTags();
+    
+    // Reset any previously set HTTP status meta tag when navigating to a new page
+    // Only 404 pages should have a 404 status
+    const existingStatusMeta = document.querySelector('meta[name="http-status"]');
+    if (existingStatusMeta) {
+      existingStatusMeta.setAttribute('content', '200');
+    }
   }, [location]);
 
   return null;
