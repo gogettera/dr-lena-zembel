@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import SocialInputRow from "./SocialInputRow";
 
-interface SocialMediaSettings {
+interface SocialMediaSettingsFormFields {
   facebook: string;
   instagram: string;
   linkedin: string;
@@ -21,7 +22,7 @@ interface SocialMediaSettings {
 export const SocialMediaSettings = () => {
   const { toast } = useToast();
 
-  const form = useForm<SocialMediaSettings>({
+  const form = useForm<SocialMediaSettingsFormFields>({
     defaultValues: {
       facebook: '',
       instagram: '',
@@ -37,7 +38,13 @@ export const SocialMediaSettings = () => {
   React.useEffect(() => {
     const load = async () => {
       setLoading(true);
-      let { data, error } = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
+      let { data, error } = await supabase
+        .from('site_social')
+        .select('*')
+        .eq('id', 1)
+        .maybeSingle();
+
+      // Handle not found case: insert a blank row first
       if (!data && !error) {
         const { error: insertError } = await supabase.from('site_social').insert([{ id: 1 }]);
         if (insertError) {
@@ -52,6 +59,7 @@ export const SocialMediaSettings = () => {
         const res = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
         data = res.data;
       }
+
       if (data) {
         form.reset({
           facebook: data.facebook || '',
@@ -59,7 +67,7 @@ export const SocialMediaSettings = () => {
           linkedin: data.linkedin || '',
           youtube: data.youtube || '',
           twitter: data.twitter || '',
-          showSocialIcons: data.show_social_icons ?? true
+          showSocialIcons: typeof data.show_social_icons === "boolean" ? data.show_social_icons : true
         });
       }
       if (error) {
@@ -72,24 +80,25 @@ export const SocialMediaSettings = () => {
       setLoading(false);
     };
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onSubmit = async (data: SocialMediaSettings) => {
+  const onSubmit = async (fields: SocialMediaSettingsFormFields) => {
     setLoading(true);
     try {
-      const cleanData = {
+      const updateObj = {
         id: 1,
-        facebook: data.facebook || '',
-        instagram: data.instagram || '',
-        linkedin: data.linkedin || '',
-        youtube: data.youtube || '',
-        twitter: data.twitter || '',
-        show_social_icons: typeof data.showSocialIcons === 'boolean' ? data.showSocialIcons : true,
+        facebook: fields.facebook || '',
+        instagram: fields.instagram || '',
+        linkedin: fields.linkedin || '',
+        youtube: fields.youtube || '',
+        twitter: fields.twitter || '',
+        show_social_icons: typeof fields.showSocialIcons === 'boolean' ? fields.showSocialIcons : true,
         updated_at: new Date().toISOString()
       };
       const { error } = await supabase
         .from('site_social')
-        .upsert(cleanData, { onConflict: 'id' });
+        .upsert(updateObj, { onConflict: 'id' });
       if (error) {
         toast({
           title: "Error saving social media settings",
