@@ -5,7 +5,6 @@ import App from './App';
 import AccessibleLayout from './components/layout/AccessibleLayout';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { applyMetaTags } from './utils/meta-utils';
 
 // Create a client with optimized settings
 const queryClient = new QueryClient({
@@ -19,35 +18,66 @@ const queryClient = new QueryClient({
   },
 });
 
-// Apply meta tags from the database
-applyMetaTags().catch(console.error);
-
-// Custom event to measure First Input Delay
+// Custom function to measure and report performance metrics
 const reportWebVitals = () => {
-  try {
-    const onFID = (metric: any) => {
-      // Send to analytics or log
-      console.log('FID:', metric);
-    };
-
-    // Check if web vitals are available
-    if ('web-vitals' in window) {
-      (window as any)['web-vitals'].getFID(onFID);
-    }
-  } catch (error) {
-    console.error('Error measuring web vitals:', error);
+  // Only load web-vitals when needed
+  if (process.env.NODE_ENV === 'production') {
+    import('web-vitals').then(({ onFCP, onLCP, onCLS, onFID, onTTFB }) => {
+      // First Contentful Paint
+      onFCP(metric => {
+        console.log('FCP:', metric.value);
+        // Send to analytics
+      });
+      
+      // Largest Contentful Paint
+      onLCP(metric => {
+        console.log('LCP:', metric.value);
+        // Send to analytics
+      });
+      
+      // Cumulative Layout Shift
+      onCLS(metric => {
+        console.log('CLS:', metric.value);
+        // Send to analytics
+      });
+      
+      // First Input Delay
+      onFID(metric => {
+        console.log('FID:', metric.value);
+        // Send to analytics
+      });
+      
+      // Time to First Byte
+      onTTFB(metric => {
+        console.log('TTFB:', metric.value);
+        // Send to analytics
+      });
+    });
   }
 };
 
-// Initialize performance monitoring
-reportWebVitals();
+// Create root with concurrent mode for better performance
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+// Use createRoot instead of render for better performance
+root.render(
+  // Disable StrictMode in production to avoid double-rendering
+  process.env.NODE_ENV !== 'production' ? (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <AccessibleLayout>
+          <App />
+        </AccessibleLayout>
+      </QueryClientProvider>
+    </React.StrictMode>
+  ) : (
     <QueryClientProvider client={queryClient}>
       <AccessibleLayout>
         <App />
       </AccessibleLayout>
     </QueryClientProvider>
-  </React.StrictMode>,
+  )
 );
+
+// Initialize performance monitoring
+reportWebVitals();

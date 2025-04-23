@@ -38,7 +38,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   );
 }
 
-// Loading fallback for lazy components
+// Optimized loading fallback with low-priority skeleton
 const PageLoader = () => (
   <div className="w-full h-screen flex items-center justify-center">
     <div className="w-full max-w-md p-6">
@@ -56,7 +56,9 @@ function AppEffects() {
   const location = useLocation();
 
   useEffect(() => {
-    // Setup directionality by language on load (already in original App)
+    // Setup directionality by language on load
+    const start = performance.now();
+    
     try {
       const browserLang = getBrowserLanguage();
       setupDirectionByLanguage(browserLang);
@@ -74,9 +76,23 @@ function AppEffects() {
       window.addEventListener('offline', () => {
         document.documentElement.classList.add('is-offline');
       });
+      
+      // Report First Contentful Paint metric
+      if ('web-vitals' in window) {
+        import('web-vitals').then(({ onFCP }) => {
+          onFCP(metric => {
+            console.log('FCP:', metric);
+            // This could send to analytics
+          });
+        });
+      }
+      
+      const end = performance.now();
+      console.log(`App setup time: ${end - start}ms`);
     } catch (error) {
       console.error("Error in App setup:", error);
     }
+    
     return () => {
       window.removeEventListener('online', () => {});
       window.removeEventListener('offline', () => {});
@@ -94,15 +110,32 @@ function AppEffects() {
     if (existingStatusMeta) {
       existingStatusMeta.setAttribute('content', '200');
     }
+    
+    // Report page navigation to analytics
+    // This could integrate with web-vitals tracking
+    console.log(`Page navigation: ${location.pathname}`);
+    
+    // Cache warming for images that will likely be needed
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => {
+        // This can be expanded with specific image prefetching logic
+      }, { timeout: 1000 });
+    }
   }, [location]);
 
   return null;
 }
 
-// Lazy load admin components which aren't needed on first render
-const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
-const AdminRoute = lazy(() => import('@/components/AdminRoute'));
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
+// Lazy load admin components with low priority
+const AdminPanel = lazy(() => 
+  import(/* webpackChunkName: "admin" */ '@/pages/AdminPanel')
+);
+const AdminRoute = lazy(() => 
+  import(/* webpackChunkName: "admin-route" */ '@/components/AdminRoute')
+);
+const LoginPage = lazy(() => 
+  import(/* webpackChunkName: "login" */ '@/pages/LoginPage')
+);
 
 function App() {
   return (

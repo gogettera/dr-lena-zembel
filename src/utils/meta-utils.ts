@@ -1,22 +1,45 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
+// Cache the meta data to avoid multiple fetch requests
+let metaCache: any = null;
+let lastFetchTime = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache TTL
+
 // Apply meta information to the document head
 export const applyMetaTags = async () => {
   try {
-    // Fetch site meta data
-    const { data, error } = await supabase
-      .from('site_meta')
-      .select('*')
-      .eq('id', 1)
-      .maybeSingle();
+    const now = Date.now();
+    let data;
+    
+    // Use cached data if available and not expired
+    if (metaCache && now - lastFetchTime < CACHE_TTL) {
+      data = metaCache;
+      console.log('[Meta Utils] Using cached meta data');
+    } else {
+      // Fetch site meta data
+      const startTime = performance.now();
+      const response = await supabase
+        .from('site_meta')
+        .select('*')
+        .eq('id', 1)
+        .maybeSingle();
+        
+      if (response.error) throw response.error;
       
-    if (error) throw error;
-    if (!data) {
-      console.log('[Meta Utils] No meta row found for id 1');
-      return;
+      data = response.data;
+      if (!data) {
+        console.log('[Meta Utils] No meta row found for id 1');
+        return;
+      }
+      
+      // Cache the result
+      metaCache = data;
+      lastFetchTime = now;
+      
+      const endTime = performance.now();
+      console.log(`[Meta Utils] Fetched meta in ${endTime - startTime}ms:`, data);
     }
-    console.log('[Meta Utils] Applying meta:', data);
     
     // Apply basic meta tags
     if (data.title) document.title = data.title;
@@ -63,24 +86,40 @@ export const applyMetaTags = async () => {
     // Canonical (set the current path as canonical or use default)
     updateCanonicalLink(canonicalUrl);
     
-    // Favicon
-    if (data.favicon_url) {
-      updateFavicon(data.favicon_url);
+    // Favicon - use requestIdleCallback for low-priority operation
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => {
+        if (data.favicon_url) {
+          updateFavicon(data.favicon_url);
+        } else {
+          updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
+        }
+      });
     } else {
-      updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
+      // Fallback when requestIdleCallback is not available
+      setTimeout(() => {
+        if (data.favicon_url) {
+          updateFavicon(data.favicon_url);
+        } else {
+          updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
+        }
+      }, 200);
     }
     
-    // Apply Google Analytics if ID exists
+    // Apply Google Analytics if ID exists - defer to avoid blocking critical resources
     if (data.google_analytics_id) {
-      applyGoogleAnalytics(data.google_analytics_id);
+      // Delay the loading of non-critical analytics
+      setTimeout(() => {
+        applyGoogleAnalytics(data.google_analytics_id);
+      }, 1000);
     }
     
-    // Apply Facebook Pixel if ID exists
+    // Apply Facebook Pixel if ID exists - defer to avoid blocking critical resources
     if (data.facebook_pixel_id) {
-      applyFacebookPixel(data.facebook_pixel_id);
+      setTimeout(() => {
+        applyFacebookPixel(data.facebook_pixel_id);
+      }, 1500);
     }
-    
-    console.log('[Meta Utils] Meta tags applied to <head>');
   } catch (err) {
     console.error('[Meta Utils] Error applying meta tags:', err);
   }
@@ -121,7 +160,6 @@ export const updateCanonicalLink = (canonicalUrl: string) => {
 // Update favicons in the document head
 export const updateFavicon = (faviconUrl: string) => {
   if (!faviconUrl) return;
-  console.log('Updating favicon to:', faviconUrl);
   
   try {
     // Skip blob URLs
@@ -142,32 +180,18 @@ export const updateFavicon = (faviconUrl: string) => {
       mimeType = 'image/jpeg';
     }
     
-    // Remove existing favicon links
-    const existingFavicons = document.querySelectorAll('link[rel*="icon"]');
-    existingFavicons.forEach(favicon => favicon.remove());
-    
-    // Create standard favicon link
+    // Update existing favicon links instead of removing and recreating them
     let link = document.querySelector('link#favicon-main') as HTMLLinkElement;
-    if (!link) {
-      link = document.createElement('link');
-      link.id = 'favicon-main';
-      link.rel = 'icon';
-      document.head.appendChild(link);
+    if (link) {
+      link.type = mimeType;
+      link.href = faviconUrl;
     }
-    link.type = mimeType;
-    link.href = faviconUrl;
     
-    // Create Apple touch icon
     let appleLink = document.querySelector('link#favicon-apple') as HTMLLinkElement;
-    if (!appleLink) {
-      appleLink = document.createElement('link');
-      appleLink.id = 'favicon-apple';
-      appleLink.rel = 'apple-touch-icon';
-      document.head.appendChild(appleLink);
+    if (appleLink) {
+      appleLink.href = faviconUrl;
     }
-    appleLink.href = faviconUrl;
     
-    console.log('Favicon updated successfully');
     return true;
   } catch (error) {
     console.error('Error updating favicon:', error);
@@ -175,7 +199,7 @@ export const updateFavicon = (faviconUrl: string) => {
   }
 };
 
-// Apply Google Analytics
+// Apply Google Analytics with performance optimizations
 const applyGoogleAnalytics = (gaId: string) => {
   if (!gaId || gaId.trim() === '') return;
   
@@ -185,21 +209,27 @@ const applyGoogleAnalytics = (gaId: string) => {
       return; // Already loaded
     }
     
-    // Create GA script
-    const gaScript = document.createElement('script');
-    gaScript.async = true;
-    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
-    document.head.appendChild(gaScript);
-    
-    // Create GA initialization script
+    // Create GA initialization script first
     const gaInitScript = document.createElement('script');
     gaInitScript.text = `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '${gaId}');
+      gtag('config', '${gaId}', { 'send_page_view': false });
+      
+      // Defer sending pageview to improve FCP
+      setTimeout(() => {
+        gtag('event', 'page_view');
+      }, 1500);
     `;
     document.head.appendChild(gaInitScript);
+    
+    // Create GA script with async and defer attributes
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.defer = true;
+    gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    document.head.appendChild(gaScript);
     
     console.log(`Google Analytics initialized with ID: ${gaId}`);
   } catch (error) {
@@ -207,7 +237,7 @@ const applyGoogleAnalytics = (gaId: string) => {
   }
 };
 
-// Apply Facebook Pixel
+// Apply Facebook Pixel with performance optimizations
 const applyFacebookPixel = (pixelId: string) => {
   if (!pixelId || pixelId.trim() === '') return;
   
@@ -217,9 +247,10 @@ const applyFacebookPixel = (pixelId: string) => {
       return; // Already loaded
     }
     
-    // Create FB Pixel script
+    // Create FB Pixel script with defer attribute
     const fbScript = document.createElement('script');
     fbScript.id = `facebook-pixel-${pixelId}`;
+    fbScript.defer = true;
     fbScript.text = `
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -229,20 +260,14 @@ const applyFacebookPixel = (pixelId: string) => {
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // Initialize but defer pageview tracking
       fbq('init', '${pixelId}');
-      fbq('track', 'PageView');
+      setTimeout(() => {
+        fbq('track', 'PageView');
+      }, 2000);
     `;
     document.head.appendChild(fbScript);
-    
-    // Create FB Pixel noscript fallback
-    const fbNoscript = document.createElement('noscript');
-    const fbImg = document.createElement('img');
-    fbImg.height = 1;
-    fbImg.width = 1;
-    fbImg.style.display = 'none';
-    fbImg.src = `https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`;
-    fbNoscript.appendChild(fbImg);
-    document.body.appendChild(fbNoscript);
     
     console.log(`Facebook Pixel initialized with ID: ${pixelId}`);
   } catch (error) {

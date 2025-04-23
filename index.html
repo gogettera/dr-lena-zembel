@@ -8,53 +8,72 @@
     <meta name="description" content="מרפאה דנטלית מקומית עם טיפול אישי ומקצועי" />
     <meta name="author" content="Lovable" />
     
+    <!-- Critical CSS inline for faster FCP -->
+    <style>
+      /* Critical CSS for above-the-fold content */
+      :root {
+        --font-assistant: 'Assistant', sans-serif;
+        --color-dental-navy: #1E3A8A;
+        --color-dental-orange: #FF6B6B;
+        --color-dental-beige: #FDF4F0;
+      }
+      
+      body {
+        margin: 0;
+        font-family: var(--font-assistant);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      
+      .hero-title {
+        opacity: 0;
+        animation: fade-in 0.8s ease-out forwards;
+      }
+      
+      @keyframes fade-in {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      
+      /* Reserve space for hero to prevent CLS */
+      .hero-image-container {
+        min-height: 300px;
+        background-color: #f3f4f6;
+      }
+      
+      /* Preload skeleton */
+      .skeleton-placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+      }
+      
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+    </style>
+    
     <!-- Favicon -->
     <link rel="icon" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" type="image/png" id="favicon-main" />
     <link rel="apple-touch-icon" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" id="favicon-apple" />
     
-    <!-- Performance and resource hints -->
+    <!-- Performance optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" as="style" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" />
     
-    <!-- Preload critical resources -->
-    <link rel="preload" as="image" href="/lovable-uploads/c1007b41-5fb4-451a-a540-744c4643c25e.png" fetchpriority="high" />
-    <link rel="preload" as="image" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" />
+    <!-- Preload critical fonts - reduce font FOIT -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" as="style" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" />
+    
+    <!-- Preload critical images -->
     <link rel="preload" as="image" href="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" />
     
-    <!-- DNS prefetching -->
+    <!-- DNS prefetching for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     
-    <!-- Prevent layout shifting during font loading -->
-    <style>
-      /* CSS Variables for faster recalculation */
-      :root {
-        --font-assistant: 'Assistant', sans-serif;
-      }
-      
-      /* Font display swap to prevent invisible text */
-      @font-face {
-        font-family: 'Assistant';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: local('Assistant Regular'), local('Assistant-Regular');
-      }
-      
-      /* Pre-allocate space for critical elements to prevent layout shifts */
-      .hero-image-container {
-        min-height: 300px;
-      }
-      
-      body {
-        font-family: var(--font-assistant);
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-      }
-    </style>
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dr-zembel.com/" />
@@ -80,12 +99,26 @@
 
     <!-- Canonical link for SEO -->
     <link rel="canonical" href="https://dr-zembel.com/" />
+    
+    <!-- Resource hints -->
+    <link rel="modulepreload" href="/src/main.tsx" />
   </head>
 
   <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: The script order below is critical -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <!-- Initial content display for immediate FCP -->
+    <div id="root">
+      <!-- Initial loading state for better UX -->
+      <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: #FDF4F0;">
+        <div style="text-align: center;">
+          <div class="skeleton-placeholder" style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px;"></div>
+          <div class="skeleton-placeholder" style="width: 200px; height: 30px; border-radius: 4px; margin: 0 auto;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- IMPORTANT: These scripts are loaded in optimal order -->
+    <!-- Preload the main script with high priority -->
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
   </body>
 </html>
