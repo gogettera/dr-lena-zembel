@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import LanguageRoute from '@/components/LanguageRoute';
 import Index from '@/pages/Index';
@@ -14,11 +14,7 @@ import { setupDirectionByLanguage } from '@/utils/direction';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
 import { Skeleton } from '@/components/ui/skeleton';
 import ResourcePrefetcher from '@/components/ResourcePrefetcher';
-
-// Lazy load admin components which aren't needed on first render
-const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
-const AdminRoute = lazy(() => import('@/components/AdminRoute'));
-const LoginPage = lazy(() => import('@/pages/LoginPage'));
+import { applyMetaTags } from '@/utils/meta-utils';
 
 import './App.css';
 
@@ -55,46 +51,63 @@ const PageLoader = () => (
   </div>
 );
 
-function App() {
-  // Setup initial direction based on browser language
+// This wrapper handles global effects like applying meta tags on route change
+function AppEffects() {
+  const location = useLocation();
+
   useEffect(() => {
+    // Setup directionality by language on load (already in original App)
     try {
       const browserLang = getBrowserLanguage();
       setupDirectionByLanguage(browserLang);
-      
-      // Add support for native lazy loading to image elements
+
+      // Native lazy loading for images
       if ('loading' in HTMLImageElement.prototype) {
         document.documentElement.classList.add('has-native-lazyload');
       }
-      
-      // Listen for network status changes to improve offline experience
+
+      // Listen for network status changes
       window.addEventListener('online', () => {
         document.documentElement.classList.remove('is-offline');
       });
-      
+
       window.addEventListener('offline', () => {
         document.documentElement.classList.add('is-offline');
       });
     } catch (error) {
       console.error("Error in App setup:", error);
     }
-    
     return () => {
       window.removeEventListener('online', () => {});
       window.removeEventListener('offline', () => {});
     };
   }, []);
 
+  // Apply SEO/meta tags on every route change
+  useEffect(() => {
+    // This ensures Google sees fresh meta tags on every SPA navigation:
+    applyMetaTags();
+  }, [location]);
+
+  return null;
+}
+
+// Lazy load admin components which aren't needed on first render
+const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
+const AdminRoute = lazy(() => import('@/components/AdminRoute'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
+
+function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
+        <AppEffects />
         {/* ResourcePrefetcher improves navigation performance by preloading assets */}
         <ResourcePrefetcher />
-        
         <Routes>
           {/* Root route - redirects to browser language or default to Hebrew */}
           <Route path="/" element={<Index />} />
-          
+
           {/* Login page */}
           <Route 
             path="/login" 
@@ -106,7 +119,7 @@ function App() {
               </ErrorBoundary>
             } 
           />
-          
+
           {/* Lazy load admin section with its own error boundary */}
           <Route 
             path="/admin" 
@@ -118,9 +131,9 @@ function App() {
               </ErrorBoundary>
             } 
           />
-          
+
           <Route path="/accessibility-statement" element={<AccessibilityStatementPage />} />
-          
+
           {/* Language-specific routes */}
           <Route path="/:lang" element={<LanguageRoute />}>
             <Route index element={<LanguageHome />} />
