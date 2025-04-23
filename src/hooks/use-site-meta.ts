@@ -53,13 +53,19 @@ export const useSiteMeta = () => {
     try {
       setLoading(true);
 
+      // If we have a blob URL, we need to replace it with something else or null
+      // as blob URLs are temporary and won't survive page reloads
+      const og_image_url = newMeta.og_image_url && newMeta.og_image_url.startsWith('blob:') 
+        ? null  // Don't store blob URLs in the database
+        : newMeta.og_image_url;
+
       const updates = {
         id: 1,
         title: newMeta.title,
         description: newMeta.description,
         og_title: newMeta.og_title,
         og_description: newMeta.og_description,
-        og_image_url: newMeta.og_image_url,
+        og_image_url,
         twitter_title: newMeta.twitter_title,
         twitter_description: newMeta.twitter_description,
         twitter_card: newMeta.twitter_card,
