@@ -18,6 +18,7 @@ import ResourcePrefetcher from '@/components/ResourcePrefetcher';
 // Lazy load admin components which aren't needed on first render
 const AdminPanel = lazy(() => import('@/pages/AdminPanel'));
 const AdminRoute = lazy(() => import('@/components/AdminRoute'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 import './App.css';
 
@@ -93,6 +94,18 @@ function App() {
         <Routes>
           {/* Root route - redirects to browser language or default to Hebrew */}
           <Route path="/" element={<Index />} />
+          
+          {/* Login page */}
+          <Route 
+            path="/login" 
+            element={
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense fallback={<PageLoader />}>
+                  <LoginPage />
+                </Suspense>
+              </ErrorBoundary>
+            } 
+          />
           
           {/* Lazy load admin section with its own error boundary */}
           <Route 
