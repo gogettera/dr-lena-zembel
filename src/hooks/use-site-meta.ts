@@ -15,6 +15,8 @@ interface SiteMeta {
   favicon_url: string | null;
   updated_at: string | null;
   canonical_url: string | null;
+  google_analytics_id: string | null;
+  facebook_pixel_id: string | null;
 }
 
 export const useSiteMeta = () => {
@@ -26,8 +28,6 @@ export const useSiteMeta = () => {
   const fetchMeta = async () => {
     try {
       setLoading(true);
-      console.log('[Meta] Fetching site meta...');
-      
       const { data, error: fetchError } = await supabase
         .from('site_meta')
         .select('*')
@@ -35,14 +35,10 @@ export const useSiteMeta = () => {
         .maybeSingle();
 
       if (fetchError) throw fetchError;
-      
-      console.log('[Meta] Fetched data from DB:', data);
+
       setMeta(data as SiteMeta);
-      
     } catch (err) {
-      console.error('[Meta] Error fetching site meta:', err);
       setError(err instanceof Error ? err : new Error('Failed to fetch site metadata'));
-      
       toast({
         title: 'Error fetching site meta',
         description: 'Could not load site meta information',
@@ -56,8 +52,7 @@ export const useSiteMeta = () => {
   const updateMeta = async (newMeta: Partial<SiteMeta>) => {
     try {
       setLoading(true);
-      console.log('[Meta] Updating site meta with:', newMeta);
-      
+
       const updates = {
         id: 1,
         title: newMeta.title,
@@ -71,39 +66,37 @@ export const useSiteMeta = () => {
         favicon_url: newMeta.favicon_url,
         updated_at: new Date().toISOString(),
         canonical_url: newMeta.canonical_url,
+        google_analytics_id: newMeta.google_analytics_id,
+        facebook_pixel_id: newMeta.facebook_pixel_id,
       };
-      
+
       const { error: updateError } = await supabase
         .rpc('admin_update_site_meta', { 
           meta_data: updates
         });
 
       if (updateError) {
-        console.error('[Meta] Supabase update error:', updateError);
         throw updateError;
       }
-      
+
       setMeta(prevMeta => ({ ...prevMeta, ...updates } as SiteMeta));
-      
+
       toast({
         title: 'Meta updated',
         description: 'Site meta information has been updated successfully',
       });
-      
+
       await fetchMeta();
-      console.log('[Meta] DB update confirmed. Latest meta:', updates);
 
       return true;
     } catch (err) {
-      console.error('[Meta] Error updating site meta:', err);
       setError(err instanceof Error ? err : new Error('Failed to update site metadata'));
-      
       toast({
         title: 'Error updating site meta',
         description: 'Could not update site meta information',
         variant: 'destructive',
       });
-      
+
       return false;
     } finally {
       setLoading(false);

@@ -1,3 +1,4 @@
+
 import { useForm } from "react-hook-form";
 import { useSiteMeta } from "@/hooks/use-site-meta";
 import { useEffect } from "react";
@@ -13,6 +14,8 @@ export interface MetaFormData {
   twitterDescription: string;
   twitterCard: string;
   canonicalUrl: string;
+  googleAnalyticsId: string;
+  facebookPixelId: string;
 }
 
 export const useMetaForm = () => {
@@ -30,12 +33,13 @@ export const useMetaForm = () => {
       twitterDescription: 'מרפאת שיניים מודרנית ביפו תל אביב בהובלת ד"ר לנה. טיפול שיניים ברמה גבוהה למשפחות ולקוחות פרטיים באווירה אישית ונעימה.',
       twitterCard: 'summary_large_image',
       canonicalUrl: 'https://dr-zembel.com/',
+      googleAnalyticsId: '',
+      facebookPixelId: '',
     }
   });
 
   useEffect(() => {
     if (meta) {
-      console.log('Updating form with meta:', meta);
       form.reset({
         title: meta.title,
         description: meta.description,
@@ -47,6 +51,8 @@ export const useMetaForm = () => {
         twitterDescription: meta.twitter_description || meta.og_description,
         twitterCard: meta.twitter_card,
         canonicalUrl: meta.canonical_url || 'https://dr-zembel.com/',
+        googleAnalyticsId: meta.google_analytics_id || '',
+        facebookPixelId: meta.facebook_pixel_id || '',
       });
     }
   }, [meta, form]);

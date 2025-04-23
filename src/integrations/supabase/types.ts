@@ -163,7 +163,9 @@ export type Database = {
         Row: {
           canonical_url: string | null
           description: string
+          facebook_pixel_id: string | null
           favicon_url: string | null
+          google_analytics_id: string | null
           id: number
           og_description: string
           og_image_url: string | null
@@ -177,7 +179,9 @@ export type Database = {
         Insert: {
           canonical_url?: string | null
           description: string
+          facebook_pixel_id?: string | null
           favicon_url?: string | null
+          google_analytics_id?: string | null
           id?: number
           og_description: string
           og_image_url?: string | null
@@ -191,7 +195,9 @@ export type Database = {
         Update: {
           canonical_url?: string | null
           description?: string
+          facebook_pixel_id?: string | null
           favicon_url?: string | null
+          google_analytics_id?: string | null
           id?: number
           og_description?: string
           og_image_url?: string | null

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -10,6 +11,9 @@ import { TwitterCardsForm } from "./meta/TwitterCardsForm";
 import { MetaPreview } from "./meta/MetaPreview";
 import { useSiteMeta } from "@/hooks/use-site-meta";
 import { useToast } from "@/hooks/use-toast";
+
+import { Input } from "@/components/ui/input";
+import { FormItem, FormLabel, FormDescription } from "@/components/ui/form";
 
 export const MetaSettings = () => {
   const [ogImagePreview, setOgImagePreview] = useState<string>('');
@@ -35,6 +39,8 @@ export const MetaSettings = () => {
         twitter_description: data.twitterDescription || data.ogDescription,
         twitter_card: data.twitterCard,
         canonical_url: data.canonicalUrl,
+        google_analytics_id: data.googleAnalyticsId,
+        facebook_pixel_id: data.facebookPixelId,
       });
 
       if (!success) {
@@ -45,10 +51,8 @@ export const MetaSettings = () => {
           description: "המידע נשמר בהצלחה במסד הנתונים",
           variant: "default"
         });
-        console.log("Meta update was successful. Reload your site to see changes applied to meta tags.");
       }
     } catch (err) {
-      console.error('Error saving meta settings:', err);
       toast({
         title: "Error saving settings",
         description: "Failed to save meta settings",
@@ -64,12 +68,13 @@ export const MetaSettings = () => {
       <div>
         <h3 className="text-lg font-medium mb-2">SEO & Meta Settings</h3>
         <p className="text-sm text-gray-600 mb-4">
-          Configure how your site appears in search engines and when shared on social media.
+          Configure how your site appears in search engines, social media, and set tracking IDs.
         </p>
 
         <Tabs defaultValue="basic" className="space-y-4">
           <TabsList>
             <TabsTrigger value="basic">Basic SEO</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="opengraph">Open Graph</TabsTrigger>
             <TabsTrigger value="twitter">Twitter Cards</TabsTrigger>
             <TabsTrigger value="preview">Preview</TabsTrigger>
@@ -79,6 +84,40 @@ export const MetaSettings = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <TabsContent value="basic">
                 <BasicSEOForm form={form} loading={loading || metaLoading} />
+              </TabsContent>
+
+              <TabsContent value="analytics">
+                <div className="flex flex-col gap-6 max-w-md">
+                  <FormItem>
+                    <FormLabel htmlFor="googleAnalyticsId">
+                      Google Analytics ID
+                    </FormLabel>
+                    <Input
+                      id="googleAnalyticsId"
+                      {...form.register("googleAnalyticsId")}
+                      placeholder="G-XXXXXXXXXX"
+                      className="ltr:text-left rtl:text-right"
+                    />
+                    <FormDescription>
+                      Google Analytics Measurement ID (e.g., G-XXXXXXXXXX)
+                    </FormDescription>
+                  </FormItem>
+
+                  <FormItem>
+                    <FormLabel htmlFor="facebookPixelId">
+                      Facebook Pixel ID
+                    </FormLabel>
+                    <Input
+                      id="facebookPixelId"
+                      {...form.register("facebookPixelId")}
+                      placeholder="1234567890"
+                      className="ltr:text-left rtl:text-right"
+                    />
+                    <FormDescription>
+                      Facebook Pixel ID (your numeric code)
+                    </FormDescription>
+                  </FormItem>
+                </div>
               </TabsContent>
               
               <TabsContent value="opengraph">
