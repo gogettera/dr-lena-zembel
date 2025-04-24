@@ -12,7 +12,7 @@ interface FAQItem {
 
 const FAQSection: React.FC = () => {
   const { t } = useLanguage();
-  const faqItems = t('botoxTreatments.faqItems', { returnObjects: true }) as any as FAQItem[];
+  const faqItems = t<FAQItem[]>('botoxTreatments.faqItems', { returnObjects: true });
 
   return (
     <Container>

@@ -13,7 +13,7 @@ interface ProcessStep {
 
 const ProcessSection: React.FC = () => {
   const { t } = useLanguage();
-  const processSteps = t('botoxTreatments.processSteps', { returnObjects: true }) as any as ProcessStep[];
+  const processSteps = t<ProcessStep[]>('botoxTreatments.processSteps', { returnObjects: true });
 
   return (
     <Container>

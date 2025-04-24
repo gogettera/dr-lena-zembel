@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -149,7 +150,7 @@ const Reviews = () => {
         </Button>
       </div>
       
-      <EnhancedCarousel autoplay={true}>
+      <EnhancedCarousel autoplay={5000}>
         {reviews.map((review) => (
           <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3 p-2">
             <Card className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 h-full opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">

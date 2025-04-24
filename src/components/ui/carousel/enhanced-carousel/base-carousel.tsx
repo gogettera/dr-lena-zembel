@@ -13,7 +13,7 @@ import { useEnhancedCarousel } from "./use-enhanced-carousel";
 
 interface EnhancedCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  autoplay?: boolean;
+  autoplay?: number | false;
   interval?: number;
   showProgress?: boolean;
   showArrows?: boolean;
@@ -22,7 +22,7 @@ interface EnhancedCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function EnhancedCarousel({
   children,
-  autoplay = true,
+  autoplay = false,
   interval = 5000,
   showProgress = true,
   showArrows = true,

@@ -8,8 +8,8 @@ import { CheckCircle } from 'lucide-react';
 
 const BenefitsSection: React.FC = () => {
   const { t } = useLanguage();
-  // Use as and cast to string[] since we know the format
-  const benefits = t('botoxTreatments.benefits', { returnObjects: true }) as any as string[];
+  // Use t<string[]>() to ensure correct typing with returnObjects
+  const benefits = t<string[]>('botoxTreatments.benefits', { returnObjects: true });
 
   return (
     <Container>

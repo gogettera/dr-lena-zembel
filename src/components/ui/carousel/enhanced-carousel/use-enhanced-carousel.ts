@@ -4,11 +4,15 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 interface UseEnhancedCarouselProps {
   api: any;
-  autoplay?: boolean;
+  autoplay?: number | false;
   interval?: number;
 }
 
-export function useEnhancedCarousel({ api, autoplay = true, interval = 5000 }: UseEnhancedCarouselProps) {
+export function useEnhancedCarousel({ 
+  api, 
+  autoplay = false, 
+  interval = 5000 
+}: UseEnhancedCarouselProps) {
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
   const { language } = useLanguage();
@@ -30,10 +34,10 @@ export function useEnhancedCarousel({ api, autoplay = true, interval = 5000 }: U
 
     const intervalId = setInterval(() => {
       api.scrollNext();
-    }, interval);
+    }, autoplay);
 
     return () => clearInterval(intervalId);
-  }, [api, autoplay, interval]);
+  }, [api, autoplay]);
 
   const handlePrevious = () => {
     if (isRTL) {
