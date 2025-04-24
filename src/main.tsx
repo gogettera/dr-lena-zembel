@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import AccessibleLayout from './components/layout/AccessibleLayout';
+import { LanguageProvider } from './contexts/LanguageContext';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -65,16 +66,20 @@ root.render(
   process.env.NODE_ENV !== 'production' ? (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <AccessibleLayout>
-          <App />
-        </AccessibleLayout>
+        <LanguageProvider>
+          <AccessibleLayout>
+            <App />
+          </AccessibleLayout>
+        </LanguageProvider>
       </QueryClientProvider>
     </React.StrictMode>
   ) : (
     <QueryClientProvider client={queryClient}>
-      <AccessibleLayout>
-        <App />
-      </AccessibleLayout>
+      <LanguageProvider>
+        <AccessibleLayout>
+          <App />
+        </AccessibleLayout>
+      </LanguageProvider>
     </QueryClientProvider>
   )
 );
