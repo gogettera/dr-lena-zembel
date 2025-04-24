@@ -18,18 +18,31 @@ serve(async (req) => {
 
   try {
     console.log('Fetching Google Reviews for Place ID:', PLACE_ID)
+    console.log('Using API key:', GOOGLE_API_KEY ? 'API key is set' : 'API key is missing')
+    
+    // Ensure we have an API key
+    if (!GOOGLE_API_KEY) {
+      throw new Error('GOOGLE_PLACES_API_KEY environment variable is not set')
+    }
     
     // Fetch place details including reviews
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews&language=he&key=${GOOGLE_API_KEY}`
-    )
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews,name,rating&language=he&key=${GOOGLE_API_KEY}`
+    console.log('Fetching from URL:', url)
+    
+    const response = await fetch(url)
 
     if (!response.ok) {
+      console.error('Google Places API error status:', response.status)
       throw new Error(`Google Places API error: ${response.statusText}`)
     }
 
     const data = await response.json()
-    console.log('Google Places API response:', JSON.stringify(data))
+    console.log('Google Places API response status:', data.status)
+    
+    if (data.status !== 'OK') {
+      console.error('Google API error:', data.error_message || data.status)
+      throw new Error(`Google API error: ${data.error_message || data.status}`)
+    }
     
     if (!data.result?.reviews || data.result.reviews.length === 0) {
       console.log('No reviews found in the response')
@@ -54,6 +67,7 @@ serve(async (req) => {
     // Process and store each review
     for (const review of data.result.reviews) {
       try {
+        console.log(`Processing review from ${review.author_name}`)
         const { error } = await supabase
           .from('google_reviews')
           .upsert({
@@ -79,7 +93,9 @@ serve(async (req) => {
 
     return new Response(
       JSON.stringify({ 
-        message: `Successfully processed ${data.result.reviews.length} reviews`
+        message: `Successfully processed ${data.result.reviews.length} reviews`,
+        place_name: data.result.name,
+        place_rating: data.result.rating
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
