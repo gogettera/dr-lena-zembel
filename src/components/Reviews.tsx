@@ -1,9 +1,8 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, ExternalLink } from 'lucide-react';
+import { Star, ExternalLink, RefreshCw } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from '@/components/ui/enhanced-carousel';
 import { Button } from "@/components/ui/button";
@@ -24,22 +23,36 @@ const Reviews = () => {
   const { language, t } = useLanguage();
   const { toast } = useToast();
   const isRTL = language === 'he' || language === 'ar';
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
 
   // Trigger initial fetch of reviews
   const fetchReviews = async () => {
     try {
       await supabase.functions.invoke('fetch-google-reviews');
       toast({
-        title: "Reviews Updated",
-        description: "Successfully fetched latest Google reviews",
+        title: t('reviewsUpdated'),
+        description: t('reviewsFetchSuccess'),
       });
     } catch (error) {
       console.error('Error fetching reviews:', error);
       toast({
-        title: "Error",
-        description: "Failed to fetch latest reviews",
+        title: t('error'),
+        description: t('reviewsFetchError'),
         variant: "destructive",
       });
+    }
+  };
+
+  // Manually trigger review refresh
+  const handleManualRefresh = async () => {
+    setIsManualRefreshing(true);
+    try {
+      await fetchReviews();
+      refetch(); // Refetch the reviews from the database
+    } catch (error) {
+      console.error('Manual refresh error:', error);
+    } finally {
+      setIsManualRefreshing(false);
     }
   };
 
@@ -48,7 +61,7 @@ const Reviews = () => {
     fetchReviews();
   }, []);
 
-  const { data: reviews, isLoading, error } = useQuery({
+  const { data: reviews, isLoading, error, refetch } = useQuery({
     queryKey: ['google-reviews'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -120,6 +133,25 @@ const Reviews = () => {
 
   return (
     <div className="relative">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-2xl font-bold text-dental-navy">
+          {t('patientExperiences')}
+        </h3>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleManualRefresh} 
+          disabled={isManualRefreshing}
+        >
+          {isManualRefreshing ? (
+            <RefreshCw className="h-4 w-4 animate-spin mr-2" />
+          ) : (
+            <RefreshCw className="h-4 w-4 mr-2" />
+          )}
+          {t('refreshReviews')}
+        </Button>
+      </div>
+      
       <EnhancedCarousel>
         {reviews.map((review) => (
           <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3 p-2">

@@ -7,5 +7,10 @@
   "patientTestimonial2": {
     "name": "רוני ש.", 
     "text": "שירות מעולה, קיבלתי תמיכה מהצוות גם אחרי הטיפול. תודה רבה!"
-  }
+  },
+  "reviewsUpdated": "בוצע רענון ביקורות",
+  "reviewsFetchSuccess": "ביקורות Google עודכנו בהצלחה",
+  "reviewsFetchError": "כשל בטעינת ביקורות חדשות",
+  "refreshReviews": "רענן ביקורות",
+  "patientExperiences": "חוויות מטופלים"
 }
