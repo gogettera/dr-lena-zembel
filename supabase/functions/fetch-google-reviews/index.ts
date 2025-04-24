@@ -8,7 +8,7 @@ const corsHeaders = {
 }
 
 const GOOGLE_API_KEY = Deno.env.get('GOOGLE_PLACES_API_KEY')
-const PLACE_ID = '12553354395075677724' // User-provided Place ID
+const PLACE_ID = 'ChIJDZ3XUhaxHRURzJ44_nv-Qb4' // Dr. Zembel's Place ID
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -19,9 +19,9 @@ serve(async (req) => {
   try {
     console.log('Fetching Google Reviews for Place ID:', PLACE_ID)
     
-    // Fetch place details including reviews with expanded fields
+    // Fetch place details including reviews
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews&key=${GOOGLE_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews&language=he&key=${GOOGLE_API_KEY}`
     )
 
     if (!response.ok) {
@@ -29,6 +29,7 @@ serve(async (req) => {
     }
 
     const data = await response.json()
+    console.log('Google Places API response:', JSON.stringify(data))
     
     if (!data.result?.reviews || data.result.reviews.length === 0) {
       console.log('No reviews found in the response')
@@ -50,7 +51,7 @@ serve(async (req) => {
 
     console.log(`Found ${data.result.reviews.length} reviews`)
 
-    // Process and store each review with improved error handling
+    // Process and store each review
     for (const review of data.result.reviews) {
       try {
         const { error } = await supabase
