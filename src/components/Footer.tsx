@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Container } from '@/components/ui/container';
 import { Link } from 'react-router-dom';
 import { Shield, Phone, MapPin } from 'lucide-react';
-import { Logo } from '@/components/Logo';
+import Logo from '@/components/Logo';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -68,4 +67,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-
