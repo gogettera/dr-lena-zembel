@@ -3,22 +3,22 @@ import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { createLocalizedNavigationConfig } from '@/config/navigation';
 import NavItem from '@/components/ui/NavItem';
-import { cn } from '@/lib/utils';
 
 const FooterNavigation = () => {
   const { t, language } = useLanguage();
   const navigation = createLocalizedNavigationConfig(language);
 
   return (
-    <nav className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mx-auto" aria-label={t('navigation.sitemap')}>
+    <>
+      {/* Info Links */}
       <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-3">{t('info')}</h5>
-        <ul className="space-y-2">
+        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('info')}</h5>
+        <ul className="space-y-2.5">
           {navigation.footer.info.map(link => (
             <li key={link.key}>
               <NavItem
                 to={link.path}
-                className="text-sm text-dental-navy/80 hover:text-dental-orange transition-colors"
+                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
               >
                 {t(link.labelKey)}
               </NavItem>
@@ -27,14 +27,15 @@ const FooterNavigation = () => {
         </ul>
       </div>
 
+      {/* Treatments Links */}
       <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-3">{t('navigation.ourTreatments')}</h5>
-        <ul className="space-y-2">
+        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('navigation.ourTreatments')}</h5>
+        <ul className="space-y-2.5">
           {navigation.footer.treatments.map(link => (
             <li key={link.key}>
               <NavItem
                 to={link.path}
-                className="text-sm text-dental-navy/80 hover:text-dental-orange transition-colors"
+                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
               >
                 {t(link.labelKey)}
               </NavItem>
@@ -43,14 +44,15 @@ const FooterNavigation = () => {
         </ul>
       </div>
 
+      {/* Legal Links */}
       <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-3">{t('legal.title', 'מידע משפטי')}</h5>
-        <ul className="space-y-2">
+        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('legal.title')}</h5>
+        <ul className="space-y-2.5">
           {navigation.footer.legal.map(link => (
             <li key={link.key}>
               <NavItem
                 to={link.path}
-                className="text-sm text-dental-navy/80 hover:text-dental-orange transition-colors"
+                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
               >
                 {t(link.labelKey)}
               </NavItem>
@@ -58,7 +60,7 @@ const FooterNavigation = () => {
           ))}
         </ul>
       </div>
-    </nav>
+    </>
   );
 };
 
