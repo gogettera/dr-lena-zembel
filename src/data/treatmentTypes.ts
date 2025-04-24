@@ -1,3 +1,4 @@
+
 export type TreatmentType = {
   icon: string;
   imageUrl: string;
@@ -34,6 +35,11 @@ export const treatmentTypes: Record<string, TreatmentType> = {
     icon: 'orthodontics.jpg',
     imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg',
     slug: 'orthodontics'
+  },
+  'botox-treatments': {
+    icon: 'botox.jpg',
+    imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg',
+    slug: 'botox-treatments'
   }
 };
 
@@ -45,6 +51,7 @@ export const getTreatmentNameKey = (treatmentType: string): string => {
     case 'root-canal': return 'rootCanal';
     case 'oral-rehabilitation': return 'oralRehabilitation';
     case 'orthodontics': return 'orthodontics';
+    case 'botox-treatments': return 'botoxTreatments';
     default: return '';
   }
 };
@@ -57,6 +64,7 @@ export const getTreatmentDescKey = (treatmentType: string): string => {
     case 'root-canal': return 'rootCanalDesc';
     case 'oral-rehabilitation': return 'oralRehabilitationDesc';
     case 'orthodontics': return 'orthodonticsDesc';
+    case 'botox-treatments': return 'botoxTreatmentsDesc';
     default: return '';
   }
 };

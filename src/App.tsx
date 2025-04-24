@@ -7,6 +7,7 @@ import LanguageHome from '@/pages/LanguageHome';
 import TreatmentPage from '@/pages/TreatmentPage';
 import LanguageTreatmentPage from '@/pages/LanguageTreatmentPage';
 import PreventiveMedicinePage from '@/pages/PreventiveMedicinePage';
+import BotoxTreatmentsPage from '@/pages/BotoxTreatmentsPage';
 import NotFound from '@/pages/NotFound';
 import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
@@ -161,6 +162,7 @@ function App() {
             <Route path="/:lang" element={<LanguageRoute />}>
               <Route index element={<LanguageHome />} />
               <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+              <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
               <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
               <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
             </Route>

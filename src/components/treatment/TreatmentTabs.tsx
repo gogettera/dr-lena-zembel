@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -13,6 +14,7 @@ import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 import AestheticTreatmentsLanding from '@/components/aesthetic-treatments/AestheticTreatmentsLanding';
 import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
 import OralRehabilitationLanding from '@/components/oral-rehabilitation/OralRehabilitationLanding';
+import BotoxTreatmentsLanding from '@/components/botox-treatments/BotoxTreatmentsLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -44,6 +46,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   }
   if (treatmentType === "oral-rehabilitation") {
     return <OralRehabilitationLanding />;
+  }
+  if (treatmentType === "botox-treatments") {
+    return <BotoxTreatmentsLanding />;
   }
 
   const defaultBenefits = [

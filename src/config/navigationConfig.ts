@@ -26,6 +26,11 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
             path: `/${language}/treatments/aesthetic-treatments`
           },
           {
+            key: 'botox-treatments',
+            labelKey: 'botoxTreatments',
+            path: `/${language}/treatments/botox-treatments`
+          },
+          {
             key: 'children-dentistry',
             labelKey: 'childrenDentistry',
             path: `/${language}/treatments/children-dentistry`
@@ -96,6 +101,11 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           key: 'aesthetic-treatments',
           labelKey: 'aestheticTreatments',
           path: `/${language}/treatments/aesthetic-treatments`
+        },
+        {
+          key: 'botox-treatments',
+          labelKey: 'botoxTreatments',
+          path: `/${language}/treatments/botox-treatments`
         },
         {
           key: 'children-dentistry',
