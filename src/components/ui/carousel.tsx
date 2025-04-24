@@ -6,4 +6,4 @@ export {
   CarouselPrevious,
   CarouselNext,
   type CarouselApi,
-} from "./carousel"
+} from "./carousel/index"
