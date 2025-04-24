@@ -10,8 +10,6 @@ interface ListProps extends React.HTMLAttributes<HTMLUListElement> {
 
 const List = React.forwardRef<HTMLUListElement, ListProps>(
   ({ children, variant = "default", spacing = "default", className, ...props }, ref) => {
-    const Component = variant === "ordered" ? "ol" : "ul";
-    
     const variantStyles = {
       default: "",
       ordered: "list-decimal",
@@ -26,8 +24,24 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
       loose: "space-y-4",
     };
     
+    if (variant === "ordered") {
+      return (
+        <ol
+          className={cn(
+            "mr-6",
+            variantStyles[variant],
+            spacingStyles[spacing],
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </ol>
+      );
+    }
+    
     return (
-      <Component
+      <ul
         ref={ref}
         className={cn(
           "mr-6",
@@ -38,7 +52,7 @@ const List = React.forwardRef<HTMLUListElement, ListProps>(
         {...props}
       >
         {children}
-      </Component>
+      </ul>
     );
   }
 );

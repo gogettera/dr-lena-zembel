@@ -12,14 +12,16 @@ interface ComparisonFeature {
   hyaluronic: string;
 }
 
+interface TreatmentComparison {
+  title: string;
+  botoxTitle: string;
+  hyaluronicTitle: string;
+  features: ComparisonFeature[];
+}
+
 const TreatmentComparison: React.FC = () => {
   const { t } = useLanguage();
-  const comparison = t('botoxTreatments.treatmentComparison', { returnObjects: true }) as {
-    title: string;
-    botoxTitle: string;
-    hyaluronicTitle: string;
-    features: ComparisonFeature[];
-  };
+  const comparison = t('botoxTreatments.treatmentComparison', { returnObjects: true }) as any as TreatmentComparison;
 
   return (
     <Container>

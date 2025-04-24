@@ -25,7 +25,6 @@ const Reviews = () => {
   const isRTL = language === 'he' || language === 'ar';
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
 
-  // Trigger initial fetch of reviews
   const fetchReviews = async () => {
     try {
       await supabase.functions.invoke('fetch-google-reviews');
@@ -43,7 +42,6 @@ const Reviews = () => {
     }
   };
 
-  // Manually trigger review refresh
   const handleManualRefresh = async () => {
     setIsManualRefreshing(true);
     try {
@@ -56,7 +54,6 @@ const Reviews = () => {
     }
   };
 
-  // Automatically trigger review fetch on component mount
   useEffect(() => {
     fetchReviews();
   }, []);
@@ -86,7 +83,7 @@ const Reviews = () => {
   if (isLoading) {
     return (
       <div className="relative">
-        <EnhancedCarousel showProgress={false}>
+        <EnhancedCarousel autoplay={false}>
           {[1, 2, 3].map((index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
               <Card className="bg-white rounded-xl shadow-md mx-2 animate-pulse">
@@ -152,7 +149,7 @@ const Reviews = () => {
         </Button>
       </div>
       
-      <EnhancedCarousel>
+      <EnhancedCarousel autoplay={true}>
         {reviews.map((review) => (
           <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3 p-2">
             <Card className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 h-full opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
