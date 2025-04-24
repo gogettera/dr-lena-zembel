@@ -8,7 +8,7 @@ import TreatmentsSection from '@/components/TreatmentsSection';
 import VideoSection from '@/components/VideoSection';
 import SocialFeedSection from '@/components/SocialFeedSection';
 import FAQSection from '@/components/FAQSection';
-import Footer from '@/components/Footer';
+import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/BackToTop';
 import AboutSection from '@/components/AboutSection';
 import { useLanguage } from '@/contexts/LanguageContext';

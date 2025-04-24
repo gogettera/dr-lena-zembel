@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Footer from '@/components/layout/Footer';
 import AccessibilityStatement from '@/components/AccessibilityStatement';
 import BackToTop from '@/components/BackToTop';
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import LegalPage from '@/components/legal/LegalPage';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Footer from '@/components/layout/Footer';
 
 const TermsOfService = () => {
   return (
