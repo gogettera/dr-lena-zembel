@@ -2,9 +2,16 @@
 import React from 'react';
 import { NextGenImage } from '@/components/ui/next-gen-image';
 
-const Logo = () => {
+interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
+  // Extend the default props to include any HTML div attributes
+}
+
+const Logo: React.FC<LogoProps> = ({ className, ...props }) => {
   return (
-    <div className="flex items-center justify-center relative group">
+    <div 
+      className={`flex items-center justify-center relative group ${className}`} 
+      {...props}
+    >
       <div className="absolute inset-0 bg-dental-orange/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <NextGenImage 
         src="/lovable-uploads/c1007b41-5fb4-451a-a540-744c4643c25e.png" 
