@@ -12,7 +12,6 @@ import { ListItem, ListItemText, ListItemIcon } from '@/components/ui/list';
 const TreatmentTypes: React.FC = () => {
   const { t } = useLanguage();
   
-  // Fix: Cast the result to string arrays
   const botoxAreas = t('botoxTreatments.botoxAreas', { returnObjects: true }) as string[];
   const hyaluronicAreas = t('botoxTreatments.hyaluronicAreas', { returnObjects: true }) as string[];
 

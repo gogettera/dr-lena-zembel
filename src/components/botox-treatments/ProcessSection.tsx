@@ -13,7 +13,6 @@ interface ProcessStep {
 
 const ProcessSection: React.FC = () => {
   const { t } = useLanguage();
-  // Fix: Cast the result to ProcessStep array
   const processSteps = t('botoxTreatments.processSteps', { returnObjects: true }) as ProcessStep[];
 
   return (

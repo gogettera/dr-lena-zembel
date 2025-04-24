@@ -8,7 +8,6 @@ import { CheckCircle } from 'lucide-react';
 
 const BenefitsSection: React.FC = () => {
   const { t } = useLanguage();
-  // Fix: Cast the result to string array
   const benefits = t('botoxTreatments.benefits', { returnObjects: true }) as string[];
 
   return (

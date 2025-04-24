@@ -5,10 +5,15 @@ import { supportedLanguages } from '@/utils/languageRoutes';
 import { Language } from '@/types/language';
 import { flattenTranslations, getTranslation, loadModularTranslations, combineTranslations } from '@/utils/translation';
 
+interface TranslationOptions {
+  returnObjects?: boolean;
+  [key: string]: any;
+}
+
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string, fallback?: string) => string;
+  t: (key: string, options?: string | TranslationOptions) => any;
   isRTL: boolean;
 }
 
@@ -93,9 +98,27 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const t = (key: string, fallback: string = ''): string => {
-    if (!key) return fallback;
-    return getTranslation(flatTranslations, key, fallback);
+  const t = (key: string, options?: string | TranslationOptions): any => {
+    if (!key) return options instanceof Object ? (options.returnObjects ? [] : '') : '';
+    
+    // Handle string fallback
+    if (typeof options === 'string') {
+      return getTranslation(flatTranslations, key, options);
+    }
+    
+    // Handle options object with returnObjects
+    if (options?.returnObjects) {
+      try {
+        const value = flatTranslations[key];
+        if (!value) return [];
+        return JSON.parse(value);
+      } catch (e) {
+        console.error(`Error parsing translation for key ${key}:`, e);
+        return [];
+      }
+    }
+    
+    return getTranslation(flatTranslations, key, '');
   };
 
   useEffect(() => {

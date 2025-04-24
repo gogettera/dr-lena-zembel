@@ -12,7 +12,6 @@ interface FAQItem {
 
 const FAQSection: React.FC = () => {
   const { t } = useLanguage();
-  // Fix: Cast the result to FAQItem array
   const faqItems = t('botoxTreatments.faqItems', { returnObjects: true }) as FAQItem[];
 
   return (

@@ -8,7 +8,6 @@ import { Shield, AlertCircle, Syringe, Stethoscope, CheckCircle } from 'lucide-r
 
 const SafetySection: React.FC = () => {
   const { t } = useLanguage();
-  // Fix: Cast the result to string array
   const safetyPoints = t('botoxTreatments.safetyConcerns', { returnObjects: true }) as string[];
 
   const safetyIcons = [Shield, Stethoscope, Syringe, CheckCircle, AlertCircle];

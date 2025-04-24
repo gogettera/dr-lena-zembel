@@ -16,7 +16,12 @@ export const flattenTranslations = (
     ) {
       Object.assign(acc, flattenTranslations(obj[key], prefixedKey));
     } else {
-      acc[prefixedKey] = obj[key]?.toString() || '';
+      // Convert arrays and objects to JSON strings to preserve their structure
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        acc[prefixedKey] = JSON.stringify(obj[key]);
+      } else {
+        acc[prefixedKey] = obj[key]?.toString() || '';
+      }
     }
     
     return acc;
@@ -41,7 +46,17 @@ export const unflattenTranslations = (
       current = current[part];
     }
     
-    current[parts[parts.length - 1]] = flatObj[key];
+    // Try to parse JSON strings back to objects when appropriate
+    const value = flatObj[key];
+    if (value && (value.startsWith('[') || value.startsWith('{'))) {
+      try {
+        current[parts[parts.length - 1]] = JSON.parse(value);
+      } catch (e) {
+        current[parts[parts.length - 1]] = value;
+      }
+    } else {
+      current[parts[parts.length - 1]] = value;
+    }
   });
   
   return result;
@@ -138,7 +153,8 @@ export const loadModularTranslations = async (
       'clinic',
       'contact',
       'info',
-      'testimonials'
+      'testimonials',
+      'botoxTreatments'
     ];
 
     // Load all modules
