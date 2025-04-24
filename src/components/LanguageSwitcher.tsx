@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { LanguageFlag } from '@/components/ui/language-flag';
 
 const languageOptions: { value: Language; label: string; name: string }[] = [
   { value: 'he', label: 'עברית', name: 'עברית' },
@@ -42,21 +43,22 @@ const LanguageSwitcher: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm" 
-          className="px-2 py-1.5 hover:bg-white/10 transition-colors text-sm font-normal"
+          className="px-2 py-1.5 hover:bg-gray-50 transition-colors text-sm font-normal gap-2"
         >
+          <LanguageFlag language={language} />
           <span>{currentLanguage?.name}</span>
-          <ChevronDown className="w-4 h-4 ml-1 opacity-50" />
+          <ChevronDown className="w-4 h-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
-        className="w-36 bg-white border border-gray-100 shadow-md rounded-md p-1"
+        className="w-40 bg-white border border-gray-100 shadow-md rounded-md p-1"
       >
         {languageOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
             className={cn(
-              "flex items-center justify-center text-sm cursor-pointer py-2 px-3",
+              "flex items-center gap-2 text-sm cursor-pointer py-2 px-3",
               "hover:bg-gray-50 transition-colors",
               language === option.value 
                 ? 'font-medium text-gray-900' 
@@ -64,6 +66,7 @@ const LanguageSwitcher: React.FC = () => {
             )}
             onClick={() => handleLanguageChange(option.value)}
           >
+            <LanguageFlag language={option.value} />
             {option.name}
           </DropdownMenuItem>
         ))}
