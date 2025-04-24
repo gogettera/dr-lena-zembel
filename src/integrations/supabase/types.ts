@@ -306,6 +306,10 @@ export type Database = {
         Args: { meta_data: Json }
         Returns: undefined
       }
+      get_last_google_reviews_sync: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       is_admin: {
         Args: { user_id: string }
         Returns: boolean

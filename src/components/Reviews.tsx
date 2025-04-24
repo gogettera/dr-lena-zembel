@@ -6,8 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Star, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from '@/components/ui/enhanced-carousel';
-import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/hooks/use-toast";
 
 type Review = {
   id: string;
@@ -21,16 +22,35 @@ type Review = {
 
 const Reviews = () => {
   const { language, t } = useLanguage();
+  const { toast } = useToast();
   const isRTL = language === 'he' || language === 'ar';
 
+  // Trigger initial fetch of reviews
+  const fetchReviews = async () => {
+    try {
+      await supabase.functions.invoke('fetch-google-reviews');
+      toast({
+        title: "Reviews Updated",
+        description: "Successfully fetched latest Google reviews",
+      });
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      toast({
+        title: "Error",
+        description: "Failed to fetch latest reviews",
+        variant: "destructive",
+      });
+    }
+  };
+
   const { data: reviews, isLoading, error } = useQuery({
-    queryKey: ['reviews'],
+    queryKey: ['google-reviews'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('google_reviews')
         .select('*')
         .order('created_at', { ascending: false });
-      
+
       if (error) throw error;
       return data as Review[];
     }
@@ -72,23 +92,40 @@ const Reviews = () => {
   }
 
   if (error) {
-    console.error('Error loading reviews:', error);
-    return null;
+    return (
+      <div className="text-center py-8">
+        <p className="text-dental-navy mb-4">{t('errorLoadingReviews')}</p>
+        <Button onClick={() => fetchReviews()} variant="outline">
+          {t('tryAgain')}
+        </Button>
+      </div>
+    );
+  }
+
+  if (!reviews?.length) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-dental-navy mb-4">{t('noReviewsYet')}</p>
+        <Button onClick={() => fetchReviews()} variant="outline">
+          {t('fetchReviews')}
+        </Button>
+      </div>
+    );
   }
 
   return (
     <div className="relative">
       <EnhancedCarousel>
-        {reviews?.map((review, index) => (
+        {reviews.map((review) => (
           <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3 p-2">
-            <Card className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 h-full opacity-0 animate-[fade-in_0.5s_ease-out_forwards]" style={{ animationDelay: `${index * 0.1}s` }}>
+            <Card className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 h-full opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
               <CardContent className="p-6 flex flex-col h-full">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="relative">
                     <div className="absolute inset-0 bg-dental-orange rounded-full blur opacity-20"></div>
                     <img
                       src={review.profile_photo_url || '/placeholder.svg'}
-                      alt={`תמונת פרופיל של ${review.author_name}`}
+                      alt={`${review.author_name} profile`}
                       className="relative w-12 h-12 rounded-full object-cover ring-2 ring-dental-pink"
                     />
                   </div>
