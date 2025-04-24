@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -26,7 +25,6 @@ const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
-  const currentLanguage = languageOptions.find(option => option.value === language);
 
   const handleLanguageChange = (newLanguage: Language) => {
     if (newLanguage === language) return;
@@ -46,7 +44,6 @@ const LanguageSwitcher: React.FC = () => {
           className="px-2 py-1.5 hover:bg-gray-50 transition-colors text-sm font-normal gap-2"
         >
           <LanguageFlag language={language} />
-          <span>{currentLanguage?.name}</span>
           <ChevronDown className="w-4 h-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
@@ -58,7 +55,7 @@ const LanguageSwitcher: React.FC = () => {
           <DropdownMenuItem
             key={option.value}
             className={cn(
-              "flex items-center gap-2 text-sm cursor-pointer py-2 px-3",
+              "flex items-center justify-center text-sm cursor-pointer py-2 px-3",
               "hover:bg-gray-50 transition-colors",
               language === option.value 
                 ? 'font-medium text-gray-900' 
@@ -67,7 +64,6 @@ const LanguageSwitcher: React.FC = () => {
             onClick={() => handleLanguageChange(option.value)}
           >
             <LanguageFlag language={option.value} />
-            {option.name}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
