@@ -1,4 +1,3 @@
-
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import LanguageRoute from '@/components/LanguageRoute';
@@ -142,7 +141,6 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
         <AppEffects />
-        {/* ResourcePrefetcher improves navigation performance by preloading assets */}
         <ResourcePrefetcher />
         <Routes>
           {/* Root route - redirects to browser language or default to Hebrew */}
@@ -160,7 +158,7 @@ function App() {
             } 
           />
 
-          {/* Lazy load admin section with its own error boundary */}
+          {/* Admin routes */}
           <Route 
             path="/admin" 
             element={
@@ -172,7 +170,9 @@ function App() {
             } 
           />
 
-          <Route path="/accessibility-statement" element={<AccessibilityStatementPage />} />
+          {/* Legal pages */}
+          <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
 
           {/* Language-specific routes */}
           <Route path="/:lang" element={<LanguageRoute />}>
