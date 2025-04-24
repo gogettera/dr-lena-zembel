@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 import { supportedLanguages } from '@/utils/languageRoutes';
@@ -27,6 +28,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [isRTL, setIsRTL] = useState<boolean>(true);
 
   const setLanguage = (lang: Language) => {
+    // Security: Validate language input against supported languages
+    if (!supportedLanguages.includes(lang)) {
+      console.error(`Invalid language attempted: ${lang}`);
+      return;
+    }
+    
     setLanguageState(lang);
     localStorage.setItem('preferredLanguage', lang);
     
@@ -42,6 +49,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const loadTranslations = async (lang: Language) => {
     try {
+      // Security: Validate language again before loading translations
+      if (!supportedLanguages.includes(lang)) {
+        console.error(`Invalid language attempted while loading translations: ${lang}`);
+        return;
+      }
+      
       if (lang === 'he') {
         // Modular for Hebrew only
         try {

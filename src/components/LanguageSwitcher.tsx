@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -12,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { LanguageFlag } from '@/components/ui/language-flag';
+import { supportedLanguages } from '@/utils/languageRoutes';
 
 const languageOptions: { value: Language; label: string; name: string }[] = [
   { value: 'he', label: 'עברית', name: 'עברית' },
@@ -27,12 +29,29 @@ const LanguageSwitcher: React.FC = () => {
   const location = useLocation();
 
   const handleLanguageChange = (newLanguage: Language) => {
-    if (newLanguage === language) return;
-    setLanguage(newLanguage);
-    const pathSegments = location.pathname.split('/').filter(Boolean);
-    const pathWithoutLanguage = pathSegments.length > 1 ? `/${pathSegments.slice(1).join('/')}` : '/';
-    const hash = location.hash;
-    navigate(`/${newLanguage}${pathWithoutLanguage}${hash}`);
+    try {
+      // Avoid unnecessary state updates
+      if (newLanguage === language) return;
+      
+      // Security check: validate language is supported
+      if (!supportedLanguages.includes(newLanguage)) {
+        console.error(`Attempted to switch to unsupported language: ${newLanguage}`);
+        return;
+      }
+      
+      // Set language in context
+      setLanguage(newLanguage);
+      
+      // Extract path without language prefix for proper navigation
+      const pathSegments = location.pathname.split('/').filter(Boolean);
+      const pathWithoutLanguage = pathSegments.length > 1 ? `/${pathSegments.slice(1).join('/')}` : '/';
+      const hash = location.hash;
+      
+      // Navigate to the same page with new language
+      navigate(`/${newLanguage}${pathWithoutLanguage}${hash}`);
+    } catch (error) {
+      console.error('Error changing language:', error);
+    }
   };
 
   return (
@@ -42,6 +61,7 @@ const LanguageSwitcher: React.FC = () => {
           variant="ghost" 
           size="sm" 
           className="px-2 py-1.5 hover:bg-gray-50 transition-colors text-sm font-normal gap-2"
+          aria-label={`Current language: ${languageOptions.find(o => o.value === language)?.label || 'Unknown'}`}
         >
           <LanguageFlag language={language} />
           <ChevronDown className="w-4 h-4 opacity-50" />
@@ -62,6 +82,7 @@ const LanguageSwitcher: React.FC = () => {
                 : 'text-gray-600'
             )}
             onClick={() => handleLanguageChange(option.value)}
+            aria-label={`Switch to ${option.label}`}
           >
             <LanguageFlag language={option.value} />
           </DropdownMenuItem>
