@@ -1,4 +1,5 @@
 
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import LanguageRoute from '@/components/LanguageRoute';
@@ -12,7 +13,6 @@ import NotFound from '@/pages/NotFound';
 import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import TermsOfService from '@/pages/TermsOfService';
-import { useEffect, lazy, Suspense } from 'react';
 import { setupDirectionByLanguage } from '@/utils/direction';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -134,6 +134,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
 
+            {/* Authentication routes */}
             <Route 
               path="/login" 
               element={
@@ -156,13 +157,19 @@ function App() {
               } 
             />
 
+            {/* Legal routes */}
             <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
 
             <Route path="/:lang" element={<LanguageRoute />}>
               <Route index element={<LanguageHome />} />
-              <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+              
+              {/* Specific route for Botox treatments */}
               <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
+              
+              {/* Generic treatment route */}
+              <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+              
               <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
               <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
             </Route>
@@ -176,3 +183,4 @@ function App() {
 }
 
 export default App;
+
