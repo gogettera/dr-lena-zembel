@@ -1,4 +1,3 @@
-
 {
   "home": "דף הבית",
   "about": "אודות",
@@ -20,5 +19,9 @@
   "followUs": "עקבו אחרינו",
   "accessibility": {
     "skipToContent": "דלג לתוכן העיקרי"
+  },
+  "legal": {
+    "privacyPolicy": "מדיניות פרטיות",
+    "termsOfService": "תנאי שירות"
   }
 }

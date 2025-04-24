@@ -1,3 +1,4 @@
+
 import { Language } from '@/types/language';
 
 export interface NavigationLink {
@@ -149,6 +150,16 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           key: 'accessibility',
           labelKey: 'accessibility.statement',
           path: `/${language}/accessibility-statement`
+        },
+        {
+          key: 'privacyPolicy',
+          labelKey: 'legal.privacyPolicy',
+          path: `/${language}/privacy-policy`
+        },
+        {
+          key: 'termsOfService',
+          labelKey: 'legal.termsOfService',
+          path: `/${language}/terms-of-service`
         }
       ]
     },
