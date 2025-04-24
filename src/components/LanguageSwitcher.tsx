@@ -42,25 +42,32 @@ const LanguageSwitcher: React.FC = () => {
         <Button 
           variant="outline" 
           size="sm" 
-          className="px-3 py-2 hover:bg-dental-beige/20 transition-all duration-200 border-dental-navy/20 hover:border-dental-navy gap-2"
+          className="px-4 py-2.5 hover:bg-dental-beige/20 transition-all duration-300 border-dental-navy/30 hover:border-dental-navy hover:scale-105 gap-2.5 rounded-lg"
         >
-          <Globe className="w-4 h-4" />
-          <span className="text-sm font-medium">{currentLanguage?.label}</span>
-          <ChevronDown className="w-3 h-3 opacity-50" />
+          <Globe className="w-[18px] h-[18px]" />
+          <span className="text-base font-medium">{currentLanguage?.label}</span>
+          <ChevronDown className="w-4 h-4 opacity-70" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-32 bg-white">
+      <DropdownMenuContent 
+        align="end" 
+        className="w-48 bg-white/95 backdrop-blur-sm border border-dental-navy/10 shadow-lg rounded-lg p-1 animate-in fade-in-0 zoom-in-95"
+      >
         {languageOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
             className={cn(
-              "flex items-center justify-between text-sm cursor-pointer py-2.5 px-3 hover:bg-dental-beige/10 transition-colors",
-              language === option.value ? 'bg-dental-beige/20 text-dental-navy font-medium' : 'text-dental-navy/80'
+              "flex items-center justify-between text-base cursor-pointer py-3 px-4",
+              "hover:bg-dental-beige/20 transition-colors duration-200",
+              "rounded-md my-0.5",
+              language === option.value 
+                ? 'bg-dental-beige/30 text-dental-navy font-medium' 
+                : 'text-dental-navy/70 hover:text-dental-navy'
             )}
             onClick={() => handleLanguageChange(option.value)}
           >
-            <span className="font-medium">{option.label}</span>
-            <span className="text-xs opacity-70">{option.name}</span>
+            <span className="font-medium text-base">{option.label}</span>
+            <span className="text-sm opacity-80">{option.name}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
