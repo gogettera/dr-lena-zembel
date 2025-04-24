@@ -21,7 +21,8 @@ interface TreatmentComparison {
 
 const TreatmentComparison: React.FC = () => {
   const { t } = useLanguage();
-  const comparison = t<TreatmentComparison>('botoxTreatments.treatmentComparison', { returnObjects: true });
+  // Fix: Cast the result to TreatmentComparison
+  const comparison = t('botoxTreatments.treatmentComparison', { returnObjects: true }) as TreatmentComparison;
 
   return (
     <Container>

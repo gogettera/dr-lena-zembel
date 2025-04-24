@@ -34,10 +34,10 @@ export function useEnhancedCarousel({
 
     const intervalId = setInterval(() => {
       api.scrollNext();
-    }, autoplay);
+    }, typeof autoplay === 'number' ? autoplay : interval);
 
     return () => clearInterval(intervalId);
-  }, [api, autoplay]);
+  }, [api, autoplay, interval]);
 
   const handlePrevious = () => {
     if (isRTL) {

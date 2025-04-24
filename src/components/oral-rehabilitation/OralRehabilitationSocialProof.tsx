@@ -26,7 +26,7 @@ const OralRehabilitationSocialProof = () => (
       <h2 className="text-center text-3xl md:text-4xl font-bold text-dental-navy mb-8">
         מטופלים אמיתיים. שינוי אמיתי.
       </h2>
-      <EnhancedCarousel autoplay={9000} interval={9000}>
+      <EnhancedCarousel autoplay={9000}>
         {patientTestimonials.map((t, i) => (
           <CarouselItem key={i} className="px-2 basis-4/5 sm:basis-1/2 md:basis-1/3">
             <Card className="rounded-xl shadow-lg p-8 flex flex-col items-center bg-white/95 animate-fade-in">
