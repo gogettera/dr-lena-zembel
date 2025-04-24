@@ -24,7 +24,7 @@ interface LegalContent {
 const LegalPage: React.FC<LegalPageProps> = ({ translationKey }) => {
   const { t } = useLanguage();
   // Cast the translation result to the expected type
-  const content = t(translationKey) as unknown as LegalContent;
+  const content = t(`legal.${translationKey}`) as unknown as LegalContent;
 
   return (
     <Section background="white" className="py-12">
