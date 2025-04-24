@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { setDirection } from '@/utils/direction';
 import { supportedLanguages } from '@/utils/languageRoutes';
@@ -87,21 +86,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   useEffect(() => {
+    // Always default to Hebrew, regardless of browser language
     const storedLanguage = localStorage.getItem('preferredLanguage') as Language | null;
-    const browserLanguage = navigator.language.split('-')[0] as Language;
-    
-    let initialLanguage: Language = 'he';
     
     if (storedLanguage && supportedLanguages.includes(storedLanguage)) {
-      initialLanguage = storedLanguage;
-    } else if (supportedLanguages.includes(browserLanguage)) {
-      initialLanguage = browserLanguage;
-      localStorage.setItem('preferredLanguage', browserLanguage);
+      setLanguageState(storedLanguage);
+    } else {
+      setLanguageState('he');
+      localStorage.setItem('preferredLanguage', 'he');
     }
     
-    setLanguageState(initialLanguage);
-    
-    const isRightToLeft = initialLanguage === 'he' || initialLanguage === 'ar';
+    const isRightToLeft = storedLanguage === 'he' || storedLanguage === 'ar';
     setIsRTL(isRightToLeft);
     
     if (isRightToLeft) {
@@ -121,4 +116,3 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
-
