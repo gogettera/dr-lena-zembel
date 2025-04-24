@@ -59,4 +59,3 @@ export function useEnhancedCarousel({ api, autoplay = true, interval = 5000 }: U
     handleNext
   };
 }
-

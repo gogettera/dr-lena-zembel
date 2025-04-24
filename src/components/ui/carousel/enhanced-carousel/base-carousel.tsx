@@ -4,13 +4,14 @@ import {
   Carousel as BaseCarousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
-import { CarouselNavigation } from "../carousel-navigation";
 import { CarouselProgress } from "../carousel-progress";
 import { useEnhancedCarousel } from "./use-enhanced-carousel";
 
-interface BaseCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
+interface EnhancedCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   autoplay?: boolean;
   interval?: number;
@@ -27,7 +28,7 @@ export function EnhancedCarousel({
   showArrows = true,
   className,
   ...props
-}: BaseCarouselProps) {
+}: EnhancedCarouselProps) {
   const [api, setApi] = React.useState<any>();
   const { current, count, isRTL, handlePrevious, handleNext } = useEnhancedCarousel({
     api,
@@ -53,10 +54,10 @@ export function EnhancedCarousel({
         </CarouselContent>
 
         {showArrows && (
-          <CarouselNavigation 
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-          />
+          <>
+            <CarouselPrevious onClick={handlePrevious} />
+            <CarouselNext onClick={handleNext} />
+          </>
         )}
       </BaseCarousel>
 
@@ -70,4 +71,3 @@ export function EnhancedCarousel({
     </div>
   );
 }
-
