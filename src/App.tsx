@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import LanguageRoute from '@/components/LanguageRoute';
@@ -16,6 +17,7 @@ import { getBrowserLanguage } from '@/utils/languageRoutes';
 import { Skeleton } from '@/components/ui/skeleton';
 import ResourcePrefetcher from '@/components/ResourcePrefetcher';
 import { applyMetaTags } from '@/utils/meta-utils';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 import './App.css';
 
@@ -125,45 +127,47 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
-        <AppEffects />
-        <ResourcePrefetcher />
-        <Routes>
-          <Route path="/" element={<Index />} />
+        <AccessibleLayout>
+          <AppEffects />
+          <ResourcePrefetcher />
+          <Routes>
+            <Route path="/" element={<Index />} />
 
-          <Route 
-            path="/login" 
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<PageLoader />}>
-                  <LoginPage />
-                </Suspense>
-              </ErrorBoundary>
-            } 
-          />
+            <Route 
+              path="/login" 
+              element={
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
+                  <Suspense fallback={<PageLoader />}>
+                    <LoginPage />
+                  </Suspense>
+                </ErrorBoundary>
+              } 
+            />
 
-          <Route 
-            path="/admin" 
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<PageLoader />}>
-                  <AdminRoute element={<AdminPanel />} />
-                </Suspense>
-              </ErrorBoundary>
-            } 
-          />
+            <Route 
+              path="/admin" 
+              element={
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
+                  <Suspense fallback={<PageLoader />}>
+                    <AdminRoute element={<AdminPanel />} />
+                  </Suspense>
+                </ErrorBoundary>
+              } 
+            />
 
-          <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
+            <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
 
-          <Route path="/:lang" element={<LanguageRoute />}>
-            <Route index element={<LanguageHome />} />
-            <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-            <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
-            <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
-          </Route>
+            <Route path="/:lang" element={<LanguageRoute />}>
+              <Route index element={<LanguageHome />} />
+              <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+              <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
+              <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
+            </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AccessibleLayout>
       </Router>
     </ErrorBoundary>
   );
