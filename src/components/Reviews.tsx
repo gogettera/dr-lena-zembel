@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent } from "@/components/ui/card";
@@ -42,6 +42,11 @@ const Reviews = () => {
       });
     }
   };
+
+  // Automatically trigger review fetch on component mount
+  useEffect(() => {
+    fetchReviews();
+  }, []);
 
   const { data: reviews, isLoading, error } = useQuery({
     queryKey: ['google-reviews'],
