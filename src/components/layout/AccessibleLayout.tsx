@@ -1,20 +1,20 @@
-
 import React from 'react';
-import { Toaster } from '@/components/ui/toaster';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
-import { LanguageProvider } from '@/contexts/LanguageContext';
+import ScrollToTop from '../ui/scroll-to-top';
 
-interface AccessibleLayoutProps {
-  children: React.ReactNode;
-}
-
-const AccessibleLayout: React.FC<AccessibleLayoutProps> = ({ children }) => {
+const AccessibleLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <LanguageProvider>
-      {children}
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow">
+        {children}
+      </main>
+      <ScrollToTop />
       <AccessibilityWidget />
-      <Toaster />
-    </LanguageProvider>
+      <Footer />
+    </div>
   );
 };
 
