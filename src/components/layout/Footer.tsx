@@ -2,15 +2,18 @@
 import React from 'react';
 import { Container } from '@/components/ui/container';
 import { Link } from 'react-router-dom';
-import { Phone, MapPin } from 'lucide-react';
+import { Phone, MapPin, Clock } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useDirectionalStyles } from '@/utils/direction';
-import { Button } from '@/components/ui/button';
+import NavList from '@/components/ui/NavList';
+import NavItem from '@/components/ui/NavItem';
+import { Grid } from '@/components/ui/grid';
+import FooterSocial from '@/components/footer/FooterSocial';
 import { Separator } from '@/components/ui/separator';
 
 const Footer = () => {
-  const { t, language, isRTL } = useLanguage();
+  const { t, language } = useLanguage();
   const styles = useDirectionalStyles();
 
   const handleCallClick = () => {
@@ -22,74 +25,101 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-dental-navy text-white py-8 md:py-12">
+    <footer className="w-full bg-white py-12 border-t">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Logo and Clinic Info Section */}
-          <div className="flex flex-col items-center md:items-start space-y-4">
-            <Link to={`/${language}`} className="hover:opacity-90 transition-opacity">
-              <Logo className="w-16 h-16 text-white" />
+        {/* Main Footer Content */}
+        <Grid cols={1} mdCols={3} lgCols={5} className="gap-8 lg:gap-12">
+          {/* Column 1: About */}
+          <div className="flex flex-col space-y-4">
+            <Link to={`/${language}`} className="mb-4">
+              <Logo className="w-16 h-16 text-dental-navy" />
             </Link>
-            <h2 className="text-xl font-bold">{t('clinicInfo.name')}</h2>
-            <div className="text-sm text-gray-300">
-              {t('contact.openingHours')}
-              <br />
-              {t('contact.sundayToThursday')}
+            <p className="text-sm text-dental-navy/70 max-w-xs">
+              {t('clinicInfo.description')}
+            </p>
+          </div>
+
+          {/* Column 2: Main Links */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-dental-navy">{t('navigation.mainLinks')}</h3>
+            <NavList vertical>
+              <NavItem to={`/${language}`}>{t('navigation.home')}</NavItem>
+              <NavItem to={`/${language}#about`}>{t('navigation.about')}</NavItem>
+              <NavItem to={`/${language}#treatments`}>{t('navigation.treatments')}</NavItem>
+              <NavItem to={`/${language}#contact`}>{t('navigation.contact')}</NavItem>
+            </NavList>
+          </div>
+
+          {/* Column 3: Contact */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-dental-navy">{t('contact.contactInfo')}</h3>
+            <div className="space-y-3">
+              <button
+                onClick={handleCallClick}
+                className={`flex items-center text-sm text-dental-navy/70 hover:text-dental-orange transition-colors ${styles.flexDir}`}
+              >
+                <Phone size={16} className="mr-2" />
+                <span>{t('contact.phone')}</span>
+              </button>
+              <button
+                onClick={handleAddressClick}
+                className={`flex items-center text-sm text-dental-navy/70 hover:text-dental-orange transition-colors ${styles.flexDir}`}
+              >
+                <MapPin size={16} className="mr-2" />
+                <span>{t('contact.clinicAddress')}</span>
+              </button>
+              <div className={`flex items-center text-sm text-dental-navy/70 ${styles.flexDir}`}>
+                <Clock size={16} className="mr-2" />
+                <span>{t('contact.openingHours')}</span>
+              </div>
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div className="flex flex-col items-center md:items-start space-y-4">
-            <h3 className="text-lg font-semibold">{t('contact.contactInfo')}</h3>
-            <Button
-              variant="ghost"
-              onClick={handleCallClick}
-              className={`flex items-center gap-2 text-white hover:text-white/90 ${styles.flexDir}`}
-            >
-              <Phone size={20} />
-              <span>{t('contact.phone')}</span>
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={handleAddressClick}
-              className={`flex items-center gap-2 text-white hover:text-white/90 ${styles.flexDir}`}
-            >
-              <MapPin size={20} />
-              <span>{t('contact.clinicAddress')}</span>
-            </Button>
+          {/* Column 4: Insurance */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-dental-navy">{t('insurance.topInsurances')}</h3>
+            <NavList vertical>
+              <NavItem as="div">מכבי</NavItem>
+              <NavItem as="div">כללית</NavItem>
+              <NavItem as="div">מאוחדת</NavItem>
+              <NavItem as="div">לאומית</NavItem>
+            </NavList>
           </div>
 
-          {/* Legal Links */}
-          <div className="flex flex-col items-center md:items-start space-y-4">
-            <h3 className="text-lg font-semibold">{t('navigation.info')}</h3>
-            <nav className="flex flex-col space-y-2">
-              <Link 
-                to={`/${language}/accessibility-statement`}
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                {t('navigation.accessibility.statement')}
-              </Link>
-              <Link 
-                to={`/${language}/privacy-policy`}
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                {t('navigation.legal.privacyPolicy')}
-              </Link>
-              <Link 
-                to={`/${language}/terms-of-service`}
-                className="text-gray-300 hover:text-white transition-colors"
-              >
-                {t('navigation.legal.termsOfService')}
-              </Link>
-            </nav>
+          {/* Column 5: Follow Us */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-dental-navy">{t('navigation.followUs')}</h3>
+            <FooterSocial />
           </div>
-        </div>
+        </Grid>
 
-        <Separator className="my-6 bg-white/20" />
-
-        {/* Copyright */}
-        <div className="text-center text-sm text-gray-300">
-          <p>© {new Date().getFullYear()} {t('contact.allRightsReserved')}</p>
+        {/* Bottom Section */}
+        <Separator className="my-8" />
+        
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p className="text-sm text-dental-navy/70">
+            © {new Date().getFullYear()} {t('contact.allRightsReserved')}
+          </p>
+          <div className="flex space-x-4 rtl:space-x-reverse">
+            <Link 
+              to={`/${language}/privacy-policy`}
+              className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
+            >
+              {t('navigation.legal.privacyPolicy')}
+            </Link>
+            <Link 
+              to={`/${language}/terms-of-service`}
+              className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
+            >
+              {t('navigation.legal.termsOfService')}
+            </Link>
+            <Link 
+              to={`/${language}/accessibility-statement`}
+              className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
+            >
+              {t('navigation.accessibility.statement')}
+            </Link>
+          </div>
         </div>
       </Container>
     </footer>

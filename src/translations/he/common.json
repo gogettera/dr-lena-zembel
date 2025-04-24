@@ -1,4 +1,3 @@
-
 {
   "dentistryWithLove": "רפואת שיניים מקצועית",
   "localDental": "מרפאת שיניים מקצועית בצפון יפו, המעניקה טיפול איכותי ומקיף למטופלינו.",
@@ -18,5 +17,19 @@
   "transparency": "שקיפות - אתם שותפים בתהליך קבלת ההחלטות לטיפול",
   "xrayPolicy": "צילומי רנטגן - הם רכושכם ויישלחו אליכם במייל",
   "treatmentOptions": "אפשרויות טיפול - אין דרך נכונה אחת, תמיד יש מספר אפשרויות",
-  "whatsappMessage": "שלום, אני מעוניין לקבוע תור"
+  "whatsappMessage": "שלום, אני מעוניין לקבוע תור",
+  "navigation": {
+    "mainLinks": "ניווט מהיר",
+    "followUs": "עקבו אחרינו",
+    "legal": {
+      "privacyPolicy": "מדיניות פרטיות",
+      "termsOfService": "תנאי שימוש"
+    },
+    "accessibility": {
+      "statement": "הצהרת נגישות"
+    }
+  },
+  "insurance": {
+    "topInsurances": "קופות חולים"
+  }
 }
