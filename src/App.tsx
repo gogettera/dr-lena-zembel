@@ -1,27 +1,32 @@
 
-import React, { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
-import LanguageRoute from '@/components/LanguageRoute';
-import Index from '@/pages/Index';
-import LanguageHome from '@/pages/LanguageHome';
-import TreatmentPage from '@/pages/TreatmentPage';
-import LanguageTreatmentPage from '@/pages/LanguageTreatmentPage';
-import PreventiveMedicinePage from '@/pages/PreventiveMedicinePage';
-import BotoxTreatmentsPage from '@/pages/BotoxTreatmentsPage';
-import NotFound from '@/pages/NotFound';
-import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
-import PrivacyPolicy from '@/pages/PrivacyPolicy';
-import TermsOfService from '@/pages/TermsOfService';
-import { setupDirectionByLanguage } from '@/utils/direction';
-import { getBrowserLanguage } from '@/utils/languageRoutes';
-import { Skeleton } from '@/components/ui/skeleton';
-import ResourcePrefetcher from '@/components/ResourcePrefetcher';
-import { applyMetaTags } from '@/utils/meta-utils';
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
+// Layout components
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
+import LanguageRoute from '@/components/LanguageRoute';
+import ResourcePrefetcher from '@/components/ResourcePrefetcher';
+
+// Routes configuration
+import { rootRoutes, languageRoutes } from '@/config/routes';
+
+// UI components
+import { Skeleton } from '@/components/ui/skeleton';
+import NotFound from '@/pages/NotFound';
+
+// Lazy loaded components (refer to rootRoutes for more)
+import { lazy } from 'react';
+const AdminRoute = lazy(() => 
+  import(/* webpackChunkName: "admin-route" */ '@/components/AdminRoute')
+);
+
+// App styling
 import './App.css';
 
+/**
+ * Error fallback component for error boundary
+ */
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
@@ -41,6 +46,9 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   );
 }
 
+/**
+ * Loading skeleton for lazy loaded components
+ */
 const PageLoader = () => (
   <div className="w-full h-screen flex items-center justify-center">
     <div className="w-full max-w-md p-6">
@@ -53,127 +61,66 @@ const PageLoader = () => (
   </div>
 );
 
-function AppEffects() {
-  const location = useLocation();
-
-  useEffect(() => {
-    const start = performance.now();
-    
-    try {
-      const browserLang = getBrowserLanguage();
-      setupDirectionByLanguage(browserLang);
-
-      if ('loading' in HTMLImageElement.prototype) {
-        document.documentElement.classList.add('has-native-lazyload');
-      }
-
-      window.addEventListener('online', () => {
-        document.documentElement.classList.remove('is-offline');
-      });
-
-      window.addEventListener('offline', () => {
-        document.documentElement.classList.add('is-offline');
-      });
-      
-      if ('web-vitals' in window) {
-        import('web-vitals').then(({ onFCP }) => {
-          onFCP(metric => {
-            console.log('FCP:', metric);
-          });
-        });
-      }
-      
-      const end = performance.now();
-      console.log(`App setup time: ${end - start}ms`);
-    } catch (error) {
-      console.error("Error in App setup:", error);
-    }
-    
-    return () => {
-      window.removeEventListener('online', () => {});
-      window.removeEventListener('offline', () => {});
-    };
-  }, []);
-
-  useEffect(() => {
-    applyMetaTags();
-    
-    const existingStatusMeta = document.querySelector('meta[name="http-status"]');
-    if (existingStatusMeta) {
-      existingStatusMeta.setAttribute('content', '200');
-    }
-    
-    console.log(`Page navigation: ${location.pathname}`);
-    
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(() => {
-      }, { timeout: 1000 });
-    }
-  }, [location]);
-
-  return null;
-}
-
-const AdminPanel = lazy(() => 
-  import(/* webpackChunkName: "admin" */ '@/pages/AdminPanel')
-);
-const AdminRoute = lazy(() => 
-  import(/* webpackChunkName: "admin-route" */ '@/components/AdminRoute')
-);
-const LoginPage = lazy(() => 
-  import(/* webpackChunkName: "login" */ '@/pages/LoginPage')
-);
-
+/**
+ * Main App component that sets up routing
+ */
 function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
         <AccessibleLayout>
-          <AppEffects />
           <ResourcePrefetcher />
           <Routes>
-            <Route path="/" element={<Index />} />
+            {/* Root level routes */}
+            {rootRoutes.map((route) => {
+              const RouteElement = route.element;
+              
+              // Handle routes that require lazy loading
+              if (route.lazyLoaded) {
+                return (
+                  <Route 
+                    key={route.path}
+                    path={route.path} 
+                    element={
+                      <ErrorBoundary FallbackComponent={ErrorFallback}>
+                        <Suspense fallback={<PageLoader />}>
+                          {route.requiredAuth ? (
+                            <AdminRoute element={<RouteElement />} />
+                          ) : (
+                            <RouteElement />
+                          )}
+                        </Suspense>
+                      </ErrorBoundary>
+                    } 
+                  />
+                );
+              }
+              
+              // Regular routes
+              return (
+                <Route 
+                  key={route.path}
+                  path={route.path} 
+                  element={<RouteElement />} 
+                />
+              );
+            })}
 
-            {/* Authentication routes */}
-            <Route 
-              path="/login" 
-              element={
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Suspense fallback={<PageLoader />}>
-                    <LoginPage />
-                  </Suspense>
-                </ErrorBoundary>
-              } 
-            />
-
-            <Route 
-              path="/admin" 
-              element={
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Suspense fallback={<PageLoader />}>
-                    <AdminRoute element={<AdminPanel />} />
-                  </Suspense>
-                </ErrorBoundary>
-              } 
-            />
-
-            {/* Legal routes */}
-            <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
-
+            {/* Language-specific routes */}
             <Route path="/:lang" element={<LanguageRoute />}>
-              <Route index element={<LanguageHome />} />
-              
-              {/* Specific route for Botox treatments */}
-              <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
-              
-              {/* Generic treatment route */}
-              <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-              
-              <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
-              <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
+              {languageRoutes.map((route) => {
+                const RouteElement = route.element;
+                return (
+                  <Route 
+                    key={route.path}
+                    path={route.path} 
+                    element={<RouteElement />} 
+                  />
+                );
+              })}
             </Route>
 
+            {/* Catch-all route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AccessibleLayout>
@@ -183,4 +130,3 @@ function App() {
 }
 
 export default App;
-

@@ -1,102 +1,44 @@
 
-import { supabase } from '@/integrations/supabase/client';
-import { getCachedMeta, setCachedMeta } from './meta-cache';
-import { updateMetaTag } from './meta-tag';
-import { updateCanonicalLink } from './canonical';
-import { updateFavicon } from './favicon';
-import { applyGoogleAnalytics, applyFacebookPixel } from './analytics';
+import { setMetaTags, MetaTagOptions } from './meta-manager';
 
-export const applyMetaTags = async () => {
-  try {
-    let data = getCachedMeta();
-    if (!data) {
-      const startTime = performance.now();
-      const response = await supabase
-        .from('site_meta')
-        .select('*')
-        .eq('id', 1)
-        .maybeSingle();
-      if (response.error) throw response.error;
-      data = response.data;
-      if (!data) {
-        console.log('[Meta Utils] No meta row found for id 1');
-        return;
-      }
-      setCachedMeta(data);
-      const endTime = performance.now();
-      console.log(`[Meta Utils] Fetched meta in ${endTime - startTime}ms:`, data);
-    } else {
-      console.log('[Meta Utils] Using cached meta data');
-    }
-
-    // Apply basic meta tags
-    if (data.title) document.title = data.title;
-    updateMetaTag('description', data.description);
-
-    // Open Graph
-    updateMetaTag('og:title', data.og_title, 'property');
-    updateMetaTag('og:description', data.og_description, 'property');
-
-    // Check if the og_image_url is a blob URL
-    const isBlobUrl = data.og_image_url && data.og_image_url.startsWith('blob:');
-    if (data.og_image_url && !isBlobUrl) {
-      updateMetaTag('og:image', data.og_image_url, 'property');
-    }
-
-    // Twitter
-    updateMetaTag('twitter:card', data.twitter_card);
-    updateMetaTag('twitter:title', data.twitter_title || data.og_title);
-    updateMetaTag('twitter:description', data.twitter_description || data.og_description);
-
-    if (data.og_image_url && !isBlobUrl) {
-      updateMetaTag('twitter:image', data.og_image_url);
-    }
-
-    // Canonical
-    const currentPath = window.location.pathname;
-    let canonicalPath = currentPath;
-    if (canonicalPath.endsWith('index.html') || canonicalPath.endsWith('index.php')) {
-      canonicalPath = canonicalPath.replace(/(index\.html|index\.php)$/, '');
-    }
-    if (canonicalPath !== '/' && canonicalPath.endsWith('/')) {
-      canonicalPath = canonicalPath.slice(0, -1);
-    }
-    const canonicalUrl = `https://dr-zembel.com${canonicalPath}`;
-    updateCanonicalLink(canonicalUrl);
-
-    // Favicon
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(() => {
-        if (data.favicon_url) {
-          updateFavicon(data.favicon_url);
-        } else {
-          updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
-        }
-      });
-    } else {
-      setTimeout(() => {
-        if (data.favicon_url) {
-          updateFavicon(data.favicon_url);
-        } else {
-          updateFavicon('/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png');
-        }
-      }, 200);
-    }
-
-    // Google Analytics
-    if (data.google_analytics_id) {
-      setTimeout(() => {
-        applyGoogleAnalytics(data.google_analytics_id);
-      }, 1000);
-    }
-
-    // Facebook Pixel
-    if (data.facebook_pixel_id) {
-      setTimeout(() => {
-        applyFacebookPixel(data.facebook_pixel_id);
-      }, 1500);
-    }
-  } catch (err) {
-    console.error('[Meta Utils] Error applying meta tags:', err);
-  }
+/**
+ * Default site metadata
+ */
+const DEFAULT_META: MetaTagOptions = {
+  siteName: 'מרפאת השיניים של ד״ר לנה זמבל',
+  author: 'ד״ר לנה זמבל',
+  locale: 'he_IL',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  themeColor: '#1E3A8A'
 };
+
+/**
+ * Applies meta tags for the current page
+ * 
+ * @param customMeta Custom metadata to override defaults
+ */
+export function applyMetaTags(customMeta: MetaTagOptions = {}): void {
+  // Get current URL for og:url and canonical
+  const currentUrl = window.location.href;
+  
+  // Merge default and custom meta
+  const meta = {
+    ...DEFAULT_META,
+    ogUrl: currentUrl,
+    canonicalUrl: currentUrl,
+    ...customMeta
+  };
+  
+  // Set all meta tags
+  setMetaTags(meta);
+}
+
+/**
+ * Updates meta tags during SPA navigation
+ * 
+ * @param pageMeta Page-specific metadata
+ */
+export function updatePageMeta(pageMeta: MetaTagOptions = {}): void {
+  applyMetaTags(pageMeta);
+}

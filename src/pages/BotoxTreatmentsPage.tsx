@@ -1,14 +1,14 @@
 
-import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/layout/Footer';
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { Section } from '@/components/ui/section';
 import BackToTop from '@/components/BackToTop';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import BotoxTreatmentsHero from '@/components/botox-treatments/BotoxTreatmentsHero';
-import { Section } from '@/components/ui/section';
+import PageContainer from '@/components/layout/PageContainer';
+import BotoxTreatmentsLanding from '@/components/botox-treatments/BotoxTreatmentsLanding';
 
 const BotoxTreatmentsPage: React.FC = () => {
   const { t } = useLanguage();
@@ -16,14 +16,9 @@ const BotoxTreatmentsPage: React.FC = () => {
   const treatmentType = 'botox-treatments';
   const treatment = treatmentTypes[treatmentType];
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   if (!treatment) {
     return (
-      <div>
-        <Navbar />
+      <PageContainer title="treatmentNotFound" className="min-h-screen">
         <Section spacing="lg">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
@@ -32,8 +27,7 @@ const BotoxTreatmentsPage: React.FC = () => {
             </Button>
           </div>
         </Section>
-        <Footer />
-      </div>
+      </PageContainer>
     );
   }
 
@@ -41,23 +35,12 @@ const BotoxTreatmentsPage: React.FC = () => {
   const treatmentDescKey = getTreatmentDescKey(treatmentType);
   
   return (
-    <div className="bg-white">
-      <Navbar />
+    <PageContainer title={treatmentNameKey} description={treatmentDescKey} className="bg-white">
       <main className="pt-0">
-        <Section background="none" spacing="none" containerClass="px-0">
-          <BotoxTreatmentsHero />
-        </Section>
-        
-        <TreatmentContent 
-          treatment={treatment}
-          treatmentNameKey={treatmentNameKey}
-          treatmentDescKey={treatmentDescKey}
-          treatmentType={treatmentType}
-        />
+        <BotoxTreatmentsLanding />
       </main>
-      <Footer />
       <BackToTop />
-    </div>
+    </PageContainer>
   );
 };
 

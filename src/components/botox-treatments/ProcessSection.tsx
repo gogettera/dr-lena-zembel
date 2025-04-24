@@ -5,11 +5,7 @@ import { Container } from '@/components/ui/container';
 import SectionHeader from '@/components/ui/section-header';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
-interface ProcessStep {
-  title: string;
-  description: string;
-}
+import { ProcessStep } from '@/types/botox-treatments';
 
 const ProcessSection: React.FC = () => {
   const { t } = useLanguage();
@@ -19,7 +15,7 @@ const ProcessSection: React.FC = () => {
     <Container>
       <SectionHeader 
         title={t('botoxTreatments.processTitle')}
-        subtitle="הליך טיפול פשוט, מהיר ויעיל - בחמישה שלבים בלבד"
+        subtitle={t('botoxTreatments.processSubtitle', "הליך טיפול פשוט, מהיר ויעיל - בחמישה שלבים בלבד")}
       />
       
       <div className="relative mt-16">

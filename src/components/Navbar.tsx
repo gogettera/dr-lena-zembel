@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import MobileNav from './MobileNav';
 import LanguageSwitcher from './LanguageSwitcher';
-import { createLocalizedNavigationConfig } from '@/config/navigation';
+import { getMainNavigationItems } from '@/config/routes';
 import { useDirectionalStyles } from '@/utils/direction';
 import { debounce } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
@@ -17,7 +17,7 @@ import NavigationLinks from './ui/NavigationLinks';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language, isRTL } = useLanguage();
-  const navigation = createLocalizedNavigationConfig(language);
+  const navigationItems = getMainNavigationItems(language);
   const styles = useDirectionalStyles();
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="flex items-center justify-start">
           <MobileNav />
           <div className={cn("hidden md:flex items-center", styles.spaceDir)}>
-            <NavigationLinks links={navigation.main} vertical={false} />
+            <NavigationLinks links={navigationItems} vertical={false} />
           </div>
         </div>
 

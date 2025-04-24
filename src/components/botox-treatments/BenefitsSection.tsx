@@ -5,6 +5,7 @@ import { Container } from '@/components/ui/container';
 import SectionHeader from '@/components/ui/section-header';
 import { Card } from '@/components/ui/card';
 import { CheckCircle } from 'lucide-react';
+import { TreatmentBenefit } from '@/types/botox-treatments';
 
 const BenefitsSection: React.FC = () => {
   const { t } = useLanguage();
@@ -14,7 +15,7 @@ const BenefitsSection: React.FC = () => {
     <Container>
       <SectionHeader 
         title={t('botoxTreatments.benefitsTitle')}
-        subtitle="הטיפולים שלנו מקנים מגוון יתרונות אסתטיים ורפואיים"
+        subtitle={t('botoxTreatments.benefitsSubtitle', "הטיפולים שלנו מקנים מגוון יתרונות אסתטיים ורפואיים")}
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
