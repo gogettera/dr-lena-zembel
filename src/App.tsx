@@ -8,6 +8,8 @@ import LanguageTreatmentPage from '@/pages/LanguageTreatmentPage';
 import PreventiveMedicinePage from '@/pages/PreventiveMedicinePage';
 import NotFound from '@/pages/NotFound';
 import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import TermsOfService from '@/pages/TermsOfService';
 import { useEffect, lazy, Suspense } from 'react';
 import { setupDirectionByLanguage } from '@/utils/direction';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
@@ -17,7 +19,6 @@ import { applyMetaTags } from '@/utils/meta-utils';
 
 import './App.css';
 
-// Error fallback component
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
@@ -37,7 +38,6 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   );
 }
 
-// Optimized loading fallback with low-priority skeleton
 const PageLoader = () => (
   <div className="w-full h-screen flex items-center justify-center">
     <div className="w-full max-w-md p-6">
@@ -50,24 +50,20 @@ const PageLoader = () => (
   </div>
 );
 
-// This wrapper handles global effects like applying meta tags on route change
 function AppEffects() {
   const location = useLocation();
 
   useEffect(() => {
-    // Setup directionality by language on load
     const start = performance.now();
     
     try {
       const browserLang = getBrowserLanguage();
       setupDirectionByLanguage(browserLang);
 
-      // Native lazy loading for images
       if ('loading' in HTMLImageElement.prototype) {
         document.documentElement.classList.add('has-native-lazyload');
       }
 
-      // Listen for network status changes
       window.addEventListener('online', () => {
         document.documentElement.classList.remove('is-offline');
       });
@@ -76,12 +72,10 @@ function AppEffects() {
         document.documentElement.classList.add('is-offline');
       });
       
-      // Report First Contentful Paint metric
       if ('web-vitals' in window) {
         import('web-vitals').then(({ onFCP }) => {
           onFCP(metric => {
             console.log('FCP:', metric);
-            // This could send to analytics
           });
         });
       }
@@ -98,26 +92,18 @@ function AppEffects() {
     };
   }, []);
 
-  // Apply SEO/meta tags on every route change
   useEffect(() => {
-    // This ensures Google sees fresh meta tags on every SPA navigation:
     applyMetaTags();
     
-    // Reset any previously set HTTP status meta tag when navigating to a new page
-    // Only 404 pages should have a 404 status
     const existingStatusMeta = document.querySelector('meta[name="http-status"]');
     if (existingStatusMeta) {
       existingStatusMeta.setAttribute('content', '200');
     }
     
-    // Report page navigation to analytics
-    // This could integrate with web-vitals tracking
     console.log(`Page navigation: ${location.pathname}`);
     
-    // Cache warming for images that will likely be needed
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(() => {
-        // This can be expanded with specific image prefetching logic
       }, { timeout: 1000 });
     }
   }, [location]);
@@ -125,7 +111,6 @@ function AppEffects() {
   return null;
 }
 
-// Lazy load admin components with low priority
 const AdminPanel = lazy(() => 
   import(/* webpackChunkName: "admin" */ '@/pages/AdminPanel')
 );
@@ -143,10 +128,8 @@ function App() {
         <AppEffects />
         <ResourcePrefetcher />
         <Routes>
-          {/* Root route - redirects to browser language or default to Hebrew */}
           <Route path="/" element={<Index />} />
 
-          {/* Login page */}
           <Route 
             path="/login" 
             element={
@@ -158,7 +141,6 @@ function App() {
             } 
           />
 
-          {/* Admin routes */}
           <Route 
             path="/admin" 
             element={
@@ -170,11 +152,9 @@ function App() {
             } 
           />
 
-          {/* Legal pages */}
           <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
 
-          {/* Language-specific routes */}
           <Route path="/:lang" element={<LanguageRoute />}>
             <Route index element={<LanguageHome />} />
             <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
@@ -182,7 +162,6 @@ function App() {
             <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
           </Route>
 
-          {/* Catch all 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

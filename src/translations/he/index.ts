@@ -15,6 +15,7 @@ import contactJson from './contact.json';
 import infoJson from './info.json';
 import testimonialsJson from './testimonials.json';
 import accessibilityJson from './accessibility.json';
+import legalJson from './legal.json';
 
 // Re-export all translations as named exports
 export const common = commonJson;
@@ -30,6 +31,7 @@ export const contact = contactJson;
 export const info = infoJson;
 export const testimonials = testimonialsJson;
 export const accessibility = accessibilityJson;
+export const legal = legalJson;
 
 // Export a combined object with all translations
 export default {
@@ -45,5 +47,6 @@ export default {
   contact: contactJson,
   info: infoJson,
   testimonials: testimonialsJson,
-  accessibility: accessibilityJson
+  accessibility: accessibilityJson,
+  legal: legalJson
 };

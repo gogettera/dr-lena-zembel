@@ -7,9 +7,24 @@ interface LegalPageProps {
   translationKey: 'privacyPolicy' | 'termsOfService';
 }
 
+// Define the expected structure of our legal content
+interface LegalContent {
+  title: string;
+  lastUpdated: string;
+  sections: {
+    intro: string;
+    [key: string]: string | {
+      title: string;
+      content: string;
+      items?: string[];
+    };
+  };
+}
+
 const LegalPage: React.FC<LegalPageProps> = ({ translationKey }) => {
   const { t } = useLanguage();
-  const content = t(translationKey);
+  // Cast the translation result to the expected type
+  const content = t(translationKey) as unknown as LegalContent;
 
   return (
     <Section background="white" className="py-12">
