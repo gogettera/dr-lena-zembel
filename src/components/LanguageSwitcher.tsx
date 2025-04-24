@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Language } from '@/types/language';
-import { Globe, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -14,11 +14,11 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const languageOptions: { value: Language; label: string; name: string }[] = [
-  { value: 'he', label: 'עב', name: 'עברית' },
-  { value: 'en', label: 'EN', name: 'English' },
-  { value: 'ru', label: 'RU', name: 'Русский' },
-  { value: 'de', label: 'DE', name: 'Deutsch' },
-  { value: 'ar', label: 'ع', name: 'العربية' }
+  { value: 'he', label: 'עברית', name: 'עברית' },
+  { value: 'en', label: 'English', name: 'English' },
+  { value: 'ru', label: 'Русский', name: 'Русский' },
+  { value: 'de', label: 'Deutsch', name: 'Deutsch' },
+  { value: 'ar', label: 'العربية', name: 'العربية' }
 ];
 
 const LanguageSwitcher: React.FC = () => {
@@ -40,34 +40,31 @@ const LanguageSwitcher: React.FC = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button 
-          variant="outline" 
+          variant="ghost" 
           size="sm" 
-          className="px-4 py-2.5 hover:bg-dental-beige/20 transition-all duration-300 border-dental-navy/30 hover:border-dental-navy hover:scale-105 gap-2.5 rounded-lg"
+          className="px-2 py-1.5 hover:bg-white/10 transition-colors text-sm font-normal"
         >
-          <Globe className="w-[18px] h-[18px]" />
-          <span className="text-base font-medium">{currentLanguage?.label}</span>
-          <ChevronDown className="w-4 h-4 opacity-70" />
+          <span>{currentLanguage?.name}</span>
+          <ChevronDown className="w-4 h-4 ml-1 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="end" 
-        className="w-48 bg-white/95 backdrop-blur-sm border border-dental-navy/10 shadow-lg rounded-lg p-1 animate-in fade-in-0 zoom-in-95"
+        className="w-36 bg-white border border-gray-100 shadow-md rounded-md p-1"
       >
         {languageOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
             className={cn(
-              "flex items-center justify-between text-base cursor-pointer py-3 px-4",
-              "hover:bg-dental-beige/20 transition-colors duration-200",
-              "rounded-md my-0.5",
+              "flex items-center justify-center text-sm cursor-pointer py-2 px-3",
+              "hover:bg-gray-50 transition-colors",
               language === option.value 
-                ? 'bg-dental-beige/30 text-dental-navy font-medium' 
-                : 'text-dental-navy/70 hover:text-dental-navy'
+                ? 'font-medium text-gray-900' 
+                : 'text-gray-600'
             )}
             onClick={() => handleLanguageChange(option.value)}
           >
-            <span className="font-medium text-base">{option.label}</span>
-            <span className="text-sm opacity-80">{option.name}</span>
+            {option.name}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
