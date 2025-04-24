@@ -7,7 +7,7 @@ interface ImageUploadSectionProps {
   selectedFile: File | null;
   fileInputRef: React.RefObject<HTMLInputElement>;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleUpload: () => void; // Changed to match expected signature in ImageLibrary
+  handleUpload: (files: FileList | null) => Promise<void>;
   errorMsg: string;
   previewUrl: string | null;
   bucketExists: boolean;
@@ -36,7 +36,7 @@ const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
       <Button
         variant="orange"
         size="default"
-        onClick={handleUpload}
+        onClick={() => selectedFile && handleUpload(fileInputRef.current?.files || null)}
         disabled={!selectedFile || uploading || !bucketExists}
       >
         {uploading ? "Uploading..." : "Upload"}

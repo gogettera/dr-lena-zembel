@@ -22,7 +22,13 @@ export function useImageUploadActions(
   fetchImages: () => Promise<void>,
   sharedState: ReturnType<typeof import('./useImageLibraryState').useImageLibraryState>
 ) {
-  const { setLoading, setUploadProgress, setUploading, setPreviewUrl, setSelectedFile, setUploadErrorMsg } = sharedState;
+  const { 
+    setUploading, 
+    setPreviewUrl, 
+    setSelectedFile, 
+    setUploadErrorMsg,
+    setUploadProgress 
+  } = sharedState;
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const validateFile = (file: File): {valid: boolean; error?: string} => {
@@ -96,6 +102,8 @@ export function useImageUploadActions(
     }
     
     setUploading(true);
+    setUploadProgress(0);
+    
     let successfulUploads = 0;
     let failedUploads = 0;
     
@@ -115,11 +123,25 @@ export function useImageUploadActions(
       }
       
       // Generate secure random filename to prevent path traversal attacks
-      const fileExt = file.name.split('.').pop();
+      // Extract file extension safely using regex
+      const fileExt = (file.name.match(/\.([^.]+)$/) || ['', 'bin'])[1].toLowerCase();
+      
+      // Validate file extension against allowed types as double-check
+      const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
+      if (!allowedExtensions.includes(fileExt)) {
+        toast({
+          title: "File validation failed",
+          description: `File extension .${fileExt} is not allowed`,
+          variant: "destructive"
+        });
+        failedUploads++;
+        continue;
+      }
+      
       const sanitizedFilename = `${uuidv4()}.${fileExt}`;
       
       try {
-        // Upload file with manual progress tracking
+        // Upload file
         const { error, data } = await supabase.storage
           .from(BUCKET)
           .upload(sanitizedFilename, file, {
@@ -137,6 +159,7 @@ export function useImageUploadActions(
           failedUploads++;
         } else {
           successfulUploads++;
+          setUploadProgress(Math.round((i + 1) / files.length * 100));
         }
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
