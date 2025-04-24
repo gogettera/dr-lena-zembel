@@ -10,15 +10,14 @@ const FooterNavigation = () => {
 
   return (
     <>
-      {/* Info Links */}
-      <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('info')}</h5>
-        <ul className="space-y-2.5">
+      <div className="space-y-4">
+        <h5 className="font-medium text-gray-900">{t('info')}</h5>
+        <ul className="space-y-2">
           {navigation.footer.info.map(link => (
             <li key={link.key}>
               <NavItem
                 to={link.path}
-                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
+                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
               >
                 {t(link.labelKey)}
               </NavItem>
@@ -27,32 +26,14 @@ const FooterNavigation = () => {
         </ul>
       </div>
 
-      {/* Treatments Links */}
-      <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('navigation.ourTreatments')}</h5>
-        <ul className="space-y-2.5">
+      <div className="space-y-4">
+        <h5 className="font-medium text-gray-900">{t('navigation.ourTreatments')}</h5>
+        <ul className="space-y-2">
           {navigation.footer.treatments.map(link => (
             <li key={link.key}>
               <NavItem
                 to={link.path}
-                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
-              >
-                {t(link.labelKey)}
-              </NavItem>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Legal Links */}
-      <div>
-        <h5 className="text-lg font-semibold text-dental-navy mb-4">{t('legal.title')}</h5>
-        <ul className="space-y-2.5">
-          {navigation.footer.legal.map(link => (
-            <li key={link.key}>
-              <NavItem
-                to={link.path}
-                className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
+                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
               >
                 {t(link.labelKey)}
               </NavItem>
