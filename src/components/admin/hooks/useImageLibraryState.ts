@@ -14,6 +14,7 @@ export function useImageLibraryState() {
   
   // Upload state
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadErrorMsg, setUploadErrorMsg] = useState('');
@@ -36,6 +37,8 @@ export function useImageLibraryState() {
     // Upload state
     uploading,
     setUploading,
+    uploadProgress,
+    setUploadProgress,
     previewUrl,
     setPreviewUrl,
     selectedFile,

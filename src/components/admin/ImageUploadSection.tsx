@@ -7,7 +7,7 @@ interface ImageUploadSectionProps {
   selectedFile: File | null;
   fileInputRef: React.RefObject<HTMLInputElement>;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleUpload: () => void;
+  handleUpload: () => void; // Changed to match expected signature in ImageLibrary
   errorMsg: string;
   previewUrl: string | null;
   bucketExists: boolean;
@@ -28,7 +28,7 @@ const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept="image/png,image/jpeg,image/svg+xml"
+        accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif"
         onChange={handleFileChange}
         className="block border p-2 rounded w-full sm:max-w-xs"
         disabled={uploading || !bucketExists}

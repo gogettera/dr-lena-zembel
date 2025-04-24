@@ -51,7 +51,7 @@ const ImageLibrary: React.FC = () => {
         selectedFile={selectedFile}
         fileInputRef={fileInputRef}
         handleFileChange={handleFileChange}
-        handleUpload={handleUpload}
+        handleUpload={() => selectedFile && handleUpload(new DataTransfer().files)}
         errorMsg={uploadErrorMsg}
         previewUrl={previewUrl}
         bucketExists={bucketExists}

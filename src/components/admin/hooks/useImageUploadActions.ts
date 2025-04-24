@@ -1,5 +1,5 @@
 
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
 import { v4 as uuidv4 } from 'uuid';
@@ -17,11 +17,13 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const BUCKET = "site-images";
 
 export function useImageUploadActions(
+  bucketExists: boolean,
   checkBucket: () => Promise<boolean>,
   fetchImages: () => Promise<void>,
   sharedState: ReturnType<typeof import('./useImageLibraryState').useImageLibraryState>
 ) {
-  const { setLoading, setUploadProgress } = sharedState;
+  const { setLoading, setUploadProgress, setUploading, setPreviewUrl, setSelectedFile, setUploadErrorMsg } = sharedState;
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const validateFile = (file: File): {valid: boolean; error?: string} => {
     // Validate file type
@@ -43,6 +45,31 @@ export function useImageUploadActions(
     return { valid: true };
   };
 
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
+    setUploadErrorMsg('');
+    setPreviewUrl(null);
+
+    if (!file) return;
+
+    const { valid, error } = validateFile(file);
+    if (!valid) {
+      setUploadErrorMsg(error || 'Invalid file.');
+      setSelectedFile(null);
+      return;
+    }
+
+    // Create file preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result) {
+        setPreviewUrl(e.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+  }, [setSelectedFile, setUploadErrorMsg, setPreviewUrl]);
+
   const handleUpload = useCallback(async (files: FileList | null) => {
     if (!files || files.length === 0) return;
     
@@ -58,8 +85,8 @@ export function useImageUploadActions(
     }
     
     // Check bucket exists
-    const bucketExists = await checkBucket();
-    if (!bucketExists) {
+    const bucketOk = await checkBucket();
+    if (!bucketOk) {
       toast({
         title: "Upload failed",
         description: `Storage bucket "${BUCKET}" not found or not accessible`,
@@ -68,7 +95,7 @@ export function useImageUploadActions(
       return;
     }
     
-    setLoading(true);
+    setUploading(true);
     let successfulUploads = 0;
     let failedUploads = 0;
     
@@ -92,16 +119,12 @@ export function useImageUploadActions(
       const sanitizedFilename = `${uuidv4()}.${fileExt}`;
       
       try {
-        // Upload with progress tracking
+        // Upload file with manual progress tracking
         const { error, data } = await supabase.storage
           .from(BUCKET)
           .upload(sanitizedFilename, file, {
             contentType: file.type,
-            upsert: false,
-            onUploadProgress: (progress) => {
-              const percentage = (progress.loaded / progress.total) * 100;
-              setUploadProgress(percentage);
-            }
+            upsert: false
           });
           
         if (error) {
@@ -145,9 +168,13 @@ export function useImageUploadActions(
     
     // Refresh images list and reset state
     await fetchImages();
-    setLoading(false);
+    setUploading(false);
     setUploadProgress(0);
-  }, [checkBucket, fetchImages, setLoading, setUploadProgress]);
+  }, [checkBucket, fetchImages, setUploading, setUploadProgress]);
   
-  return { handleUpload };
+  return { 
+    handleUpload,
+    fileInputRef,
+    handleFileChange
+  };
 }
