@@ -8,9 +8,11 @@ import SectionHeader from '@/components/ui/section-header';
 import { EnhancedImage } from '@/components/ui/enhanced-image';
 import { Syringe } from 'lucide-react';
 import { ListItem, ListItemText, ListItemIcon } from '@/components/ui/list';
+import { useDirectionalStyles } from '@/utils/direction';
 
 const TreatmentTypes: React.FC = () => {
   const { t } = useLanguage();
+  const dir = useDirectionalStyles();
   
   const botoxAreas = t('botoxTreatments.botoxAreas', { returnObjects: true }) as string[];
   const hyaluronicAreas = t('botoxTreatments.hyaluronicAreas', { returnObjects: true }) as string[];
@@ -35,7 +37,7 @@ const TreatmentTypes: React.FC = () => {
           </div>
           
           <CardHeader>
-            <div className="flex items-center gap-3 mb-2">
+            <div className={`flex ${dir.flexDir} items-center gap-3 mb-2`}>
               <Syringe className="w-5 h-5 text-dental-orange" />
               <CardTitle className="text-2xl">{t('botoxTreatments.botoxTitle')}</CardTitle>
             </div>
@@ -45,10 +47,12 @@ const TreatmentTypes: React.FC = () => {
           </CardHeader>
           
           <CardContent>
-            <h4 className="text-lg font-medium text-dental-navy mb-3">אזורי טיפול נפוצים:</h4>
+            <h4 className={`text-lg font-medium text-dental-navy mb-3 ${dir.textAlign}`}>
+              {t('botoxTreatments.commonTreatmentAreas')}
+            </h4>
             <ul className="space-y-2 mb-6">
               {botoxAreas.map((area, index) => (
-                <ListItem key={index}>
+                <ListItem key={index} className={dir.flexDir}>
                   <ListItemIcon>
                     <div className="w-6 h-6 bg-dental-orange/10 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold text-dental-orange">{index + 1}</span>
@@ -61,7 +65,7 @@ const TreatmentTypes: React.FC = () => {
             
             <div className="flex justify-center mt-4">
               <Button variant="outline" className="rounded-full border-dental-navy text-dental-navy hover:bg-dental-navy/5">
-                למידע נוסף
+                {t('botoxTreatments.moreInfo')}
               </Button>
             </div>
           </CardContent>
@@ -79,7 +83,7 @@ const TreatmentTypes: React.FC = () => {
           </div>
           
           <CardHeader>
-            <div className="flex items-center gap-3 mb-2">
+            <div className={`flex ${dir.flexDir} items-center gap-3 mb-2`}>
               <Syringe className="w-5 h-5 text-dental-orange" />
               <CardTitle className="text-2xl">{t('botoxTreatments.hyaluronicTitle')}</CardTitle>
             </div>
@@ -89,10 +93,12 @@ const TreatmentTypes: React.FC = () => {
           </CardHeader>
           
           <CardContent>
-            <h4 className="text-lg font-medium text-dental-navy mb-3">אזורי טיפול נפוצים:</h4>
+            <h4 className={`text-lg font-medium text-dental-navy mb-3 ${dir.textAlign}`}>
+              {t('botoxTreatments.commonTreatmentAreas')}
+            </h4>
             <ul className="space-y-2 mb-6">
               {hyaluronicAreas.map((area, index) => (
-                <ListItem key={index}>
+                <ListItem key={index} className={dir.flexDir}>
                   <ListItemIcon>
                     <div className="w-6 h-6 bg-dental-orange/10 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold text-dental-orange">{index + 1}</span>
@@ -105,7 +111,7 @@ const TreatmentTypes: React.FC = () => {
             
             <div className="flex justify-center mt-4">
               <Button variant="outline" className="rounded-full border-dental-navy text-dental-navy hover:bg-dental-navy/5">
-                למידע נוסף
+                {t('botoxTreatments.moreInfo')}
               </Button>
             </div>
           </CardContent>

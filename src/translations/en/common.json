@@ -37,5 +37,19 @@
   },
   "insurance": {
     "topInsurances": "Health Insurance"
-  }
+  },
+  "before": "Before",
+  "after": "After",
+  "beforeTreatment": "Before Treatment",
+  "afterTreatment": "After Treatment",
+  "resultsMayVary": "Results may vary between different patients. Images for illustration purposes only.",
+  "treatmentNotFound": "Treatment Not Found",
+  "backToHome": "Back to Home",
+  "home": "Home",
+  "yearsExperience": "years of experience",
+  "satisfiedPatients": "satisfied patients",
+  "sundayToThursday": "Sunday to Thursday",
+  "contactUs": "Contact us",
+  "address": "Ben Zvi Rd 2, North Jaffa",
+  "readyToStart": "Ready to Start Your Treatment?"
 }
