@@ -11,10 +11,10 @@ import {
 
 // Import all translations
 import heTranslations from '@/translations/he';
-import enTranslations from 'src/translations/en.json';
-import ruTranslations from 'src/translations/ru.json';
-import deTranslations from 'src/translations/de.json';
-import arTranslations from 'src/translations/ar.json';
+import enTranslations from '@/translations/en.json';
+import ruTranslations from '@/translations/ru.json';
+import deTranslations from '@/translations/de.json';
+import arTranslations from '@/translations/ar.json';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
