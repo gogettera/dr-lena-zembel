@@ -38,7 +38,7 @@ const TreatmentComparison: React.FC = () => {
   // Safely get comparison data from translations or use defaults
   let comparisonData: TreatmentComparisonType = defaultComparisonData;
   try {
-    const translatedComparison = t('botoxTreatments.treatmentComparison');
+    const translatedComparison = t('botoxTreatments.treatmentComparison', { returnObjects: true });
     if (translatedComparison && typeof translatedComparison !== 'string' && !Array.isArray(translatedComparison)) {
       comparisonData = translatedComparison as TreatmentComparisonType;
     }
@@ -46,10 +46,20 @@ const TreatmentComparison: React.FC = () => {
     console.error('Error parsing treatment comparison:', error);
   }
 
+  // Get title as string to avoid object rendering issues
+  const comparisonTitle = typeof t('botoxTreatments.comparisonTitle') === 'string' 
+    ? t('botoxTreatments.comparisonTitle') as string 
+    : 'Treatment Comparison';
+  
+  // Get features text as string
+  const featuresText = typeof t('features') === 'string' 
+    ? t('features') as string 
+    : "Features";
+
   return (
     <Container>
       <SectionHeader 
-        title={t('botoxTreatments.comparisonTitle') as string}
+        title={comparisonTitle}
         subtitle={comparisonData.title}
       />
       
@@ -58,7 +68,7 @@ const TreatmentComparison: React.FC = () => {
           <TableHeader>
             <TableRow className="bg-dental-beige/30">
               <TableHead className="w-1/3 p-4 font-bold text-dental-navy">
-                {t('features') as string || "Features"}
+                {featuresText}
               </TableHead>
               <TableHead className="w-1/3 p-4 font-bold text-dental-navy">
                 {comparisonData.botoxTitle}
