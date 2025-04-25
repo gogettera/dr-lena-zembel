@@ -8,7 +8,7 @@ import { Shield, AlertCircle, Syringe, Stethoscope, CheckCircle } from 'lucide-r
 import { useDirectionalStyles } from '@/utils/direction';
 
 const SafetySection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
   const safetyPoints = t('botoxTreatments.safetyConcerns', { returnObjects: true }) as string[];
   const certifications = t('botoxTreatments.certificationsList', { returnObjects: true }) as string[];
@@ -34,7 +34,7 @@ const SafetySection: React.FC = () => {
             >
               <div className={`flex ${dir.flexDir} items-start gap-4 ${dir.textAlign}`}>
                 <div className="flex-1">
-                  <div className="w-12 h-12 bg-dental-beige/30 rounded-full flex items-center justify-center mb-4">
+                  <div className={`w-12 h-12 bg-dental-beige/30 rounded-full flex items-center justify-center mb-4 ${isRTL ? 'mr-0' : 'ml-0'}`}>
                     <IconComponent className="w-6 h-6 text-dental-navy" />
                   </div>
                   <p className="text-dental-navy">{point}</p>
@@ -46,7 +46,7 @@ const SafetySection: React.FC = () => {
       </div>
       
       <div className="mt-12 bg-dental-beige/30 rounded-xl p-6 md:p-8">
-        <div className={`flex flex-col md:flex-row gap-6 items-start`}>
+        <div className={`flex flex-col md:flex-row ${isRTL ? 'md:flex-row-reverse' : ''} gap-6 items-start`}>
           <div className={`md:w-2/3 ${dir.textAlign}`}>
             <h3 className="text-2xl font-bold text-dental-navy mb-4">
               {safetyCommitment.title}

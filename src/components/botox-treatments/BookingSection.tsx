@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { useDirectionalStyles } from '@/utils/direction';
 
 const BookingSection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
 
   return (
@@ -33,26 +33,26 @@ const BookingSection: React.FC = () => {
             variant="outline" 
             className="border-white text-white hover:bg-white/10 rounded-full text-lg px-8 py-6"
           >
-            03-566-6915
+            {t('contact.phone')}
           </Button>
         </div>
         
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
+        <div className={`mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]`}>
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
             <h3 className="text-xl font-bold text-white mb-3">{t('botoxTreatments.clinicLocation')}</h3>
-            <p className="text-white/80">{t('address')}</p>
+            <p className="text-white/80">{t('contact.address')}</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
             <h3 className="text-xl font-bold text-white mb-3">{t('botoxTreatments.openingHours')}</h3>
-            <p className="text-white/80">{t('sundayToThursday')}: 8:30-14:00</p>
+            <p className="text-white/80">{t('contact.sundayToThursday')}</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
             <h3 className="text-xl font-bold text-white mb-3">{t('botoxTreatments.contactDetails')}</h3>
             <p className="text-white/80">
-              {t('contactUs')}: 03-566-6915<br />
-              WhatsApp: 051-566-6915
+              {t('contact.contactUs')}: {t('contact.phone')}<br />
+              WhatsApp: {t('info.clinicInfo.whatsapp', '051-566-6915')}
             </p>
           </div>
         </div>
