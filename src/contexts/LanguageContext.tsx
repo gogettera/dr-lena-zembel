@@ -1,6 +1,5 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useParams } from 'react-router-dom';
 import { setupDirectionByLanguage } from '@/utils/direction';
 import { Language } from '@/types/language';
 import { 
@@ -47,20 +46,18 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 // Provider component
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Get language from URL params or localStorage
-  const { lang } = useParams<{ lang?: string }>();
-  
-  // Initialize with language from URL or localStorage or default
+  // Initialize with language from localStorage or default
   const [language, setLanguageState] = useState<Language>(() => {
-    // Check URL first
-    if (lang && AVAILABLE_LANGUAGES.includes(lang as Language)) {
-      return lang as Language;
-    }
-    
-    // Then check localStorage
+    // Check localStorage first
     const savedLang = localStorage.getItem('preferredLanguage') as Language;
     if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
       return savedLang;
+    }
+    
+    // Try to detect browser language
+    const browserLang = navigator.language.split('-')[0] as Language;
+    if (AVAILABLE_LANGUAGES.includes(browserLang)) {
+      return browserLang;
     }
     
     // Default to Hebrew

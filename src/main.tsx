@@ -53,25 +53,18 @@ const mountApp = () => {
   const root = ReactDOM.createRoot(container);
   
   const appElement = (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <LanguageProvider>
-          <App />
-        </LanguageProvider>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <LanguageProvider>
+            <App />
+          </LanguageProvider>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
   
-  // Wrap with StrictMode in development only
-  if (process.env.NODE_ENV !== 'production') {
-    root.render(
-      <React.StrictMode>
-        {appElement}
-      </React.StrictMode>
-    );
-  } else {
-    root.render(appElement);
-  }
+  root.render(appElement);
   
   // Initialize performance monitoring
   reportWebVitals();
