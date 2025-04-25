@@ -1,18 +1,13 @@
 
 {
-  "headline": "Aesthetic Botox Treatments",
-  "subheading": "Precise, gentle treatments to enhance your natural beauty",
-  "teethGrinding": "Teeth Grinding Relief",
-  "tmjDisorders": "TMJ Disorder Treatment",
-  "facialRejuvenation": "Facial Rejuvenation",
-  "headline1": "Botox & Hyaluronic Acid Treatments",
+  "headline1": "Botox and Hyaluronic Acid Treatments",
   "headline2": "Refresh Your Look and Smile",
   "mobileFactoid": "Botox and hyaluronic acid treatments can significantly improve overall appearance",
-  "mobileTip": "Advanced treatments performed by a specialist dentist",
+  "mobileTip": "Advanced treatments by an expert dentist",
   "botoxTitle": "Botox Treatments",
   "hyaluronicTitle": "Hyaluronic Acid Treatments",
-  "botoxDesc": "Botox injections are designed to reduce expression lines and wrinkles in the face, using a safe substance approved for medical use",
-  "hyaluronicDesc": "Hyaluronic acid treatments restore volume and elasticity to the skin, smooth out wrinkles, and provide a more youthful appearance",
+  "botoxDesc": "Botox injections are designed to reduce expression lines and wrinkles, using a safe material approved for medical use",
+  "hyaluronicDesc": "Hyaluronic acid treatments restore volume and elasticity to the skin, smoothing wrinkles and providing a more youthful appearance",
   "benefitsTitle": "Treatment Benefits",
   "processTitle": "Treatment Process",
   "beforeAfterTitle": "Before and After",
@@ -21,18 +16,18 @@
   "pricingTitle": "Pricing and Packages",
   "testimonialsTitle": "Patient Testimonials",
   "faqTitle": "Frequently Asked Questions",
-  "benefits": {
-    "title": "Benefits of Botox Treatments",
-    "pain": "Pain Relief",
-    "wellness": "Overall Wellness",
-    "confidence": "Improved Confidence",
-    "prevention": "Preventive Care"
-  },
+  "benefits": [
+    "Immediate and natural results",
+    "Quick procedure with minimal discomfort",
+    "Short recovery period",
+    "Long-lasting effects - up to several months",
+    "Improved appearance and self-confidence"
+  ],
   "botoxAreas": [
     "Forehead",
-    "Between the eyebrows",
-    "Crow's feet (corner of the eyes)",
-    "Around the mouth",
+    "Between eyebrows",
+    "Crow's feet",
+    "Around mouth",
     "Neck and chin"
   ],
   "hyaluronicAreas": [
@@ -45,36 +40,36 @@
   "processSteps": [
     {
       "title": "Initial Consultation",
-      "description": "Personal consultation with the doctor to assess needs and create a personalized treatment plan"
+      "description": "Personal consultation with the doctor to assess needs and create a customized treatment plan"
     },
     {
       "title": "Treatment Planning",
-      "description": "Detailed explanation of recommended treatments, expected results, and personalized adaptation for the patient"
+      "description": "Detailed explanation of recommended treatments, expected results, and personal customization"
     },
     {
-      "title": "Treatment Procedure",
+      "title": "Treatment Execution",
       "description": "The treatment itself takes only 15-30 minutes, with minimal discomfort"
     },
     {
       "title": "Post-Treatment Instructions",
-      "description": "Detailed explanation of required care after injection and recommendations for optimal results"
+      "description": "Detailed explanation of required post-injection care and recommendations for optimal results"
     },
     {
       "title": "Follow-up",
-      "description": "Follow-up appointment after about two weeks to check results and make additional adjustments if needed"
+      "description": "Follow-up appointment after two weeks to check results and make any necessary adjustments"
     }
   ],
   "safetyConcerns": [
-    "All treatments are performed by an experienced specialist doctor",
-    "Using the highest quality materials approved by the Ministry of Health",
+    "All treatments performed by an experienced specialist doctor",
+    "Use of highest quality materials approved by health authorities",
     "Sterile environment and strict medical conditions",
-    "Personal adaptation of treatment to health condition and aesthetic needs",
+    "Personal adaptation of treatment to health conditions and aesthetic needs",
     "Close follow-up after treatment"
   ],
   "faqItems": [
     {
-      "question": "Are Botox and hyaluronic acid treatments painful?",
-      "answer": "The treatments involve minimal discomfort. A local anesthetic cream can be applied before injection. Most patients report only a slight pinching sensation."
+      "question": "Are botox and hyaluronic acid treatments painful?",
+      "answer": "The treatments involve minimal discomfort. Local anesthetic cream can be applied before injection. Most patients report only a slight pinching sensation."
     },
     {
       "question": "How long do the results last?",
@@ -82,44 +77,57 @@
     },
     {
       "question": "When will I see results?",
-      "answer": "Botox results begin to show within 3-7 days and peak after about two weeks. Hyaluronic acid injection results are visible immediately."
+      "answer": "Botox results begin to show within 3-7 days and peak after about two weeks. Hyaluronic acid results are immediate."
     },
     {
       "question": "Are there any side effects?",
-      "answer": "Common side effects include slight redness, swelling, or mild bruising at the injection site, which usually subside within a few days."
+      "answer": "Common side effects include mild redness, swelling, or slight bruising at the injection site, which typically resolve within a few days."
     },
     {
       "question": "Who is suitable for these treatments?",
-      "answer": "The treatments are suitable for healthy individuals interested in improving their aesthetic appearance. A comprehensive assessment will be conducted during the consultation to determine treatment suitability."
+      "answer": "These treatments are suitable for healthy individuals looking to improve their aesthetic appearance. A comprehensive assessment will be conducted during the consultation."
+    },
+    {
+      "question": "Is there a minimum age for these treatments?",
+      "answer": "Generally, these treatments are recommended for those over 18. The exact age depends on individual circumstances and medical indication."
+    },
+    {
+      "question": "How much do the treatments cost?",
+      "answer": "Treatment costs vary depending on the area treated and amount of material needed. You'll receive an exact quote during your consultation."
     }
   ],
-  "process": {
-    "title": "Treatment Process",
-    "consultation": "Initial Consultation",
-    "planning": "Treatment Planning",
-    "procedure": "Quick and Comfortable Procedure",
-    "results": "Natural-Looking Results"
-  },
-  "safety": {
-    "title": "Safety First Approach",
-    "medicalGrade": "Medical-Grade Products",
-    "expertise": "Expert Application",
-    "sterile": "Sterile Environment"
-  },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "q1": "Is Botox treatment painful?",
-    "a1": "Most patients report minimal discomfort during the procedure. We use ultra-fine needles and can apply a topical numbing cream if needed.",
-    "q2": "How long do results last?",
-    "a2": "Results typically last 3-6 months, depending on the treatment area and individual factors.",
-    "q3": "When will I see results?",
-    "a3": "Initial results can be seen within 24-48 hours, with full results visible after 7-14 days.",
-    "q4": "Is there any downtime?",
-    "a4": "There is minimal to no downtime. Most patients return to normal activities immediately."
-  },
-  "beforeAfter": {
-    "title": "Before & After Results",
-    "subtitle": "See the difference our treatments make"
-  },
-  "bookConsultation": "Book a Free Consultation"
+  "contactCallout": "For more information and to schedule an appointment, contact us today",
+  "bookingButtonText": "Schedule a Personal Consultation",
+  "treatmentComparison": {
+    "title": "Treatment Comparison",
+    "botoxTitle": "Botox",
+    "hyaluronicTitle": "Hyaluronic Acid",
+    "features": [
+      {
+        "name": "Treatment Duration",
+        "botox": "15-20 minutes",
+        "hyaluronic": "20-40 minutes"
+      },
+      {
+        "name": "Pain Level",
+        "botox": "Minimal",
+        "hyaluronic": "Minimal to moderate"
+      },
+      {
+        "name": "Results",
+        "botox": "Wrinkle reduction",
+        "hyaluronic": "Volume addition and filling"
+      },
+      {
+        "name": "Recovery Time",
+        "botox": "None - immediate",
+        "hyaluronic": "1-2 days"
+      },
+      {
+        "name": "Results Duration",
+        "botox": "3-6 months",
+        "hyaluronic": "6-18 months"
+      }
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 
 // This file serves as an entry point for the English translations
-// It allows for dynamically importing all translation modules
+// We're using the same modular structure as the Hebrew translations
 
 import commonJson from './common.json';
 import navigationJson from './navigation.json';
@@ -37,19 +37,19 @@ export const legal = legalJson;
 
 // Export a combined object with all translations
 export default {
-  ...commonJson,
-  ...navigationJson,
-  ...treatmentsJson,
-  ...aestheticTreatmentsJson,
-  ...botoxTreatmentsJson,
-  ...orthodonticsJson,
-  ...rootCanalJson,
-  ...childrenDentistryJson,
-  ...aboutJson,
-  ...clinicJson,
-  ...contactJson,
-  ...infoJson,
-  ...testimonialsJson,
-  ...accessibilityJson,
-  ...legalJson
+  common: commonJson,
+  navigation: navigationJson,
+  treatments: treatmentsJson,
+  aestheticTreatments: aestheticTreatmentsJson,
+  botoxTreatments: botoxTreatmentsJson,
+  orthodontics: orthodonticsJson,
+  rootCanal: rootCanalJson,
+  childrenDentistry: childrenDentistryJson,
+  about: aboutJson,
+  clinic: clinicJson,
+  contact: contactJson,
+  info: infoJson,
+  testimonials: testimonialsJson,
+  accessibility: accessibilityJson,
+  legal: legalJson
 };
