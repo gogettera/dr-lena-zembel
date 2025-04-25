@@ -34,3 +34,4 @@ export const loadModularTranslations = async (
   
   return translations;
 };
+

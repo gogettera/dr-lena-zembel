@@ -14,3 +14,4 @@ export type TranslationFunction = (key: string, options?: string | TranslationOp
 
 export type TranslationModule = Record<string, any>;
 export type TranslationModules = Record<string, TranslationModule>;
+
