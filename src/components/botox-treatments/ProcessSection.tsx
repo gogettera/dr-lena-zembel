@@ -31,31 +31,34 @@ const ProcessSection: React.FC = () => {
         {/* Timeline items */}
         {processSteps.map((step, index) => (
           <div key={index} className="relative z-10 mb-12 last:mb-0">
-            <div className="flex flex-col md:flex-row items-center">
+            <div className={`flex flex-col md:flex-row ${isRTL ? 'md:flex-row-reverse' : ''} items-center`}>
               {/* Step number */}
               <div className="flex items-center justify-center w-12 h-12 rounded-full bg-dental-orange text-white text-xl font-bold mb-4 md:mb-0 shrink-0">
                 {index + 1}
               </div>
               
+              {/* Empty div for alternating layout - first position in RTL, second in LTR when index is odd */}
+              {(isRTL ? index % 2 !== 0 : index % 2 !== 0) && (
+                <div className="hidden md:block md:w-1/2"></div>
+              )}
+              
               {/* Content - alternating sides on desktop */}
-              <div className={`md:w-1/2 ${(isRTL ? index % 2 === 0 : index % 2 !== 0) ? 'md:ml-8' : 'md:mr-8 md:text-right'} w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-dental-beige/20`}>
+              <div className={`md:w-1/2 ${(isRTL ? index % 2 !== 0 : index % 2 !== 0) ? 'md:mr-8' : 'md:ml-8'} w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-dental-beige/20`}>
                 <Card className="border-0 bg-transparent">
                   <CardContent className="pt-6">
-                    <h3 className="text-xl font-bold text-dental-navy mb-3">
+                    <h3 className={`text-xl font-bold text-dental-navy mb-3 ${dir.textAlign}`}>
                       {step.title}
                     </h3>
-                    <p className="text-dental-navy/70">
+                    <p className={`text-dental-navy/70 ${dir.textAlign}`}>
                       {step.description}
                     </p>
                   </CardContent>
                 </Card>
               </div>
               
-              {/* Empty div for alternating layout */}
-              {(isRTL ? index % 2 === 0 : index % 2 !== 0) ? (
-                <div className="hidden md:block md:w-1/2 mr-8"></div>
-              ) : (
-                <div className="hidden md:block md:w-1/2 ml-8"></div>
+              {/* Empty div for alternating layout - second position in RTL, first in LTR when index is even */}
+              {(isRTL ? index % 2 === 0 : index % 2 === 0) && (
+                <div className="hidden md:block md:w-1/2"></div>
               )}
             </div>
           </div>
@@ -64,7 +67,7 @@ const ProcessSection: React.FC = () => {
       
       <div className="mt-12 text-center">
         <Button className="bg-dental-orange hover:bg-dental-orange/90 text-white rounded-full px-8 py-3 text-lg">
-          {t('bookNow')}
+          {t('botoxTreatments.bookingButtonText')}
         </Button>
       </div>
     </Container>

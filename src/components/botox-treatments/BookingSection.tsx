@@ -13,7 +13,7 @@ const BookingSection: React.FC = () => {
     <Container>
       <div className="text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-          {t('readyToStart')}
+          {t('botoxTreatments.readyToStart')}
         </h2>
         
         <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">

@@ -7,22 +7,23 @@ import { Badge } from '@/components/ui/badge';
 import { useDirectionalStyles } from '@/utils/direction';
 
 const DoctorProfile: React.FC = () => {
-  const { t, language, isRTL } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
 
-  // This content should probably come from translations, but keeping doctor name in Hebrew
-  // as it's a proper name
-  const doctorName = "ד״ר לנה זמבל";
-  const doctorTitle = language === 'he' ? "רופאת שיניים מומחית" : "Specialist Dentist";
-  const doctorEducation = language === 'he'
-    ? "בוגרת הפקולטה לרפואת שיניים באוניברסיטת קלן, גרמניה"
-    : "Graduate of the Faculty of Dentistry at the University of Cologne, Germany";
+  // Get doctor information from translations
+  const doctorName = t('botoxTreatments.doctor.name');
+  const doctorTitle = t('botoxTreatments.doctor.title');
+  const doctorEducation = t('botoxTreatments.doctor.education');
+  const doctorSpecialization = t('botoxTreatments.doctor.specialization');
+  const treatmentApproach = t('botoxTreatments.doctor.approach');
+  const approachQuote = t('botoxTreatments.doctor.approachQuote');
 
+  // Get language names from translations
   const languages = [
-    { code: 'he', name: 'עברית', nameEn: 'Hebrew' },
-    { code: 'en', name: 'אנגלית', nameEn: 'English' },
-    { code: 'ru', name: 'רוסית', nameEn: 'Russian' },
-    { code: 'de', name: 'גרמנית', nameEn: 'German' }
+    { code: 'he', name: t('botoxTreatments.languages.hebrew') },
+    { code: 'en', name: t('botoxTreatments.languages.english') },
+    { code: 'ru', name: t('botoxTreatments.languages.russian') },
+    { code: 'de', name: t('botoxTreatments.languages.german') }
   ];
 
   return (
@@ -43,7 +44,7 @@ const DoctorProfile: React.FC = () => {
             {/* Experience badge */}
             <div className={`absolute -bottom-5 ${isRTL ? '-right-5' : '-left-5'} bg-dental-orange text-white rounded-full w-24 h-24 flex flex-col items-center justify-center shadow-lg`}>
               <span className="text-2xl font-bold">10+</span>
-              <span className="text-sm">{t('yearsExperience')}</span>
+              <span className="text-sm">{t('botoxTreatments.yearsExperience')}</span>
             </div>
             
             {/* Certifications */}
@@ -70,21 +71,15 @@ const DoctorProfile: React.FC = () => {
           </p>
           
           <p className="text-lg text-dental-navy/80 mb-6">
-            {language === 'he'
-              ? "ד\"ר זמבל השתלמה באופן מיוחד בתחום הזרקות הבוטוקס והחומצה ההיאלורונית, ומשלבת את הידע והניסיון שלה בתחום רפואת השיניים יחד עם הבנה מעמיקה של אנטומיית הפנים."
-              : "Dr. Zembel has specialized in Botox and hyaluronic acid injections, combining her knowledge and experience in dentistry with a deep understanding of facial anatomy."
-            }
+            {doctorSpecialization}
           </p>
           
           <div className={`bg-dental-beige/30 p-6 rounded-xl mb-6 ${dir.textAlign}`}>
             <h4 className="text-xl font-bold text-dental-navy mb-3">
-              {language === 'he' ? "הגישה הטיפולית שלי" : "My Treatment Approach"}
+              {treatmentApproach}
             </h4>
             <p className="text-dental-navy/80 italic">
-              {language === 'he'
-                ? "\"אני מאמינה בשילוב של אסתטיקה וטבעיות. המטרה שלי היא לא לשנות את המראה שלך, אלא להדגיש ולשפר את התווים הטבעיים שלך, תוך שמירה על מראה אותנטי ורענן.\""
-                : "\"I believe in combining aesthetics and naturalness. My goal is not to change your appearance, but to emphasize and improve your natural features while maintaining an authentic and fresh look.\""
-              }
+              {approachQuote}
             </p>
           </div>
           
@@ -94,7 +89,7 @@ const DoctorProfile: React.FC = () => {
                 key={lang.code} 
                 className="bg-dental-beige/20 text-dental-navy px-3 py-1 rounded-full text-md"
               >
-                {language === 'he' ? lang.name : lang.nameEn}
+                {lang.name}
               </Badge>
             ))}
           </div>

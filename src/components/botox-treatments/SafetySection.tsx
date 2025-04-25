@@ -8,9 +8,11 @@ import { Shield, AlertCircle, Syringe, Stethoscope, CheckCircle } from 'lucide-r
 import { useDirectionalStyles } from '@/utils/direction';
 
 const SafetySection: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const dir = useDirectionalStyles();
   const safetyPoints = t('botoxTreatments.safetyConcerns', { returnObjects: true }) as string[];
+  const certifications = t('botoxTreatments.certificationsList', { returnObjects: true }) as string[];
+  const safetyCommitment = t('botoxTreatments.safetyCommitment', { returnObjects: true });
 
   const safetyIcons = [Shield, Stethoscope, Syringe, CheckCircle, AlertCircle];
 
@@ -47,19 +49,13 @@ const SafetySection: React.FC = () => {
         <div className={`flex flex-col md:flex-row gap-6 items-start`}>
           <div className={`md:w-2/3 ${dir.textAlign}`}>
             <h3 className="text-2xl font-bold text-dental-navy mb-4">
-              {language === 'he' ? "מחויבות לבטיחות ואיכות" : 
-              language === 'ar' ? "الالتزام بالسلامة والجودة" : 
-              "Commitment to Safety and Quality"}
+              {safetyCommitment.title}
             </h3>
             <p className="text-dental-navy/80 mb-4">
-              {language === 'he' ? 
-                "אנו משתמשים רק בחומרים מאושרים ומורשים, מהספקים המובילים בעולם. כל הטיפולים מבוצעים תחת הנחיות קפדניות של משרד הבריאות ותוך שמירה על סטנדרטים רפואיים מחמירים." : 
-                "We use only approved and licensed materials from the world's leading suppliers. All treatments are performed under strict Ministry of Health guidelines and maintaining rigorous medical standards."}
+              {safetyCommitment.paragraph1}
             </p>
             <p className="text-dental-navy/80">
-              {language === 'he' ? 
-                "לפני כל טיפול, אנו מקיימים פגישת ייעוץ מקיפה כדי להבטיח שהטיפול מתאים לך ושאין התוויות נגד. בריאותך חשובה לנו מעל הכל." : 
-                "Before each treatment, we conduct a comprehensive consultation to ensure the treatment is suitable for you and that there are no contraindications. Your health is important to us above all."}
+              {safetyCommitment.paragraph2}
             </p>
           </div>
           
@@ -68,38 +64,12 @@ const SafetySection: React.FC = () => {
               {t('botoxTreatments.certifications')}
             </h4>
             <ul className="space-y-3">
-              <li className={`flex ${dir.flexDir} items-center gap-2`}>
-                <CheckCircle className="w-5 h-5 text-dental-orange flex-shrink-0" />
-                <span className="text-dental-navy/80">
-                  {language === 'he' ? "מורשה ע\"י משרד הבריאות" : 
-                   language === 'ar' ? "مرخص من وزارة الصحة" : 
-                   "Licensed by the Ministry of Health"}
-                </span>
-              </li>
-              <li className={`flex ${dir.flexDir} items-center gap-2`}>
-                <CheckCircle className="w-5 h-5 text-dental-orange flex-shrink-0" />
-                <span className="text-dental-navy/80">
-                  {language === 'he' ? "חומרים באישור FDA" : 
-                   language === 'ar' ? "مواد معتمدة من FDA" : 
-                   "FDA approved materials"}
-                </span>
-              </li>
-              <li className={`flex ${dir.flexDir} items-center gap-2`}>
-                <CheckCircle className="w-5 h-5 text-dental-orange flex-shrink-0" />
-                <span className="text-dental-navy/80">
-                  {language === 'he' ? "הכשרה מתקדמת בטיפולים אסתטיים" : 
-                   language === 'ar' ? "تدريب متقدم في العلاجات التجميلية" : 
-                   "Advanced training in aesthetic treatments"}
-                </span>
-              </li>
-              <li className={`flex ${dir.flexDir} items-center gap-2`}>
-                <CheckCircle className="w-5 h-5 text-dental-orange flex-shrink-0" />
-                <span className="text-dental-navy/80">
-                  {language === 'he' ? "פרוטוקול טיפול סטרילי" : 
-                   language === 'ar' ? "بروتوكول علاج معقم" : 
-                   "Sterile treatment protocol"}
-                </span>
-              </li>
+              {certifications.map((cert, index) => (
+                <li key={index} className={`flex ${dir.flexDir} items-center gap-2`}>
+                  <CheckCircle className="w-5 h-5 text-dental-orange flex-shrink-0" />
+                  <span className="text-dental-navy/80">{cert}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

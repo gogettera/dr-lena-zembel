@@ -7,37 +7,19 @@ import { Card } from '@/components/ui/card';
 import { Star, Quote } from 'lucide-react';
 import { useDirectionalStyles } from '@/utils/direction';
 
+interface Testimonial {
+  name: string;
+  text: string;
+  rating: number;
+  treatment: string;
+}
+
 const TestimonialsSection: React.FC = () => {
-  const { t, language, isRTL } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
 
-  // Example testimonials - these should ideally come from translations
-  const testimonials = [
-    {
-      name: language === 'he' ? "רונית כ." : "Ronit K.",
-      text: language === 'he' 
-        ? "הגעתי לטיפול בוטוקס ראשון אצל ד״ר לנה והיא הייתה מקצועית ומרגיעה. התוצאות טבעיות בדיוק כמו שרציתי." 
-        : "I came for my first Botox treatment with Dr. Lena and she was professional and calming. The results are natural, exactly as I wanted.",
-      rating: 5,
-      treatment: language === 'he' ? "בוטוקס באזור המצח" : "Botox in forehead area"
-    },
-    {
-      name: language === 'he' ? "דניאל מ." : "Daniel M.",
-      text: language === 'he'
-        ? "לאחר התייעצות מקיפה, החלטתי לעשות מילוי לשפתיים. התוצאה טבעית ומחמיאה והיחס היה אישי ומקצועי."
-        : "After a comprehensive consultation, I decided to get lip fillers. The result is natural and flattering, and the treatment was personal and professional.",
-      rating: 5,
-      treatment: language === 'he' ? "מילוי שפתיים" : "Lip fillers"
-    },
-    {
-      name: language === 'he' ? "שרית ל." : "Sarit L.",
-      text: language === 'he'
-        ? "לא האמנתי שאפשר להשיג תוצאות כאלה בטיפול קצר. קו הלסת שלי מוגדר יותר וההתאוששות הייתה מהירה."
-        : "I couldn't believe such results were possible in a short treatment. My jawline is more defined and recovery was quick.",
-      rating: 5,
-      treatment: language === 'he' ? "עיצוב קו הלסת" : "Jawline contouring"
-    }
-  ];
+  // Get testimonials from translations
+  const testimonials = t('botoxTreatments.testimonials', { returnObjects: true }) as Testimonial[];
 
   return (
     <Container>
@@ -52,7 +34,7 @@ const TestimonialsSection: React.FC = () => {
             key={index} 
             className={`p-6 bg-white hover:shadow-lg transition-all duration-300 border-0 shadow-md rounded-xl ${dir.textAlign}`}
           >
-            <div className="flex mb-4">
+            <div className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} mb-4`}>
               {[...Array(testimonial.rating)].map((_, i) => (
                 <Star key={i} className="w-5 h-5 text-dental-orange fill-dental-orange" />
               ))}
@@ -80,7 +62,7 @@ const TestimonialsSection: React.FC = () => {
           href="#" 
           className="text-dental-orange hover:text-dental-orange/80 font-medium transition-colors"
         >
-          {t('readFullReview')}
+          {t('botoxTreatments.readFullReview')}
         </a>
       </div>
     </Container>
