@@ -77,7 +77,10 @@ export const createTranslationFunction = (
       return opts.defaultValue || key;
     } catch (error) {
       console.error('Error in translation function:', error);
-      return opts?.defaultValue || key;
+      if (typeof options === 'string') {
+        return options;
+      }
+      return options?.defaultValue || key;
     }
   };
 };

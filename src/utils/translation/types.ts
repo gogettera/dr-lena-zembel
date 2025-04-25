@@ -41,6 +41,13 @@ export interface TranslationModule {
 }
 
 /**
+ * Collection of translation modules
+ */
+export interface TranslationModules {
+  [key: string]: TranslationModule | undefined;
+}
+
+/**
  * Translation function signature
  */
 export type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
