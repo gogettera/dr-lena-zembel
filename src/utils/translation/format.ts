@@ -56,3 +56,45 @@ export const formatTranslationValue = (value: any): string => {
   return String(value);
 };
 
+// Access nested translation properties safely
+export const getNestedTranslationValue = (
+  obj: Record<string, any>,
+  path: string,
+  defaultValue: string = ''
+): string => {
+  try {
+    const keys = path.split('.');
+    let current = obj;
+    
+    for (const key of keys) {
+      if (!current || typeof current !== 'object') {
+        return defaultValue;
+      }
+      current = current[key];
+    }
+    
+    return formatTranslationValue(current) || defaultValue;
+  } catch (error) {
+    console.warn(`Error accessing translation path: ${path}`, error);
+    return defaultValue;
+  }
+};
+
+// Safely format nested translation objects for displaying in components
+export const formatNestedTranslation = (
+  obj: Record<string, any>,
+  prefix: string = '',
+  result: Record<string, string> = {}
+): Record<string, string> => {
+  for (const [key, value] of Object.entries(obj)) {
+    const newKey = prefix ? `${prefix}.${key}` : key;
+    
+    if (isNestedObject(value)) {
+      formatNestedTranslation(value, newKey, result);
+    } else {
+      result[newKey] = formatTranslationValue(value);
+    }
+  }
+  
+  return result;
+};

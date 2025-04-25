@@ -1,6 +1,7 @@
 
 import { TranslationValue, TranslationOptions } from './types';
 import { Language } from '@/types/language';
+import { getNestedTranslationValue } from './format';
 
 // Helper function to get a nested value from an object using dot notation
 export const getNestedValue = (
@@ -51,6 +52,7 @@ export const createTranslationFunction = (
       
       // If still not found, use the provided default value or the key itself
       if (translation === undefined) {
+        console.warn(`Translation key not found: ${key}`);
         return opts.defaultValue || key;
       }
       
@@ -72,4 +74,3 @@ export const createTranslationFunction = (
     }
   };
 };
-
