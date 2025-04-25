@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LanguageRoute from '@/components/LanguageRoute';
 import AccessibleLayout from '@/components/layout/AccessibleLayout';
 import LanguageBotoxTreatmentsPage from '@/pages/LanguageBotoxTreatmentsPage';
@@ -22,7 +22,7 @@ function App() {
 
       {/* Language routes */}
       <Route path="/:lang" element={<LanguageRoute />}>
-        <Route element={<AccessibleLayout />}>
+        <Route element={<AccessibleLayout><Outlet /></AccessibleLayout>}>
           <Route index element={<LanguageHome />} />
           <Route path="treatments/botox-treatments" element={<LanguageBotoxTreatmentsPage />} />
           <Route path="treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
@@ -31,7 +31,7 @@ function App() {
       </Route>
 
       {/* Legacy direct routes (for backward compatibility) */}
-      <Route element={<AccessibleLayout />}>
+      <Route element={<AccessibleLayout><Outlet /></AccessibleLayout>}>
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
         <Route path="/treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
