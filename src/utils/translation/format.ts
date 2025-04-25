@@ -30,3 +30,29 @@ export const safeString = (value: any): string => {
   return String(value);
 };
 
+// Check if a value is a nested object
+export const isNestedObject = (value: any): boolean => {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+};
+
+// Format a translation value, handling nested objects
+export const formatTranslationValue = (value: any): string => {
+  if (value === null || value === undefined) {
+    return '';
+  }
+
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (isNestedObject(value)) {
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return '[Complex Object]';
+    }
+  }
+
+  return String(value);
+};
+

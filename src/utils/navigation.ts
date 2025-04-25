@@ -1,5 +1,5 @@
 import { Language } from '@/types/language';
-import { formatTranslationValue, isNestedObject } from './translation-helpers';
+import { formatTranslationValue, isNestedObject } from '@/utils/translation';
 
 export const getNavigationPath = (language: Language, path: string = '') => {
   return `/${language}${path}`;
