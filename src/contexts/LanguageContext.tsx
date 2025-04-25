@@ -6,7 +6,7 @@ import {
   TranslationOptions, 
   createTranslationFunction, 
   TranslationValue 
-} from '@/utils/translation-utils';
+} from '@/utils/translation';
 
 // Import all translations
 import heTranslations from '@/translations/he';
