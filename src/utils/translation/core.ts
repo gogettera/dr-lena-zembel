@@ -1,7 +1,8 @@
 
 import { TranslationValue, TranslationOptions } from './types';
 import { Language } from '@/types/language';
-import { getNestedTranslationValue } from './format';
+import { getNestedValue } from './format';
+import { formatTranslation } from './format';
 
 // Helper function to get a nested value from an object using dot notation
 export const getNestedValue = (
@@ -63,7 +64,14 @@ export const createTranslationFunction = (
       
       // For non-object values or when returnObjects is false, ensure we return a string
       if (typeof translation !== 'object') {
-        return String(translation);
+        const result = String(translation);
+        
+        // Process variable replacements if context is provided
+        if (opts.context !== undefined) {
+          return formatTranslation(result, { name: opts.context });
+        }
+        
+        return result;
       }
       
       // For objects without returnObjects flag, convert to string or return key

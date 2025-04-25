@@ -12,7 +12,7 @@ const TranslationExample: React.FC = () => {
   // Example of getting a nested object with returnObjects option
   const doctorInfo = t('info.doctorInfo', { returnObjects: true });
   
-  // Example of using variables in translations - use a context option instead of name
+  // Example of using variables in translations with context option
   const greetingKey = 'Welcome, {{name}}!';
   const greetingWithName = t(greetingKey, { context: doctorInfo.name });
   
@@ -69,4 +69,3 @@ const TranslationExample: React.FC = () => {
 };
 
 export default TranslationExample;
-

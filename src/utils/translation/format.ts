@@ -4,8 +4,8 @@ export const formatTranslation = (
   translation: string,
   variables?: Record<string, any>
 ): string => {
-  if (!variables) {
-    return translation;
+  if (!variables || !translation) {
+    return translation || '';
   }
   
   return translation.replace(/\{\{(\w+)\}\}/g, (_, key) => {

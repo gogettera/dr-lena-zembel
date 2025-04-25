@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
 import { createLocalizedPath } from '@/utils/languageRoutes';
 import SectionHeader from '@/components/ui/section-header';
+import HebrewText from './shared/HebrewText';
 
 const TreatmentsSection = () => {
   const isMobile = useIsMobile();
@@ -95,8 +97,13 @@ const TreatmentCard = ({ treatment, index, language, t }) => (
           <treatment.icon className="h-8 w-8 text-dental-orange" />
         </div>
         
-        <h3 className="text-xl font-bold text-dental-navy mb-4 text-center">{treatment.title}</h3>
-        <p className="text-dental-navy/70 text-center mb-6 leading-relaxed">{treatment.description}</p>
+        <HebrewText tag="h3" className="text-xl font-bold text-dental-navy mb-4 text-center">
+          {treatment.title}
+        </HebrewText>
+        
+        <HebrewText tag="p" className="text-dental-navy/70 text-center mb-6 leading-relaxed">
+          {treatment.description}
+        </HebrewText>
         
         <div className="text-center transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
           <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
@@ -105,7 +112,9 @@ const TreatmentCard = ({ treatment, index, language, t }) => (
               size="sm" 
               className="rounded-full border-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"
             >
-              {t('learnMore')}
+              <HebrewText>
+                {t('learnMore')}
+              </HebrewText>
             </Button>
           </Link>
         </div>
