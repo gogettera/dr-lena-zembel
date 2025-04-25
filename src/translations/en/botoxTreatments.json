@@ -5,6 +5,22 @@
   "teethGrinding": "Teeth Grinding Relief",
   "tmjDisorders": "TMJ Disorder Treatment",
   "facialRejuvenation": "Facial Rejuvenation",
+  "headline1": "Botox & Hyaluronic Acid Treatments",
+  "headline2": "Refresh Your Look and Smile",
+  "mobileFactoid": "Botox and hyaluronic acid treatments can significantly improve overall appearance",
+  "mobileTip": "Advanced treatments performed by a specialist dentist",
+  "botoxTitle": "Botox Treatments",
+  "hyaluronicTitle": "Hyaluronic Acid Treatments",
+  "botoxDesc": "Botox injections are designed to reduce expression lines and wrinkles in the face, using a safe substance approved for medical use",
+  "hyaluronicDesc": "Hyaluronic acid treatments restore volume and elasticity to the skin, smooth out wrinkles, and provide a more youthful appearance",
+  "benefitsTitle": "Treatment Benefits",
+  "processTitle": "Treatment Process",
+  "beforeAfterTitle": "Before and After",
+  "doctorTitle": "Your Doctor",
+  "safetyTitle": "Treatment Safety",
+  "pricingTitle": "Pricing and Packages",
+  "testimonialsTitle": "Patient Testimonials",
+  "faqTitle": "Frequently Asked Questions",
   "benefits": {
     "title": "Benefits of Botox Treatments",
     "pain": "Pain Relief",
@@ -12,6 +28,71 @@
     "confidence": "Improved Confidence",
     "prevention": "Preventive Care"
   },
+  "botoxAreas": [
+    "Forehead",
+    "Between the eyebrows",
+    "Crow's feet (corner of the eyes)",
+    "Around the mouth",
+    "Neck and chin"
+  ],
+  "hyaluronicAreas": [
+    "Lips",
+    "Cheeks",
+    "Jawline",
+    "Under-eye hollows",
+    "Deep wrinkles"
+  ],
+  "processSteps": [
+    {
+      "title": "Initial Consultation",
+      "description": "Personal consultation with the doctor to assess needs and create a personalized treatment plan"
+    },
+    {
+      "title": "Treatment Planning",
+      "description": "Detailed explanation of recommended treatments, expected results, and personalized adaptation for the patient"
+    },
+    {
+      "title": "Treatment Procedure",
+      "description": "The treatment itself takes only 15-30 minutes, with minimal discomfort"
+    },
+    {
+      "title": "Post-Treatment Instructions",
+      "description": "Detailed explanation of required care after injection and recommendations for optimal results"
+    },
+    {
+      "title": "Follow-up",
+      "description": "Follow-up appointment after about two weeks to check results and make additional adjustments if needed"
+    }
+  ],
+  "safetyConcerns": [
+    "All treatments are performed by an experienced specialist doctor",
+    "Using the highest quality materials approved by the Ministry of Health",
+    "Sterile environment and strict medical conditions",
+    "Personal adaptation of treatment to health condition and aesthetic needs",
+    "Close follow-up after treatment"
+  ],
+  "faqItems": [
+    {
+      "question": "Are Botox and hyaluronic acid treatments painful?",
+      "answer": "The treatments involve minimal discomfort. A local anesthetic cream can be applied before injection. Most patients report only a slight pinching sensation."
+    },
+    {
+      "question": "How long do the results last?",
+      "answer": "Botox results last between 3-6 months. Hyaluronic acid treatments can last 6-18 months, depending on the treated area and type of material."
+    },
+    {
+      "question": "When will I see results?",
+      "answer": "Botox results begin to show within 3-7 days and peak after about two weeks. Hyaluronic acid injection results are visible immediately."
+    },
+    {
+      "question": "Are there any side effects?",
+      "answer": "Common side effects include slight redness, swelling, or mild bruising at the injection site, which usually subside within a few days."
+    },
+    {
+      "question": "Who is suitable for these treatments?",
+      "answer": "The treatments are suitable for healthy individuals interested in improving their aesthetic appearance. A comprehensive assessment will be conducted during the consultation to determine treatment suitability."
+    }
+  ],
   "process": {
     "title": "Treatment Process",
     "consultation": "Initial Consultation",

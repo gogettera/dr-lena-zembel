@@ -1,0 +1,25 @@
+
+{
+  "contactUs": "Contact Us",
+  "contactForm": "Contact Form",
+  "name": "Name",
+  "email": "Email",
+  "phone": "Phone",
+  "message": "Message",
+  "send": "Send",
+  "requiredField": "Required field",
+  "invalidEmail": "Please enter a valid email address",
+  "messageSent": "Your message has been sent successfully",
+  "errorSending": "There was an error sending your message. Please try again.",
+  "findUs": "Find Us",
+  "directions": "Directions",
+  "publicTransport": "Public Transport",
+  "parking": "Parking",
+  "nearbyBusLines": "Nearby Bus Lines",
+  "contactInfo": "Contact Information",
+  "callUs": "Call Us",
+  "emailUs": "Email Us",
+  "visitUs": "Visit Us",
+  "followUs": "Follow Us",
+  "businessHours": "Business Hours"
+}

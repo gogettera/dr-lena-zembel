@@ -1,3 +1,4 @@
+
 import { Language } from '@/types/language';
 
 /**
@@ -13,6 +14,18 @@ export type TranslationOptions = {
 };
 
 /**
+ * Debug function to help track translation issues
+ */
+const debugTranslation = (key: string, language: string, value: any, path: string[] = []): void => {
+  if (process.env.NODE_ENV === 'development' && !value && key !== '') {
+    console.warn(
+      `[Translation] Key "${key}" not found in language "${language}". ` +
+        `Path attempted: ${path.join(' -> ')}`
+    );
+  }
+};
+
+/**
  * Safely accesses a nested property in an object using a dot notation path
  * 
  * @param obj The object to access
@@ -24,8 +37,10 @@ export function getNestedValue(obj: any, path: string): TranslationValue {
   
   const parts = path.split('.');
   let current = obj;
+  const pathTraversed: string[] = [];
   
   for (const part of parts) {
+    pathTraversed.push(part);
     if (current === null || current === undefined || typeof current !== 'object') {
       return undefined;
     }
@@ -94,7 +109,8 @@ export function isArrayValue(value: TranslationValue): boolean {
 export function getTranslation(
   translations: Record<string, any>,
   key: string,
-  options?: string | TranslationOptions
+  options?: string | TranslationOptions,
+  language: string = 'unknown'
 ): any {
   // Handle options
   const opts = typeof options === 'string' ? { defaultValue: options } : options || {};
@@ -103,8 +119,9 @@ export function getTranslation(
   // Get the value at the path
   const value = getNestedValue(translations, key);
   
-  // If not found, return the default value or the key
+  // If not found, log in development and return the default value or the key
   if (value === undefined) {
+    debugTranslation(key, language, value, key.split('.'));
     return defaultValue || key;
   }
   
@@ -133,12 +150,12 @@ export function createTranslationFunction(
   return function translate(key: string, options?: string | TranslationOptions): any {
     // Try in current language
     const currentTranslations = translations[language] || {};
-    const value = getTranslation(currentTranslations, key, options);
+    const value = getTranslation(currentTranslations, key, options, language);
     
     // If the result is the key itself, try the default language
     if (value === key && language !== defaultLanguage) {
       const defaultTranslations = translations[defaultLanguage] || {};
-      return getTranslation(defaultTranslations, key, options);
+      return getTranslation(defaultTranslations, key, options, defaultLanguage);
     }
     
     return value;

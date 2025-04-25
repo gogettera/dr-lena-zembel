@@ -1,0 +1,65 @@
+
+{
+  "headline": "Advanced Root Canal Treatment Focused On Comfort and Support",
+  "subtext": "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.",
+  "heroImageAlt": "Root Canal Treatment at our clinic",
+  "stepsTitle": "Treatment Steps",
+  "whyUsTitle": "Why Choose Us?",
+  "faqTitle": "Frequently Asked Questions",
+  "whyUs": {
+    "reason1": {
+      "title": "Advanced Equipment & Modern Technology",
+      "desc": "Treatments performed using the most advanced equipment – reducing pain and ensuring treatment success."
+    },
+    "reason2": {
+      "title": "Personalized Care & Close Support",
+      "desc": "We are here for you with any concern or question, from the first moment until your full recovery."
+    },
+    "reason3": {
+      "title": "Extensive Experience & Great Reputation",
+      "desc": "Hundreds of patients have had successful root canal treatments here – in a safe and relaxed environment."
+    }
+  },
+  "steps": {
+    "step1": {
+      "title": "Diagnostic Exam",
+      "desc": "Thorough examination of the tooth and X-ray – ensuring a complete picture before treatment."
+    },
+    "step2": {
+      "title": "Root Canal Treatment",
+      "desc": "Local anesthesia, cleaning the root canals, sterilization, and filling to prevent future infections."
+    },
+    "step3": {
+      "title": "Restoration & Sealing",
+      "desc": "Restoring and sealing the tooth – for long-term comfort and pain prevention."
+    }
+  },
+  "faq": {
+    "q1": "What is a root canal treatment and why is it needed?",
+    "a1": "Root canal treatment is performed to save a tooth that suffered from inflammation or infection in the root canal, allowing you to keep the tooth in your mouth.",
+    "q2": "Is root canal treatment painful?",
+    "a2": "The procedure is typically performed under local anesthesia and should be pain-free – extra support is provided if needed.",
+    "q3": "How long does a root canal take?",
+    "a3": "A standard root canal takes between one and two hours, and sometimes requires several appointments.",
+    "q4": "Are there restrictions after root canal treatment?",
+    "a4": "In the first days after a root canal, it is recommended to avoid chewing on the treated side and to maintain strict oral hygiene."
+  },
+  "testimonials": {
+    "testimonial1": {
+      "name": "Anat M.",
+      "text": "I came in worried, but the doctor explained every step patiently. I underwent root canal with no pain – highly recommended."
+    },
+    "testimonial2": {
+      "name": "Roni S.",
+      "text": "Excellent service, received support from the team even after the treatment. Thank you so much!"
+    }
+  },
+  "cta": {
+    "title": "Want Fast Relief from Pain?",
+    "description": "For urgent appointments or any questions – we're here for you!",
+    "calendarText": "Same-day treatments based on availability",
+    "syringeText": "Sensitive and supportive team all the way",
+    "bookButton": "Book a Free Consultation",
+    "backToTop": "Back to Top"
+  }
+}
