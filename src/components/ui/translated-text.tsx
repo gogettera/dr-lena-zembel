@@ -45,6 +45,7 @@ export const TranslatedText = ({
         debuggingEnabled && isMissingTranslation && 'border border-dashed border-red-300 bg-red-50 px-1'
       )}
       data-translation-key={textKey}
+      dir={language === 'he' || language === 'ar' ? 'rtl' : 'ltr'}
       {...rest}
     >
       {translatedText}

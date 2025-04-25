@@ -6,6 +6,7 @@ import { NextGenImage } from '@/components/ui/next-gen-image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 const HeroSection = () => {
   const { t, language } = useLanguage();
@@ -27,11 +28,11 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className={`md:w-1/2 space-y-6 ${isMobile ? 'text-center' : isRTL ? 'md:order-1 text-right' : 'text-left'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-dental-navy leading-tight max-w-2xl opacity-0 animate-[fade-in_0.8s_ease-out_forwards]">
-              {t('common.dentistryWithLove')}
+              <TranslatedText textKey="common.dentistryWithLove" defaultText="Professional Dentistry" />
             </h1>
 
             <p className="text-lg md:text-xl text-dental-navy/80 leading-relaxed opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards] max-w-2xl">
-              {t('common.localDental')}
+              <TranslatedText textKey="common.localDental" defaultText="Professional dental clinic in North Jaffa, providing comprehensive quality care for our patients." />
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-[fade-in_0.5s_ease-out_0.6s_forwards] justify-center md:justify-start">
@@ -43,7 +44,7 @@ const HeroSection = () => {
               >
                 <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer">
                   <Calendar className={`h-5 w-5 transition-transform group-hover:scale-110 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                  {t('common.bookVisit')}
+                  <TranslatedText textKey="common.bookVisit" defaultText="Book an Appointment" />
                 </a>
               </Button>
               <Button 
@@ -51,7 +52,7 @@ const HeroSection = () => {
                 size="lg" 
                 className="rounded-full text-base md:text-lg border-2 border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-all duration-300 w-full sm:w-auto"
               >
-                {t('common.moreDetails')}
+                <TranslatedText textKey="common.moreDetails" defaultText="More Details" />
               </Button>
             </div>
           </div>
@@ -62,7 +63,7 @@ const HeroSection = () => {
             <div className="relative">
               <AspectRatio ratio={4/3} className="overflow-visible">
                 <NextGenImage 
-                  alt={t('common.dentistryWithLove')} 
+                  alt={t('common.dentistryWithLove', 'Professional Dentistry')} 
                   src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
                   width={800}
                   height={600}
@@ -77,7 +78,7 @@ const HeroSection = () => {
                   flex flex-col items-center transform hover:scale-105 transition-all duration-300`}
               >
                 <p className="text-dental-navy font-bold text-base md:text-lg text-center">
-                  {t('common.completelyHappy')}
+                  <TranslatedText textKey="common.completelyHappy" defaultText="Thousands of Happy Patients" />
                 </p>
                 <div className="flex text-dental-orange mt-2 text-lg md:text-xl">
                   ★★★★★

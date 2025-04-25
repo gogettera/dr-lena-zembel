@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Star, Smile, Heart, Shield, Stethoscope, PieChart } from 'lucide-react';
 import { createLocalizedPath } from '@/utils/languageRoutes';
-import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
+import { treatmentTypes } from '@/data/treatmentTypes';
 import { TranslatedText } from '@/components/ui/translated-text';
 
 interface RelatedTreatmentsProps {
@@ -14,7 +14,7 @@ interface RelatedTreatmentsProps {
 }
 
 const RelatedTreatments: React.FC<RelatedTreatmentsProps> = ({ currentTreatment }) => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   
   // Map treatment types to their icons
   const treatmentIcons: Record<string, React.ElementType> = {
@@ -38,15 +38,15 @@ const RelatedTreatments: React.FC<RelatedTreatmentsProps> = ({ currentTreatment 
     <Card>
       <CardContent className="pt-6">
         <TranslatedText 
-          textKey="otherTreatmentsYouMightLike"
+          textKey="treatments.otherTreatmentsYouMightLike"
           as="h3"
           className="text-2xl font-bold text-dental-navy mb-6"
         />
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {selectedRelated.map((treatmentType) => {
-            const treatmentNameKey = getTreatmentNameKey(treatmentType);
-            const treatmentDescKey = getTreatmentDescKey(treatmentType);
+            const titleKey = `treatments.${treatmentType.replace('-', '')}`;
+            const descKey = `treatments.${treatmentType.replace('-', '')}Desc`;
             const Icon = treatmentIcons[treatmentType] || Star;
             
             return (
@@ -59,12 +59,12 @@ const RelatedTreatments: React.FC<RelatedTreatmentsProps> = ({ currentTreatment 
                     <Icon className="h-6 w-6 text-dental-orange" />
                   </div>
                   <TranslatedText
-                    textKey={treatmentNameKey}
+                    textKey={titleKey}
                     as="h4"
                     className="text-lg font-semibold text-dental-navy mb-2"
                   />
                   <TranslatedText
-                    textKey={treatmentDescKey}
+                    textKey={descKey}
                     as="p"
                     className="text-dental-navy/70 mb-4 line-clamp-3"
                   />
@@ -74,7 +74,7 @@ const RelatedTreatments: React.FC<RelatedTreatmentsProps> = ({ currentTreatment 
                       size="sm" 
                       className="w-full mt-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white"
                     >
-                      <TranslatedText textKey="learnMore" />
+                      <TranslatedText textKey="common.learnMore" defaultText="Learn More" />
                     </Button>
                   </Link>
                 </CardContent>

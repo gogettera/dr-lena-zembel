@@ -4,16 +4,10 @@ import { setupDirectionByLanguage } from '@/utils/direction';
 import { Language } from '@/types/language';
 import { 
   TranslationOptions, 
-  createTranslationFunction,
-  validateTranslationKeys
+  createTranslationFunction
 } from '@/utils/translation';
-
-// Import all translations
-import heTranslations from '@/translations/he';
-import enTranslations from '@/translations/en';
-import ruTranslations from '@/translations/ru';
-import deTranslations from '@/translations/de';
-import arTranslations from '@/translations/ar';
+import { translations } from '@/utils/translation/core';
+import { validateTranslationKeys } from '@/utils/translation/core';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -31,15 +25,6 @@ interface LanguageContextType {
 const AVAILABLE_LANGUAGES: Language[] = ['he', 'en', 'ru', 'de', 'ar'];
 const DEFAULT_LANGUAGE: Language = 'he';
 const RTL_LANGUAGES: Language[] = ['he', 'ar'];
-
-// All translations
-const translations = {
-  he: heTranslations,
-  en: enTranslations,
-  ru: ruTranslations,
-  de: deTranslations,
-  ar: arTranslations
-};
 
 // Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -93,6 +78,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     
     // Log any missing translations in development
     if (process.env.NODE_ENV === 'development') {
+      console.log(`Current language: ${language}`);
+      console.log(`Current translations are loaded:`, translations[language] !== undefined);
+      
       const missingKeys = validateTranslationKeys(translations);
       if (missingKeys.length > 0) {
         console.warn('Missing translation keys:', missingKeys);
