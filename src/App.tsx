@@ -31,7 +31,7 @@ function App() {
       </Route>
 
       {/* Legacy direct routes (for backward compatibility) */}
-      <Route element={<AccessibleLayout />}>
+      <Route path="/" element={<AccessibleLayout />}>
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
         <Route path="/treatments/preventive-medicine" element={<PreventiveMedicinePage />} />

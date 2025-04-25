@@ -17,15 +17,45 @@ interface Testimonial {
 const TestimonialsSection: React.FC = () => {
   const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
+  
+  // Default testimonials in case translations aren't available
+  const defaultTestimonials: Testimonial[] = [
+    {
+      name: "Sarah L.",
+      text: "My experience with the botox treatment was excellent. The results exceeded my expectations and the doctor's expertise was evident.",
+      rating: 5,
+      treatment: "Botox Treatment"
+    },
+    {
+      name: "David M.",
+      text: "The hyaluronic acid treatment helped me achieve a more youthful appearance without looking artificial. Very satisfied with the results.",
+      rating: 5,
+      treatment: "Hyaluronic Acid"
+    },
+    {
+      name: "Rachel K.",
+      text: "The process was quick and the results are fantastic. Minimal discomfort and the staff was very professional.",
+      rating: 4,
+      treatment: "Combined Treatment"
+    }
+  ];
 
-  // Get testimonials from translations
-  const testimonials = t('botoxTreatments.testimonials', { returnObjects: true }) as Testimonial[];
+  // Safely get testimonials from translations or use defaults
+  let testimonials: Testimonial[] = defaultTestimonials;
+  try {
+    const translatedTestimonials = t('botoxTreatments.testimonials');
+    if (translatedTestimonials && typeof translatedTestimonials !== 'string' && Array.isArray(translatedTestimonials)) {
+      testimonials = translatedTestimonials as Testimonial[];
+    }
+  } catch (error) {
+    console.error('Error parsing testimonials:', error);
+  }
 
   return (
     <Container>
       <SectionHeader 
-        title={t('botoxTreatments.testimonialsTitle')}
-        subtitle={t('botoxTreatments.testimonialsSubtitle')}
+        title={t('botoxTreatments.testimonialsTitle') as string}
+        subtitle={t('botoxTreatments.testimonialsSubtitle') as string}
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
@@ -62,7 +92,7 @@ const TestimonialsSection: React.FC = () => {
           href="#" 
           className="text-dental-orange hover:text-dental-orange/80 font-medium transition-colors"
         >
-          {t('botoxTreatments.readFullReview')}
+          {t('botoxTreatments.readFullReview') as string}
         </a>
       </div>
     </Container>
