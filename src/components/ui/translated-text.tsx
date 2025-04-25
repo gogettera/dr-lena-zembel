@@ -29,7 +29,7 @@ export const TranslatedText = ({
   const { t, language } = useLanguage();
   
   // Use the translation function with a fallback
-  const translatedText = t(textKey, defaultText || textKey);
+  const translatedText = t(textKey, { defaultValue: defaultText || textKey });
   
   // If the translation is the same as the key and not the default text,
   // it likely means the translation is missing

@@ -48,7 +48,15 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Initialize with language from localStorage or default
   const [language, setLanguageState] = useState<Language>(() => {
-    // Check localStorage first
+    // Try to get language from URL path
+    const pathname = window.location.pathname;
+    const pathLang = pathname.split('/')[1] as Language;
+    
+    if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
+      return pathLang;
+    }
+    
+    // Check localStorage next
     const savedLang = localStorage.getItem('preferredLanguage') as Language;
     if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
       return savedLang;

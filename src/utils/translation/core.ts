@@ -1,7 +1,7 @@
 
 import { TranslationValue, TranslationOptions } from './types';
 import { Language } from '@/types/language';
-import { formatTranslation } from './format';
+import { formatTranslation, formatTranslationValue } from './format';
 
 // Helper function to get a nested value from an object using dot notation
 export const getNestedValue = (
@@ -67,7 +67,7 @@ export const createTranslationFunction = (
         
         // Process variable replacements if context is provided
         if (opts.context !== undefined) {
-          return formatTranslation(result, { name: opts.context });
+          return formatTranslation(result, opts.context);
         }
         
         return result;
