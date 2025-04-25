@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Container } from '@/components/ui/container';
@@ -6,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useDirectionalStyles } from '@/utils/direction';
 
 const DoctorProfile: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
 
   // This content should probably come from translations, but keeping doctor name in Hebrew
@@ -28,7 +29,7 @@ const DoctorProfile: React.FC = () => {
     <Container>
       <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center`}>
         {/* Doctor Image */}
-        <div className={`${dir.isRTL ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
+        <div className={`${isRTL ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
           <div className="relative">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg">
               <EnhancedImage
@@ -40,13 +41,13 @@ const DoctorProfile: React.FC = () => {
             </div>
             
             {/* Experience badge */}
-            <div className={`absolute -bottom-5 ${dir.isRTL ? '-right-5' : '-left-5'} bg-dental-orange text-white rounded-full w-24 h-24 flex flex-col items-center justify-center shadow-lg`}>
+            <div className={`absolute -bottom-5 ${isRTL ? '-right-5' : '-left-5'} bg-dental-orange text-white rounded-full w-24 h-24 flex flex-col items-center justify-center shadow-lg`}>
               <span className="text-2xl font-bold">10+</span>
               <span className="text-sm">{t('yearsExperience')}</span>
             </div>
             
             {/* Certifications */}
-            <div className={`absolute -top-4 ${dir.isRTL ? '-right-4' : '-left-4'} flex flex-col gap-2`}>
+            <div className={`absolute -top-4 ${isRTL ? '-right-4' : '-left-4'} flex flex-col gap-2`}>
               <Badge className="bg-dental-navy text-white px-3 py-1 rounded-full">
                 {doctorTitle}
               </Badge>
@@ -55,7 +56,7 @@ const DoctorProfile: React.FC = () => {
         </div>
         
         {/* Doctor Info */}
-        <div className={`${dir.isRTL ? 'order-1 lg:order-2' : 'order-1 lg:order-1'} ${dir.textAlign}`}>
+        <div className={`${isRTL ? 'order-1 lg:order-2' : 'order-1 lg:order-1'} ${dir.textAlign}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-4">
             {t('botoxTreatments.doctorTitle')}
           </h2>

@@ -13,7 +13,7 @@ interface ProcessStep {
 }
 
 const ProcessSection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
   const processSteps = t('botoxTreatments.processSteps', { returnObjects: true }) as ProcessStep[];
 
@@ -26,7 +26,7 @@ const ProcessSection: React.FC = () => {
       
       <div className="relative mt-16">
         {/* Timeline line */}
-        <div className={`absolute top-0 bottom-0 ${dir.isRTL ? 'right-[22px] md:right-1/2 md:translate-x-1/2' : 'left-[22px] md:left-1/2 md:-translate-x-1/2'} w-1 bg-dental-beige z-0`}></div>
+        <div className={`absolute top-0 bottom-0 ${isRTL ? 'right-[22px] md:right-1/2 md:translate-x-1/2' : 'left-[22px] md:left-1/2 md:-translate-x-1/2'} w-1 bg-dental-beige z-0`}></div>
         
         {/* Timeline items */}
         {processSteps.map((step, index) => (
@@ -38,7 +38,7 @@ const ProcessSection: React.FC = () => {
               </div>
               
               {/* Content - alternating sides on desktop */}
-              <div className={`md:w-1/2 ${(dir.isRTL ? index % 2 === 0 : index % 2 !== 0) ? 'md:ml-8' : 'md:mr-8 md:text-right'} w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-dental-beige/20`}>
+              <div className={`md:w-1/2 ${(isRTL ? index % 2 === 0 : index % 2 !== 0) ? 'md:ml-8' : 'md:mr-8 md:text-right'} w-full bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow border border-dental-beige/20`}>
                 <Card className="border-0 bg-transparent">
                   <CardContent className="pt-6">
                     <h3 className="text-xl font-bold text-dental-navy mb-3">
@@ -52,7 +52,7 @@ const ProcessSection: React.FC = () => {
               </div>
               
               {/* Empty div for alternating layout */}
-              {(dir.isRTL ? index % 2 === 0 : index % 2 !== 0) ? (
+              {(isRTL ? index % 2 === 0 : index % 2 !== 0) ? (
                 <div className="hidden md:block md:w-1/2 mr-8"></div>
               ) : (
                 <div className="hidden md:block md:w-1/2 ml-8"></div>

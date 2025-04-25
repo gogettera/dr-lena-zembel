@@ -8,7 +8,7 @@ import { Star, Quote } from 'lucide-react';
 import { useDirectionalStyles } from '@/utils/direction';
 
 const TestimonialsSection: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language, isRTL } = useLanguage();
   const dir = useDirectionalStyles();
 
   // Example testimonials - these should ideally come from translations
@@ -59,7 +59,7 @@ const TestimonialsSection: React.FC = () => {
             </div>
             
             <div className="relative">
-              <Quote className={`absolute top-0 ${dir.isRTL ? 'right-0' : 'left-0'} w-8 h-8 text-dental-orange/20 -translate-y-1/2 ${dir.isRTL ? '-translate-x-1/3' : 'translate-x-1/3'}`} />
+              <Quote className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} w-8 h-8 text-dental-orange/20 -translate-y-1/2 ${isRTL ? '-translate-x-1/3' : 'translate-x-1/3'}`} />
               <p className="text-dental-navy/80 mb-4 italic">
                 "{testimonial.text}"
               </p>
