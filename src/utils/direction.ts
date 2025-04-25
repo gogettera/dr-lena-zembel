@@ -52,6 +52,11 @@ export const useDirectionalStyles = () => {
       first: isRTL ? 'order-last' : 'order-first',
       last: isRTL ? 'order-first' : 'order-last',
       nav: isRTL ? 'flex-row-reverse' : 'flex-row',
+      header: {
+        phone: isRTL ? 'order-3' : 'order-1',
+        logo: 'order-2',
+        nav: isRTL ? 'order-1' : 'order-3'
+      }
     },
     icon: {
       chevron: isRTL ? 'rotate-180' : '',

@@ -32,7 +32,7 @@ const Navbar = () => {
   return (
     <nav 
       className={cn(
-        "py-3 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "py-3 px-4 md:px-6 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
       )}
       role="navigation"
@@ -40,12 +40,11 @@ const Navbar = () => {
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* First section (right in RTL, left in LTR) */}
+        {/* First section - Phone + Language (right in RTL, left in LTR) */}
         <div className={cn(
           "flex items-center gap-2",
-          isRTL ? "order-1" : "order-1"
+          isRTL ? "order-3" : "order-1"
         )}>
-          <MobileNav />
           <Button 
             variant="ghost" 
             size="icon"
@@ -60,11 +59,12 @@ const Navbar = () => {
             </a>
           </Button>
           <LanguageSwitcher />
+          <MobileNav />
         </div>
 
-        {/* Center logo */}
+        {/* Center section - Logo */}
         <div className={cn(
-          "flex justify-center",
+          "flex justify-center flex-1",
           isRTL ? "order-2" : "order-2"
         )}>
           <Link 
@@ -79,10 +79,11 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Third section (left in RTL, right in LTR) */}
+        {/* Third section - Navigation links (left in RTL, right in LTR) */}
         <div className={cn(
           "hidden md:flex",
-          isRTL ? "order-3 justify-start" : "order-3 justify-end"
+          isRTL ? "order-1 justify-end" : "order-3 justify-start",
+          "flex-1"
         )}>
           <NavigationLinks 
             links={navigationItems} 
