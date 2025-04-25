@@ -39,9 +39,12 @@ const Navbar = () => {
       aria-label={t('mainNavigation', 'Main navigation')}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
-        {/* Left section */}
-        <div className={cn("flex items-center", styles.spaceDir)}>
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* First section (right in RTL, left in LTR) */}
+        <div className={cn(
+          "flex items-center gap-2",
+          isRTL ? "order-1" : "order-1"
+        )}>
           <MobileNav />
           <Button 
             variant="ghost" 
@@ -60,7 +63,10 @@ const Navbar = () => {
         </div>
 
         {/* Center logo */}
-        <div className="flex justify-center">
+        <div className={cn(
+          "flex justify-center",
+          isRTL ? "order-2" : "order-2"
+        )}>
           <Link 
             to={`/${language}`}
             className={cn(
@@ -73,8 +79,11 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Right navigation */}
-        <div className="hidden md:flex justify-end">
+        {/* Third section (left in RTL, right in LTR) */}
+        <div className={cn(
+          "hidden md:flex",
+          isRTL ? "order-3 justify-start" : "order-3 justify-end"
+        )}>
           <NavigationLinks 
             links={navigationItems} 
             vertical={false}

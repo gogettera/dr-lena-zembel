@@ -12,6 +12,9 @@ export const setDirection = (direction: 'rtl' | 'ltr'): void => {
   // Add appropriate class to body for styling
   document.body.classList.remove('rtl', 'ltr');
   document.body.classList.add(direction);
+  
+  // Add data attribute to enable CSS targeting
+  document.documentElement.setAttribute('data-direction', direction);
 };
 
 /**
@@ -45,8 +48,14 @@ export const useDirectionalStyles = () => {
     borderSide: isRTL ? 'border-r' : 'border-l',
     transformOrigin: isRTL ? 'origin-right' : 'origin-left',
     scroll: isRTL ? 'rtl-scrollbar' : '',
+    order: {
+      first: isRTL ? 'order-last' : 'order-first',
+      last: isRTL ? 'order-first' : 'order-last',
+      nav: isRTL ? 'flex-row-reverse' : 'flex-row',
+    },
     icon: {
       chevron: isRTL ? 'rotate-180' : '',
+      arrow: isRTL ? '-scale-x-100' : '',
     }
   };
 };
