@@ -61,6 +61,13 @@ export const useDirectionalStyles = () => {
     icon: {
       chevron: isRTL ? 'rotate-180' : '',
       arrow: isRTL ? '-scale-x-100' : '',
+    },
+    // Fix for RTL/LTR global page structure
+    global: {
+      htmlDir: isRTL ? 'rtl' : 'ltr',
+      bodyClass: isRTL ? 'rtl' : 'ltr',
+      contentFlow: isRTL ? 'flow-rtl' : 'flow-ltr',
+      textDirection: isRTL ? 'text-right' : 'text-left',
     }
   };
 };
@@ -85,4 +92,21 @@ export const debounce = <T extends (...args: any[]) => any>(
       callback(...args);
     }, wait);
   };
+};
+
+/**
+ * Create a wrapper element with the correct direction
+ * @param isRTL Whether the direction is RTL
+ * @returns JSX element with the correct direction
+ */
+export const createDirectionalWrapper = (
+  isRTL: boolean, 
+  children: React.ReactNode,
+  className?: string
+) => {
+  return (
+    <div dir={isRTL ? 'rtl' : 'ltr'} className={className}>
+      {children}
+    </div>
+  );
 };

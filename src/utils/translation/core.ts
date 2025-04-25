@@ -52,7 +52,7 @@ export const createTranslationFunction = (
       
       // If still not found, use the provided default value or the key itself
       if (translation === undefined) {
-        console.warn(`Translation key not found: ${key}`);
+        console.warn(`Translation key not found: ${key} in language ${language}`);
         return opts.defaultValue || key;
       }
       
@@ -77,7 +77,52 @@ export const createTranslationFunction = (
       return opts.defaultValue || key;
     } catch (error) {
       console.error('Error in translation function:', error);
-      return key;
+      return opts?.defaultValue || key;
     }
   };
+};
+
+// Utility function to validate translation keys
+export const validateTranslationKeys = (
+  translations: Record<Language, Record<string, any>>,
+  languages: Language[] = ['he', 'en', 'ru', 'de', 'ar']
+): string[] => {
+  const missingKeys: string[] = [];
+  const baseLanguage = 'he';
+  const baseTranslations = translations[baseLanguage] || {};
+  
+  // Extract all keys from base language
+  const extractKeys = (obj: any, prefix = '') => {
+    const keys: string[] = [];
+    
+    for (const key in obj) {
+      const currentPath = prefix ? `${prefix}.${key}` : key;
+      
+      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+        // Recursively extract keys for nested objects
+        keys.push(...extractKeys(obj[key], currentPath));
+      } else {
+        // Add leaf node key
+        keys.push(currentPath);
+      }
+    }
+    
+    return keys;
+  };
+  
+  const baseKeys = extractKeys(baseTranslations);
+  
+  // Check all languages for missing keys
+  languages.forEach(lang => {
+    if (lang === baseLanguage) return;
+    
+    const langTranslations = translations[lang] || {};
+    baseKeys.forEach(key => {
+      if (getNestedValue(langTranslations, key) === undefined) {
+        missingKeys.push(`${lang}:${key}`);
+      }
+    });
+  });
+  
+  return missingKeys;
 };

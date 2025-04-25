@@ -4,16 +4,16 @@ import { setupDirectionByLanguage } from '@/utils/direction';
 import { Language } from '@/types/language';
 import { 
   TranslationOptions, 
-  createTranslationFunction, 
-  TranslationValue 
+  createTranslationFunction,
+  validateTranslationKeys
 } from '@/utils/translation';
 
 // Import all translations
 import heTranslations from '@/translations/he';
 import enTranslations from '@/translations/en';
-import ruTranslations from '@/translations/ru.json';
-import deTranslations from '@/translations/de.json';
-import arTranslations from '@/translations/ar.json';
+import ruTranslations from '@/translations/ru';
+import deTranslations from '@/translations/de';
+import arTranslations from '@/translations/ar';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -82,6 +82,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Set up document direction on mount and language change
   useEffect(() => {
     setupDirectionByLanguage(language);
+    
+    // Log any missing translations in development
+    if (process.env.NODE_ENV === 'development') {
+      const missingKeys = validateTranslationKeys(translations);
+      if (missingKeys.length > 0) {
+        console.warn('Missing translation keys:', missingKeys);
+      }
+    }
   }, [language]);
 
   // Create translation function using our utility

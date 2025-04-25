@@ -1,100 +1,49 @@
 
-// Format a translation with variables using the {{variable}} syntax
-export const formatTranslation = (
-  translation: string,
-  variables?: Record<string, any>
-): string => {
-  if (!variables || !translation) {
-    return translation || '';
+import { TranslationContext } from './types';
+
+/**
+ * Format a translation string with variables
+ * @param text The translation string with {{variable}} placeholders
+ * @param context An object with variable values
+ * @returns The formatted string with variables replaced
+ */
+export const formatTranslation = (text: string, context?: TranslationContext): string => {
+  if (!context || typeof text !== 'string') {
+    return String(text);
   }
-  
-  return translation.replace(/\{\{(\w+)\}\}/g, (_, key) => {
-    return variables[key] !== undefined ? String(variables[key]) : `{{${key}}}`;
-  });
+
+  return Object.entries(context).reduce((result, [key, value]) => {
+    const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
+    return result.replace(regex, String(value));
+  }, text);
 };
 
-// Helper to ensure safe string output for any value
-export const safeString = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
-  
-  if (typeof value === 'object') {
-    try {
-      return JSON.stringify(value);
-    } catch {
-      return '[Complex Object]';
-    }
-  }
-  
-  return String(value);
-};
-
-// Check if a value is a nested object
-export const isNestedObject = (value: any): boolean => {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
-};
-
-// Format a translation value, handling nested objects
-export const formatTranslationValue = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
-
-  if (typeof value === 'string') {
-    return value;
-  }
-
-  if (isNestedObject(value)) {
-    try {
-      return JSON.stringify(value);
-    } catch {
-      return '[Complex Object]';
-    }
-  }
-
-  return String(value);
-};
-
-// Access nested translation properties safely
-export const getNestedTranslationValue = (
-  obj: Record<string, any>,
-  path: string,
-  defaultValue: string = ''
-): string => {
-  try {
-    const keys = path.split('.');
-    let current = obj;
-    
-    for (const key of keys) {
-      if (!current || typeof current !== 'object') {
-        return defaultValue;
-      }
-      current = current[key];
-    }
-    
-    return formatTranslationValue(current) || defaultValue;
-  } catch (error) {
-    console.warn(`Error accessing translation path: ${path}`, error);
+/**
+ * Ensure translation output is always a string
+ * @param input Any translation output
+ * @param defaultValue Fallback if input cannot be converted to string
+ * @returns A string representation of the input
+ */
+export const ensureString = (input: any, defaultValue = ''): string => {
+  if (input === null || input === undefined) {
     return defaultValue;
   }
-};
-
-// Safely format nested translation objects for displaying in components
-export const formatNestedTranslation = (
-  obj: Record<string, any>,
-  prefix: string = '',
-  result: Record<string, string> = {}
-): Record<string, string> => {
-  for (const [key, value] of Object.entries(obj)) {
-    const newKey = prefix ? `${prefix}.${key}` : key;
-    
-    if (isNestedObject(value)) {
-      formatNestedTranslation(value, newKey, result);
-    } else {
-      result[newKey] = formatTranslationValue(value);
+  
+  if (typeof input === 'string') {
+    return input;
+  }
+  
+  if (typeof input === 'number' || typeof input === 'boolean') {
+    return String(input);
+  }
+  
+  if (typeof input === 'object') {
+    try {
+      return JSON.stringify(input);
+    } catch (e) {
+      return defaultValue;
     }
   }
   
-  return result;
+  return defaultValue;
 };
