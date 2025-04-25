@@ -5,9 +5,6 @@ import { useHebrewText } from '@/utils/hebrewUtils';
 import HebrewText from '../shared/HebrewText';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-/**
- * An example component demonstrating how to use the translation system
- */
 const TranslationExample: React.FC = () => {
   const { t, language, isRTL } = useLanguage();
   const { formatNumber, formatDate } = useHebrewText();
@@ -15,9 +12,9 @@ const TranslationExample: React.FC = () => {
   // Example of getting a nested object with returnObjects option
   const doctorInfo = t('info.doctorInfo', { returnObjects: true });
   
-  // Example of using variables in translations
+  // Example of using variables in translations - use a context option instead of name
   const greetingKey = 'Welcome, {{name}}!';
-  const greetingWithName = t(greetingKey, { name: doctorInfo.name });
+  const greetingWithName = t(greetingKey, { context: doctorInfo.name });
   
   // Example date formatting
   const currentDate = new Date();
@@ -37,6 +34,11 @@ const TranslationExample: React.FC = () => {
         {/* Simple string translation */}
         <HebrewText tag="p" className="text-lg">
           {t('common.dentistryWithLove')}
+        </HebrewText>
+        
+        {/* Greeting with doctor's name */}
+        <HebrewText tag="p">
+          {greetingWithName}
         </HebrewText>
         
         {/* Accessing nested translations */}
@@ -67,3 +69,4 @@ const TranslationExample: React.FC = () => {
 };
 
 export default TranslationExample;
+
