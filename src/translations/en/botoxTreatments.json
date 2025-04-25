@@ -1,0 +1,44 @@
+
+{
+  "headline": "Aesthetic Botox Treatments",
+  "subheading": "Precise, gentle treatments to enhance your natural beauty",
+  "teethGrinding": "Teeth Grinding Relief",
+  "tmjDisorders": "TMJ Disorder Treatment",
+  "facialRejuvenation": "Facial Rejuvenation",
+  "benefits": {
+    "title": "Benefits of Botox Treatments",
+    "pain": "Pain Relief",
+    "wellness": "Overall Wellness",
+    "confidence": "Improved Confidence",
+    "prevention": "Preventive Care"
+  },
+  "process": {
+    "title": "Treatment Process",
+    "consultation": "Initial Consultation",
+    "planning": "Treatment Planning",
+    "procedure": "Quick and Comfortable Procedure",
+    "results": "Natural-Looking Results"
+  },
+  "safety": {
+    "title": "Safety First Approach",
+    "medicalGrade": "Medical-Grade Products",
+    "expertise": "Expert Application",
+    "sterile": "Sterile Environment"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "Is Botox treatment painful?",
+    "a1": "Most patients report minimal discomfort during the procedure. We use ultra-fine needles and can apply a topical numbing cream if needed.",
+    "q2": "How long do results last?",
+    "a2": "Results typically last 3-6 months, depending on the treatment area and individual factors.",
+    "q3": "When will I see results?",
+    "a3": "Initial results can be seen within 24-48 hours, with full results visible after 7-14 days.",
+    "q4": "Is there any downtime?",
+    "a4": "There is minimal to no downtime. Most patients return to normal activities immediately."
+  },
+  "beforeAfter": {
+    "title": "Before & After Results",
+    "subtitle": "See the difference our treatments make"
+  },
+  "bookConsultation": "Book a Free Consultation"
+}

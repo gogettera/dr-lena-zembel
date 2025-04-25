@@ -1,0 +1,17 @@
+
+{
+  "home": "Home",
+  "treatments": "Treatments",
+  "botoxTreatments": "Botox Treatments",
+  "aestheticTreatments": "Aesthetic Treatments",
+  "preventiveMedicine": "Preventive Care",
+  "contact": "Contact",
+  "about": "About",
+  "accessibility": {
+    "statement": "Accessibility Statement"
+  },
+  "legal": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

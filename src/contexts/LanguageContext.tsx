@@ -11,7 +11,7 @@ import {
 
 // Import all translations
 import heTranslations from '@/translations/he';
-import enTranslations from '@/translations/en.json';
+import enTranslations from '@/translations/en';
 import ruTranslations from '@/translations/ru.json';
 import deTranslations from '@/translations/de.json';
 import arTranslations from '@/translations/ar.json';

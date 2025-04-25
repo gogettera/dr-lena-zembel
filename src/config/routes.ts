@@ -56,7 +56,7 @@ export const rootRoutes: RouteConfig[] = [
 // Language-specific routes
 export const languageRoutes: RouteConfig[] = [
   {
-    path: '/',
+    path: '',
     element: LanguageHome,
     label: 'home',
     inNavigation: true
