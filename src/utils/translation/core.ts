@@ -1,7 +1,6 @@
 
 import { TranslationValue, TranslationOptions } from './types';
 import { Language } from '@/types/language';
-import { getNestedValue } from './format';
 import { formatTranslation } from './format';
 
 // Helper function to get a nested value from an object using dot notation
