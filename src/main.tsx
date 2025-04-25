@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
 /**
@@ -53,9 +54,11 @@ const mountApp = () => {
   
   const appElement = (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <App />
-      </LanguageProvider>
+      <BrowserRouter>
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
   
