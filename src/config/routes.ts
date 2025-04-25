@@ -1,6 +1,7 @@
 
 import { lazy } from 'react';
 import { Language } from '@/types/language';
+import { NavigationLink } from '@/types/navigation';
 
 // Page components (eagerly loaded)
 import Index from '@/pages/Index';
@@ -101,12 +102,13 @@ export const getLanguagePath = (path: string, lang: Language): string => {
   return `${basePath}/${path.startsWith('/') ? path.substring(1) : path}`;
 };
 
-// Get navigation items for the main menu
-export const getMainNavigationItems = (language: Language): { label: string, path: string }[] => {
+// Get navigation items for the main menu (updated to return NavigationLink[])
+export const getMainNavigationItems = (language: Language): NavigationLink[] => {
   return languageRoutes
     .filter(route => route.inNavigation)
     .map(route => ({
-      label: route.label,
+      key: route.label || route.path, // Use label as key if available
+      labelKey: route.label || '',
       path: getLanguagePath(route.path, language)
     }));
 };
