@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
 import { Phone } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { cn } from '@/lib/utils';
+import Logo from './Logo';
 import MobileNav from './MobileNav';
 import LanguageSwitcher from './LanguageSwitcher';
 import { getMainNavigationItems } from '@/config/routes';
@@ -32,42 +32,21 @@ const Navbar = () => {
   return (
     <nav 
       className={cn(
-        "py-4 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "py-3 px-4 md:px-8 fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
-      )} 
-      role="navigation" 
+      )}
+      role="navigation"
       aria-label={t('mainNavigation', 'Main navigation')}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
-      <div className={cn(
-        "max-w-7xl mx-auto grid items-center",
-        "grid-cols-3 md:grid-cols-3"
-      )}>
-        <div className="flex items-center justify-start">
+      <div className="max-w-7xl mx-auto grid grid-cols-3 items-center">
+        {/* Left section */}
+        <div className={cn("flex items-center", styles.spaceDir)}>
           <MobileNav />
-          <div className={cn("hidden md:flex items-center", styles.spaceDir)}>
-            <NavigationLinks links={navigationItems} vertical={false} />
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <Link 
-            to={`/${language}`} 
-            className={cn("transition-transform duration-300 hover:scale-105", NAVIGATION_ANIMATIONS.scaleHover)}
-            aria-label={t('home', 'Home')}
-          >
-            <Logo />
-          </Link>
-        </div>
-
-        <div className={cn("flex items-center justify-end space-x-2", styles.spaceDir)}>
-          <div className="hidden md:block">
-            <LanguageSwitcher />
-          </div>
           <Button 
             variant="ghost" 
             size="icon"
-            className="rounded-full hover:bg-dental-beige/20"
+            className="hover:bg-dental-beige/20 hidden md:flex"
             asChild
           >
             <a 
@@ -77,6 +56,29 @@ const Navbar = () => {
               <Phone className="h-5 w-5 text-dental-navy" />
             </a>
           </Button>
+          <LanguageSwitcher />
+        </div>
+
+        {/* Center logo */}
+        <div className="flex justify-center">
+          <Link 
+            to={`/${language}`}
+            className={cn(
+              "transition-transform duration-300 hover:scale-105",
+              NAVIGATION_ANIMATIONS.scaleHover
+            )}
+            aria-label={t('home', 'Home')}
+          >
+            <Logo />
+          </Link>
+        </div>
+
+        {/* Right navigation */}
+        <div className="hidden md:flex justify-end">
+          <NavigationLinks 
+            links={navigationItems} 
+            vertical={false}
+          />
         </div>
       </div>
     </nav>
