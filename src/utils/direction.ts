@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
@@ -104,9 +105,13 @@ export const createDirectionalWrapper = (
   children: React.ReactNode,
   className?: string
 ) => {
-  return (
-    <div dir={isRTL ? 'rtl' : 'ltr'} className={className}>
-      {children}
-    </div>
+  // Use React.createElement instead of JSX syntax
+  return React.createElement(
+    'div',
+    {
+      dir: isRTL ? 'rtl' : 'ltr',
+      className: className
+    },
+    children
   );
 };
