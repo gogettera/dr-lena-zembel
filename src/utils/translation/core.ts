@@ -40,6 +40,9 @@ export const getNestedProperty = (obj: any, path: string, defaultValue: any = un
   return current !== undefined ? current : defaultValue;
 };
 
+// Also export with alternative name for backward compatibility
+export const getNestedValue = getNestedProperty;
+
 /**
  * Check if the object is a nested object
  */
@@ -80,7 +83,7 @@ export const createTranslationFunction = (
       ? { defaultValue: options } 
       : options || {};
     
-    const { defaultValue, namespace, params } = opts;
+    const { defaultValue, returnObjects } = opts;
     
     // Get current language translations
     const currentTranslations = allTranslations[language] || {};
@@ -100,12 +103,12 @@ export const createTranslationFunction = (
     }
     
     // Handle nested objects if needed for component-specific translations
-    if (isNestedObject(translationValue)) {
-      return translationValue;
+    if (isNestedObject(translationValue) && !returnObjects) {
+      return formatTranslationValue(translationValue);
     }
     
     // Format the value to a string
-    return formatTranslationValue(translationValue);
+    return returnObjects ? translationValue : formatTranslationValue(translationValue);
   };
 };
 

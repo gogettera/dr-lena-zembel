@@ -26,6 +26,12 @@ export interface TranslationOptions {
   
   /** Custom debug metadata */
   debug?: boolean;
+  
+  /** Optional namespace for translation */
+  namespace?: string;
+  
+  /** Parameters for interpolation */
+  params?: Record<string, any>;
 }
 
 /**
@@ -60,3 +66,8 @@ export interface LanguageState {
   translations: Record<Language, Record<string, any>>;
   isRTL: boolean;
 }
+
+/**
+ * Base translations type
+ */
+export type TranslationsType = Record<string, any>;

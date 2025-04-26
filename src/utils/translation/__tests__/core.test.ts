@@ -1,10 +1,10 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { getNestedValue, createTranslationFunction } from '../core';
+import { getNestedProperty, createTranslationFunction } from '../core';
 import { mockTranslations } from './mock-translations';
 import { Language } from '@/types/language';
 
-describe('getNestedValue', () => {
+describe('getNestedProperty', () => {
   const testObj = {
     level1: {
       level2: {
@@ -16,24 +16,24 @@ describe('getNestedValue', () => {
   };
 
   it('should return a simple value', () => {
-    expect(getNestedValue(testObj, 'simple')).toBe('simple value');
+    expect(getNestedProperty(testObj, 'simple')).toBe('simple value');
   });
 
   it('should return a nested value', () => {
-    expect(getNestedValue(testObj, 'level1.level2.level3')).toBe('deep value');
+    expect(getNestedProperty(testObj, 'level1.level2.level3')).toBe('deep value');
   });
 
   it('should return default value when path does not exist', () => {
-    expect(getNestedValue(testObj, 'nonexistent', 'default')).toBe('default');
+    expect(getNestedProperty(testObj, 'nonexistent', 'default')).toBe('default');
   });
 
   it('should handle null or undefined objects', () => {
-    expect(getNestedValue(null as any, 'key', 'default')).toBe('default');
-    expect(getNestedValue(undefined as any, 'key', 'default')).toBe('default');
+    expect(getNestedProperty(null as any, 'key', 'default')).toBe('default');
+    expect(getNestedProperty(undefined as any, 'key', 'default')).toBe('default');
   });
 
   it('should handle arrays in the path', () => {
-    expect(getNestedValue(testObj, 'level1.array')).toEqual([1, 2, 3]);
+    expect(getNestedProperty(testObj, 'level1.array')).toEqual([1, 2, 3]);
   });
 });
 

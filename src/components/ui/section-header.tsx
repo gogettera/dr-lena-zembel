@@ -6,17 +6,19 @@ interface SectionHeaderProps {
   subtitle?: ReactNode;
   centered?: boolean;
   className?: string;
+  titleClassName?: string; // Added titleClassName prop
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ 
   title, 
   subtitle, 
   centered = true,
-  className = ''
+  className = '',
+  titleClassName = '' // Added default value
 }) => {
   return (
     <div className={`mb-12 ${centered ? 'text-center' : ''} ${className}`}>
-      <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+      <h2 className={`text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards] ${titleClassName}`}>
         {title}
       </h2>
       

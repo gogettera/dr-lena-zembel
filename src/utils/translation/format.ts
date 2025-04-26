@@ -1,126 +1,81 @@
 
 import { TranslationContext } from './types';
+import { isNestedObject } from './core';
 
 /**
- * Format a translation string with variables
- * @param text The translation string with {{variable}} placeholders
- * @param context An object with variable values
- * @returns The formatted string with variables replaced
+ * Format a string with interpolation values
  */
-export const formatTranslation = (text: string, context?: TranslationContext): string => {
-  if (!context || typeof text !== 'string') {
-    return String(text || '');
-  }
+export const formatInterpolation = (
+  text: string,
+  context?: TranslationContext
+): string => {
+  if (!context || !text.includes('{{')) return text;
 
-  return Object.entries(context).reduce((result, [key, value]) => {
-    const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
-    return result.replace(regex, String(value));
-  }, text);
+  return text.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+    const value = context[key.trim()];
+    return value !== undefined ? String(value) : '';
+  });
 };
 
 /**
- * Check if a value is a nested object (not null, not array, but object)
- * @param value The value to check
- * @returns true if the value is a nested object
+ * Format number according to locale
  */
-export const isNestedObject = (value: any): boolean => {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
+export const formatNumber = (
+  value: number,
+  locale: string = 'he-IL'
+): string => {
+  return new Intl.NumberFormat(locale).format(value);
 };
 
 /**
- * Format a translation value for display, handling objects and other types
- * @param value Any translation value
- * @returns A string representation of the value
+ * Format date according to locale
  */
-export const formatTranslationValue = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
+export const formatDate = (
+  value: Date | string | number,
+  locale: string = 'he-IL',
+  options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric'
   }
-  
-  if (typeof value === 'string') {
-    return value;
-  }
-  
-  if (typeof value === 'number' || typeof value === 'boolean') {
-    return String(value);
-  }
-  
-  if (isNestedObject(value)) {
-    try {
-      return JSON.stringify(value);
-    } catch (e) {
-      return '[Complex Object]';
-    }
-  }
-  
-  return String(value);
+): string => {
+  const date = value instanceof Date ? value : new Date(value);
+  return new Intl.DateTimeFormat(locale, options).format(date);
 };
 
 /**
- * Ensure translation output is always a string
- * @param input Any translation output
- * @param defaultValue Fallback if input cannot be converted to string
- * @returns A string representation of the input
- */
-export const ensureString = (input: any, defaultValue = ''): string => {
-  if (input === null || input === undefined) {
-    return defaultValue;
-  }
-  
-  if (typeof input === 'string') {
-    return input;
-  }
-  
-  if (typeof input === 'number' || typeof input === 'boolean') {
-    return String(input);
-  }
-  
-  if (typeof input === 'object') {
-    try {
-      return JSON.stringify(input);
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-  
-  return defaultValue;
-};
-
-/**
- * Safely stringify a value, handling circular references
- * @param value Any value to convert to string
- * @returns String representation of the value
+ * Safe string conversion for any value
  */
 export const safeString = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
-  
-  if (typeof value === 'string') {
-    return value;
-  }
-  
-  if (typeof value === 'number' || typeof value === 'boolean') {
-    return String(value);
-  }
-  
-  if (typeof value === 'object') {
-    try {
-      // Use replacer to handle circular references
-      return JSON.stringify(value, (key, val) => {
-        if (typeof val === 'object' && val !== null) {
-          if (seen.has(val)) return '[Circular Reference]';
-          seen.add(val);
-        }
-        return val;
-      });
-    } catch (e) {
-      return '[Complex Object]';
-    }
-    
-    // Helper variable to detect circular references
-    const seen = new WeakSet();
-  }
-  
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (Array.isArray(value)) return value.map(safeString).join(', ');
+  if (typeof value === 'object') return JSON.stringify(value);
   return String(value);
+};
+
+/**
+ * Format a translation with context and pluralization
+ */
+export const formatTranslation = (
+  translation: string,
+  context?: any,
+  count?: number
+): string => {
+  // Handle empty translations
+  if (!translation) return '';
+  
+  // Handle simple translations without context
+  if (!context && count === undefined) return translation;
+
+  // Apply pluralization if count is provided
+  let result = translation;
+  
+  // Apply context interpolation
+  if (context) {
+    result = formatInterpolation(result, context);
+  }
+  
+  return result;
 };

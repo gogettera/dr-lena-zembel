@@ -6,7 +6,15 @@
 export * from './types';
 
 // Core translation functionality
-export * from './core';
+export {
+  translations,
+  createTranslationFunction,
+  getNestedProperty,
+  getNestedValue,
+  validateTranslationKeys,
+  isNestedObject,
+  formatTranslationValue
+} from './core';
 
 // Format helpers
 export * from './format';
