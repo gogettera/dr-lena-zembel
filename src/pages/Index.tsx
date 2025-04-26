@@ -1,6 +1,7 @@
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { supportedLanguages } from '@/utils/languageRoutes';
 
 // Sanitize paths to prevent open redirect vulnerabilities
@@ -16,6 +17,8 @@ const sanitizePath = (path: string): string => {
 
 const Index = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { language } = useLanguage();
   
   useEffect(() => {
     // Get browser language for potential selection
@@ -34,19 +37,22 @@ const Index = () => {
       redirectLang = browserLang;
     }
     
-    // Perform navigation to language home page
-    navigate(`/${redirectLang}`, { replace: true });
-  }, [navigate]);
+    // Extract any additional path information after the root
+    const pathAfterRoot = location.pathname.replace(/^\/$/, '');
+    
+    // Sanitize any path components
+    const sanitizedPath = sanitizePath(pathAfterRoot);
+    const sanitizedSearch = location.search ? sanitizePath(location.search) : '';
+    const sanitizedHash = location.hash ? sanitizePath(location.hash) : '';
+    
+    // Safely redirect to the language home page with path preservation
+    const targetPath = `/${redirectLang}${sanitizedPath}${sanitizedSearch}${sanitizedHash}`;
+    
+    // Perform navigation
+    navigate(targetPath, { replace: true });
+  }, [navigate, location]);
 
-  // Return loading state while redirecting
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="w-16 h-16 border-t-4 border-dental-orange border-solid rounded-full animate-spin mx-auto"></div>
-        <p className="mt-4 text-lg">Loading...</p>
-      </div>
-    </div>
-  );
+  return null;
 };
 
 export default Index;

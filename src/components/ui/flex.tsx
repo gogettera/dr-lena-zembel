@@ -17,7 +17,6 @@ interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12;
   className?: string;
   rtlFlip?: boolean;
-  forceRTL?: boolean;
 }
 
 const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
@@ -29,12 +28,11 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
     wrap = 'nowrap',
     gap, 
     className,
-    rtlFlip = true,
-    forceRTL = false,
+    rtlFlip = false,
     ...props 
   }, ref) => {
     const styles = useDirectionalStyles();
-    const isRTL = forceRTL || styles.textAlign === 'text-right';
+    const isRTL = styles.textAlign === 'text-right';
     
     // Handle RTL flipping for row directions if rtlFlip is true
     let finalDirection = direction;

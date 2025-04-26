@@ -24,7 +24,6 @@
   "patientsServed": "מטופלים מרוצים",
   "schedule": "לוח זמנים",
   "consultation": "ייעוץ",
-  "learnMore": "לפרטים נוספים",
   "navigation": {
     "mainLinks": "ניווט מהיר",
     "followUs": "עקבו אחרינו",
@@ -38,6 +37,5 @@
   },
   "insurance": {
     "topInsurances": "קופות חולים"
-  },
-  "clinicImage": "תמונת מרפאת השיניים"
+  }
 }

@@ -1,11 +1,7 @@
-
 {
   "home": "דף הבית",
   "about": "אודות",
   "treatments": "טיפולים",
-  "botoxTreatments": "טיפולי בוטוקס",
-  "aestheticTreatments": "טיפולים אסתטיים",
-  "preventiveMedicine": "רפואה מונעת",
   "contact": "צור קשר",
   "practice": "המרפאה שלנו",
   "team": "הצוות",
@@ -15,8 +11,6 @@
   "ourTreatments": "הטיפולים שלנו",
   "wideRangeOfTreatments": "אנו מציעים מגוון רחב של טיפולי שיניים מתקדמים",
   "updatesFromPractice": "עדכונים מהמרפאה",
-  "followOnFacebook": "עקבו אחרינו בפייסבוק לעדכונים שוטפים",
-  "followOnFacebookButton": "עקבו אחרינו בפייסבוק",
   "learnMore": "למידע נוסף",
   "sitemap": "מפת האתר",
   "backToHome": "חזרה לדף הבית",
@@ -24,13 +18,10 @@
   "info": "מידע",
   "followUs": "עקבו אחרינו",
   "accessibility": {
-    "skipToContent": "דלג לתוכן העיקרי",
-    "statement": "הצהרת נגישות"
+    "skipToContent": "דלג לתוכן העיקרי"
   },
   "legal": {
     "privacyPolicy": "מדיניות פרטיות",
-    "termsOfService": "תנאי שירות",
-    "privacy": "מדיניות פרטיות",
-    "terms": "תנאי שימוש"
+    "termsOfService": "תנאי שירות"
   }
 }

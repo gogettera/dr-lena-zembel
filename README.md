@@ -1,7 +1,5 @@
 # Welcome to your Lovable project
 
-![Tests](https://github.com/{OWNER}/{REPO}/actions/workflows/test.yml/badge.svg)
-
 ## Project info
 
 **URL**: https://lovable.dev/projects/c51cb63e-9140-4cd3-a1b0-60bf6b92e51c

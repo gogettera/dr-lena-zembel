@@ -8,7 +8,6 @@ import DeferredContent from './deferred-content';
 import SectionHeader from '@/components/ui/section-header';
 import VideoModal from './video/VideoModal';
 import { supabase } from '@/integrations/supabase/client';
-import { TranslatedText } from '@/components/ui/translated-text';
 
 type VideoData = {
   id: string;
@@ -71,8 +70,8 @@ const VideoSection = () => {
       <section className="py-24 bg-gradient-to-b from-dental-beige/30 to-white">
         <div className="container mx-auto px-4">
           <SectionHeader 
-            title={<TranslatedText textKey="common.watchOurClinic" defaultText="Clinic Tour" />}
-            subtitle={<TranslatedText textKey="common.clinicTourDescription" defaultText="Watch a short video about our clinic" />}
+            title={t('watchOurClinic')}
+            subtitle={t('clinicTourDescription')}
           />
           <div className="flex justify-center py-12">
             <div className="animate-spin h-8 w-8 border-4 border-dental-orange border-t-transparent rounded-full"></div>
@@ -91,8 +90,8 @@ const VideoSection = () => {
     <section className="py-24 bg-gradient-to-b from-dental-beige/30 to-white">
       <div className="container mx-auto px-4">
         <SectionHeader 
-          title={<TranslatedText textKey="common.watchOurClinic" defaultText="Clinic Tour" />}
-          subtitle={<TranslatedText textKey="common.clinicTourDescription" defaultText="Watch a short video about our clinic" />}
+          title={t('watchOurClinic')}
+          subtitle={t('clinicTourDescription')}
         />
 
         <div className="max-w-5xl mx-auto">
@@ -112,7 +111,7 @@ const VideoSection = () => {
                     {video.poster ? (
                       <OptimizedImage
                         src={video.poster}
-                        alt={t('common.clinicTourThumbnail', 'Clinic tour thumbnail') + ` ${video.title}`}
+                        alt={t('clinicTourThumbnail') + ` ${video.title}`}
                         width={640}
                         height={360}
                         className="w-full h-full object-cover"
@@ -120,9 +119,7 @@ const VideoSection = () => {
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-400">
-                          <TranslatedText textKey="common.noThumbnail" defaultText="No thumbnail" />
-                        </span>
+                        <span className="text-gray-400">{t('noThumbnail') || 'No thumbnail'}</span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-black/40 hover:bg-black/50 transition-colors flex items-center justify-center">

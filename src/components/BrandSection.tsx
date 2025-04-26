@@ -4,7 +4,6 @@ import { ArrowRight, CheckCircle, Calendar, Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { NextGenImage } from '@/components/ui/next-gen-image';
-import { TranslatedText } from '@/components/ui/translated-text';
 
 const BrandSection = () => {
   const { t, language } = useLanguage();
@@ -15,18 +14,18 @@ const BrandSection = () => {
       <div className="md:w-1/2 bg-dental-navy text-white p-8 md:p-16 flex flex-col justify-center">
         <div className="opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            <TranslatedText textKey="common.newLook" defaultText="Our New Clinic" />
+            {t('newLook')}
           </h2>
           
           <p className="text-lg mb-8 leading-relaxed">
-            <TranslatedText textKey="common.practiceFresh" defaultText="Our clinic has undergone a complete upgrade! New equipment, advanced technology, and a modern treatment environment await you." />
+            {t('practiceFresh')}
           </p>
           
           <div className="space-y-5 mb-10">
             {[
-              { icon: CheckCircle, textKey: "common.experiencedDoctors", defaultText: "Experienced Team of Doctors" },
-              { icon: Star, textKey: "common.advancedEquipment", defaultText: "Advanced Dental Equipment" },
-              { icon: Clock, textKey: "common.shortWaits", defaultText: "Short Waiting Times" }
+              { icon: CheckCircle, text: t('experiencedDoctors') },
+              { icon: Star, text: t('advancedEquipment') },
+              { icon: Clock, text: t('shortWaits') }
             ].map((item, index) => (
               <div 
                 key={index} 
@@ -34,9 +33,7 @@ const BrandSection = () => {
                 style={{ animationDelay: `${0.3 + index * 0.2}s` }}
               >
                 <item.icon className={`h-6 w-6 text-dental-orange flex-shrink-0 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                <span className="text-white">
-                  <TranslatedText textKey={item.textKey} defaultText={item.defaultText} />
-                </span>
+                <span className="text-white">{item.text}</span>
               </div>
             ))}
           </div>
@@ -47,7 +44,7 @@ const BrandSection = () => {
             className="rounded-full text-base hover:scale-105 transition-transform duration-300 shadow-lg opacity-0 animate-[fade-in_0.5s_ease-out_0.8s_forwards]"
           >
             <Calendar className={`h-5 w-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-            <TranslatedText textKey="common.bookNow" defaultText="Book Now" />
+            {t('bookNow')}
           </Button>
         </div>
       </div>
@@ -59,7 +56,7 @@ const BrandSection = () => {
             <div className="absolute inset-0 bg-dental-orange rounded-xl blur-xl opacity-20 transform rotate-3"></div>
             <NextGenImage 
               src="/lovable-uploads/5f625d79-c4c0-4279-8df1-06890084db8c.png"
-              alt={t("common.clinicImage", "Dental clinic image")}
+              alt="רופאת שיניים במרפאה" 
               width={640}
               height={480}
               priority={false}

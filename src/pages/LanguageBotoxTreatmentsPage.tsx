@@ -1,45 +1,65 @@
 
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/layout/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Button } from '@/components/ui/button';
 import BackToTop from '@/components/BackToTop';
-import BotoxTreatmentsLanding from '@/components/botox-treatments/BotoxTreatmentsLanding';
-import PageContainer from '@/components/layout/PageContainer';
-import { treatmentTypes } from '@/data/treatmentTypes';
+import TreatmentContent from '@/components/treatment/TreatmentContent';
+import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
+import BotoxTreatmentsHero from '@/components/botox-treatments/BotoxTreatmentsHero';
+import { createLocalizedPath } from '@/utils/languageRoutes';
+import { Section } from '@/components/ui/section';
 
 const LanguageBotoxTreatmentsPage: React.FC = () => {
-  const { lang } = useParams<{ lang: string }>();
-  const { t, setLanguage } = useLanguage();
-
-  useEffect(() => {
-    if (lang) {
-      setLanguage(lang as any);
-    }
-  }, [lang, setLanguage]);
+  const { t, language } = useLanguage();
 
   const treatmentType = 'botox-treatments';
   const treatment = treatmentTypes[treatmentType];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.title = `${t('botoxTreatments')} | Dental Love`;
+  }, [t]);
+
   if (!treatment) {
     return (
-      <PageContainer title="treatmentNotFound" className="min-h-screen">
-        <div className="text-center py-12">
-          <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
-          <a href={`/${lang}`} className="mt-4 inline-block px-4 py-2 bg-dental-orange text-white rounded-full">
-            {t('backToHome')}
-          </a>
-        </div>
-      </PageContainer>
+      <div>
+        <Navbar />
+        <Section spacing="lg">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
+            <Button className="mt-4" asChild>
+              <a href={createLocalizedPath(language, '/')}>{t('backToHome')}</a>
+            </Button>
+          </div>
+        </Section>
+        <Footer />
+      </div>
     );
   }
 
+  const treatmentNameKey = getTreatmentNameKey(treatmentType);
+  const treatmentDescKey = getTreatmentDescKey(treatmentType);
+  
   return (
-    <PageContainer title="botoxTreatments.headline1" description="botoxTreatments.headline2" className="bg-white">
+    <div className="bg-white">
+      <Navbar />
       <main className="pt-0">
-        <BotoxTreatmentsLanding />
+        <Section background="none" spacing="none" containerClass="px-0">
+          <BotoxTreatmentsHero />
+        </Section>
+        
+        <TreatmentContent 
+          treatment={treatment}
+          treatmentNameKey={treatmentNameKey}
+          treatmentDescKey={treatmentDescKey}
+          treatmentType={treatmentType}
+        />
       </main>
+      <Footer />
       <BackToTop />
-    </PageContainer>
+    </div>
   );
 };
 

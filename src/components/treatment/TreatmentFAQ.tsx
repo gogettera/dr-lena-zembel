@@ -4,7 +4,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { TranslatedText } from '@/components/ui/translated-text';
 
 interface TreatmentFAQProps {
   treatmentType: string;
@@ -50,11 +49,9 @@ const TreatmentFAQ: React.FC<TreatmentFAQProps> = ({ treatmentType }) => {
   return (
     <Card>
       <CardContent className="pt-6">
-        <TranslatedText
-          textKey="frequentlyAskedQuestions"
-          as="h3"
-          className="text-2xl font-bold text-dental-navy mb-6" 
-        />
+        <h3 className="text-2xl font-bold text-dental-navy mb-6">
+          {t('frequentlyAskedQuestions')}
+        </h3>
         <div className="space-y-4">
           {faqs.map((faq) => (
             <Collapsible

@@ -5,24 +5,22 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Language } from '@/types/language';
 import { setupDirectionByLanguage } from '@/utils/direction';
 
+// List of supported languages
+const supportedLanguages: Language[] = ['he', 'en', 'ru', 'de', 'ar'];
+
 const LanguageRoute: React.FC = () => {
   const { lang } = useParams<{ lang: string }>();
-  const { language, setLanguage, availableLanguages } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   
   useEffect(() => {
-    // If the URL language parameter exists and is valid
-    if (lang && availableLanguages.includes(lang as Language)) {
-      // Only update if different from current language
-      if (lang !== language) {
-        console.log(`Setting language from URL param: ${lang}`);
-        setLanguage(lang as Language);
-      }
+    // If the URL language is valid and different from current language setting
+    if (lang && supportedLanguages.includes(lang as Language) && lang !== language) {
+      setLanguage(lang as Language);
     }
-  }, [lang, language, setLanguage, availableLanguages]);
+  }, [lang, language, setLanguage]);
 
   // If language is not supported, redirect to default language (Hebrew)
-  if (lang && !availableLanguages.includes(lang as Language)) {
-    console.log(`Unsupported language: ${lang}, redirecting to Hebrew`);
+  if (lang && !supportedLanguages.includes(lang as Language)) {
     return <Navigate to="/he" replace />;
   }
 

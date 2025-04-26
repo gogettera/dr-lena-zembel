@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { SortAsc, SortDesc } from "lucide-react";
 import { Translation, SortConfig } from './types';
-import { formatTranslationValue } from '@/utils/translation';
+import { formatTranslationValue } from '@/utils/translation-helpers';
 
 interface TranslationsTableContentProps {
   sortConfig: SortConfig;

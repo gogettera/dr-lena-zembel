@@ -3,99 +3,119 @@ import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Container } from '@/components/ui/container';
 import SectionHeader from '@/components/ui/section-header';
-import { Card } from '@/components/ui/card';
-import { Star, Quote } from 'lucide-react';
-import { useDirectionalStyles } from '@/utils/direction';
+import { Card, CardContent } from '@/components/ui/card';
+import { StarIcon } from 'lucide-react';
+import { EnhancedCarousel, CarouselItem } from '@/components/ui/enhanced-carousel';
+import { EnhancedImage } from '@/components/ui/enhanced-image';
 
 interface Testimonial {
   name: string;
-  text: string;
-  rating: number;
   treatment: string;
+  rating: number;
+  text: string;
+  image?: string;
 }
 
 const TestimonialsSection: React.FC = () => {
-  const { t, isRTL } = useLanguage();
-  const dir = useDirectionalStyles();
+  const { t } = useLanguage();
   
-  // Default testimonials in case translations aren't available
-  const defaultTestimonials: Testimonial[] = [
+  // Sample testimonials
+  const testimonials: Testimonial[] = [
     {
-      name: "Sarah L.",
-      text: "My experience with the botox treatment was excellent. The results exceeded my expectations and the doctor's expertise was evident.",
+      name: "מירב כהן",
+      treatment: "טיפול בוטוקס",
       rating: 5,
-      treatment: "Botox Treatment"
+      text: "נהניתי מאוד מהטיפול של ד\"ר לנה. היא מקצועית, עדינה ומקשיבה לצרכים שלי. התוצאה נראית טבעית ומחמיאה, בדיוק כפי שרציתי.",
+      image: "/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg"
     },
     {
-      name: "David M.",
-      text: "The hyaluronic acid treatment helped me achieve a more youthful appearance without looking artificial. Very satisfied with the results.",
+      name: "רונית לוי",
+      treatment: "מילוי שפתיים בחומצה היאלרונית",
       rating: 5,
-      treatment: "Hyaluronic Acid"
+      text: "זה היה הטיפול הראשון שלי במילוי שפתיים וד\"ר לנה הפכה את החוויה לנעימה ומרגיעה. התוצאה עדינה וטבעית בדיוק כמו שביקשתי.",
+      image: "/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
     },
     {
-      name: "Rachel K.",
-      text: "The process was quick and the results are fantastic. Minimal discomfort and the staff was very professional.",
+      name: "דן אברהמי",
+      treatment: "טיפול בוטוקס במצח",
       rating: 4,
-      treatment: "Combined Treatment"
+      text: "המרפאה מקצועית ונעימה, ד\"ר לנה הסבירה לי את כל התהליך והתוצאות היו טובות מאוד. אחזור בהחלט בעוד מספר חודשים.",
+      image: "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg"
     }
   ];
-
-  // Safely get testimonials from translations or use defaults
-  let testimonials: Testimonial[] = defaultTestimonials;
-  try {
-    const translatedTestimonials = t('botoxTreatments.testimonials');
-    if (translatedTestimonials && typeof translatedTestimonials !== 'string' && Array.isArray(translatedTestimonials)) {
-      testimonials = translatedTestimonials as Testimonial[];
-    }
-  } catch (error) {
-    console.error('Error parsing testimonials:', error);
-  }
 
   return (
     <Container>
       <SectionHeader 
-        title={t('botoxTreatments.testimonialsTitle') as string}
-        subtitle={t('botoxTreatments.testimonialsSubtitle') as string}
+        title={t('botoxTreatments.testimonialsTitle')}
+        subtitle="מה אומרים המטופלים שלנו על טיפולי הבוטוקס והחומצה ההיאלרונית"
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-        {testimonials.map((testimonial, index) => (
-          <Card 
-            key={index} 
-            className={`p-6 bg-white hover:shadow-lg transition-all duration-300 border-0 shadow-md rounded-xl ${dir.textAlign}`}
-          >
-            <div className={`flex ${isRTL ? 'flex-row-reverse' : 'flex-row'} mb-4`}>
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-dental-orange fill-dental-orange" />
-              ))}
-            </div>
-            
-            <div className="relative">
-              <Quote className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} w-8 h-8 text-dental-orange/20 -translate-y-1/2 ${isRTL ? '-translate-x-1/3' : 'translate-x-1/3'}`} />
-              <p className="text-dental-navy/80 mb-4 italic">
-                "{testimonial.text}"
-              </p>
-            </div>
-            
-            <div className={`mt-6 pt-4 border-t border-dental-beige/30 flex ${dir.flexDir} justify-between items-center`}>
-              <div>
-                <p className="font-medium text-dental-navy">{testimonial.name}</p>
-                <p className="text-sm text-dental-navy/60">{testimonial.treatment}</p>
-              </div>
-            </div>
-          </Card>
-        ))}
+      <div className="mt-12">
+        <EnhancedCarousel
+          opts={{
+            align: "center",
+            loop: true,
+          }}
+          className="w-full"
+          autoplay={5000}
+        >
+          {testimonials.map((testimonial, index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 px-2">
+              <TestimonialCard testimonial={testimonial} />
+            </CarouselItem>
+          ))}
+        </EnhancedCarousel>
       </div>
       
-      <div className="text-center mt-10">
-        <a 
-          href="#" 
-          className="text-dental-orange hover:text-dental-orange/80 font-medium transition-colors"
+      <div className="mt-8 text-center">
+        <a
+          href="#"
+          className="text-dental-navy hover:text-dental-orange transition-colors inline-flex items-center"
         >
-          {t('botoxTreatments.readFullReview') as string}
+          {t('readFullReview')} →
         </a>
       </div>
     </Container>
+  );
+};
+
+const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => {
+  return (
+    <Card className="border-0 shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow h-full">
+      <CardContent className="p-0">
+        <div className="p-6">
+          <div className="flex gap-1 mb-4">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <StarIcon 
+                key={i}
+                className={`w-5 h-5 ${i < testimonial.rating ? 'text-amber-400' : 'text-gray-300'}`}
+                fill={i < testimonial.rating ? 'currentColor' : 'none'}
+              />
+            ))}
+          </div>
+          
+          <p className="text-dental-navy mb-4 text-right">"{testimonial.text}"</p>
+          
+          <div className="flex items-center justify-between">
+            <div className="text-right">
+              <h4 className="font-bold text-dental-navy">{testimonial.name}</h4>
+              <p className="text-sm text-dental-navy/60">{testimonial.treatment}</p>
+            </div>
+            
+            {testimonial.image && (
+              <div className="w-12 h-12 rounded-full overflow-hidden">
+                <EnhancedImage
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
