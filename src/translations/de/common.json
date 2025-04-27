@@ -1,0 +1,14 @@
+
+{
+  "home": "Startseite",
+  "about": "Über uns",
+  "treatments": "Behandlungen",
+  "contact": "Kontakt",
+  "testimonials": "Erfahrungen",
+  "patientExperiences": "Patientenerfahrungen",
+  "learnMore": "Mehr erfahren",
+  "noReviewsYet": "Noch keine Bewertungen",
+  "fetchReviews": "Bewertungen abrufen",
+  "refreshReviews": "Bewertungen aktualisieren",
+  "readFullReview": "Vollständige Bewertung lesen"
+}

@@ -28,11 +28,20 @@ const Reviews = () => {
 
   const fetchReviews = async () => {
     try {
-      await supabase.functions.invoke('fetch-google-reviews');
+      console.log('Fetching Google reviews from edge function');
+      const response = await supabase.functions.invoke('fetch-google-reviews');
+      console.log('Edge function response:', response);
+      
+      if (response.error) {
+        throw new Error(`Function error: ${response.error.message}`);
+      }
+      
       toast({
         title: t('reviewsUpdated'),
         description: t('reviewsFetchSuccess'),
       });
+      
+      return response.data;
     } catch (error) {
       console.error('Error fetching reviews:', error);
       toast({
@@ -40,6 +49,7 @@ const Reviews = () => {
         description: t('reviewsFetchError'),
         variant: "destructive",
       });
+      throw error;
     }
   };
 
@@ -55,21 +65,29 @@ const Reviews = () => {
     }
   };
 
+  // Fetch reviews on component mount
   useEffect(() => {
-    fetchReviews();
+    fetchReviews().catch(console.error);
   }, []);
 
   const { data: reviews, isLoading, error, refetch } = useQuery({
     queryKey: ['google-reviews'],
     queryFn: async () => {
+      console.log('Querying google_reviews table');
       const { data, error } = await supabase
         .from('google_reviews')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase query error:', error);
+        throw error;
+      }
+      
+      console.log('Retrieved reviews:', data);
       return data as Review[];
-    }
+    },
+    refetchOnWindowFocus: false,
   });
 
   const renderStars = (rating: number) => {
@@ -108,6 +126,7 @@ const Reviews = () => {
   }
 
   if (error) {
+    console.error('Error in Reviews component:', error);
     return (
       <div className="text-center py-8">
         <p className="text-dental-navy mb-4">{t('errorLoadingReviews')}</p>
@@ -129,11 +148,13 @@ const Reviews = () => {
     );
   }
 
+  console.log('Rendering reviews:', reviews);
+
   return (
     <div className="relative">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-2xl font-bold text-dental-navy">
-          {t('patientExperiences')}
+          {t('patientExperiences') || 'חוויות מטופלים'}
         </h3>
         <Button 
           variant="outline" 
@@ -146,7 +167,7 @@ const Reviews = () => {
           ) : (
             <RefreshCw className="h-4 w-4 mr-2" />
           )}
-          {t('refreshReviews')}
+          {t('refreshReviews') || 'רענן ביקורות'}
         </Button>
       </div>
       
@@ -189,7 +210,7 @@ const Reviews = () => {
                     >
                       <a href={review.review_link} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4 mr-2" />
-                        {t('readFullReview')}
+                        {t('readFullReview') || 'קרא ביקורת מלאה'}
                       </a>
                     </Button>
                   )}

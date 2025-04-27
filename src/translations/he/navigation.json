@@ -1,3 +1,4 @@
+
 {
   "home": "דף הבית",
   "about": "אודות",
@@ -6,17 +7,19 @@
   "practice": "המרפאה שלנו",
   "team": "הצוות",
   "patients": "למטופלים",
-  "testimonials": "חוות דעת מטופלים",
+  "testimonials": "עדויות",
   "patientsExperiences": "המטופלים שלנו משתפים בחוויה",
+  "patientExperiences": "חוויות מטופלים",
   "ourTreatments": "הטיפולים שלנו",
   "wideRangeOfTreatments": "אנו מציעים מגוון רחב של טיפולי שיניים מתקדמים",
   "updatesFromPractice": "עדכונים מהמרפאה",
+  "socialUpdates": "עדכונים מהמרפאה",
+  "followUs": "עקבו אחרינו",
   "learnMore": "למידע נוסף",
   "sitemap": "מפת האתר",
   "backToHome": "חזרה לדף הבית",
   "treatmentNotFound": "הטיפול לא נמצא",
   "info": "מידע",
-  "followUs": "עקבו אחרינו",
   "accessibility": {
     "skipToContent": "דלג לתוכן העיקרי"
   },

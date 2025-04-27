@@ -8,7 +8,7 @@ const corsHeaders = {
 }
 
 const GOOGLE_API_KEY = Deno.env.get('GOOGLE_PLACES_API_KEY')
-const PLACE_ID = 'ChIJDZ3XUhaxHRURzJ44_nv-Qb4' // Dr. Zembel's Place ID
+const PLACE_ID = 'ChIJoUJDXGORAhURwD-bdrY3qII' // Updated to Dr. Zembel's correct Place ID
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -58,8 +58,8 @@ serve(async (req) => {
     const { supabaseClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7')
     
     const supabase = supabaseClient(
-      'https://uhsswtixtrurxpsrduus.supabase.co',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      Deno.env.get('SUPABASE_URL') || 'https://uhsswtixtrurxpsrduus.supabase.co',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
     )
 
     console.log(`Found ${data.result.reviews.length} reviews`)
