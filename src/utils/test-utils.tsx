@@ -3,6 +3,10 @@ import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
+import * as matchers from '@testing-library/jest-dom/matchers';
+
+// Extend Vitest's expect with testing-library matchers
+expect.extend(matchers);
 
 // Re-export vitest functions
 export { vi, describe, it, expect, beforeEach };

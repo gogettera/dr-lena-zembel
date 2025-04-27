@@ -18,5 +18,8 @@
   "errorLoadingReviews": "אירעה שגיאה בטעינת ביקורות",
   "tryAgain": "נסה שוב",
   "noReviewsYet": "אין ביקורות עדיין",
-  "fetchReviews": "טען ביקורות"
+  "fetchReviews": "טען ביקורות",
+  "fetching": "טוען ביקורות...",
+  "tryingToFetchReviews": "מנסה לטעון ביקורות",
+  "error": "שגיאה"
 }

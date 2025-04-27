@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
@@ -23,14 +24,20 @@ const Reviews = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
+  const [fetchTries, setFetchTries] = useState(0);
+  const maxTries = 3;
 
   const fetchReviews = async () => {
     try {
+      console.log('Fetching reviews from edge function');
       const response = await supabase.functions.invoke('fetch-google-reviews');
       
       if (response.error) {
+        console.error('Function error:', response.error);
         throw new Error(`Function error: ${response.error.message}`);
       }
+      
+      console.log('Edge function response:', response);
       
       toast({
         title: t('reviewsUpdated'),
@@ -42,7 +49,7 @@ const Reviews = () => {
       console.error('Error fetching reviews:', error);
       toast({
         title: t('error'),
-        description: t('reviewsFetchError'),
+        description: `${t('reviewsFetchError')}: ${error instanceof Error ? error.message : 'Unknown error'}`,
         variant: "destructive",
       });
       throw error;
@@ -57,21 +64,42 @@ const Reviews = () => {
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching reviews from database:', error);
+        throw error;
+      }
+      console.log('Reviews from database:', data);
       return data as Review[];
     },
     refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
-    fetchReviews().catch(console.error);
-  }, []);
+    const initialFetch = async () => {
+      try {
+        await fetchReviews();
+        // Refetch reviews from database after fetching from Google
+        setTimeout(() => refetch(), 1000);
+      } catch (error) {
+        console.error('Initial fetch error:', error);
+        // Try again if we haven't exceeded max tries
+        if (fetchTries < maxTries - 1) {
+          setTimeout(() => {
+            setFetchTries(prev => prev + 1);
+          }, Math.pow(2, fetchTries) * 1000); // Exponential backoff
+        }
+      }
+    };
+
+    initialFetch();
+  }, [fetchTries]);
 
   const handleManualRefresh = async () => {
     setIsManualRefreshing(true);
     try {
       await fetchReviews();
-      refetch();
+      // Wait a bit before refetching to allow the edge function to complete
+      setTimeout(() => refetch(), 1000);
     } catch (error) {
       console.error('Manual refresh error:', error);
     } finally {
@@ -87,19 +115,30 @@ const Reviews = () => {
     return (
       <div className="text-center py-8">
         <p className="text-dental-navy mb-4">{t('errorLoadingReviews')}</p>
-        <Button onClick={() => fetchReviews()} variant="outline">
+        <pre className="text-xs text-red-500 mb-4 max-w-lg mx-auto overflow-auto">
+          {error instanceof Error ? error.message : 'Unknown error'}
+        </pre>
+        <Button onClick={() => refetch()} variant="outline">
           {t('tryAgain')}
         </Button>
       </div>
     );
   }
 
+  // Check if we have reviews
   if (!reviews?.length) {
     return (
       <div className="text-center py-8">
         <p className="text-dental-navy mb-4">{t('noReviewsYet')}</p>
-        <Button onClick={() => fetchReviews()} variant="outline">
-          {t('fetchReviews')}
+        <p className="text-sm text-gray-500 mb-4">
+          {fetchTries > 0 ? `${t('tryingToFetchReviews')} (${fetchTries}/${maxTries})` : ''}
+        </p>
+        <Button 
+          onClick={handleManualRefresh} 
+          variant="outline"
+          disabled={isManualRefreshing}
+        >
+          {isManualRefreshing ? t('fetching') : t('fetchReviews')}
         </Button>
       </div>
     );
