@@ -1,25 +1,16 @@
 
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/utils/test-utils';
 import ReviewsHeader from '../ReviewsHeader';
-import { LanguageProvider } from '@/contexts/LanguageContext';
 
 describe('ReviewsHeader', () => {
   const mockOnRefresh = jest.fn();
-
-  const renderWithProvider = (component: React.ReactNode) => {
-    return render(
-      <LanguageProvider>
-        {component}
-      </LanguageProvider>
-    );
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders header with correct title', () => {
-    renderWithProvider(
+    render(
       <ReviewsHeader onRefresh={mockOnRefresh} isRefreshing={false} />
     );
     
@@ -27,7 +18,7 @@ describe('ReviewsHeader', () => {
   });
 
   it('shows spinning icon when refreshing', () => {
-    renderWithProvider(
+    render(
       <ReviewsHeader onRefresh={mockOnRefresh} isRefreshing={true} />
     );
     
@@ -35,7 +26,7 @@ describe('ReviewsHeader', () => {
   });
 
   it('calls onRefresh when refresh button is clicked', () => {
-    renderWithProvider(
+    render(
       <ReviewsHeader onRefresh={mockOnRefresh} isRefreshing={false} />
     );
     
@@ -44,7 +35,7 @@ describe('ReviewsHeader', () => {
   });
 
   it('disables refresh button while refreshing', () => {
-    renderWithProvider(
+    render(
       <ReviewsHeader onRefresh={mockOnRefresh} isRefreshing={true} />
     );
     

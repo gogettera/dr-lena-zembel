@@ -1,7 +1,6 @@
 
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@/utils/test-utils';
 import ReviewCard from '../ReviewCard';
-import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const mockReview = {
   author_name: "John Doe",
@@ -13,16 +12,8 @@ const mockReview = {
 };
 
 describe('ReviewCard', () => {
-  const renderWithProvider = (component: React.ReactNode) => {
-    return render(
-      <LanguageProvider>
-        {component}
-      </LanguageProvider>
-    );
-  };
-
   it('renders review information correctly', () => {
-    renderWithProvider(<ReviewCard {...mockReview} />);
+    render(<ReviewCard {...mockReview} />);
     
     expect(screen.getByText(mockReview.author_name)).toBeInTheDocument();
     expect(screen.getByText(mockReview.text!)).toBeInTheDocument();
@@ -35,7 +26,7 @@ describe('ReviewCard', () => {
   });
 
   it('renders read full review link when review_link is provided', () => {
-    renderWithProvider(<ReviewCard {...mockReview} />);
+    render(<ReviewCard {...mockReview} />);
     
     const link = screen.getByText('readFullReview');
     expect(link).toBeInTheDocument();
@@ -52,7 +43,7 @@ describe('ReviewCard', () => {
       review_link: null
     };
 
-    renderWithProvider(<ReviewCard {...minimalReview} />);
+    render(<ReviewCard {...minimalReview} />);
     
     expect(screen.getByText(minimalReview.author_name)).toBeInTheDocument();
     expect(screen.queryByTestId('review-text')).not.toBeInTheDocument();
