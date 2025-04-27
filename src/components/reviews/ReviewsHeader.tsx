@@ -23,11 +23,10 @@ const ReviewsHeader = ({ onRefresh, isRefreshing }: ReviewsHeaderProps) => {
         onClick={onRefresh} 
         disabled={isRefreshing}
       >
-        {isRefreshing ? (
-          <RefreshCw className="h-4 w-4 animate-spin mr-2" />
-        ) : (
-          <RefreshCw className="h-4 w-4 mr-2" />
-        )}
+        <RefreshCw 
+          data-testid="refresh-icon"
+          className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} 
+        />
         {t('refreshReviews')}
       </Button>
     </div>

@@ -10,13 +10,13 @@ const ReviewsLoading = () => {
       <EnhancedCarousel autoplay={false}>
         {[1, 2, 3].map((index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            <Card className="bg-white rounded-xl shadow-md mx-2 animate-pulse">
+            <Card role="article" className="bg-white rounded-xl shadow-md mx-2 animate-pulse">
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <Skeleton className="w-12 h-12 rounded-full" />
+                  <Skeleton data-testid="avatar-skeleton" className="w-12 h-12 rounded-full" />
                   <div className="space-y-2">
-                    <Skeleton className="h-4 w-24" />
-                    <Skeleton className="h-4 w-16" />
+                    <Skeleton data-testid="name-skeleton" className="h-4 w-24" />
+                    <Skeleton data-testid="date-skeleton" className="h-4 w-16" />
                   </div>
                 </div>
                 <Skeleton className="h-20 w-full" />

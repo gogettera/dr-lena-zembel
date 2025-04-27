@@ -27,7 +27,8 @@ const ReviewCard = ({
   const renderStars = (rating: number) => {
     return Array(5).fill(0).map((_, i) => (
       <Star 
-        key={i} 
+        key={i}
+        data-testid="star-icon"
         className={`h-4 w-4 ${i < rating ? 'text-dental-orange fill-dental-orange' : 'text-gray-300'}`} 
       />
     ));
@@ -52,15 +53,19 @@ const ReviewCard = ({
             </div>
           </div>
         </div>
-        <div className="bg-dental-beige/20 p-4 rounded-lg mb-4 flex-grow">
-          <p className="text-dental-navy mb-0 line-clamp-4 relative">
-            <span className="text-4xl text-dental-orange/20 absolute -top-3 right-0">"</span>
-            {text}
-            <span className="text-4xl text-dental-orange/20 absolute -bottom-6 left-0">"</span>
-          </p>
-        </div>
+        {text && (
+          <div className="bg-dental-beige/20 p-4 rounded-lg mb-4 flex-grow">
+            <p data-testid="review-text" className="text-dental-navy mb-0 line-clamp-4 relative">
+              <span className="text-4xl text-dental-orange/20 absolute -top-3 right-0">"</span>
+              {text}
+              <span className="text-4xl text-dental-orange/20 absolute -bottom-6 left-0">"</span>
+            </p>
+          </div>
+        )}
         <div className="flex justify-between items-center mt-auto">
-          <div className="text-sm text-gray-500">{relative_time_description}</div>
+          {relative_time_description && (
+            <div className="text-sm text-gray-500">{relative_time_description}</div>
+          )}
           {review_link && (
             <Button 
               variant="ghost" 
