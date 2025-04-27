@@ -55,7 +55,7 @@ serve(async (req) => {
       )
     }
 
-    // Import Supabase SDK - FIXED: using createClient instead of supabaseClient
+    // Import Supabase SDK
     const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7')
     
     const supabase = createClient(
@@ -72,7 +72,6 @@ serve(async (req) => {
         const { error } = await supabase
           .from('google_reviews')
           .upsert({
-            id: review.time.toString(), // Using review time as unique ID
             author_name: review.author_name,
             rating: review.rating,
             text: review.text || null,
@@ -81,7 +80,7 @@ serve(async (req) => {
             review_link: review.author_url || null,
             created_at: new Date(review.time * 1000).toISOString()
           }, {
-            onConflict: 'id'
+            onConflict: 'created_at'
           })
 
         if (error) {
@@ -114,3 +113,4 @@ serve(async (req) => {
     )
   }
 })
+
