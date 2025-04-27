@@ -1,12 +1,12 @@
 
-import { render, screen, fireEvent } from '@/utils/test-utils';
+import { render, screen, fireEvent, describe, it, expect, beforeEach, fn } from '@/utils/test-utils';
 import ReviewsHeader from '../ReviewsHeader';
 
 describe('ReviewsHeader', () => {
-  const mockOnRefresh = jest.fn();
+  const mockOnRefresh = fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    mockOnRefresh.mockClear();
   });
 
   it('renders header with correct title', () => {

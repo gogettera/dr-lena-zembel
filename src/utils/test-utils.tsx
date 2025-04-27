@@ -2,6 +2,13 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
+
+// Re-export vitest functions
+export { vi, describe, it, expect, beforeEach };
+
+// Mock function helper that's compatible with jest.fn()
+export const fn = vi.fn;
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
