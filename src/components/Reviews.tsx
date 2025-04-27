@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from '@/components/ui/enhanced-carousel';
 import { useToast } from "@/hooks/use-toast";
+import { Button } from '@/components/ui/button';
 import ReviewCard from './reviews/ReviewCard';
 import ReviewsLoading from './reviews/ReviewsLoading';
 import ReviewsHeader from './reviews/ReviewsHeader';
