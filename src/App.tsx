@@ -25,6 +25,7 @@ import RootCanalPage from "./pages/RootCanalPage";
 import BotoxTreatmentsPage from "./pages/BotoxTreatmentsPage";
 import ClinicPage from "./pages/ClinicPage";
 import ChildrenDentistryAdLandingPage from "./pages/ChildrenDentistryAdLandingPage";
+import ChildrenDentistryStandalonePage from "./pages/ChildrenDentistryLandingPage";
 import NotFound from "./pages/NotFound";
 
 // Create an AppRoutes component that uses router hooks
@@ -108,8 +109,11 @@ const AppRoutes = () => {
           <Route path="/en/clinic" element={<ClinicPage />} />
           <Route path="/de/clinic" element={<ClinicPage />} />
           
-          {/* Add the new route for children dentistry ad landing page */}
+          {/* Add the new routes for children dentistry landing pages */}
           <Route path="/he/ad/children-dentistry" element={<ChildrenDentistryAdLandingPage />} />
+          <Route path="/he/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
+          <Route path="/en/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
+          <Route path="/de/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
           
           {/* 404 catch-all route */}
           <Route path="*" element={<NotFound />} />
