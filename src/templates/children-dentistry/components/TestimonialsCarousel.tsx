@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from '@/components/ui/enhanced-carousel';
 import { Star } from 'lucide-react';
@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 const TestimonialsCarousel: React.FC = () => {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [api, setApi] = useState<any>(null);
   
   const testimonials = [
     {
@@ -30,11 +31,25 @@ const TestimonialsCarousel: React.FC = () => {
     }
   ];
   
+  // Listen to slide changes when the API is available
+  useEffect(() => {
+    if (!api) return;
+    
+    const onSelect = () => {
+      setCurrentSlide(api.selectedScrollSnap());
+    };
+    
+    api.on("select", onSelect);
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
+  
   return (
     <section className="py-16 md:py-20 px-4 bg-gradient-to-br from-[#F1F0FB]/40 to-white">
       <div className="container mx-auto">
         <EnhancedCarousel 
-          onSlideChange={setCurrentSlide}
+          setApi={setApi}
           className="max-w-3xl mx-auto"
           autoplay={6000}
           loop={true}
@@ -73,7 +88,7 @@ const TestimonialsCarousel: React.FC = () => {
                 "w-3 h-3 rounded-full mx-1 transition-all",
                 currentSlide === index ? "bg-dental-orange" : "bg-dental-navy/20"
               )}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => api?.scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
