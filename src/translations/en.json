@@ -60,7 +60,7 @@
   "readyToStart": "Ready to Start Your Treatment?",
   "treatmentNotFound": "Treatment Not Found",
   "backToHome": "Back to Home",
-  "copyright": "© Dr. Lena's Dental Clinic. All rights reserved",
+  "copyright": "© {{year}} Dr. Lena Zembel. All rights reserved",
   "whatsappMessage": "Hi Dr. Lena, I would like to schedule an appointment",
   "phoneNumber": "03-566-6915",
   "faqAnswer1": "The treatment process begins with a thorough consultation where we assess your needs and explain the procedure in detail.",
@@ -172,7 +172,7 @@
     "education": "Graduate of the Faculty of Dentistry at the University of Cologne, Germany",
     "languages": "Hebrew, German, English, and Russian"
   },
-  "copyright": "© 2024 Dr. Lena Zembel's Dental Clinic. All rights reserved",
+  "copyright": "© {{year}} Dr. Lena Zembel's Dental Clinic. All rights reserved",
   "aestheticTreatments": {
     "headline1": "Aesthetic Treatments",
     "headline2": "Perfect Smile Solutions",
@@ -297,6 +297,21 @@
           "a": "Of course. We encourage parental presence in the treatment room, especially with young children. However, sometimes older children cooperate better when they enter alone."
         }
       ]
+    }
+  },
+  "footer": {
+    "copyright": "© {{year}} Dr. Lena Zembel. All rights reserved.",
+    "accessibility": "Accessibility Statement",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "allRights": "All Rights Reserved"
+  },
+  "oralRehabilitation": {
+    "cta": {
+      "title": "Start Your Journey to a Perfect Smile - Book a Consultation",
+      "description": "Contact us today or give us a call. We'll be happy to guide you on your path to a new look and a new life.",
+      "phoneLabel": "Or call",
+      "bookingButton": "Book Appointment"
     }
   }
 }

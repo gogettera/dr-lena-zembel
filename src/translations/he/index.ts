@@ -1,4 +1,3 @@
-
 // This file serves as an entry point for the Hebrew translations
 // It allows for dynamically importing all translation modules
 
@@ -17,6 +16,8 @@ import testimonialsJson from './testimonials.json';
 import accessibilityJson from './accessibility.json';
 import legalJson from './legal.json';
 import botoxTreatmentsJson from './botoxTreatments.json';
+import footerJson from './footer.json';
+import oralRehabilitationJson from './oralRehabilitation.json';
 
 // Re-export all translations as named exports
 export const common = commonJson;
@@ -34,6 +35,8 @@ export const testimonials = testimonialsJson;
 export const accessibility = accessibilityJson;
 export const legal = legalJson;
 export const botoxTreatments = botoxTreatmentsJson;
+export const footer = footerJson;
+export const oralRehabilitation = oralRehabilitationJson;
 
 // Export a combined object with all translations
 export default {
@@ -51,5 +54,7 @@ export default {
   testimonials: testimonialsJson,
   accessibility: accessibilityJson,
   legal: legalJson,
-  botoxTreatments: botoxTreatmentsJson
+  botoxTreatments: botoxTreatmentsJson,
+  footer: footerJson,
+  oralRehabilitation: oralRehabilitationJson
 };

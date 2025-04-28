@@ -6,7 +6,7 @@ import { Container } from '@/components/ui/container';
 import FooterSocial from '@/components/footer/FooterSocial';
 
 const Footer = () => {
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <footer className="w-full py-4 bg-white border-t">
@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="flex flex-col items-center md:items-start">
             <p className="text-sm text-dental-navy/70">
-              © {new Date().getFullYear()} ד״ר לנה זמבל. כל הזכויות שמורות.
+              {t('footer.copyright', { year: new Date().getFullYear() })}
             </p>
             <FooterSocial />
           </div>
@@ -23,19 +23,19 @@ const Footer = () => {
               to={`/${language}/accessibility-statement`}
               className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
             >
-              הצהרת נגישות
+              {t('footer.accessibility')}
             </Link>
             <Link 
               to={`/${language}/terms-of-service`}
               className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
             >
-              תנאי שימוש
+              {t('footer.termsOfService')}
             </Link>
             <Link 
               to={`/${language}/privacy-policy`}
               className="text-sm text-dental-navy/70 hover:text-dental-orange transition-colors"
             >
-              מדיניות פרטיות
+              {t('footer.privacyPolicy')}
             </Link>
           </div>
         </div>
