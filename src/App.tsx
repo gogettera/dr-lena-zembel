@@ -1,181 +1,121 @@
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { ThemeProvider } from "@/components/theme-provider"
+import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
+import { Toaster } from "@/components/ui/toaster"
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ResourcePrefetcher } from 'react-prefetch';
+import { siteConfig } from './config/site';
+import { languages } from './config/i18n';
 
-import React, { useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
-import LanguageRoute from '@/components/LanguageRoute';
-import Index from '@/pages/Index';
-import LanguageHome from '@/pages/LanguageHome';
-import TreatmentPage from '@/pages/TreatmentPage';
-import LanguageTreatmentPage from '@/pages/LanguageTreatmentPage';
-import PreventiveMedicinePage from '@/pages/PreventiveMedicinePage';
-import BotoxTreatmentsPage from '@/pages/BotoxTreatmentsPage';
-import NotFound from '@/pages/NotFound';
-import AccessibilityStatementPage from '@/pages/AccessibilityStatementPage';
-import PrivacyPolicy from '@/pages/PrivacyPolicy';
-import TermsOfService from '@/pages/TermsOfService';
-import { setupDirectionByLanguage } from '@/utils/direction';
-import { getBrowserLanguage } from '@/utils/languageRoutes';
-import { Skeleton } from '@/components/ui/skeleton';
-import ResourcePrefetcher from '@/components/ResourcePrefetcher';
-import { applyMetaTags } from '@/utils/meta-utils';
+// Import page components
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import TreatmentsPage from "./pages/TreatmentsPage";
+import AestheticTreatmentsPage from "./pages/AestheticTreatmentsPage";
+import ContactPage from "./pages/ContactPage";
+import AccessibilityStatementPage from "./pages/AccessibilityStatementPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import InfoPage from "./pages/InfoPage";
+import ChildrenDentistryLanding from "./components/children-dentistry/ChildrenDentistryLanding";
+import OralRehabilitationPage from "./pages/OralRehabilitationPage";
+import OrthodonticsPage from "./pages/OrthodonticsPage";
+import RootCanalPage from "./pages/RootCanalPage";
+import BotoxTreatmentsPage from "./pages/BotoxTreatmentsPage";
+import ClinicPage from "./pages/ClinicPage";
+import ChildrenDentistryAdLandingPage from "./pages/ChildrenDentistryAdLandingPage";
 
-import './App.css';
+function App() {
+  const { language } = useLanguage();
+  
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
-function ErrorFallback({ error, resetErrorBoundary }) {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-        <h2 className="mb-4 text-2xl font-bold text-dental-navy">Something went wrong</h2>
-        <p className="mb-4 text-gray-600">
-          The application encountered an error. Please try refreshing the page.
-        </p>
-        <button 
-          onClick={() => window.location.reload()}
-          className="rounded-full bg-dental-navy px-6 py-2 text-white transition-colors hover:bg-dental-orange"
-        >
-          Refresh Page
-        </button>
-      </div>
-    </div>
-  );
-}
-
-const PageLoader = () => (
-  <div className="w-full h-screen flex items-center justify-center">
-    <div className="w-full max-w-md p-6">
-      <Skeleton className="h-12 w-3/4 mb-6" />
-      <Skeleton className="h-4 w-full mb-3" />
-      <Skeleton className="h-4 w-5/6 mb-3" />
-      <Skeleton className="h-4 w-4/6 mb-8" />
-      <Skeleton className="h-48 w-full rounded-lg" />
-    </div>
-  </div>
-);
-
-function AppEffects() {
   const location = useLocation();
 
   useEffect(() => {
-    const start = performance.now();
-    
-    try {
-      const browserLang = getBrowserLanguage();
-      setupDirectionByLanguage(browserLang);
-
-      if ('loading' in HTMLImageElement.prototype) {
-        document.documentElement.classList.add('has-native-lazyload');
-      }
-
-      window.addEventListener('online', () => {
-        document.documentElement.classList.remove('is-offline');
-      });
-
-      window.addEventListener('offline', () => {
-        document.documentElement.classList.add('is-offline');
-      });
-      
-      if ('web-vitals' in window) {
-        import('web-vitals').then(({ onFCP }) => {
-          onFCP(metric => {
-            console.log('FCP:', metric);
-          });
-        });
-      }
-      
-      const end = performance.now();
-      console.log(`App setup time: ${end - start}ms`);
-    } catch (error) {
-      console.error("Error in App setup:", error);
-    }
-    
-    return () => {
-      window.removeEventListener('online', () => {});
-      window.removeEventListener('offline', () => {});
-    };
-  }, []);
-
-  useEffect(() => {
-    applyMetaTags();
-    
-    const existingStatusMeta = document.querySelector('meta[name="http-status"]');
-    if (existingStatusMeta) {
-      existingStatusMeta.setAttribute('content', '200');
-    }
-    
-    console.log(`Page navigation: ${location.pathname}`);
-    
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(() => {
-      }, { timeout: 1000 });
-    }
+    // Log the page view to GA
   }, [location]);
 
-  return null;
-}
-
-const AdminPanel = lazy(() => 
-  import(/* webpackChunkName: "admin" */ '@/pages/AdminPanel')
-);
-const AdminRoute = lazy(() => 
-  import(/* webpackChunkName: "admin-route" */ '@/components/AdminRoute')
-);
-const LoginPage = lazy(() => 
-  import(/* webpackChunkName: "login" */ '@/pages/LoginPage')
-);
-
-function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <Router>
-        <AppEffects />
-        <ResourcePrefetcher />
-        <Routes>
-          <Route path="/" element={<Index />} />
+    <Router>
+      <ThemeProvider>
+        <ResourcePrefetcher resources={languages.map(lang => `/locales/${lang}.json`)}>
+          <ScrollToTopButton />
+          <Routes>
+            {/* Home routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/he" element={<HomePage />} />
+            <Route path="/en" element={<HomePage />} />
+            <Route path="/de" element={<HomePage />} />
 
-          {/* Authentication routes */}
-          <Route 
-            path="/login" 
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<PageLoader />}>
-                  <LoginPage />
-                </Suspense>
-              </ErrorBoundary>
-            } 
-          />
+            {/* Regular routes */}
+            <Route path="/he/about" element={<AboutPage />} />
+            <Route path="/en/about" element={<AboutPage />} />
+            <Route path="/de/about" element={<AboutPage />} />
 
-          <Route 
-            path="/admin" 
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <Suspense fallback={<PageLoader />}>
-                  <AdminRoute element={<AdminPanel />} />
-                </Suspense>
-              </ErrorBoundary>
-            } 
-          />
+            <Route path="/he/treatments" element={<TreatmentsPage />} />
+            <Route path="/en/treatments" element={<TreatmentsPage />} />
+            <Route path="/de/treatments" element={<TreatmentsPage />} />
 
-          {/* Legal routes */}
-          <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
+            <Route path="/he/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
+            <Route path="/en/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
+            <Route path="/de/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
 
-          <Route path="/:lang" element={<LanguageRoute />}>
-            <Route index element={<LanguageHome />} />
+            <Route path="/he/contact" element={<ContactPage />} />
+            <Route path="/en/contact" element={<ContactPage />} />
+            <Route path="/de/contact" element={<ContactPage />} />
+
+            <Route path="/he/accessibility-statement" element={<AccessibilityStatementPage />} />
+            <Route path="/en/accessibility-statement" element={<AccessibilityStatementPage />} />
+            <Route path="/de/accessibility-statement" element={<AccessibilityStatementPage />} />
+
+            <Route path="/he/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path="/de/privacy-policy" element={<PrivacyPolicyPage />} />
+
+            <Route path="/he/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/en/terms-of-service" element={<TermsOfServicePage />} />
+            <Route path="/de/terms-of-service" element={<TermsOfServicePage />} />
+
+            <Route path="/he/info" element={<InfoPage />} />
+            <Route path="/en/info" element={<InfoPage />} />
+            <Route path="/de/info" element={<InfoPage />} />
             
-            {/* Specific route for Botox treatments */}
-            <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
-            
-            {/* Generic treatment route */}
-            <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-            
-            <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
-            <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
-          </Route>
+            <Route path="/he/children-dentistry" element={<ChildrenDentistryLanding />} />
+            <Route path="/en/children-dentistry" element={<ChildrenDentistryLanding />} />
+            <Route path="/de/children-dentistry" element={<ChildrenDentistryLanding />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </ErrorBoundary>
+            <Route path="/he/oral-rehabilitation" element={<OralRehabilitationPage />} />
+            <Route path="/en/oral-rehabilitation" element={<OralRehabilitationPage />} />
+            <Route path="/de/oral-rehabilitation" element={<OralRehabilitationPage />} />
+
+            <Route path="/he/orthodontics" element={<OrthodonticsPage />} />
+            <Route path="/en/orthodontics" element={<OrthodonticsPage />} />
+            <Route path="/de/orthodontics" element={<OrthodonticsPage />} />
+
+            <Route path="/he/root-canal" element={<RootCanalPage />} />
+            <Route path="/en/root-canal" element={<RootCanalPage />} />
+            <Route path="/de/root-canal" element={<RootCanalPage />} />
+
+            <Route path="/he/botox-treatments" element={<BotoxTreatmentsPage />} />
+            <Route path="/en/botox-treatments" element={<BotoxTreatmentsPage />} />
+            <Route path="/de/botox-treatments" element={<BotoxTreatmentsPage />} />
+
+            <Route path="/he/clinic" element={<ClinicPage />} />
+            <Route path="/en/clinic" element={<ClinicPage />} />
+            <Route path="/de/clinic" element={<ClinicPage />} />
+            
+            {/* Add the new route for children dentistry ad landing page */}
+            <Route path="/he/ad/children-dentistry" element={<ChildrenDentistryAdLandingPage />} />
+          </Routes>
+        
+          <Toaster />
+        </ResourcePrefetcher>
+      </ThemeProvider>
+    </Router>
   );
 }
 
