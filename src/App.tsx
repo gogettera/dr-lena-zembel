@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ResourcePrefetcher } from '@/components/resource-prefetcher';
 import { languages } from '@/config/i18n';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Import page components
 import HomePage from "./pages/HomePage";
@@ -129,7 +130,9 @@ const AppRoutes = () => {
 function App() {
   return (
     <Router>
-      <AppRoutes />
+      <HelmetProvider>
+        <AppRoutes />
+      </HelmetProvider>
     </Router>
   );
 }

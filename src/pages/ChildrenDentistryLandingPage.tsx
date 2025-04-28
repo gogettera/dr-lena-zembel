@@ -15,7 +15,7 @@ import Footer from '@/templates/children-dentistry/components/Footer';
 import WhatsAppButton from '@/templates/children-dentistry/components/WhatsAppButton';
 import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
 import { Toaster } from '@/components/ui/toaster';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const ChildrenDentistryLandingPage: React.FC = () => {
   const { t } = useLanguage();
