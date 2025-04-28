@@ -1,4 +1,3 @@
-
 {
   "home": "Home",
   "about": "About",
@@ -234,5 +233,70 @@
     "faq6Answer": "The cost of aesthetic treatments varies depending on the type of treatment, its complexity, and scope. Teeth whitening is typically the least expensive treatment, while implants and full mouth rehabilitation are more expensive. At the initial consultation, after evaluation, we can provide an accurate quote. We also offer flexible payment options and financing plans to accommodate our patients.",
     "bookNowCTA": "Ready to upgrade your smile? Let's start with a consultation",
     "bookNowSubtitle": "Our clinic team is here to provide you with the most advanced and personalized aesthetic treatment."
+  },
+  "childrenDentistry": {
+    "hero": {
+      "title": "Happy Kids - Dental Care with Love and Patience",
+      "description": "At Dr. Lena Zembel's clinic, we don't just treat teeth - we build confidence, peace of mind, and positive experiences for children and parents",
+      "imageAlt": "Smiling girl in dental chair"
+    },
+    "visitSteps": {
+      "title": "Your First Visit Steps",
+      "averageTime": "Average first visit duration: 25-30 minutes",
+      "disclaimer": "No treatments during first visit unless medically necessary",
+      "steps": [
+        {
+          "icon": "🧸",
+          "label": "Welcome with a Toy",
+          "desc": "We'll start in our playroom"
+        },
+        {
+          "icon": "💬",
+          "label": "Kid-Friendly Introduction",
+          "desc": "See dental toys and equipment"
+        },
+        {
+          "icon": "🪥",
+          "label": "Brushing Together",
+          "desc": "Learn proper brushing technique"
+        },
+        {
+          "icon": "📸",
+          "label": "Gentle Camera Check",
+          "desc": "Count teeth with our special camera"
+        },
+        {
+          "icon": "🎁",
+          "label": "Personal Reward",
+          "desc": "Choose a sticker or small surprise"
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Answers to the most common questions about children's dental care",
+      "items": [
+        {
+          "q": "At what age should dental visits start?",
+          "a": "Usually recommended around age two and a half – or after the first teeth appear. An early visit helps familiarize the child with the dental environment and build a positive experience from the start."
+        },
+        {
+          "q": "What if my child doesn't cooperate?",
+          "a": "That's perfectly okay – we have gentle, psychology-based approaches for children. We adapt the treatment to your child's pace, sometimes starting with just a brief introduction and play during the first visit."
+        },
+        {
+          "q": "Can we come for consultation only?",
+          "a": "Absolutely. There's no commitment to continue treatment. An initial consultation is a great opportunity to ask questions, meet the team, and see if our clinic is the right fit for you and your child."
+        },
+        {
+          "q": "How do we prepare for the first visit?",
+          "a": "It's recommended to discuss the visit positively and casually with your child, emphasizing that it's about meeting the dentist and counting teeth. Avoid scary terms or negative experience stories."
+        },
+        {
+          "q": "Can parents stay during treatment?",
+          "a": "Of course. We encourage parental presence in the treatment room, especially with young children. However, sometimes older children cooperate better when they enter alone."
+        }
+      ]
+    }
   }
 }
