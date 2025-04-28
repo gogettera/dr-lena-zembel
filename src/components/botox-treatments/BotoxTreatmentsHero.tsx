@@ -17,12 +17,11 @@ const BotoxTreatmentsHero: React.FC = () => {
       className="pt-10 md:pt-16 lg:pt-20"
     >
       <div className="flex flex-col lg:flex-row items-center">
-        {/* Text content */}
         <div className="w-full lg:w-1/2 text-right lg:pr-10 mb-8 lg:mb-0">
           <div className="inline-flex items-center gap-2 mb-4">
             <Badge className="bg-dental-orange text-white rounded-full px-3 py-1 font-medium">
               <Syringe className="w-4 h-4 mr-1" />
-              חדש במרפאה
+              {t('botoxTreatments.newInClinic')}
             </Badge>
           </div>
           
@@ -35,7 +34,7 @@ const BotoxTreatmentsHero: React.FC = () => {
           </h2>
           
           <p className="text-lg text-dental-navy/70 mb-8 opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
-            {t('botoxTreatmentsDesc')}
+            {t('botoxTreatments.description')}
           </p>
 
           <div className="flex flex-wrap gap-4 justify-start md:justify-end opacity-0 animate-[fade-in_0.5s_ease-out_0.9s_forwards]">
@@ -67,7 +66,7 @@ const BotoxTreatmentsHero: React.FC = () => {
                 <Syringe className="w-6 h-6 text-dental-orange" />
               </div>
               <span className="mr-3 text-dental-navy/70">
-                Botox & <br />Hyaluronic
+                {t('botoxTreatments.treatmentLabel')}
               </span>
             </div>
           </div>
@@ -85,7 +84,6 @@ const BotoxTreatmentsHero: React.FC = () => {
               priority
             />
             
-            {/* Mobile callout */}
             <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-md max-w-[80%] text-right lg:hidden">
               <p className="font-medium text-dental-navy">{t('botoxTreatments.mobileFactoid')}</p>
               <p className="text-sm text-dental-navy/70 mt-1">{t('botoxTreatments.mobileTip')}</p>
