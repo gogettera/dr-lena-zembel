@@ -18,14 +18,17 @@ const FAQ = () => {
   const faqItems = t('childrenDentistry.faq.items', { returnObjects: true });
 
   return (
-    <section id="faq" className="py-14 md:py-20 px-4 bg-gradient-to-br from-white to-dental-beige/10 scroll-mt-24">
+    <section id="faq" className="py-14 md:py-20 px-4 bg-gradient-to-b from-dental-beige/10 to-white scroll-mt-24">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="text-2xl md:text-3xl font-bold text-dental-navy mb-8 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-          {t('childrenDentistry.faq.title')}
-        </h2>
-        <p className="text-dental-navy/70 text-center mb-10 max-w-2xl mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-          {t('childrenDentistry.faq.subtitle')}
-        </p>
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+            {t('childrenDentistry.faq.title')}
+          </h2>
+          <p className="text-dental-navy/70 mx-auto mb-6 max-w-2xl opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
+            {t('childrenDentistry.faq.subtitle')}
+          </p>
+          <div className="w-16 h-1 bg-dental-orange/50 mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]"></div>
+        </div>
         
         <div className="space-y-4">
           <Accordion type="single" collapsible className="w-full">
@@ -33,8 +36,8 @@ const FAQ = () => {
               <AccordionItem 
                 key={i} 
                 value={`faq-${i}`}
-                className="bg-white rounded-xl mb-4 shadow-sm border border-dental-beige/30 overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className="bg-white rounded-xl mb-4 shadow-sm border border-dental-beige/30 overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards] hover:shadow-md transition-all duration-300"
+                style={{ animationDelay: `${i * 0.1 + 0.2}s` }}
               >
                 <AccordionTrigger className="px-6 py-4 hover:no-underline group">
                   <div className="flex items-center text-right">
@@ -42,7 +45,7 @@ const FAQ = () => {
                     <span className="font-bold text-dental-navy group-hover:text-dental-orange transition-colors">{item.q}</span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4 text-dental-navy/80 animate-accordion-down">
+                <AccordionContent className="px-6 pb-5 text-dental-navy/80">
                   {item.a}
                 </AccordionContent>
               </AccordionItem>

@@ -31,8 +31,8 @@ const ChildrenDentistryLanding: React.FC = () => {
         <Hero />
       </Section>
 
-      {/* Story Block - NEW */}
-      <Section background="white" spacing="none" containerClass="px-0">
+      {/* Story Block - NEW UPDATED */}
+      <Section background="none" spacing="none" containerClass="px-0">
         <StoryBlock />
       </Section>
 
@@ -46,6 +46,11 @@ const ChildrenDentistryLanding: React.FC = () => {
         <VisitSteps />
       </Section>
       
+      {/* Doctor Spotlight - ENHANCED */}
+      <Section background="none" spacing="none" containerClass="px-0">
+        <DoctorSpotlight />
+      </Section>
+
       {/* Testimonials */}
       <Section background="white" spacing="none" containerClass="px-0">
         <Testimonials />
@@ -54,11 +59,6 @@ const ChildrenDentistryLanding: React.FC = () => {
       {/* Clinic Expertise / Credentials */}
       <Section background="white" spacing="md" maxWidth="lg">
         <ClinicExpertise />
-      </Section>
-      
-      {/* Doctor Spotlight - NEW */}
-      <Section background="white" spacing="none" containerClass="px-0">
-        <DoctorSpotlight />
       </Section>
       
       {/* FAQ - IMPROVED */}
