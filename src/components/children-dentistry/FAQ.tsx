@@ -2,12 +2,12 @@
 import React from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { HelpCircle, Pillow, Check, Clock } from "lucide-react";
+import { HelpCircle, Pill, Check, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Map of icons for different FAQ categories
 const getFaqIcon = (index: number) => {
-  const icons = [HelpCircle, Pillow, Clock, Check, HelpCircle];
+  const icons = [HelpCircle, Pill, Clock, Check, HelpCircle];
   const Icon = icons[index % icons.length];
   return <Icon className="ml-3 text-dental-orange flex-shrink-0" size={18} />;
 };
