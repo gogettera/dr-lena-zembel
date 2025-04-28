@@ -1,57 +1,53 @@
 
 import React from "react";
-import { MapPin, Clock, ChevronsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Calendar, Phone } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const BookVisitAnchor = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
+const BookVisitAnchor: React.FC = () => {
+  const { t } = useLanguage();
 
   return (
-    <section className="py-14 md:py-20 px-4 bg-[#D3E4FD]/40">
-      <div className="container mx-auto max-w-3xl flex flex-col items-center text-center gap-8 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-        <h2 className="text-2xl font-bold text-dental-navy mb-4">
-          הביקור הראשון של הילד יכול להשפיע על כל החיים. בואו נתחיל אותו נכון.
-        </h2>
-        <div className="text-dental-navy/80 text-lg mb-4">
-          צוות המרפאה שלנו כאן כדי לעזור, לתמוך וללוות.
-        </div>
-        
-        <div className="flex flex-wrap items-center justify-center gap-6 mb-4">
-          <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm border border-dental-beige/30">
-            <MapPin className="h-5 w-5 text-dental-orange" />
-            <span>דרך בן-צבי 2, תל אביב-יפו</span>
-          </div>
-          <div className="flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full shadow-sm border border-dental-beige/30">
-            <Clock className="h-5 w-5 text-dental-orange" />
-            <span>ראשון עד חמישי: 09:00-19:00 | שישי: 09:00-13:00</span>
-          </div>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="https://waze.com/ul?ll=32.050039,34.759208&navigate=yes"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto"
-          >
-            <Button className="bg-dental-orange text-white font-bold text-lg py-3 px-7 rounded-full shadow-soft hover:bg-dental-orange/90 transition-all w-full">
-              נווטו אלינו ב-Waze
-            </Button>
-          </a>
+    <section id="book-visit" className="py-16 md:py-20 px-4 bg-gradient-to-br from-dental-beige/30 to-white scroll-mt-24">
+      <div className="container mx-auto max-w-3xl">
+        <div className="bg-white rounded-3xl p-6 md:p-10 shadow-lg border border-dental-beige/30 relative overflow-hidden">
+          {/* Decorative blob */}
+          <div className="absolute -top-16 -right-16 w-32 h-32 bg-dental-orange/10 rounded-full blur-2xl"></div>
+          <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-[#D3E4FD]/30 rounded-full blur-2xl"></div>
           
-          <Button
-            variant="outline"
-            className="rounded-full border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-all font-bold"
-            onClick={scrollToTop}
-          >
-            חזרה למעלה
-            <ChevronsUp className="mr-1" size={18} />
-          </Button>
+          <div className="relative z-10 text-center space-y-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-dental-navy mb-2 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
+              {t('childrenDentistry.bookVisit.title')}
+            </h2>
+            
+            <p className="text-dental-navy/80 max-w-lg mx-auto mb-2 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
+              {t('childrenDentistry.bookVisit.description')}
+            </p>
+            
+            <div className="pt-4 flex flex-col md:flex-row gap-4 justify-center opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]">
+              <Button 
+                variant="orange" 
+                size="lg" 
+                className="group rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-lg w-full md:w-auto"
+              >
+                <Calendar className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                {t('bookNow')}
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="rounded-full text-lg border-2 border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-all duration-300 w-full md:w-auto"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                {t('contactUs')}
+              </Button>
+            </div>
+            
+            <p className="text-sm text-dental-navy/60 opacity-0 animate-[fade-in_0.5s_ease-out_0.7s_forwards]">
+              {t('childrenDentistry.bookVisit.followUp')}
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+
 {
   "home": "Startseite",
   "about": "Über uns",
@@ -90,7 +91,8 @@
     "phone": "03-566-6915",
     "hours": {
       "weekdays": "Sonntag bis Donnerstag: 09:00-19:00",
-      "friday": "Freitag: 09:00-13:00"
+      "friday": "Freitag: 09:00-13:00",
+      "saturday": "Samstag: Geschlossen"
     }
   },
   "doctorInfo": {
@@ -125,7 +127,7 @@
     "oralRehabilitation": "Orale Rehabilitation",
     "orthodontics": "Kieferorthopädie"
   },
-   "clinicInfo": {
+  "clinicInfo": {
     "name": "Zahnklinik Dr. Lena Zembel",
     "phone": "03-566-6915",
     "address": "Ben Zvi Straße 2, Tel Aviv-Yafo",
@@ -133,6 +135,86 @@
       "weekdays": "Sonntag bis Donnerstag: 09:00-19:00",
       "friday": "Freitag: 09:00-13:00",
       "saturday": "Samstag: Geschlossen"
+    }
+  },
+  "childrenDentistry": {
+    "hero": {
+      "title": "Glückliche Kinder - Zahnbehandlung mit Liebe und Geduld",
+      "description": "In der Praxis von Dr. Lena Zembel behandeln wir nicht nur Zähne - wir bauen Vertrauen auf und schaffen positive Erfahrungen für Kinder und Eltern",
+      "imageAlt": "Dr. Lena Zembel mit einem lächelnden Kind"
+    },
+    "story": {
+      "title": "Wir wissen - ein Zahnarztbesuch kann beängstigend sein",
+      "content": "Viele von uns erinnern sich an unangenehme Erfahrungen beim Zahnarzt in der Kindheit. Deshalb haben wir einen völlig anderen Ort geschaffen - einen sicheren, angenehmen Raum. Unser einzigartiger Ansatz basiert auf Zuhören, unendlicher Geduld und Verständnis für die Ängste und Sorgen der Kinder."
+    },
+    "visitSteps": {
+      "title": "Unsere gemeinsame Reise - der erste Besuch",
+      "averageTime": "Durchschnittliche Dauer des ersten Besuchs: 25-30 Minuten",
+      "disclaimer": "Keine Behandlungen beim ersten Besuch, außer bei medizinischer Notwendigkeit",
+      "steps": [
+        {
+          "icon": "🧸",
+          "label": "Begrüßung mit Spielzeug",
+          "desc": "Wir beginnen im Spielzimmer"
+        },
+        {
+          "icon": "💬",
+          "label": "Kurze Erklärung",
+          "desc": "Wir zeigen Zahnausrüstung"
+        },
+        {
+          "icon": "🪥",
+          "label": "Zähneputzen vor dem Spiegel",
+          "desc": "Wir lernen die richtige Technik"
+        },
+        {
+          "icon": "📸",
+          "label": "Sanftes Scannen mit kleiner Kamera",
+          "desc": "Wir zählen die Zähne"
+        },
+        {
+          "icon": "🎁",
+          "label": "Persönliche Belohnung",
+          "desc": "Wahl eines Aufklebers oder kleinen Geschenks"
+        }
+      ]
+    },
+    "doctorSpotlight": {
+      "title": "Persönliche Worte von Dr. Lena",
+      "message": "Als Mutter und Zahnärztin verstehe ich die Bedenken von Eltern und Kindern. Mein Ziel ist es, eine positive Erfahrung für jedes Kind zu schaffen, das in die Praxis kommt. Ich glaube, dass Kinderzahnheilkunde weit mehr ist als eine medizinische Behandlung - es ist eine Gelegenheit, gesunde Gewohnheiten für ein Leben lang aufzubauen.",
+      "imageAlt": "Dr. Lena Zembel - Spezialistin für Kinderbehandlungen",
+      "signatureAlt": "Unterschrift von Dr. Lena Zembel"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "subtitle": "Antworten auf die am häufigsten gestellten Fragen von Eltern",
+      "items": [
+        {
+          "q": "In welchem Alter sollten zahnärztliche Behandlungen beginnen?",
+          "a": "Es wird empfohlen, Ihr Kind im Alter von etwa zweieinhalb Jahren oder nach dem Durchbruch der ersten Zähne zum ersten Besuch mitzubringen. Ein früher Besuch hilft dem Kind, sich an die Praxisumgebung zu gewöhnen und von Anfang an positive Erfahrungen zu sammeln."
+        },
+        {
+          "q": "Was, wenn mein Kind nicht kooperiert?",
+          "a": "Das ist völlig in Ordnung! Wir passen das Tempo an das Kind an, manchmal beginnen wir nur mit einem kurzen Kennenlernen und Spielen. Unser psychologischer Ansatz funktioniert bei den meisten Kindern, und sie gewöhnen sich schnell ein."
+        },
+        {
+          "q": "Kann man nur zur Beratung kommen?",
+          "a": "Natürlich. Es besteht keine Verpflichtung zur Weiterbehandlung. Eine erste Beratung ermöglicht es Ihnen und Ihrem Kind, uns kennenzulernen und sich wohlzufühlen, bevor Sie mit der Behandlung fortfahren."
+        },
+        {
+          "q": "Wie bereite ich mein Kind auf den ersten Besuch vor?",
+          "a": "Sprechen Sie positiv und locker über den Besuch, betonen Sie, dass es um ein Kennenlernen und Zähne zählen geht. Vermeiden Sie beängstigende Begriffe oder Geschichten über negative Erfahrungen."
+        },
+        {
+          "q": "Können Eltern während der Behandlung anwesend sein?",
+          "a": "Auf jeden Fall! Wir ermutigen zur elterlichen Anwesenheit, besonders bei jüngeren Kindern. Einige ältere Kinder arbeiten jedoch besser alleine mit."
+        }
+      ]
+    },
+    "bookVisit": {
+      "title": "Vereinbaren wir einen ersten Termin",
+      "description": "Kontaktieren Sie uns noch heute, um ein persönliches Kennenlerngespräch mit Dr. Lena Zembel zu vereinbaren. Der erste Besuch ist dem Kennenlernen, Vertrauensaufbau und dem Abbau von Ängsten gewidmet - ohne Behandlung.",
+      "followUp": "Für Fragen sind wir telefonisch unter 03-566-6915 erreichbar"
     }
   }
 }

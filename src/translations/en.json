@@ -1,317 +1,83 @@
+
 {
-  "home": "Home",
-  "about": "About",
-  "treatments": "Treatments",
-  "contact": "Contact",
-  "practice": "Our Practice",
-  "team": "Team",
-  "patients": "For Patients",
-  "testimonials": "Patient Reviews",
-  "patientsExperiences": "Our patients share their experiences",
-  "ourTreatments": "Our Treatments",
-  "wideRangeOfTreatments": "We offer a wide range of advanced dental treatments",
-  "updatesFromPractice": "Practice Updates",
-  "followOnFacebook": "Follow us on Facebook for regular updates",
-  "followOnFacebookButton": "Follow on Facebook",
-  "dentistryWithLove": "Dentistry with Love and Excellence",
-  "localDental": "We are a local dental clinic in North Jaffa that treats our patients like family. The quality of your treatment and experience are our top priorities.",
-  "bookVisit": "Book a Visit",
-  "moreDetails": "More Details",
-  "completelyHappy": "Complete Satisfaction",
-  "newLook": "New look, same great care.",
-  "practiceFresh": "Our clinic has been refreshed. With a new professional team, we're making a few small changes — but our caring treatment and personal attention remain exactly the same.",
-  "experiencedDoctors": "Experienced Professional Doctors",
-  "advancedEquipment": "Advanced Equipment and Technology",
-  "shortWaits": "Short Waiting Times",
-  "bookNow": "Book Now",
-  "childrenDentistry": "Children's Dentistry",
-  "childrenDentistryDesc": "Gentle treatment for children in a pleasant, relaxing environment",
-  "aestheticTreatments": "Aesthetic Treatments",
-  "aestheticTreatmentsDesc": "Teeth whitening, porcelain veneers, and advanced dental implants",
-  "preventiveMedicine": "Preventive Care",
-  "preventiveMedicineDesc": "Tartar removal, regular check-ups, and gum disease treatment",
-  "rootCanal": "Root Canal Treatment",
-  "rootCanalDesc": "Advanced root canal treatments with cutting-edge technology and minimal discomfort",
-  "oralRehabilitation": "Oral Rehabilitation",
-  "oralRehabilitationDesc": "High-quality, custom-fitted crowns, bridges, and dentures",
-  "orthodontics": "Orthodontics",
-  "orthodonticsDesc": "Clear and traditional orthodontic treatments for all ages",
-  "learnMore": "Learn More",
-  "openingHours": "Opening Hours",
-  "sundayToFriday": "Sunday to Friday: 8:30-14:00",
-  "contactUs": "Contact Us",
-  "address": "2 Ben Zvi Road, North Jaffa",
-  "allRightsReserved": "All Rights Reserved",
-  "clinicDescription": "Your trusted local dental clinic in North Jaffa",
-  "watchOurClinic": "Watch Our Clinic Tour",
-  "clinicTourDescription": "Take a virtual tour of our modern dental clinic",
-  "clinicTourThumbnail": "Dental Clinic Tour Video Thumbnail",
-  "overview": "Overview",
-  "procedure": "Procedure",
-  "faq": "FAQ",
-  "relatedTreatments": "Related Treatments",
-  "keyPoints": "Key Points",
-  "idealFor": "Ideal For",
-  "otherTreatmentsYouMightLike": "Other Treatments You Might Like",
-  "procedureDetails": "Procedure Details",
-  "afterProcedure": "After The Procedure",
-  "frequentlyAskedQuestions": "Frequently Asked Questions",
-  "patientExperiences": "Patient Experiences",
-  "readyToStart": "Ready to Start Your Treatment?",
-  "treatmentNotFound": "Treatment Not Found",
-  "backToHome": "Back to Home",
-  "copyright": "© {{year}} Dr. Lena Zembel. All rights reserved",
-  "whatsappMessage": "Hi Dr. Lena, I would like to schedule an appointment",
-  "phoneNumber": "03-566-6915",
-  "faqAnswer1": "The treatment process begins with a thorough consultation where we assess your needs and explain the procedure in detail.",
-  "faqAnswer2": "Treatment duration varies depending on the specific procedure. We'll provide you with a detailed timeline during your consultation.",
-  "faqAnswer3": "We use the latest techniques and local anesthesia to ensure your comfort during all procedures.",
-  "faqAnswer4": "Side effects are minimal and will be thoroughly discussed during your consultation.",
-  "faqAnswer5": "Treatment costs vary. We offer various payment options and will provide a detailed quote during your consultation.",
-  "faqDescription": "Find answers to common questions about our dental treatments and services",
-  "aboutMe": "About Me",
-  "aboutMeIntro": "I completed my studies in Germany in 2013, and truthfully, I haven't stopped learning since. The world of dentistry upgrades year by year, all to provide you, the patients, with a more pleasant, healthy, and easier treatment experience.",
-  "aboutMeClinic": "In my clinic in Jaffa, I offer family dentistry where every patient and every problem has a place and a solution. From anxious patients who need laughing gas, to patients requiring surgical extraction, to toddlers with trauma.",
-  "aboutMeLanguages": "I speak 4 languages fluently - Hebrew, German, English, and Russian, and in today's world, language is no longer a barrier.",
-  "aboutMeInvite": "I invite you to visit the clinic in Jaffa and see for yourself.",
-  "doctorProfile": "Doctor's Profile Picture",
-  "readFullReview": "Read full review",
-  "doctorName": "Dr. Lena Zembel",
-  "doctorEducation": "Graduate of the Faculty of Dentistry at the University of Cologne, Germany.",
-  "doctorTreatments": "Treats toddlers, children and adults. Experienced in treatments with laughing gas, sedation and general anesthesia.",
-  "doctorApproach": "Makes every effort to treat using the gentlest and most minimally invasive methods, avoiding general anesthesia when possible, even for anxious patients.",
-  "doctorPhilosophy": "It's important to me to provide a positive and pleasant experience along with professional and quality treatment.",
-  "transparency": "Transparency - you are partners in the treatment decision-making process",
-  "xrayPolicy": "X-rays - they are your property and will be emailed to you",
-  "treatmentOptions": "Treatment options - there is no single right way, there are always several",
-  "play": "Play",
-  "pause": "Pause",
-  "mute": "Mute",
-  "unmute": "Unmute",
-  "fullscreen": "Fullscreen",
-  "close": "Close",
-  "clinicTourVideo": "Clinic Tour Video",
-  "accessibility": {
-    "skipToContent": "Skip to main content"
-  },
-  "rootCanal": {
-    "headline": "Advanced Root Canal Treatment Focused On Comfort and Support",
-    "subtext": "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.",
-    "heroImageAlt": "Root Canal Treatment at our clinic",
-    "stepsTitle": "Treatment Steps",
-    "whyUsTitle": "Why Choose Us?",
-    "faqTitle": "Frequently Asked Questions",
-    "whyUs": {
-      "reason1": {
-        "title": "Advanced Equipment & Modern Technology",
-        "desc": "Treatments performed using the most advanced equipment – reducing pain and ensuring treatment success."
-      },
-      "reason2": {
-        "title": "Personalized Care & Close Support",
-        "desc": "We are here for you with any concern or question, from the first moment until your full recovery."
-      },
-      "reason3": {
-        "title": "Extensive Experience & Great Reputation",
-        "desc": "Hundreds of patients have had successful root canal treatments here – in a safe and relaxed environment."
-      }
-    },
-    "steps": {
-      "step1": {
-        "title": "Diagnostic Exam",
-        "desc": "Thorough examination of the tooth and X-ray – ensuring a complete picture before treatment."
-      },
-      "step2": {
-        "title": "Root Canal Treatment",
-        "desc": "Local anesthesia, cleaning the root canals, sterilization, and filling to prevent future infections."
-      },
-      "step3": {
-        "title": "Restoration & Sealing",
-        "desc": "Restoring and sealing the tooth – for long-term comfort and pain prevention."
-      }
-    },
-    "faq": {
-      "q1": "What is a root canal treatment and why is it needed?",
-      "a1": "Root canal treatment is performed to save a tooth that suffered from inflammation or infection in the root canal, allowing you to keep the tooth in your mouth.",
-      "q2": "Is root canal treatment painful?",
-      "a2": "The procedure is typically performed under local anesthesia and should be pain-free – extra support is provided if needed.",
-      "q3": "How long does a root canal take?",
-      "a3": "A standard root canal takes between one and two hours, and sometimes requires several appointments.",
-      "q4": "Are there restrictions after root canal treatment?",
-      "a4": "In the first days after a root canal, it is recommended to avoid chewing on the treated side and to maintain strict oral hygiene."
-    },
-    "testimonials": {
-      "testimonial1": {
-        "name": "Anat M.",
-        "text": "I came in worried, but the doctor explained every step patiently. I underwent root canal with no pain – highly recommended."
-      },
-      "testimonial2": {
-        "name": "Roni S.",
-        "text": "Excellent service, received support from the team even after the treatment. Thank you so much!"
-      }
-    },
-    "cta": {
-      "title": "Want Fast Relief from Pain?",
-      "description": "For urgent appointments or any questions – we're here for you!",
-      "calendarText": "Same-day treatments based on availability",
-      "syringeText": "Sensitive and supportive team all the way",
-      "bookButton": "Book a Free Consultation",
-      "backToTop": "Back to Top"
-    }
-  },
-  "clinicInfo": {
-    "name": "Dr. Lena Zembel's Dental Clinic",
-    "address": "2 Ben Zvi Road, North Jaffa",
-    "phone": "03-566-6915",
-    "hours": {
-      "weekdays": "Sunday to Friday: 8:30-14:00"
-    }
-  },
-  "doctorInfo": {
-    "name": "Dr. Lena Zembel",
-    "title": "Specialist Dentist",
-    "education": "Graduate of the Faculty of Dentistry at the University of Cologne, Germany",
-    "languages": "Hebrew, German, English, and Russian"
-  },
-  "copyright": "© {{year}} Dr. Lena Zembel's Dental Clinic. All rights reserved",
-  "aestheticTreatments": {
-    "headline1": "Aesthetic Treatments",
-    "headline2": "Perfect Smile Solutions",
-    "subheading": "At Dr. Lena Zembel's clinic, we combine advanced technology and clinical expertise to provide you with the perfect smile you've always dreamed of.",
-    "treatmentTypes": "Types of Aesthetic Treatments",
-    "teethWhitening": "Teeth Whitening",
-    "teethWhiteningDesc": "Advanced treatment to significantly whiten teeth, suitable for all types of stains and providing impressive results from the first treatment.",
-    "veneers": "Porcelain Veneers",
-    "veneersDesc": "Thin, durable porcelain veneers bonded to the front of the tooth, correcting flaws, cracks, or asymmetrical teeth for a natural and beautiful smile.",
-    "crownsAndBridges": "Crowns and Bridges",
-    "crownsAndBridgesDesc": "High-quality porcelain restorations that provide an aesthetic solution for broken or missing teeth while maintaining a natural appearance and full function.",
-    "dentalImplants": "Dental Implants",
-    "dentalImplantsDesc": "An aesthetic and functional solution for replacing missing teeth, blending perfectly with the rest of your teeth for a natural and complete smile.",
-    "compositeFillings": "Composite Restorations",
-    "compositeDesc": "Aesthetic restorations matched to your natural tooth color, repairing broken or damaged teeth for a natural and healthy appearance.",
-    "invisibleBraces": "Clear Aligners",
-    "invisibleBracesDesc": "Advanced technology for straightening teeth using a series of removable clear aligners, offering an aesthetic solution for crooked teeth.",
-    "benefits": "Benefits of Our Aesthetic Treatments",
-    "benefitsSubtitle": "Why choose aesthetic treatments at our clinic",
-    "benefit1": "Natural, customized results for your face and personality",
-    "benefit2": "Significant improvement in self-confidence and self-image",
-    "benefit3": "Advanced technologies for optimal results",
-    "benefit4": "Comfortable and fast treatment with short recovery times",
-    "benefit5": "Comprehensive diagnosis and digital planning for maximum precision",
-    "benefit6": "Long-term solutions with simple maintenance",
-    "idealForTitle": "Especially suitable for those who:",
-    "idealFor1": "Want to improve the appearance of their teeth and smile",
-    "idealFor2": "Suffer from broken, cracked, or damaged teeth",
-    "idealFor3": "Looking for a solution for stained or discolored teeth",
-    "idealFor4": "Want to fix gaps between teeth or asymmetry",
-    "process": "Aesthetic Treatment Process",
-    "processSubtitle": "Steps to achieve the perfect smile",
-    "step1Title": "Initial Consultation and Diagnosis",
-    "step1Desc": "In the initial meeting, we'll conduct a comprehensive assessment of your teeth and gums, discuss your aesthetic goals, and review the most appropriate treatment options.",
-    "step2Title": "Digital Smile Design",
-    "step2Desc": "Using advanced technology, we'll create an accurate digital design of the final result, so you can see the expected results before treatment begins.",
-    "step3Title": "Tooth Preparation and Treatment",
-    "step3Desc": "According to the selected treatment, we'll perform the necessary preparations and the treatment itself, ensuring maximum comfort and using the highest quality materials.",
-    "step4Title": "Final Review and Adjustments",
-    "step4Desc": "After treatment completion, we'll conduct a final review to ensure the results meet expectations and our high standards, making adjustments if necessary.",
-    "step5Title": "Follow-up and Maintenance",
-    "step5Desc": "We'll provide detailed instructions for maintaining results and establish a personalized follow-up plan to ensure the longevity of the treatment and oral health.",
-    "testimonials": "Patient Testimonials",
-    "testimonialsSubtitle": "What our patients say about aesthetic treatments",
-    "faqSection": "Frequently Asked Questions",
-    "faqSectionSubtitle": "Answers to the most common questions about aesthetic treatments",
-    "faq1Question": "How long do various aesthetic treatments take?",
-    "faq1Answer": "Treatment duration varies depending on the type of treatment. In-office teeth whitening can take 1-2 hours. Porcelain veneers usually require 2-3 appointments over a period of 2 weeks. Dental implants are a longer process that may take several months. At the initial consultation, we can provide a more accurate time estimate for your specific treatment.",
-    "faq2Question": "Are aesthetic treatments painful?",
-    "faq2Answer": "Most aesthetic treatments are performed under local anesthesia and do not involve significant pain. We prioritize patient comfort and offer various options such as laughing gas or sedation for anxious patients. After treatment, you may experience mild sensitivity that typically resolves within a few days.",
-    "faq3Question": "How long do the results of aesthetic treatments last?",
-    "faq3Answer": "The longevity of results varies depending on the type of treatment. Teeth whitening can last 1-3 years, depending on eating and drinking habits. Porcelain veneers and crowns can last 10-15 years or longer with proper care. Dental implants are designed to be a permanent solution and can last a lifetime with proper maintenance. At the consultation, we'll provide detailed information on the expected lifespan of your specific treatment.",
-    "faq4Question": "Are aesthetic treatments suitable for everyone?",
-    "faq4Answer": "Most people are good candidates for aesthetic treatments, but suitability depends on overall oral health and specific tooth conditions. Before any aesthetic treatment, we conduct a comprehensive evaluation to ensure the requested treatment is the best option for you. In some cases, preliminary treatments such as gum treatment or root canal may be necessary before performing the aesthetic treatment.",
-    "faq5Question": "How do I maintain the results of aesthetic treatment over time?",
-    "faq5Answer": "To maintain results over time, it's important to follow a rigorous oral hygiene routine including brushing twice daily, daily flossing, and mouthwash. It's advisable to avoid foods and beverages that can stain (like coffee, tea, red wine), especially after whitening treatments. Additionally, regular check-ups and cleanings with a hygienist every six months are essential for maintaining oral health and treatment results.",
-    "faq6Question": "What is the cost of aesthetic treatments?",
-    "faq6Answer": "The cost of aesthetic treatments varies depending on the type of treatment, its complexity, and scope. Teeth whitening is typically the least expensive treatment, while implants and full mouth rehabilitation are more expensive. At the initial consultation, after evaluation, we can provide an accurate quote. We also offer flexible payment options and financing plans to accommodate our patients.",
-    "bookNowCTA": "Ready to upgrade your smile? Let's start with a consultation",
-    "bookNowSubtitle": "Our clinic team is here to provide you with the most advanced and personalized aesthetic treatment."
-  },
   "childrenDentistry": {
     "hero": {
       "title": "Happy Kids - Dental Care with Love and Patience",
       "description": "At Dr. Lena Zembel's clinic, we don't just treat teeth - we build confidence, peace of mind, and positive experiences for children and parents",
-      "imageAlt": "Smiling girl in dental chair"
+      "imageAlt": "Dr. Lena Zembel with a smiling child"
+    },
+    "story": {
+      "title": "We understand - visiting the dentist can be scary",
+      "content": "Many of us remember unpleasant experiences from childhood dental visits. That's why we've created a completely different place - a safe, comfortable space. Our unique approach is based on listening, endless patience, and understanding children's fears and concerns."
     },
     "visitSteps": {
-      "title": "Your First Visit Steps",
+      "title": "Our Journey Together - First Visit",
       "averageTime": "Average first visit duration: 25-30 minutes",
       "disclaimer": "No treatments during first visit unless medically necessary",
       "steps": [
         {
           "icon": "🧸",
-          "label": "Welcome with a Toy",
-          "desc": "We'll start in our playroom"
+          "label": "Welcome with a toy",
+          "desc": "We start in the playroom"
         },
         {
           "icon": "💬",
-          "label": "Kid-Friendly Introduction",
-          "desc": "See dental toys and equipment"
+          "label": "Brief explanation",
+          "desc": "We show dental equipment"
         },
         {
           "icon": "🪥",
-          "label": "Brushing Together",
-          "desc": "Learn proper brushing technique"
+          "label": "Tooth brushing together",
+          "desc": "Learning proper technique"
         },
         {
           "icon": "📸",
-          "label": "Gentle Camera Check",
-          "desc": "Count teeth with our special camera"
+          "label": "Gentle scanning with small camera",
+          "desc": "Counting teeth"
         },
         {
           "icon": "🎁",
-          "label": "Personal Reward",
-          "desc": "Choose a sticker or small surprise"
+          "label": "Personal reward",
+          "desc": "Choice of sticker or small gift"
         }
       ]
     },
+    "doctorSpotlight": {
+      "title": "A Personal Word from Dr. Lena",
+      "message": "As a mother and a dentist, I understand the concerns of parents and children. My goal is to create a positive experience for every child who walks into the clinic. I believe pediatric dentistry is much more than a medical treatment - it's an opportunity to build healthy habits for life.",
+      "imageAlt": "Dr. Lena Zembel - Pediatric dental specialist",
+      "signatureAlt": "Dr. Lena Zembel's signature"
+    },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Answers to the most common questions about children's dental care",
+      "subtitle": "Answers to the questions parents ask most often",
       "items": [
         {
-          "q": "At what age should dental visits start?",
-          "a": "Usually recommended around age two and a half – or after the first teeth appear. An early visit helps familiarize the child with the dental environment and build a positive experience from the start."
+          "q": "At what age should dental treatments begin?",
+          "a": "It's recommended to bring your child for a first visit around age two and a half, or after the first teeth emerge. An early visit helps the child get accustomed to the clinic environment and build positive experiences from the start."
         },
         {
           "q": "What if my child doesn't cooperate?",
-          "a": "That's perfectly okay – we have gentle, psychology-based approaches for children. We adapt the treatment to your child's pace, sometimes starting with just a brief introduction and play during the first visit."
+          "a": "That's perfectly fine! We adjust the pace to the child, sometimes starting with just a brief introduction and play. Our psychological approach works with most children, and they connect quickly."
         },
         {
-          "q": "Can we come for consultation only?",
-          "a": "Absolutely. There's no commitment to continue treatment. An initial consultation is a great opportunity to ask questions, meet the team, and see if our clinic is the right fit for you and your child."
+          "q": "Can we come just for a consultation?",
+          "a": "Absolutely. There's no obligation to continue treatment. An initial consultation allows you and your child to meet us and feel comfortable before proceeding with treatment."
         },
         {
-          "q": "How do we prepare for the first visit?",
-          "a": "It's recommended to discuss the visit positively and casually with your child, emphasizing that it's about meeting the dentist and counting teeth. Avoid scary terms or negative experience stories."
+          "q": "How do I prepare my child for the first visit?",
+          "a": "Talk about the visit in a positive, light way, emphasizing that it's about meeting the doctor and counting teeth. Avoid scary terms or stories about negative experiences."
         },
         {
-          "q": "Can parents stay during treatment?",
-          "a": "Of course. We encourage parental presence in the treatment room, especially with young children. However, sometimes older children cooperate better when they enter alone."
+          "q": "Can parents be present during treatment?",
+          "a": "Of course! We encourage parental presence, especially with younger children. However, some older children cooperate better when they come in alone."
         }
       ]
-    }
-  },
-  "footer": {
-    "copyright": "© {{year}} Dr. Lena Zembel. All rights reserved.",
-    "accessibility": "Accessibility Statement",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "allRights": "All Rights Reserved"
-  },
-  "oralRehabilitation": {
-    "cta": {
-      "title": "Start Your Journey to a Perfect Smile - Book a Consultation",
-      "description": "Contact us today or give us a call. We'll be happy to guide you on your path to a new look and a new life.",
-      "phoneLabel": "Or call",
-      "bookingButton": "Book Appointment"
+    },
+    "bookVisit": {
+      "title": "Let's Schedule a First Meeting",
+      "description": "Contact us today to arrange a personal introduction visit with Dr. Lena Zembel. The first visit is dedicated to getting acquainted, building trust, and alleviating concerns - no treatment involved.",
+      "followUp": "We're available for any questions at 03-566-6915"
     }
   }
 }
