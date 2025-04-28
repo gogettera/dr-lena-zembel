@@ -36,8 +36,7 @@ const TestimonialsCarousel: React.FC = () => {
         <EnhancedCarousel 
           onSlideChange={setCurrentSlide}
           className="max-w-3xl mx-auto"
-          autoplay={true}
-          autoplayInterval={6000}
+          autoplay={6000}
           loop={true}
         >
           {testimonials.map((testimonial, index) => (

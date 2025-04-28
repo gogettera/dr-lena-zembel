@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const scrollToSection = (id: string) => {
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
-          <Link to={`/${currentLanguage}`} className="block">
+          <Link to={`/${language}`} className="block">
             <img 
               src="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" 
               alt={t('common.logoAlt')} 

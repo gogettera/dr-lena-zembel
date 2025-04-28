@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 import { PhoneOutgoing, Mail, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { t, currentLanguage } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <footer className="bg-dental-navy text-white py-8 px-4">
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div className="mb-6 md:mb-0">
-            <Link to={`/${currentLanguage}`}>
+            <Link to={`/${language}`}>
               <img 
                 src="/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png" 
                 alt={t('common.logoAlt')} 
@@ -46,22 +46,22 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-bold mb-4">{t('common.quickLinks')}</h4>
             <ul className="space-y-2">
               <li>
-                <Link to={`/${currentLanguage}/about`} className="text-white/80 hover:text-white">
+                <Link to={`/${language}/about`} className="text-white/80 hover:text-white">
                   {t('common.about')}
                 </Link>
               </li>
               <li>
-                <Link to={`/${currentLanguage}/treatments`} className="text-white/80 hover:text-white">
+                <Link to={`/${language}/treatments`} className="text-white/80 hover:text-white">
                   {t('common.treatments')}
                 </Link>
               </li>
               <li>
-                <Link to={`/${currentLanguage}/contact`} className="text-white/80 hover:text-white">
+                <Link to={`/${language}/contact`} className="text-white/80 hover:text-white">
                   {t('common.contact')}
                 </Link>
               </li>
               <li>
-                <Link to={`/${currentLanguage}/privacy-policy`} className="text-white/80 hover:text-white">
+                <Link to={`/${language}/privacy-policy`} className="text-white/80 hover:text-white">
                   {t('common.privacyPolicy')}
                 </Link>
               </li>
