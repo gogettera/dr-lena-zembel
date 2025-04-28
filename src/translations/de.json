@@ -1,4 +1,3 @@
-
 {
   "home": "Startseite",
   "about": "Über uns",
@@ -100,5 +99,40 @@
     "education": "Absolventin der Zahnmedizinischen Fakultät der Universität zu Köln, Deutschland",
     "languages": "Hebräisch, Deutsch, Englisch und Russisch"
   },
-  "copyright": "© 2024 Zahnklinik Dr. Lena Zembel. Alle Rechte vorbehalten"
+  "copyright": "© 2024 Zahnklinik Dr. Lena Zembel. Alle Rechte vorbehalten",
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "treatments": "Behandlungen",
+    "contact": "Kontakt",
+    "practice": "Unsere Praxis",
+    "info": "Informationen",
+    "accessibility": {
+      "skipToContent": "Zum Hauptinhalt springen",
+      "statement": "Barrierefreiheit"
+    },
+    "legal": {
+      "privacyPolicy": "Datenschutz",
+      "termsOfService": "AGB"
+    }
+  },
+  "treatments": {
+    "aestheticTreatments": "Ästhetische Behandlungen",
+    "botoxTreatments": "Botox Behandlungen",
+    "childrenDentistry": "Kinderzahnheilkunde",
+    "preventiveMedicine": "Präventivmedizin",
+    "rootCanal": "Wurzelbehandlung",
+    "oralRehabilitation": "Orale Rehabilitation",
+    "orthodontics": "Kieferorthopädie"
+  },
+   "clinicInfo": {
+    "name": "Zahnklinik Dr. Lena Zembel",
+    "phone": "03-566-6915",
+    "address": "Ben Zvi Straße 2, Tel Aviv-Yafo",
+    "hours": {
+      "weekdays": "Sonntag bis Donnerstag: 09:00-19:00",
+      "friday": "Freitag: 09:00-13:00",
+      "saturday": "Samstag: Geschlossen"
+    }
+  }
 }
