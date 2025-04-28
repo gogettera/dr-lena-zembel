@@ -1,19 +1,12 @@
 
-import React, { useEffect } from 'react';
-import AccessibilityStatement from '@/components/AccessibilityStatement';
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
+import React from 'react';
 
 const AccessibilityStatementPage: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
-    <AccessibleLayout>
-      <main className="pt-20">
-        <AccessibilityStatement />
-      </main>
-    </AccessibleLayout>
+    <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-4">Accessibility Statement</h1>
+      <p>This is the accessibility statement page</p>
+    </div>
   );
 };
 

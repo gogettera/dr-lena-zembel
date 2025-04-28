@@ -1,10 +1,11 @@
+
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { ThemeProvider } from "@/components/theme-provider"
-import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
+import { ThemeProvider } from "./components/theme-provider";
+import { ScrollToTopButton } from './components/ui/scroll-to-top-button';
 import { Toaster } from "@/components/ui/toaster"
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ResourcePrefetcher } from 'react-prefetch';
+import { ResourcePrefetcher } from './components/resource-prefetcher';
 import { siteConfig } from './config/site';
 import { languages } from './config/i18n';
 
