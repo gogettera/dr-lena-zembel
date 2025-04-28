@@ -18,7 +18,6 @@ import { getBrowserLanguage } from '@/utils/languageRoutes';
 import { Skeleton } from '@/components/ui/skeleton';
 import ResourcePrefetcher from '@/components/ResourcePrefetcher';
 import { applyMetaTags } from '@/utils/meta-utils';
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 import './App.css';
 
@@ -128,59 +127,56 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <Router>
-        <AccessibleLayout>
-          <AppEffects />
-          <ResourcePrefetcher />
-          <Routes>
-            <Route path="/" element={<Index />} />
+        <AppEffects />
+        <ResourcePrefetcher />
+        <Routes>
+          <Route path="/" element={<Index />} />
 
-            {/* Authentication routes */}
-            <Route 
-              path="/login" 
-              element={
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Suspense fallback={<PageLoader />}>
-                    <LoginPage />
-                  </Suspense>
-                </ErrorBoundary>
-              } 
-            />
+          {/* Authentication routes */}
+          <Route 
+            path="/login" 
+            element={
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense fallback={<PageLoader />}>
+                  <LoginPage />
+                </Suspense>
+              </ErrorBoundary>
+            } 
+          />
 
-            <Route 
-              path="/admin" 
-              element={
-                <ErrorBoundary FallbackComponent={ErrorFallback}>
-                  <Suspense fallback={<PageLoader />}>
-                    <AdminRoute element={<AdminPanel />} />
-                  </Suspense>
-                </ErrorBoundary>
-              } 
-            />
+          <Route 
+            path="/admin" 
+            element={
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense fallback={<PageLoader />}>
+                  <AdminRoute element={<AdminPanel />} />
+                </Suspense>
+              </ErrorBoundary>
+            } 
+          />
 
-            {/* Legal routes */}
-            <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
+          {/* Legal routes */}
+          <Route path="/:lang/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/:lang/terms-of-service" element={<TermsOfService />} />
 
-            <Route path="/:lang" element={<LanguageRoute />}>
-              <Route index element={<LanguageHome />} />
-              
-              {/* Specific route for Botox treatments */}
-              <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
-              
-              {/* Generic treatment route */}
-              <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-              
-              <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
-              <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
-            </Route>
+          <Route path="/:lang" element={<LanguageRoute />}>
+            <Route index element={<LanguageHome />} />
+            
+            {/* Specific route for Botox treatments */}
+            <Route path="treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
+            
+            {/* Generic treatment route */}
+            <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
+            
+            <Route path="preventive-medicine" element={<PreventiveMedicinePage />} />
+            <Route path="accessibility-statement" element={<AccessibilityStatementPage />} />
+          </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AccessibleLayout>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </Router>
     </ErrorBoundary>
   );
 }
 
 export default App;
-

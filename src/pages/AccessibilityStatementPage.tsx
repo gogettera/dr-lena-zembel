@@ -1,9 +1,7 @@
 
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/layout/Footer';
 import AccessibilityStatement from '@/components/AccessibilityStatement';
-import BackToTop from '@/components/BackToTop';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 const AccessibilityStatementPage: React.FC = () => {
   useEffect(() => {
@@ -11,14 +9,11 @@ const AccessibilityStatementPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow pt-20">
+    <AccessibleLayout>
+      <main className="pt-20">
         <AccessibilityStatement />
       </main>
-      <Footer />
-      <BackToTop />
-    </div>
+    </AccessibleLayout>
   );
 };
 

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import AccessibleLayout from "@/components/layout/AccessibleLayout";
 
 const NotFound = () => {
   const location = useLocation();

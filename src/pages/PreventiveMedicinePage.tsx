@@ -1,14 +1,12 @@
 
 import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/layout/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import BackToTop from '@/components/BackToTop';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import PreventiveMedicineHero from '@/components/preventive-medicine/PreventiveMedicineHero';
 import { Section } from '@/components/ui/section';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 const PreventiveMedicinePage: React.FC = () => {
   const { t } = useLanguage();
@@ -22,8 +20,7 @@ const PreventiveMedicinePage: React.FC = () => {
 
   if (!treatment) {
     return (
-      <div>
-        <Navbar />
+      <AccessibleLayout>
         <Section spacing="lg">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
@@ -32,8 +29,7 @@ const PreventiveMedicinePage: React.FC = () => {
             </Button>
           </div>
         </Section>
-        <Footer />
-      </div>
+      </AccessibleLayout>
     );
   }
 
@@ -43,8 +39,7 @@ const PreventiveMedicinePage: React.FC = () => {
   const treatmentSubtitleKey = "preventiveMedicine.headline2";
 
   return (
-    <div className="bg-white">
-      <Navbar />
+    <AccessibleLayout>
       <main className="pt-0">
         <Section background="none" spacing="none" containerClass="px-0">
           <PreventiveMedicineHero 
@@ -62,9 +57,7 @@ const PreventiveMedicinePage: React.FC = () => {
           treatmentType={treatmentType}
         />
       </main>
-      <Footer />
-      <BackToTop />
-    </div>
+    </AccessibleLayout>
   );
 };
 

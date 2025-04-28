@@ -1,15 +1,13 @@
 
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/layout/Footer';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import BackToTop from '@/components/BackToTop';
 import TreatmentHero from '@/components/treatment/TreatmentHero';
 import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import { createLocalizedPath } from '@/utils/languageRoutes';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 const LanguageTreatmentPage: React.FC = () => {
   const { treatmentType } = useParams<{ treatmentType: string }>();
@@ -24,16 +22,14 @@ const LanguageTreatmentPage: React.FC = () => {
   
   if (!treatment) {
     return (
-      <div className="min-h-screen">
-        <Navbar />
+      <AccessibleLayout>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
           <Link to={createLocalizedPath(language, '/')}>
             <Button className="mt-4">{t('backToHome')}</Button>
           </Link>
         </div>
-        <Footer />
-      </div>
+      </AccessibleLayout>
     );
   }
 
@@ -41,8 +37,7 @@ const LanguageTreatmentPage: React.FC = () => {
   const treatmentDescKey = getTreatmentDescKey(treatmentType || '');
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
+    <AccessibleLayout>
       <main className="pt-20">
         <TreatmentHero 
           treatment={treatment}
@@ -56,9 +51,7 @@ const LanguageTreatmentPage: React.FC = () => {
           treatmentType={treatmentType || ''}
         />
       </main>
-      <Footer />
-      <BackToTop />
-    </div>
+    </AccessibleLayout>
   );
 };
 

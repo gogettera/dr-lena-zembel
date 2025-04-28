@@ -1,18 +1,15 @@
 
 import React from 'react';
 import LegalPage from '@/components/legal/LegalPage';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/layout/Footer';
+import AccessibleLayout from '@/components/layout/AccessibleLayout';
 
 const TermsOfService = () => {
   return (
-    <div>
-      <Navbar />
+    <AccessibleLayout>
       <main>
         <LegalPage translationKey="termsOfService" />
       </main>
-      <Footer />
-    </div>
+    </AccessibleLayout>
   );
 };
 
