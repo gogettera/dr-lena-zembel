@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import Footer from '@/components/layout/Footer';
 import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
 import { Toaster } from '@/components/ui/toaster';
 import { useLanguage } from '@/contexts/LanguageContext';
