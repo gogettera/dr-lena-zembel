@@ -13,39 +13,30 @@ import FAQAccordion from '@/templates/children-dentistry/components/FAQAccordion
 import CtaSection from '@/templates/children-dentistry/components/CtaSection';
 import Footer from '@/templates/children-dentistry/components/Footer';
 import WhatsAppButton from '@/templates/children-dentistry/components/WhatsAppButton';
-import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
-import { Toaster } from '@/components/ui/toaster';
-import { Helmet } from 'react-helmet-async';
 
 const ChildrenDentistryLandingPage: React.FC = () => {
   const { t } = useLanguage();
 
+  const jsonLdData = `
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Dr. Lena Zembel - Children's Dentistry",
+      "url": "https://dr-zembel.com/he/children-dentistry",
+      "logo": "https://dr-zembel.com/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png",
+      "description": "Gentle dental care for children in a comfortable environment",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tel Aviv",
+        "addressRegion": "IL"
+      },
+      "telephone": "03-566-6915",
+      "medicalSpecialty": "Pediatric Dentistry"
+    }
+  `;
+
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <Helmet>
-        <title>{t('childrenDentistry.meta.title')}</title>
-        <meta name="description" content={t('childrenDentistry.meta.description')} />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "MedicalBusiness",
-              "name": "Dr. Lena Zembel - Children's Dentistry",
-              "url": "https://dr-zembel.com/he/children-dentistry",
-              "logo": "https://dr-zembel.com/lovable-uploads/f0d36601-8f51-4bd6-9ce4-071cd62aa140.png",
-              "description": "Gentle dental care for children in a comfortable environment",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Tel Aviv",
-                "addressRegion": "IL"
-              },
-              "telephone": "03-566-6915",
-              "medicalSpecialty": "Pediatric Dentistry"
-            }
-          `}
-        </script>
-      </Helmet>
-      
+    <>
       <Header />
       
       <main className="flex-grow">
@@ -62,9 +53,7 @@ const ChildrenDentistryLandingPage: React.FC = () => {
       
       <Footer />
       <WhatsAppButton />
-      <ScrollToTopButton />
-      <Toaster />
-    </div>
+    </>
   );
 };
 

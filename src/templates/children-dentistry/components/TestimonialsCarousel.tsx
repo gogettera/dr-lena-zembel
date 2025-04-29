@@ -52,7 +52,7 @@ const TestimonialsCarousel: React.FC = () => {
           setApi={setApi}
           className="max-w-3xl mx-auto"
           autoplay={6000}
-          // Remove the loop prop since it's not supported by the component type
+          opts={{ loop: true }}
         >
           {testimonials.map((testimonial, index) => (
             <CarouselItem key={index}>

@@ -1,137 +1,120 @@
 
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useParams } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider";
-import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
-import { Toaster } from "@/components/ui/toaster";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ResourcePrefetcher } from '@/components/resource-prefetcher';
-import { languages } from '@/config/i18n';
+import { languages, defaultLanguage } from '@/config/i18n';
+import { createLocalizedRoutes, extractPathWithoutLanguage } from '@/config/routes';
 import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import DefaultLayout from '@/layouts/DefaultLayout';
+import LandingLayout from '@/layouts/LandingLayout';
+import MinimalLayout from '@/layouts/MinimalLayout';
 
-// Import page components
-import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
-import TreatmentsPage from "./pages/TreatmentsPage";
-import AestheticTreatmentsPage from "./pages/AestheticTreatmentsPage";
-import ContactPage from "./pages/ContactPage";
-import AccessibilityStatementPage from "./pages/AccessibilityStatementPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage";
-import InfoPage from "./pages/InfoPage";
-import ChildrenDentistryLanding from "./components/children-dentistry/ChildrenDentistryLanding";
-import OralRehabilitationPage from "./pages/OralRehabilitationPage";
-import OrthodonticsPage from "./pages/OrthodonticsPage";
-import RootCanalPage from "./pages/RootCanalPage";
-import BotoxTreatmentsPage from "./pages/BotoxTreatmentsPage";
-import ClinicPage from "./pages/ClinicPage";
-import ChildrenDentistryAdLandingPage from "./pages/ChildrenDentistryAdLandingPage";
-import ChildrenDentistryStandalonePage from "./pages/ChildrenDentistryLandingPage";
-import NotFound from "./pages/NotFound";
+// Create a client with optimized settings
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      retry: 1,
+    },
+  },
+});
 
-// Create an AppRoutes component that uses router hooks
-const AppRoutes = () => {
-  const { language } = useLanguage();
+// Language-specific routes component
+const LanguageRoutes = () => {
+  const { lang } = useParams<{ lang: string }>();
+  const { language, setLanguage } = useLanguage();
   const location = useLocation();
   
   useEffect(() => {
-    document.documentElement.lang = language;
-  }, [language]);
-
-  useEffect(() => {
-    // Log the page view to GA
-  }, [location]);
-
+    // If the URL language is valid and different from current language setting
+    if (lang && languages.includes(lang as any) && lang !== language) {
+      setLanguage(lang as any);
+    }
+  }, [lang, language, setLanguage]);
+  
+  // If language is not supported, redirect to default language
+  if (lang && !languages.includes(lang as any)) {
+    return <Navigate to={`/${defaultLanguage}`} replace />;
+  }
+  
+  // Get current path without language prefix
+  const currentPath = extractPathWithoutLanguage(location.pathname);
+  
+  // Get routes for current language
+  const routes = createLocalizedRoutes(language);
+  
   return (
-    <ThemeProvider>
-      <ResourcePrefetcher resources={languages.map((lang) => `/locales/${lang}.json`)}>
-        <ScrollToTopButton />
-        <Routes>
-          {/* Home routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/he" element={<HomePage />} />
-          <Route path="/en" element={<HomePage />} />
-          <Route path="/de" element={<HomePage />} />
-
-          {/* Regular routes */}
-          <Route path="/he/about" element={<AboutPage />} />
-          <Route path="/en/about" element={<AboutPage />} />
-          <Route path="/de/about" element={<AboutPage />} />
-
-          <Route path="/he/treatments" element={<TreatmentsPage />} />
-          <Route path="/en/treatments" element={<TreatmentsPage />} />
-          <Route path="/de/treatments" element={<TreatmentsPage />} />
-
-          <Route path="/he/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
-          <Route path="/en/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
-          <Route path="/de/aesthetic-treatments" element={<AestheticTreatmentsPage />} />
-
-          <Route path="/he/contact" element={<ContactPage />} />
-          <Route path="/en/contact" element={<ContactPage />} />
-          <Route path="/de/contact" element={<ContactPage />} />
-
-          <Route path="/he/accessibility-statement" element={<AccessibilityStatementPage />} />
-          <Route path="/en/accessibility-statement" element={<AccessibilityStatementPage />} />
-          <Route path="/de/accessibility-statement" element={<AccessibilityStatementPage />} />
-
-          <Route path="/he/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
-          <Route path="/de/privacy-policy" element={<PrivacyPolicyPage />} />
-
-          <Route path="/he/terms-of-service" element={<TermsOfServicePage />} />
-          <Route path="/en/terms-of-service" element={<TermsOfServicePage />} />
-          <Route path="/de/terms-of-service" element={<TermsOfServicePage />} />
-
-          <Route path="/he/info" element={<InfoPage />} />
-          <Route path="/en/info" element={<InfoPage />} />
-          <Route path="/de/info" element={<InfoPage />} />
-          
-          <Route path="/he/children-dentistry" element={<ChildrenDentistryLanding />} />
-          <Route path="/en/children-dentistry" element={<ChildrenDentistryLanding />} />
-          <Route path="/de/children-dentistry" element={<ChildrenDentistryLanding />} />
-
-          <Route path="/he/oral-rehabilitation" element={<OralRehabilitationPage />} />
-          <Route path="/en/oral-rehabilitation" element={<OralRehabilitationPage />} />
-          <Route path="/de/oral-rehabilitation" element={<OralRehabilitationPage />} />
-
-          <Route path="/he/orthodontics" element={<OrthodonticsPage />} />
-          <Route path="/en/orthodontics" element={<OrthodonticsPage />} />
-          <Route path="/de/orthodontics" element={<OrthodonticsPage />} />
-
-          <Route path="/he/root-canal" element={<RootCanalPage />} />
-          <Route path="/en/root-canal" element={<RootCanalPage />} />
-          <Route path="/de/root-canal" element={<RootCanalPage />} />
-
-          <Route path="/he/botox-treatments" element={<BotoxTreatmentsPage />} />
-          <Route path="/en/botox-treatments" element={<BotoxTreatmentsPage />} />
-          <Route path="/de/botox-treatments" element={<BotoxTreatmentsPage />} />
-
-          <Route path="/he/clinic" element={<ClinicPage />} />
-          <Route path="/en/clinic" element={<ClinicPage />} />
-          <Route path="/de/clinic" element={<ClinicPage />} />
-          
-          {/* Add the new routes for children dentistry landing pages */}
-          <Route path="/he/ad/children-dentistry" element={<ChildrenDentistryAdLandingPage />} />
-          <Route path="/he/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
-          <Route path="/en/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
-          <Route path="/de/treatments/children-dentistry" element={<ChildrenDentistryStandalonePage />} />
-          
-          {/* 404 catch-all route */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+    <Routes>
+      {Object.entries(routes).map(([path, config]) => {
+        const RouteComponent = config.component;
+        const layoutType = config.layout || 'default';
         
-        <Toaster />
-      </ResourcePrefetcher>
-    </ThemeProvider>
+        let LayoutComponent: React.FC<any>;
+        switch (layoutType) {
+          case 'landing':
+            LayoutComponent = LandingLayout;
+            break;
+          case 'minimal':
+            LayoutComponent = MinimalLayout;
+            break;
+          default:
+            LayoutComponent = DefaultLayout;
+        }
+        
+        return (
+          <Route
+            key={path}
+            path={path === '/' ? '' : path}
+            element={
+              <LayoutComponent meta={config.meta}>
+                <RouteComponent />
+              </LayoutComponent>
+            }
+          />
+        );
+      })}
+    </Routes>
   );
 };
 
-// Main App component that provides the Router context
+// Root component to handle language detection and redirection
+const RootRouter = () => {
+  const { language } = useLanguage();
+  const location = useLocation();
+  
+  // Direct root path - redirect to language-specific home
+  if (location.pathname === '/') {
+    return <Navigate to={`/${language}`} replace />;
+  }
+  
+  return (
+    <Routes>
+      {/* Language-specific routes */}
+      <Route path="/:lang/*" element={<LanguageRoutes />} />
+      
+      {/* Fallback redirect to default language */}
+      <Route path="*" element={<Navigate to={`/${defaultLanguage}`} replace />} />
+    </Routes>
+  );
+};
+
+// Main App component
 function App() {
   return (
     <Router>
       <HelmetProvider>
-        <AppRoutes />
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <ResourcePrefetcher resources={languages.map((lang) => `/locales/${lang}.json`)}>
+              <RootRouter />
+            </ResourcePrefetcher>
+          </ThemeProvider>
+        </QueryClientProvider>
       </HelmetProvider>
     </Router>
   );
