@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useParams } from 'react-router-dom';
 import { ThemeProvider } from "@/components/theme-provider";
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -23,6 +23,13 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+// Loading state component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="animate-pulse text-dental-navy">Loading...</div>
+  </div>
+);
 
 // Language-specific routes component
 const LanguageRoutes = () => {
@@ -51,7 +58,7 @@ const LanguageRoutes = () => {
   return (
     <Routes>
       {Object.entries(routes).map(([path, config]) => {
-        const RouteComponent = config.component;
+        const LazyComponent = React.lazy(config.component);
         const layoutType = config.layout || 'default';
         
         let LayoutComponent: React.FC<any>;
@@ -71,9 +78,11 @@ const LanguageRoutes = () => {
             key={path}
             path={path === '/' ? '' : path}
             element={
-              <LayoutComponent meta={config.meta}>
-                <RouteComponent />
-              </LayoutComponent>
+              <Suspense fallback={<LoadingFallback />}>
+                <LayoutComponent meta={config.meta}>
+                  <LazyComponent />
+                </LayoutComponent>
+              </Suspense>
             }
           />
         );

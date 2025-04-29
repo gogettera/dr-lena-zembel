@@ -1,13 +1,13 @@
 
 import { Language } from '@/types/language';
+import React from 'react';
 
 // Page component types
 type PageComponent = React.ComponentType<any>;
-type DynamicImport = () => Promise<{ default: PageComponent }>;
 
 // Route configuration types
 export interface RouteConfig {
-  component: PageComponent;
+  component: () => Promise<{ default: PageComponent }>;
   exact?: boolean;
   layout?: 'default' | 'minimal' | 'landing';
   meta?: {
@@ -15,6 +15,7 @@ export interface RouteConfig {
     description?: string;
     titleKey?: string;
     descriptionKey?: string;
+    jsonLd?: string;
   };
 }
 
@@ -25,7 +26,7 @@ export interface RoutesConfig {
 // Helper to generate language-specific routes
 export const createLocalizedRoutes = (language: Language): RoutesConfig => ({
   '/': {
-    component: require('@/pages/HomePage').default,
+    component: () => import('@/pages/HomePage'),
     exact: true,
     meta: {
       titleKey: 'home.meta.title',
@@ -33,63 +34,63 @@ export const createLocalizedRoutes = (language: Language): RoutesConfig => ({
     }
   },
   '/about': {
-    component: require('@/pages/AboutPage').default,
+    component: () => import('@/pages/AboutPage'),
     meta: {
       titleKey: 'about.meta.title',
       descriptionKey: 'about.meta.description'
     }
   },
   '/treatments': {
-    component: require('@/pages/TreatmentsPage').default,
+    component: () => import('@/pages/TreatmentsPage'),
     meta: {
       titleKey: 'treatments.meta.title',
       descriptionKey: 'treatments.meta.description'
     }
   },
   '/aesthetic-treatments': {
-    component: require('@/pages/AestheticTreatmentsPage').default,
+    component: () => import('@/pages/AestheticTreatmentsPage'),
     meta: {
       titleKey: 'aestheticTreatments.meta.title',
       descriptionKey: 'aestheticTreatments.meta.description'
     }
   },
   '/contact': {
-    component: require('@/pages/ContactPage').default,
+    component: () => import('@/pages/ContactPage'),
     meta: {
       titleKey: 'contact.meta.title',
       descriptionKey: 'contact.meta.description'
     }
   },
   '/accessibility-statement': {
-    component: require('@/pages/AccessibilityStatementPage').default,
+    component: () => import('@/pages/AccessibilityStatementPage'),
     meta: {
       titleKey: 'accessibility.meta.title',
       descriptionKey: 'accessibility.meta.description'
     }
   },
   '/privacy-policy': {
-    component: require('@/pages/PrivacyPolicyPage').default,
+    component: () => import('@/pages/PrivacyPolicyPage'),
     meta: {
       titleKey: 'legal.privacyPolicy.meta.title',
       descriptionKey: 'legal.privacyPolicy.meta.description'
     }
   },
   '/terms-of-service': {
-    component: require('@/pages/TermsOfServicePage').default,
+    component: () => import('@/pages/TermsOfServicePage'),
     meta: {
       titleKey: 'legal.termsOfService.meta.title',
       descriptionKey: 'legal.termsOfService.meta.description'
     }
   },
   '/info': {
-    component: require('@/pages/InfoPage').default,
+    component: () => import('@/pages/InfoPage'),
     meta: {
       titleKey: 'info.meta.title',
       descriptionKey: 'info.meta.description'
     }
   },
   '/children-dentistry': {
-    component: require('@/pages/ChildrenDentistryLandingPage').default,
+    component: () => import('@/pages/ChildrenDentistryLandingPage'),
     layout: 'landing',
     meta: {
       titleKey: 'childrenDentistry.meta.title',
@@ -97,42 +98,42 @@ export const createLocalizedRoutes = (language: Language): RoutesConfig => ({
     }
   },
   '/oral-rehabilitation': {
-    component: require('@/pages/OralRehabilitationPage').default,
+    component: () => import('@/pages/OralRehabilitationPage'),
     meta: {
       titleKey: 'oralRehabilitation.meta.title',
       descriptionKey: 'oralRehabilitation.meta.description'
     }
   },
   '/orthodontics': {
-    component: require('@/pages/OrthodonticsPage').default,
+    component: () => import('@/pages/OrthodonticsPage'),
     meta: {
       titleKey: 'orthodontics.meta.title',
       descriptionKey: 'orthodontics.meta.description'
     }
   },
   '/root-canal': {
-    component: require('@/pages/RootCanalPage').default,
+    component: () => import('@/pages/RootCanalPage'),
     meta: {
       titleKey: 'rootCanal.meta.title',
       descriptionKey: 'rootCanal.meta.description'
     }
   },
   '/botox-treatments': {
-    component: require('@/pages/BotoxTreatmentsPage').default,
+    component: () => import('@/pages/BotoxTreatmentsPage'),
     meta: {
       titleKey: 'botoxTreatments.meta.title',
       descriptionKey: 'botoxTreatments.meta.description'
     }
   },
   '/clinic': {
-    component: require('@/pages/ClinicPage').default,
+    component: () => import('@/pages/ClinicPage'),
     meta: {
       titleKey: 'clinic.meta.title',
       descriptionKey: 'clinic.meta.description'
     }
   },
   '/ad/children-dentistry': {
-    component: require('@/pages/ChildrenDentistryAdLandingPage').default,
+    component: () => import('@/pages/ChildrenDentistryAdLandingPage'),
     layout: 'landing',
     meta: {
       titleKey: 'childrenAdLanding.meta.title',
@@ -140,7 +141,7 @@ export const createLocalizedRoutes = (language: Language): RoutesConfig => ({
     }
   },
   '/treatments/children-dentistry': {
-    component: require('@/pages/ChildrenDentistryLandingPage').default,
+    component: () => import('@/pages/ChildrenDentistryLandingPage'),
     layout: 'landing',
     meta: {
       titleKey: 'childrenDentistry.meta.title',
@@ -148,7 +149,7 @@ export const createLocalizedRoutes = (language: Language): RoutesConfig => ({
     }
   },
   '*': {
-    component: require('@/pages/NotFound').default,
+    component: () => import('@/pages/NotFound'),
     meta: {
       title: '404 - Page Not Found',
       description: 'The page you are looking for does not exist.'
