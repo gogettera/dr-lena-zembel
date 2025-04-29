@@ -10,7 +10,15 @@ import {
 import { cn } from "@/lib/utils";
 import { CarouselProgress } from "../carousel-progress";
 import { useEnhancedCarousel } from "./use-enhanced-carousel";
-import { EnhancedCarouselProps } from "./types";
+
+interface EnhancedCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  autoplay?: number | false;
+  interval?: number;
+  showProgress?: boolean;
+  showArrows?: boolean;
+  className?: string;
+}
 
 export function EnhancedCarousel({
   children,
@@ -18,34 +26,26 @@ export function EnhancedCarousel({
   interval = 5000,
   showProgress = true,
   showArrows = true,
-  setApi,
   className,
-  opts,
   ...props
 }: EnhancedCarouselProps) {
-  const [internalApi, setInternalApi] = React.useState<any>();
+  const [api, setApi] = React.useState<any>();
   const { current, count, isRTL, handlePrevious, handleNext } = useEnhancedCarousel({
-    api: internalApi,
+    api,
     autoplay,
     interval
   });
 
-  const handleApiSet = React.useCallback((api: any) => {
-    setInternalApi(api);
-    if (setApi) setApi(api);
-  }, [setApi]);
-
   return (
     <div className="relative w-full">
       <BaseCarousel
-        setApi={handleApiSet}
+        setApi={setApi}
         className={cn("w-full", className)}
         dir={isRTL ? 'rtl' : 'ltr'}
         opts={{
           align: "start",
           loop: true,
           direction: isRTL ? 'rtl' : 'ltr',
-          ...opts
         }}
         {...props}
       >
@@ -65,7 +65,7 @@ export function EnhancedCarousel({
         <CarouselProgress
           current={current}
           count={count}
-          onSelect={(index) => internalApi?.scrollTo(index)}
+          onSelect={(index) => api?.scrollTo(index)}
         />
       )}
     </div>
