@@ -1,39 +1,32 @@
 
-import React from 'react';
-import { cn } from '@/lib/utils';
+import React, { ReactNode } from 'react';
 
 interface SectionHeaderProps {
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  centered?: boolean;
   className?: string;
-  titleClassName?: string;
-  subtitleClassName?: string;
+  titleClassName?: string; // Added titleClassName prop
 }
 
-const SectionHeader = ({ 
+const SectionHeader: React.FC<SectionHeaderProps> = ({ 
   title, 
   subtitle, 
-  className,
-  titleClassName,
-  subtitleClassName 
-}: SectionHeaderProps) => {
+  centered = true,
+  className = '',
+  titleClassName = '' // Added default value
+}) => {
   return (
-    <div className={cn("text-center mb-16", className)}>
-      <h2 className={cn(
-        "text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]",
-        titleClassName
-      )}>
+    <div className={`mb-12 ${centered ? 'text-center' : ''} ${className}`}>
+      <h2 className={`text-3xl md:text-4xl font-bold text-dental-navy mb-4 opacity-0 animate-[fade-in_0.5s_ease-out_forwards] ${titleClassName}`}>
         {title}
       </h2>
+      
       {subtitle && (
-        <p className={cn(
-          "text-lg text-dental-navy/80 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards] max-w-2xl mx-auto",
-          subtitleClassName
-        )}>
+        <p className="text-lg text-dental-navy/80 max-w-3xl mx-auto opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]">
           {subtitle}
         </p>
       )}
-      <div className="w-24 h-1 bg-dental-orange mx-auto mt-6 rounded-full opacity-0 animate-[fade-in_0.5s_ease-out_0.5s_forwards]" />
     </div>
   );
 };

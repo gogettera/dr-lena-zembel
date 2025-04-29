@@ -1,11 +1,23 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/layout/Footer';
+import AccessibilityStatement from '@/components/AccessibilityStatement';
+import BackToTop from '@/components/BackToTop';
 
 const AccessibilityStatementPage: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-4">Accessibility Statement</h1>
-      <p>This is the accessibility statement page</p>
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-grow pt-20">
+        <AccessibilityStatement />
+      </main>
+      <Footer />
+      <BackToTop />
     </div>
   );
 };

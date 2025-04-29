@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
@@ -13,7 +12,7 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
-import { formatTranslationValue, isNestedObject } from "@/utils/translation-helpers"
+import { formatTranslationValue, isNestedObject } from "@/utils/translation"
 
 const Form = FormProvider
 
@@ -148,7 +147,6 @@ const FormMessage = React.forwardRef<
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
   
-  // Format error message to handle nested objects
   let errorMessage = error?.message;
   if (errorMessage && isNestedObject(errorMessage)) {
     errorMessage = formatTranslationValue(errorMessage);

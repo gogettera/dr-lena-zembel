@@ -1,0 +1,73 @@
+
+{
+  "headline1": "Children's Dentistry",
+  "headline2": "Gentle Care for Young Smiles",
+  "subheading": "We understand that children have unique dental needs. Our team is specially trained to provide gentle, calming care that makes dental visits a positive experience.",
+  "mainPoints": [
+    "Kid-friendly environment with games and entertainment",
+    "Gentle approach focusing on prevention",
+    "Specialized in treating dental anxiety in children",
+    "Clear explanations using child-friendly language"
+  ],
+  "services": {
+    "preventiveCare": {
+      "title": "Preventive Care",
+      "description": "Regular check-ups, cleanings, fluoride treatments, and sealants to prevent cavities and promote healthy oral habits from an early age."
+    },
+    "earlyOrthodontics": {
+      "title": "Early Orthodontics",
+      "description": "Early intervention for alignment issues, helping to guide proper jaw and teeth development and potentially reducing future treatment needs."
+    },
+    "traumaManagement": {
+      "title": "Trauma Management",
+      "description": "Expert care for dental injuries such as chips, cracks, or knocked-out teeth, with emergency appointments available."
+    },
+    "behavioralManagement": {
+      "title": "Behavioral Management",
+      "description": "Special techniques to help anxious children feel comfortable, including tell-show-do approach, positive reinforcement, and sedation options when necessary."
+    }
+  },
+  "visitExperience": {
+    "title": "What to Expect During Your Child's Visit",
+    "step1": "Friendly introduction to our team and office",
+    "step2": "Gentle examination with explanation at each step",
+    "step3": "Age-appropriate oral health education with fun demonstrations",
+    "step4": "Treatment using gentle techniques, if needed",
+    "step5": "Positive reinforcement with a small reward"
+  },
+  "ageSpecific": {
+    "infant": {
+      "title": "Infants (0-2 years)",
+      "care": "Early examination, guidance on teething, bottle use, and pacifier habits"
+    },
+    "preschool": {
+      "title": "Preschoolers (3-5 years)",
+      "care": "First complete dental visits, preventive care, habit counseling, and nutritional guidance"
+    },
+    "schoolAge": {
+      "title": "School-Age (6-12 years)",
+      "care": "Mixed dentition management, space maintenance, sealants, and early orthodontic assessment"
+    },
+    "teens": {
+      "title": "Teenagers (13-18 years)",
+      "care": "Advanced preventive care, orthodontics, wisdom teeth monitoring, and oral hygiene reinforcement"
+    }
+  },
+  "parentResources": {
+    "title": "Resources for Parents",
+    "homecare": "Home care instructions for each age group",
+    "nutrition": "Nutritional guidance for dental health",
+    "habits": "Managing thumb-sucking and other oral habits",
+    "emergencies": "Dental emergency preparedness"
+  },
+  "faq": {
+    "q1": "When should my child first visit the dentist?",
+    "a1": "We recommend the first dental visit around your child's first birthday or within six months after the first tooth appears.",
+    "q2": "How often should children have dental check-ups?",
+    "a2": "Most children should visit the dentist every six months. Some may need more frequent visits based on their individual oral health needs.",
+    "q3": "What if my child is afraid of the dentist?",
+    "a3": "Our practice specializes in helping anxious children. We use gentle introduction techniques, child-friendly explanations, and positive reinforcement. For more anxious children, we offer options like nitrous oxide (laughing gas) when appropriate.",
+    "q4": "Are baby teeth really important since they fall out anyway?",
+    "a4": "Yes! Baby teeth hold space for permanent teeth, assist in proper speech development, and allow for proper nutrition. Early loss can lead to spacing issues and potentially more extensive orthodontic treatment later."
+  }
+}

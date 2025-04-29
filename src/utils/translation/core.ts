@@ -1,44 +1,60 @@
 
-import { isNestedObject } from './utils';
-import { formatTranslation } from './format';
-import { NestedObject, TranslationsType, TranslationOptions } from './types';
+import { Language } from '@/types/language';
+import heTranslations from '@/translations/he';
+import enTranslations from '@/translations/en';
+import ruTranslations from '@/translations/ru';
+import deTranslations from '@/translations/de';
+import arTranslations from '@/translations/ar';
+import { TranslationOptions, TranslationsType } from './types';
+
+// Translations object with all languages
+export const translations = {
+  he: heTranslations,
+  en: enTranslations,
+  ru: ruTranslations,
+  de: deTranslations,
+  ar: arTranslations
+};
 
 /**
- * Gets a nested value from an object using a dot-notation path
+ * Get a nested property from an object using a dot-separated path
  */
-export const getNestedValue = (obj: NestedObject, path: string): any => {
-  if (!obj || !path) return undefined;
+export const getNestedProperty = (obj: any, path: string, defaultValue: any = undefined): any => {
+  if (!obj || !path) return defaultValue;
   
   const keys = path.split('.');
   let current = obj;
   
   for (const key of keys) {
-    if (current === undefined || current === null) return undefined;
+    if (current === null || current === undefined || typeof current !== 'object') {
+      return defaultValue;
+    }
+    
     current = current[key];
+    
+    if (current === undefined) {
+      return defaultValue;
+    }
   }
   
-  return current;
+  return current !== undefined ? current : defaultValue;
 };
 
+// Also export with alternative name for backward compatibility
+export const getNestedValue = getNestedProperty;
+
 /**
- * A function to safely access a value from translations using a key path
- * 
- * @param translations The translations object
- * @param key The key path (e.g. 'common.buttons.submit')
- * @returns The translation value or undefined if not found
+ * Check if the object is a nested object
  */
-export const getTranslation = (
-  translations: TranslationsType, 
-  key: string
-): any => {
-  return getNestedValue(translations, key);
+export const isNestedObject = (value: any): boolean => {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
 };
 
 /**
- * Formats a translation value for display
+ * Format a translation value
  */
 export const formatTranslationValue = (value: any): string => {
-  if (value === undefined || value === null) {
+  if (value === null || value === undefined) {
     return '';
   }
   
@@ -46,59 +62,97 @@ export const formatTranslationValue = (value: any): string => {
     return value;
   }
   
-  if (typeof value === 'object') {
-    return '[Complex Object]';
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value);
   }
   
-  return String(value);
+  return '';
 };
 
 /**
- * Interpolates parameters into a translation string
- * 
- * @param text The translation string with placeholders like {{name}}
- * @param params Object containing the parameter values
- * @returns The interpolated string
+ * Create a translation function
  */
-export const interpolateParams = (
-  text: string, 
-  params?: Record<string, string>
-): string => {
-  if (!params || typeof text !== 'string') return text;
-  
-  return Object.entries(params).reduce((result, [key, value]) => {
-    const regex = new RegExp(`{{\\s*${key}\\s*}}`, 'g');
-    return result.replace(regex, value);
-  }, text);
+export const createTranslationFunction = (
+  language: Language,
+  allTranslations: Record<Language, any>,
+  defaultLanguage: Language = 'he'
+) => {
+  return (key: string, options?: string | TranslationOptions): any => {
+    // Handle the case where options is a string (used as defaultValue)
+    const opts: TranslationOptions = typeof options === 'string' 
+      ? { defaultValue: options } 
+      : options || {};
+    
+    const { defaultValue, returnObjects } = opts;
+    
+    // Get current language translations
+    const currentTranslations = allTranslations[language] || {};
+    
+    // Try to get translation from current language
+    let translationValue = getNestedProperty(currentTranslations, key);
+    
+    // If not found, try default language
+    if (translationValue === undefined && language !== defaultLanguage) {
+      const defaultTranslations = allTranslations[defaultLanguage] || {};
+      translationValue = getNestedProperty(defaultTranslations, key);
+    }
+    
+    // If still not found, return defaultValue or key itself
+    if (translationValue === undefined) {
+      return defaultValue !== undefined ? defaultValue : key;
+    }
+    
+    // Handle nested objects if needed for component-specific translations
+    if (isNestedObject(translationValue) && !returnObjects) {
+      return formatTranslationValue(translationValue);
+    }
+    
+    // Format the value to a string
+    return returnObjects ? translationValue : formatTranslationValue(translationValue);
+  };
 };
 
 /**
- * Main translation function
- * 
- * @param translations The translations object
- * @param key The key path (e.g. 'common.buttons.submit')
- * @param options Options for translation (namespace, params, fallback)
- * @returns The translated string
+ * Validate translation keys for development
  */
-export const translate = (
-  translations: TranslationsType, 
-  key: string, 
-  options?: TranslationOptions
-): string => {
-  const namespace = options?.namespace || '';
-  const params = options?.params || {};
-  const fallback = options?.fallback || key;
+export const validateTranslationKeys = (
+  allTranslations: Record<Language, TranslationsType>
+): string[] => {
+  const missingKeys: string[] = [];
+  const languageKeys: Record<string, Set<string>> = {};
   
-  const fullKey = namespace ? `${namespace}.${key}` : key;
-  const value = getTranslation(translations, fullKey);
+  // Collect all keys from all languages
+  Object.entries(allTranslations).forEach(([lang, translations]) => {
+    languageKeys[lang] = new Set();
+    
+    const collectKeys = (obj: any, prefix = '') => {
+      if (!obj || typeof obj !== 'object') return;
+      
+      Object.entries(obj).forEach(([key, value]) => {
+        const fullKey = prefix ? `${prefix}.${key}` : key;
+        
+        if (isNestedObject(value)) {
+          collectKeys(value, fullKey);
+        } else {
+          languageKeys[lang].add(fullKey);
+        }
+      });
+    };
+    
+    collectKeys(translations);
+  });
   
-  if (value === undefined || value === null) {
-    return fallback;
-  }
+  // Compare keys across languages
+  const languages = Object.keys(allTranslations);
+  const baseLanguage = languages[0];
   
-  if (typeof value === 'string') {
-    return interpolateParams(value, params);
-  }
+  languages.slice(1).forEach(lang => {
+    languageKeys[baseLanguage].forEach(key => {
+      if (!languageKeys[lang].has(key)) {
+        missingKeys.push(`${lang}:${key}`);
+      }
+    });
+  });
   
-  return formatTranslation(value);
+  return missingKeys;
 };

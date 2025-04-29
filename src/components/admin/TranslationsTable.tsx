@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Table } from "@/components/ui/table";
 import { Translation, SortConfig } from './translations/types';
@@ -6,7 +5,7 @@ import { useTranslations } from './translations/useTranslations';
 import { TranslationsToolbar } from './translations/TranslationsToolbar';
 import { TranslationsTableContent } from './translations/TranslationsTableContent';
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatTranslationValue, isNestedObject } from '@/utils/translation-helpers';
+import { formatTranslationValue, isNestedObject } from '@/utils/translation';
 
 const LoadingState = () => (
   <div className="space-y-4">
@@ -24,7 +23,6 @@ const LoadingState = () => (
   </div>
 );
 
-// Helper function to stringify nested objects for display/searching
 const stringifyNestedObject = (obj: any): string => {
   if (!isNestedObject(obj)) return String(obj);
   return formatTranslationValue(obj);
@@ -51,12 +49,10 @@ const TranslationsTable = () => {
 
   const sortedAndFilteredTranslations = useMemo(() => {
     let filtered = translations.filter(translation => {
-      // Filter by search query
       const searchInTranslation = (obj: any): boolean => {
         if (typeof obj === 'string') {
           return obj.toLowerCase().includes(searchQuery.toLowerCase());
         } else if (isNestedObject(obj)) {
-          // Search in nested object values
           return Object.values(obj).some(value => searchInTranslation(value));
         }
         return false;
@@ -65,7 +61,7 @@ const TranslationsTable = () => {
       return (
         (translation.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
         Object.entries(translation).some(([key, value]) => {
-          if (key === 'key') return false; // Already checked above
+          if (key === 'key') return false;
           return searchInTranslation(value);
         })) &&
         (!locationFilter || translation.location === locationFilter)
@@ -82,7 +78,6 @@ const TranslationsTable = () => {
           : bValue.localeCompare(aValue);
       }
       
-      // For nested objects, convert to string for comparison
       const aStr = isNestedObject(aValue) ? stringifyNestedObject(aValue) : String(aValue);
       const bStr = isNestedObject(bValue) ? stringifyNestedObject(bValue) : String(bValue);
       

@@ -2,6 +2,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 interface TreatmentBenefitsProps {
   benefits: string[];
@@ -17,9 +18,11 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-bold text-dental-navy mb-4">
-          {t('benefits')}
-        </h3>
+        <TranslatedText
+          textKey="benefits"
+          as="h3"
+          className="text-xl font-bold text-dental-navy mb-4"
+        />
         <ul className="list-disc list-inside text-dental-navy/80 space-y-2">
           {benefits.map((benefit, index) => (
             <li key={index}>{benefit}</li>
@@ -29,15 +32,17 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
       
       {showBooking && (
         <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-dental-navy mb-6">
-            {t('readyToStart')}
-          </h3>
+          <TranslatedText
+            textKey="readyToStart"
+            as="h3"
+            className="text-2xl font-bold text-dental-navy mb-6"
+          />
           <Button 
             variant="orange" 
             size="lg" 
             className="rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-lg"
           >
-            {t('bookVisit')}
+            <TranslatedText textKey="bookVisit" />
           </Button>
         </div>
       )}

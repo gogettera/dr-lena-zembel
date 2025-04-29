@@ -17,7 +17,7 @@ const AboutSection = () => {
             <div className="relative" style={{ width: '100%', maxWidth: '420px', margin: '0 auto' }}>
               <div className="absolute inset-0 bg-dental-orange rounded-xl blur-xl opacity-20 transform rotate-3"></div>
               <NextGenImage 
-                alt={t('doctorProfile')} 
+                alt={t('about.doctorProfile')} 
                 src="/lovable-uploads/23038120-1edf-4bff-9e78-5a73c0f15161.png" 
                 width={420}
                 height={500}
@@ -38,13 +38,13 @@ const AboutSection = () => {
 
           <div className="md:w-2/3 space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-              {t('aboutMe')}
+              {t('about.aboutMe')}
             </h2>
             <div className="space-y-4 leading-relaxed text-lg opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-              <p>{t('aboutMeIntro')}</p>
-              <p>{t('aboutMeClinic')}</p>
-              <p>{t('aboutMeLanguages')}</p>
-              <p className="font-medium">{t('aboutMeInvite')}</p>
+              <p>{t('about.aboutMeIntro')}</p>
+              <p>{t('about.aboutMeClinic')}</p>
+              <p>{t('about.aboutMeLanguages')}</p>
+              <p className="font-medium">{t('about.aboutMeInvite')}</p>
             </div>
           </div>
         </div>

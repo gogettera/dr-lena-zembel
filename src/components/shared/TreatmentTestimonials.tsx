@@ -18,10 +18,6 @@ const TreatmentTestimonials: React.FC<TreatmentTestimonialsProps> = ({
 }) => {
   const { t } = useLanguage();
 
-  // Default fallback translations for critical text
-  const testimonialsTitle = t('testimonials') || 'עדויות';
-  const patientExperiences = t('patientExperiences') || 'חוויות מטופלים';
-
   return (
     <Section 
       id="testimonials" 
@@ -31,8 +27,8 @@ const TreatmentTestimonials: React.FC<TreatmentTestimonialsProps> = ({
       containerClass="max-w-6xl mx-auto"
     >
       <SectionHeader
-        title={testimonialsTitle}
-        subtitle={patientExperiences}
+        title={t('testimonials')}
+        subtitle={t('patientsExperiences')}
         titleClassName={titleClassName}
       />
       <Reviews />

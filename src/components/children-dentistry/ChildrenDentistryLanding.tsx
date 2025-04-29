@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import { Section } from "@/components/ui/section";
 import Hero from "./Hero";
 import WhyUs from "./WhyUs";
-import StoryBlock from "./StoryBlock";
+import DoctorStory from "./DoctorStory";
 import VisitSteps from "./VisitSteps";
 import Testimonials from "./Testimonials";
 import FAQ from "./FAQ";
-import DoctorSpotlight from "./DoctorSpotlight";
+import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
 import ClinicExpertise from "./ClinicExpertise";
@@ -31,28 +31,23 @@ const ChildrenDentistryLanding: React.FC = () => {
         <Hero />
       </Section>
 
-      {/* Story Block - NEW UPDATED */}
-      <Section background="none" spacing="none" containerClass="px-0">
-        <StoryBlock />
-      </Section>
-
       {/* Why Us Section - premium feel */}
       <Section background="beige" spacing="md" maxWidth="xl">
         <WhyUs />
       </Section>
+
+      {/* Doctor Story */}
+      <Section background="none" spacing="none" containerClass="px-0">
+        <DoctorStory />
+      </Section>
       
-      {/* Visit Steps - REDESIGNED */}
+      {/* Visit Steps */}
       <Section background="none" spacing="none" containerClass="px-0">
         <VisitSteps />
       </Section>
       
-      {/* Doctor Spotlight - ENHANCED */}
-      <Section background="none" spacing="none" containerClass="px-0">
-        <DoctorSpotlight />
-      </Section>
-
       {/* Testimonials */}
-      <Section background="white" spacing="none" containerClass="px-0">
+      <Section background="none" spacing="none" containerClass="px-0">
         <Testimonials />
       </Section>
 
@@ -61,12 +56,17 @@ const ChildrenDentistryLanding: React.FC = () => {
         <ClinicExpertise />
       </Section>
       
-      {/* FAQ - IMPROVED */}
+      {/* FAQ */}
       <Section background="none" spacing="none" containerClass="px-0">
         <FAQ />
       </Section>
       
-      {/* Book Visit/Info Anchor - ENHANCED */}
+      {/* Quick Contact Form */}
+      <Section background="none" spacing="none" containerClass="px-0">
+        <QuickContactForm />
+      </Section>
+      
+      {/* Book Visit/Info Anchor */}
       <Section background="none" spacing="none" containerClass="px-0">
         <BookVisitAnchor />
       </Section>

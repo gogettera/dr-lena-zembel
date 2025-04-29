@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
@@ -12,6 +13,9 @@ export const setDirection = (direction: 'rtl' | 'ltr'): void => {
   // Add appropriate class to body for styling
   document.body.classList.remove('rtl', 'ltr');
   document.body.classList.add(direction);
+  
+  // Add data attribute to enable CSS targeting
+  document.documentElement.setAttribute('data-direction', direction);
 };
 
 /**
@@ -45,8 +49,26 @@ export const useDirectionalStyles = () => {
     borderSide: isRTL ? 'border-r' : 'border-l',
     transformOrigin: isRTL ? 'origin-right' : 'origin-left',
     scroll: isRTL ? 'rtl-scrollbar' : '',
+    order: {
+      first: isRTL ? 'order-last' : 'order-first',
+      last: isRTL ? 'order-first' : 'order-last',
+      nav: isRTL ? 'flex-row-reverse' : 'flex-row',
+      header: {
+        phone: isRTL ? 'order-3' : 'order-1',
+        logo: 'order-2',
+        nav: isRTL ? 'order-1' : 'order-3'
+      }
+    },
     icon: {
       chevron: isRTL ? 'rotate-180' : '',
+      arrow: isRTL ? '-scale-x-100' : '',
+    },
+    // Fix for RTL/LTR global page structure
+    global: {
+      htmlDir: isRTL ? 'rtl' : 'ltr',
+      bodyClass: isRTL ? 'rtl' : 'ltr',
+      contentFlow: isRTL ? 'flow-rtl' : 'flow-ltr',
+      textDirection: isRTL ? 'text-right' : 'text-left',
     }
   };
 };
@@ -71,4 +93,25 @@ export const debounce = <T extends (...args: any[]) => any>(
       callback(...args);
     }, wait);
   };
+};
+
+/**
+ * Create a wrapper element with the correct direction
+ * @param isRTL Whether the direction is RTL
+ * @returns JSX element with the correct direction
+ */
+export const createDirectionalWrapper = (
+  isRTL: boolean, 
+  children: React.ReactNode,
+  className?: string
+) => {
+  // Use React.createElement instead of JSX syntax
+  return React.createElement(
+    'div',
+    {
+      dir: isRTL ? 'rtl' : 'ltr',
+      className: className
+    },
+    children
+  );
 };

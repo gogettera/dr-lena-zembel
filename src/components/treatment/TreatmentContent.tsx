@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Section } from '@/components/ui/section';
 import { getResponsiveClasses } from '@/utils/responsiveUtils';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 interface TreatmentContentProps {
   treatment: TreatmentType;
@@ -29,12 +30,16 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
       <Section spacing="md" background="white" maxWidth="xl" containerClass="px-4 md:px-6">
         <Card className="mb-6 md:mb-8 shadow-soft hover:shadow-md transition-shadow duration-300 max-w-7xl mx-auto">
           <CardContent className="p-4 sm:p-6">
-            <h2 className={`${responsive.responsiveText.h3} mb-2 md:mb-3 text-dental-navy`}>
-              {t(treatmentNameKey)}
-            </h2>
-            <p className={`${responsive.responsiveText.body} mb-3 md:mb-4 text-dental-textDark/80`}>
-              {t(treatmentDescKey)}
-            </p>
+            <TranslatedText
+              textKey={treatmentNameKey}
+              as="h2"
+              className={`${responsive.responsiveText.h3} mb-2 md:mb-3 text-dental-navy`}
+            />
+            <TranslatedText
+              textKey={treatmentDescKey}
+              as="p"
+              className={`${responsive.responsiveText.body} mb-3 md:mb-4 text-dental-textDark/80`}
+            />
           </CardContent>
         </Card>
         
@@ -46,13 +51,17 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
           />
           
           <div className="text-center mt-8 md:mt-10 animate-fade-in">
-            <h3 className={`${responsive.responsiveText.h3} mb-4 text-dental-navy`}>{t('readyToStart')}</h3>
+            <TranslatedText
+              textKey="readyToStart"
+              as="h3"
+              className={`${responsive.responsiveText.h3} mb-4 text-dental-navy`}
+            />
             <Button 
               variant="orange" 
               size="lg" 
               className="shadow-soft hover:shadow-md transition-all duration-300 rounded-full"
             >
-              {t('bookVisit')}
+              <TranslatedText textKey="bookVisit" />
             </Button>
           </div>
         </div>

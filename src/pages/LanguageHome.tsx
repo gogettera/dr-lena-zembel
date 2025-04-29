@@ -1,6 +1,5 @@
 
-import React, { useEffect } from 'react';
-import Navbar from '@/components/Navbar';
+import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BrandSection from '@/components/BrandSection';
@@ -8,22 +7,14 @@ import TreatmentsSection from '@/components/TreatmentsSection';
 import VideoSection from '@/components/VideoSection';
 import SocialFeedSection from '@/components/SocialFeedSection';
 import FAQSection from '@/components/FAQSection';
+import BackToTop from '@/components/BackToTop';
 import AboutSection from '@/components/AboutSection';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { setupDirectionByLanguage } from '@/utils/direction';
 import { Section } from '@/components/ui/section';
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
+import PageContainer from '@/components/layout/PageContainer';
 
 const LanguageHome = () => {
-  const { language } = useLanguage();
-
-  useEffect(() => {
-    setupDirectionByLanguage(language);
-    document.title = `Dental Love | ${language.toUpperCase()}`;
-  }, [language]);
-
   return (
-    <AccessibleLayout>
+    <PageContainer title="home.pageTitle" description="home.pageDescription" className="overflow-hidden">
       <main>
         <Section background="none" spacing="none" containerClass="px-0">
           <HeroSection />
@@ -57,7 +48,8 @@ const LanguageHome = () => {
           <FAQSection />
         </Section>
       </main>
-    </AccessibleLayout>
+      <BackToTop />
+    </PageContainer>
   );
 };
 

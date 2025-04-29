@@ -1,47 +1,81 @@
 
+import { TranslationContext } from './types';
+import { isNestedObject } from './core';
+
 /**
- * Formats a translation value for display, handling nested objects
- * 
- * @param value Any translation value that might be a string, nested object, or other type
- * @returns A string representation appropriate for display
+ * Format a string with interpolation values
  */
-export const formatTranslation = (value: any): string => {
-  if (value === undefined || value === null) {
-    return '';
+export const formatInterpolation = (
+  text: string,
+  context?: TranslationContext
+): string => {
+  if (!context || !text.includes('{{')) return text;
+
+  return text.replace(/\{\{([^}]+)\}\}/g, (_, key) => {
+    const value = context[key.trim()];
+    return value !== undefined ? String(value) : '';
+  });
+};
+
+/**
+ * Format number according to locale
+ */
+export const formatNumber = (
+  value: number,
+  locale: string = 'he-IL'
+): string => {
+  return new Intl.NumberFormat(locale).format(value);
+};
+
+/**
+ * Format date according to locale
+ */
+export const formatDate = (
+  value: Date | string | number,
+  locale: string = 'he-IL',
+  options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric'
   }
-  
-  if (typeof value === 'string') {
-    return value;
-  }
-  
-  if (typeof value === 'object') {
-    try {
-      // For nested objects, convert to JSON string with indentation for better readability
-      return '[Complex Object]'; // Return a placeholder instead of the object
-    } catch (e) {
-      // Fallback in case of circular references or other JSON stringify issues
-      return '[Complex Object]';
-    }
-  }
-  
+): string => {
+  const date = value instanceof Date ? value : new Date(value);
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
+
+/**
+ * Safe string conversion for any value
+ */
+export const safeString = (value: any): string => {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (Array.isArray(value)) return value.map(safeString).join(', ');
+  if (typeof value === 'object') return JSON.stringify(value);
   return String(value);
 };
 
 /**
- * A safe way to convert any value to a string for display
+ * Format a translation with context and pluralization
  */
-export const safeString = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
+export const formatTranslation = (
+  translation: string,
+  context?: any,
+  count?: number
+): string => {
+  // Handle empty translations
+  if (!translation) return '';
+  
+  // Handle simple translations without context
+  if (!context && count === undefined) return translation;
+
+  // Apply pluralization if count is provided
+  let result = translation;
+  
+  // Apply context interpolation
+  if (context) {
+    result = formatInterpolation(result, context);
   }
   
-  if (typeof value === 'string') {
-    return value;
-  }
-  
-  if (typeof value === 'object') {
-    return '[Object]';
-  }
-  
-  return String(value);
+  return result;
 };

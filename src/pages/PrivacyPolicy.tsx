@@ -1,15 +1,18 @@
 
 import React from 'react';
 import LegalPage from '@/components/legal/LegalPage';
-import AccessibleLayout from '@/components/layout/AccessibleLayout';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/layout/Footer';
 
 const PrivacyPolicy = () => {
   return (
-    <AccessibleLayout>
+    <div>
+      <Navbar />
       <main>
         <LegalPage translationKey="privacyPolicy" />
       </main>
-    </AccessibleLayout>
+      <Footer />
+    </div>
   );
 };
 

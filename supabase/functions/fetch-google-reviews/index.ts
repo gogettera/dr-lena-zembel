@@ -8,7 +8,7 @@ const corsHeaders = {
 }
 
 const GOOGLE_API_KEY = Deno.env.get('GOOGLE_PLACES_API_KEY')
-const PLACE_ID = 'ChIJoUJDXGORAhURwD-bdrY3qII' // Dr. Zembel's correct Place ID
+const PLACE_ID = 'ChIJDZ3XUhaxHRURzJ44_nv-Qb4' // Dr. Zembel's Place ID
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -55,12 +55,11 @@ serve(async (req) => {
       )
     }
 
-    // Import Supabase SDK
-    const { createClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7')
+    const { supabaseClient } = await import('https://esm.sh/@supabase/supabase-js@2.39.7')
     
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL') || 'https://uhsswtixtrurxpsrduus.supabase.co',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+    const supabase = supabaseClient(
+      'https://uhsswtixtrurxpsrduus.supabase.co',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     )
 
     console.log(`Found ${data.result.reviews.length} reviews`)
@@ -72,6 +71,7 @@ serve(async (req) => {
         const { error } = await supabase
           .from('google_reviews')
           .upsert({
+            id: review.time.toString(), // Using review time as unique ID
             author_name: review.author_name,
             rating: review.rating,
             text: review.text || null,
@@ -80,7 +80,7 @@ serve(async (req) => {
             review_link: review.author_url || null,
             created_at: new Date(review.time * 1000).toISOString()
           }, {
-            onConflict: 'created_at'
+            onConflict: 'id'
           })
 
         if (error) {
@@ -113,4 +113,3 @@ serve(async (req) => {
     )
   }
 })
-

@@ -1,10 +1,23 @@
 
-// Re-export everything from the other modules
-export * from './core';
-export * from './format';
-export * from './types';
-export * from './utils';
+// Main export file for translation utilities
+// This centralizes all translation-related exports to avoid import errors
 
-// Additional re-exports
-export { getNestedValue } from './core';
-export { formatTranslation } from './format';
+// Types
+export * from './types';
+
+// Core translation functionality
+export {
+  translations,
+  createTranslationFunction,
+  getNestedProperty,
+  getNestedValue,
+  validateTranslationKeys,
+  isNestedObject,
+  formatTranslationValue
+} from './core';
+
+// Format helpers
+export * from './format';
+
+// Translation modules
+export * from './modules';
