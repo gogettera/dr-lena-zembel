@@ -79,3 +79,25 @@ export const formatTranslation = (
   
   return result;
 };
+
+/**
+ * Re-export isNestedObject for use in tests
+ */
+export { isNestedObject } from './core';
+
+/**
+ * Format a translation value, handling objects and other types safely
+ */
+export const formatTranslationValue = (value: any): string => {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (isNestedObject(value)) {
+    try {
+      return JSON.stringify(value);
+    } catch (error) {
+      return '[Complex Object]';
+    }
+  }
+  return String(value);
+};
