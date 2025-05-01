@@ -9,6 +9,7 @@ import { useDirectionalStyles } from "@/utils/direction";
 import { isActiveLink } from "@/utils/navigation";
 import NavList from "./NavList";
 import NavItem from "./NavItem";
+import { TranslatedText } from "./translated-text";
 
 interface NavigationLinksProps {
   links: NavigationLink[];
@@ -27,7 +28,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
   submenuOpenKey,
   setSubmenuOpenKey,
 }) => {
-  const { t, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
   const location = useLocation();
   const styles = useDirectionalStyles();
 
@@ -62,7 +63,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
               onClick={onNavigate}
               aria-current={isActive ? "page" : undefined}
             >
-              {t(item.labelKey)}
+              <TranslatedText textKey={item.labelKey} />
             </NavItem>
           );
         }
@@ -106,7 +107,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
             {...submenuTriggers}
           >
             <>
-              <span>{t(item.labelKey)}</span>
+              <TranslatedText textKey={item.labelKey} />
               {isExpanded ? (
                 <ChevronUp className={styles.icon.chevron + " ml-1 h-4 w-4"} />
               ) : (
@@ -124,7 +125,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
                       : "absolute left-0 top-full z-30 w-[240px] bg-white shadow-lg rounded-md mt-2 p-2"
                   }
                   role="menu"
-                  ariaLabel={t(item.labelKey) + " submenu"}
+                  ariaLabel={item.labelKey + " submenu"}
                   style={
                     !vertical
                       ? { minWidth: 200, right: isRTL ? 0 : "auto", left: isRTL ? "auto" : 0 }
@@ -143,7 +144,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
                         aria-current={isChildActive ? "page" : undefined}
                         className="text-base"
                       >
-                        {t(child.labelKey)}
+                        <TranslatedText textKey={child.labelKey} />
                       </NavItem>
                     );
                   })}

@@ -13,10 +13,11 @@ import { useDirectionalStyles } from '@/utils/direction';
 import { debounce } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
 import NavigationLinks from './ui/NavigationLinks';
+import { TranslatedText } from './ui/translated-text';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t, language, isRTL } = useLanguage();
+  const { language, isRTL } = useLanguage();
   const navigationItems = getMainNavigationItems(language);
   const styles = useDirectionalStyles();
 
@@ -36,7 +37,7 @@ const Navbar = () => {
         isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
       )}
       role="navigation"
-      aria-label={t('mainNavigation', 'Main navigation')}
+      aria-label={<TranslatedText textKey="navigation.mainNavigation" defaultText="ניווט ראשי" />}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -52,8 +53,8 @@ const Navbar = () => {
             asChild
           >
             <a 
-              href={`tel:${t('clinicInfo.phone')}`}
-              aria-label={t('call', 'Call')}
+              href={`tel:${language === 'he' ? '035666915' : '+972-3-566-6915'}`}
+              aria-label={<TranslatedText textKey="common.call" defaultText="טלפון" />}
             >
               <Phone className="h-5 w-5 text-dental-navy" />
             </a>
@@ -73,7 +74,7 @@ const Navbar = () => {
               "transition-transform duration-300 hover:scale-105",
               NAVIGATION_ANIMATIONS.scaleHover
             )}
-            aria-label={t('home', 'Home')}
+            aria-label={<TranslatedText textKey="navigation.home" defaultText="דף הבית" />}
           >
             <Logo />
           </Link>

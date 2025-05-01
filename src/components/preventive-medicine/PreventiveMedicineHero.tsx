@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { TreatmentType } from "@/data/treatmentTypes";
@@ -6,6 +7,7 @@ import { ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import OptimizedImage from "@/components/ui/optimized-image";
 import MobilePreventiveHero from './MobilePreventiveHero';
+import { TranslatedText } from "@/components/ui/translated-text";
 
 interface PreventiveMedicineHeroProps {
   treatment: TreatmentType;
@@ -17,10 +19,10 @@ interface PreventiveMedicineHeroProps {
 const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
   treatment,
   treatmentNameKey,
-  treatmentSubtitleKey = "preventiveMedicine.headline2",
+  treatmentSubtitleKey = "treatments.preventiveMedicine.headline2",
   treatmentDescKey,
 }) => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const isMobile = useIsMobile();
   const isRTL = language === "he" || language === "ar";
   const mainImage = "/lovable-uploads/4a7a5648-9bbd-4a37-9d06-04531fc920b3.png";
@@ -52,20 +54,20 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className={`flex flex-col ${isRTL ? 'items-end' : 'items-start'} text-${isRTL ? 'right' : 'left'}`}>
             <h1 className="text-4xl font-bold text-dental-navy leading-tight mb-3">
-              {t(treatmentNameKey)}
+              <TranslatedText textKey={treatmentNameKey} />
             </h1>
             <h2 className="text-2xl font-heading font-semibold text-dental-orange mb-4">
-              {t(treatmentSubtitleKey)}
+              <TranslatedText textKey={treatmentSubtitleKey} />
             </h2>
             <p className="text-lg text-dental-navy/80 mb-6 max-w-md">
-              {t(treatmentDescKey)}
+              <TranslatedText textKey={treatmentDescKey} />
             </p>
             <Button
               variant="orange"
               size="lg"
               className="rounded-full text-base md:text-lg px-8 shadow-md hover:scale-105 transition-all duration-300"
             >
-              {t("bookVisit")}
+              <TranslatedText textKey="common.bookVisit" defaultText="לקביעת ביקור" />
             </Button>
           </div>
           
@@ -74,7 +76,7 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
               <div className="absolute inset-0 bg-white/30 rounded-2xl blur-xl transform -rotate-3 scale-95"></div>
               <OptimizedImage
                 src={mainImage}
-                alt={t(treatmentNameKey)}
+                alt={treatmentNameKey}
                 className="w-full max-w-md rounded-2xl shadow-lg border-2 border-white/80 transform rotate-1 hover:rotate-0 transition-transform duration-500"
                 priority={true}
               />
@@ -87,7 +89,7 @@ const PreventiveMedicineHero: React.FC<PreventiveMedicineHeroProps> = ({
             <ChevronDown className="h-7 w-7 text-dental-navy/60" />
           </div>
           <span className="text-xs font-medium text-dental-navy/60">
-            {t("scrollForMore")}
+            <TranslatedText textKey="common.scrollForMore" defaultText="גלול למטה" />
           </span>
         </div>
       </div>

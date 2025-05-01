@@ -14,7 +14,7 @@ import { TranslatedText } from './ui/translated-text';
 
 const TreatmentsSection = () => {
   const isMobile = useIsMobile();
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
 
   const treatments = [
     {
@@ -59,8 +59,8 @@ const TreatmentsSection = () => {
     <section id="treatments" className="py-24 bg-gradient-to-br from-dental-beige/30 via-white to-dental-pink/20">
       <div className="container mx-auto px-4">
         <SectionHeader
-          title={<TranslatedText textKey="treatments.ourTreatments" as="span" />}
-          subtitle={<TranslatedText textKey="treatments.wideRangeOfTreatments" as="span" />}
+          title={<TranslatedText textKey="treatments.ourTreatments" defaultText="הטיפולים שלנו" as="span" />}
+          subtitle={<TranslatedText textKey="treatments.wideRangeOfTreatments" defaultText="אנו מציעים מגוון רחב של טיפולי שיניים מתקדמים" as="span" />}
         />
 
         {isMobile ? (
@@ -86,8 +86,6 @@ const TreatmentsSection = () => {
 };
 
 const TreatmentCard = ({ treatment, index, language }) => {
-  const { t } = useLanguage();
-  
   return (
     <Card 
       className="group border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
@@ -117,7 +115,7 @@ const TreatmentCard = ({ treatment, index, language }) => {
                 className="rounded-full border-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"
               >
                 <HebrewText>
-                  <TranslatedText textKey="common.learnMore" defaultText="Learn More" />
+                  <TranslatedText textKey="common.learnMore" defaultText="למידע נוסף" />
                 </HebrewText>
               </Button>
             </Link>

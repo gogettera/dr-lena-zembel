@@ -9,6 +9,7 @@ import TreatmentContent from '@/components/treatment/TreatmentContent';
 import { treatmentTypes, getTreatmentNameKey, getTreatmentDescKey } from '@/data/treatmentTypes';
 import PreventiveMedicineHero from '@/components/preventive-medicine/PreventiveMedicineHero';
 import { Section } from '@/components/ui/section';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 const PreventiveMedicinePage: React.FC = () => {
   const { t } = useLanguage();
@@ -26,9 +27,13 @@ const PreventiveMedicinePage: React.FC = () => {
         <Navbar />
         <Section spacing="lg">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-dental-navy">{t('treatmentNotFound')}</h1>
+            <h1 className="text-2xl font-bold text-dental-navy">
+              <TranslatedText textKey="treatments.treatmentNotFound" defaultText="טיפול לא נמצא" />
+            </h1>
             <Button className="mt-4" asChild>
-              <a href="/">{t('backToHome')}</a>
+              <a href="/">
+                <TranslatedText textKey="navigation.backToHome" defaultText="חזרה לדף הבית" />
+              </a>
             </Button>
           </div>
         </Section>
@@ -40,7 +45,7 @@ const PreventiveMedicinePage: React.FC = () => {
   const treatmentNameKey = getTreatmentNameKey(treatmentType);
   const treatmentDescKey = getTreatmentDescKey(treatmentType);
   // Also get the subtitle key for our enhanced hero
-  const treatmentSubtitleKey = "preventiveMedicine.headline2";
+  const treatmentSubtitleKey = "treatments.preventiveMedicine.headline2";
 
   return (
     <div className="bg-white">
