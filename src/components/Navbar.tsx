@@ -17,7 +17,7 @@ import { TranslatedText } from './ui/translated-text';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { language, isRTL } = useLanguage();
+  const { language, isRTL, t } = useLanguage();
   const navigationItems = getMainNavigationItems(language);
   const styles = useDirectionalStyles();
 
@@ -37,7 +37,7 @@ const Navbar = () => {
         isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
       )}
       role="navigation"
-      aria-label={<TranslatedText textKey="navigation.mainNavigation" defaultText="ניווט ראשי" />}
+      aria-label={t("navigation.mainNavigation", { defaultValue: "ניווט ראשי" })}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -54,7 +54,7 @@ const Navbar = () => {
           >
             <a 
               href={`tel:${language === 'he' ? '035666915' : '+972-3-566-6915'}`}
-              aria-label={<TranslatedText textKey="common.call" defaultText="טלפון" />}
+              aria-label={t("common.call", { defaultValue: "טלפון" })}
             >
               <Phone className="h-5 w-5 text-dental-navy" />
             </a>
@@ -74,7 +74,7 @@ const Navbar = () => {
               "transition-transform duration-300 hover:scale-105",
               NAVIGATION_ANIMATIONS.scaleHover
             )}
-            aria-label={<TranslatedText textKey="navigation.home" defaultText="דף הבית" />}
+            aria-label={t("navigation.home", { defaultValue: "דף הבית" })}
           >
             <Logo />
           </Link>
