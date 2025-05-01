@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import type { Img } from '../useImageLibraryActions';
 
 export function useImageLibraryState() {
@@ -18,6 +18,7 @@ export function useImageLibraryState() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadErrorMsg, setUploadErrorMsg] = useState('');
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   return {
     // Bucket state
@@ -44,6 +45,7 @@ export function useImageLibraryState() {
     selectedFile,
     setSelectedFile,
     uploadErrorMsg,
-    setUploadErrorMsg
+    setUploadErrorMsg,
+    fileInputRef
   };
 }

@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 
 interface ImageUploadSectionProps {
@@ -11,6 +11,7 @@ interface ImageUploadSectionProps {
   errorMsg: string;
   previewUrl: string | null;
   bucketExists: boolean;
+  uploadProgress?: number;
 }
 
 const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
@@ -21,7 +22,8 @@ const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
   handleUpload,
   errorMsg,
   previewUrl,
-  bucketExists
+  bucketExists,
+  uploadProgress = 0
 }) => (
   <div className="mb-8">
     <div className="flex flex-col sm:flex-row sm:items-end gap-4">
@@ -42,9 +44,23 @@ const ImageUploadSection: React.FC<ImageUploadSectionProps> = ({
         {uploading ? "Uploading..." : "Upload"}
       </Button>
     </div>
+    
     {errorMsg ? (
       <div className="text-sm text-red-600 mt-2">{errorMsg}</div>
     ) : null}
+    
+    {uploading && uploadProgress > 0 && (
+      <div className="mt-2">
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div 
+            className="bg-dental-orange h-2.5 rounded-full" 
+            style={{ width: `${uploadProgress}%` }}
+          ></div>
+        </div>
+        <p className="text-xs text-gray-500 mt-1">{uploadProgress}% uploaded</p>
+      </div>
+    )}
+    
     {previewUrl && (
       <div className="mt-4">
         <span className="block mb-1 text-xs text-gray-500">Preview:</span>

@@ -18,6 +18,7 @@ const ImageLibrary: React.FC = () => {
     previewUrl,
     selectedFile,
     uploadErrorMsg,
+    uploadProgress,
     fileInputRef,
     
     // Actions
@@ -55,6 +56,7 @@ const ImageLibrary: React.FC = () => {
         errorMsg={uploadErrorMsg}
         previewUrl={previewUrl}
         bucketExists={bucketExists}
+        uploadProgress={uploadProgress}
       />
 
       {loading ? (

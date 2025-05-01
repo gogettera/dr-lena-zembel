@@ -19,13 +19,33 @@ export function useBucketCheckActions(sharedState: ReturnType<typeof import('./u
       const { data: sessionData } = await supabase.auth.getSession();
       if (!sessionData.session) {
         setBucketExists(false);
-        setBucketErrorMsg('Authentication required to access storage.');
+        setBucketErrorMsg('Authentication required to access storage. Please log in.');
+        toast({
+          title: 'Authentication Required',
+          description: 'You need to be logged in to access the image library.',
+          variant: 'destructive'
+        });
         setCheckInProgress(false);
         return false;
       }
       
-      const { data, error } = await supabase.storage.getBucket(BUCKET);
-      if (error || !data) {
+      // Use listBuckets instead of getBucket for more reliable bucket detection
+      const { data, error } = await supabase.storage.listBuckets();
+      
+      if (error) {
+        console.error('Error listing buckets:', error);
+        setBucketExists(false);
+        setBucketErrorMsg(
+          `Error accessing storage: ${error.message}. Please ensure Supabase is properly configured.`
+        );
+        setCheckInProgress(false);
+        return false;
+      }
+      
+      // Check if our bucket exists in the list of buckets
+      const bucketFound = data.some(bucket => bucket.name === BUCKET);
+      
+      if (!bucketFound) {
         setBucketExists(false);
         setBucketErrorMsg(
           `Storage bucket "${BUCKET}" not found. Please ensure it exists in your Supabase project.`
@@ -33,14 +53,18 @@ export function useBucketCheckActions(sharedState: ReturnType<typeof import('./u
         setCheckInProgress(false);
         return false;
       }
+      
       setBucketExists(true);
       setBucketErrorMsg("");
       setCheckInProgress(false);
       return true;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Bucket check failed:', errorMessage);
+      
       setBucketExists(false);
       setBucketErrorMsg(
-        `Error checking bucket "${BUCKET}". Please ensure Supabase is properly configured.`
+        `Error checking bucket "${BUCKET}": ${errorMessage}. Please ensure Supabase is properly configured.`
       );
       setCheckInProgress(false);
       return false;
