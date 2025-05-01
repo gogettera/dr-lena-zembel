@@ -1,17 +1,16 @@
 
 import React from "react";
 import { Award, Smile, Star } from "lucide-react";
-import { NextGenImage } from "@/components/ui/next-gen-image";
+import DoctorPortrait from "@/components/shared/DoctorPortrait";
 
 const ClinicExpertise = () => (
   <section className="py-12 md:py-20 px-2 flex flex-col md:flex-row items-center gap-10 max-w-3xl mx-auto">
     <div className="md:w-1/3 flex justify-center mb-8 md:mb-0">
-      <NextGenImage
-        src="/lovable-uploads/23038120-1edf-4bff-9e78-5a73c0f15161.png"
-        alt="דר לנה זמבל וצוות המרפאה - מקצועיות לילדים"
+      <DoctorPortrait 
+        style="medical" 
         width={180}
         height={220}
-        className="rounded-xl border-2 border-dental-orange shadow"
+        className="border-2 border-dental-orange shadow"
       />
     </div>
     <div className="md:w-2/3 space-y-5 text-center md:text-right">

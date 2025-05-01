@@ -1,18 +1,17 @@
 
 import React from "react";
-import { NextGenImage } from "@/components/ui/next-gen-image";
+import DoctorPortrait from "@/components/shared/DoctorPortrait";
 import { Star } from "lucide-react";
 
 const OralRehabilitationTrustDoctor = () => (
   <section className="py-14 bg-dental-beige/20">
     <div className="container mx-auto flex flex-col md:flex-row items-center gap-10">
       <div className="md:w-1/3 flex justify-center">
-        <NextGenImage
-          src="/lovable-uploads/23038120-1edf-4bff-9e78-5a73c0f15161.png"
-          alt="ד״ר לנה זמבל"
+        <DoctorPortrait 
+          style="authority" 
           width={208}
           height={260}
-          className="rounded-2xl border-2 border-dental-orange shadow"
+          className="border-2 border-dental-orange shadow"
         />
       </div>
       <div className="md:w-2/3 space-y-5 text-center md:text-right">

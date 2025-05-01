@@ -2,7 +2,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Container } from '@/components/ui/container';
-import { EnhancedImage } from '@/components/ui/enhanced-image';
+import DoctorPortrait from '@/components/shared/DoctorPortrait';
 import { Badge } from '@/components/ui/badge';
 import { useDirectionalStyles } from '@/utils/direction';
 
@@ -33,10 +33,10 @@ const DoctorProfile: React.FC = () => {
         <div className={`${isRTL ? 'order-2 lg:order-1' : 'order-2 lg:order-2'}`}>
           <div className="relative">
             <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-lg">
-              <EnhancedImage
-                src="/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg"
-                alt={doctorName}
-                className="w-full h-full object-cover"
+              <DoctorPortrait 
+                style="authority" 
+                width={400} 
+                height={540} 
                 rounded="2xl"
               />
             </div>

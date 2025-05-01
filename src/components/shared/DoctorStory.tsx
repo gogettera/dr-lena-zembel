@@ -2,7 +2,7 @@
 import React from "react";
 import { useDoctorInfo } from "@/hooks/use-doctor-info";
 import { TreatmentArea } from "@/types/doctor";
-import OptimizedImage from "@/components/ui/optimized-image";
+import DoctorPortrait from "@/components/shared/DoctorPortrait";
 import { Icon } from 'lucide-react';
 
 interface DoctorStoryProps {
@@ -37,11 +37,12 @@ const DoctorStory: React.FC<DoctorStoryProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
           <div className="flex justify-center md:col-span-1 order-2 md:order-1">
             <div className="relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-              <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-4 border-dental-beige/40 shadow-lg">
-                <OptimizedImage
-                  src={doctorInfo.profileImage}
-                  alt={`${doctorInfo.name} - ${specialty.title}`}
-                  className="w-full h-full object-cover"
+              <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden">
+                <DoctorPortrait 
+                  style="medical" 
+                  width={220} 
+                  height={220} 
+                  rounded="full"
                 />
               </div>
               <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-2 shadow-md">

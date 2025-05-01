@@ -3,7 +3,7 @@ import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Avatar } from '@/components/ui/avatar';
 import { Languages } from 'lucide-react';
-import { NextGenImage } from '@/components/ui/next-gen-image';
+import DoctorPortrait from '@/components/shared/DoctorPortrait';
 
 const AboutSection = () => {
   const { t, language } = useLanguage();
@@ -16,12 +16,12 @@ const AboutSection = () => {
           <div className={`md:w-1/3 ${isRTL ? 'md:order-last' : ''}`}>
             <div className="relative" style={{ width: '100%', maxWidth: '420px', margin: '0 auto' }}>
               <div className="absolute inset-0 bg-dental-orange rounded-xl blur-xl opacity-20 transform rotate-3"></div>
-              <NextGenImage 
-                alt={t('about.doctorProfile')} 
-                src="/lovable-uploads/23038120-1edf-4bff-9e78-5a73c0f15161.png" 
-                width={420}
+              <DoctorPortrait 
+                style="main" 
+                width={420} 
                 height={500}
-                className="relative rounded-xl shadow-xl hover:scale-105 transition-transform duration-300 w-full object-cover" 
+                priority={true}
+                className="relative hover:scale-105 transition-transform duration-300 w-full object-cover"
               />
             </div>
             <div className="mt-6 flex items-center justify-center gap-3">
