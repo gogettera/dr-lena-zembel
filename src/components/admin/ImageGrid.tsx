@@ -1,7 +1,7 @@
 
 import React from "react";
 import ImageCard from "./ImageCard";
-import type { Img } from "./useImageLibrary";
+import type { Img } from "./useImageLibraryActions";
 
 interface ImageGridProps {
   images: Img[];

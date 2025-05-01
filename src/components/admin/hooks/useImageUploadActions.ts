@@ -2,19 +2,9 @@
 import { useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
-import { v4 as uuidv4 } from 'uuid';
-
-// Allowed image MIME types and file size limits for security
-const ALLOWED_MIME_TYPES = [
-  "image/jpeg", 
-  "image/png", 
-  "image/webp", 
-  "image/gif", 
-  "image/svg+xml"
-];
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-
-const BUCKET = "site-images";
+import { useImageValidation } from "./upload/useImageValidation";
+import { useFilePreview } from "./upload/useFilePreview";
+import { useFileUploader, BUCKET } from "./upload/useFileUploader";
 
 export function useImageUploadActions(
   bucketExists: boolean,
@@ -29,27 +19,11 @@ export function useImageUploadActions(
     setUploadErrorMsg,
     setUploadProgress 
   } = sharedState;
+  
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const validateFile = (file: File): {valid: boolean; error?: string} => {
-    // Validate file type
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-      return { 
-        valid: false, 
-        error: `Unsupported file type: ${file.type}. Allowed types: JPEG, PNG, WebP, GIF, SVG`
-      };
-    }
-    
-    // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
-      return {
-        valid: false,
-        error: `File too large. Maximum size: ${MAX_FILE_SIZE/1024/1024}MB`
-      };
-    }
-    
-    return { valid: true };
-  };
+  const { validateFile } = useImageValidation();
+  const { createPreview } = useFilePreview();
+  const { uploadFile } = useFileUploader();
 
   const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -67,14 +41,9 @@ export function useImageUploadActions(
     }
 
     // Create file preview
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        setPreviewUrl(e.target.result as string);
-      }
-    };
-    reader.readAsDataURL(file);
-  }, [setSelectedFile, setUploadErrorMsg, setPreviewUrl]);
+    const previewUrl = await createPreview(file);
+    setPreviewUrl(previewUrl);
+  }, [setSelectedFile, setUploadErrorMsg, setPreviewUrl, validateFile, createPreview]);
 
   const handleUpload = useCallback(async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -122,54 +91,18 @@ export function useImageUploadActions(
         continue;
       }
       
-      // Generate secure random filename to prevent path traversal attacks
-      // Extract file extension safely using regex
-      const fileExt = (file.name.match(/\.([^.]+)$/) || ['', 'bin'])[1].toLowerCase();
+      const result = await uploadFile(file);
       
-      // Validate file extension against allowed types as double-check
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
-      if (!allowedExtensions.includes(fileExt)) {
-        toast({
-          title: "File validation failed",
-          description: `File extension .${fileExt} is not allowed`,
-          variant: "destructive"
-        });
-        failedUploads++;
-        continue;
-      }
-      
-      const sanitizedFilename = `${uuidv4()}.${fileExt}`;
-      
-      try {
-        // Upload file
-        const { error, data } = await supabase.storage
-          .from(BUCKET)
-          .upload(sanitizedFilename, file, {
-            contentType: file.type,
-            upsert: false
-          });
-          
-        if (error) {
-          console.error("Upload error:", error);
-          toast({
-            title: "Upload failed",
-            description: error.message,
-            variant: "destructive"
-          });
-          failedUploads++;
-        } else {
-          successfulUploads++;
-          setUploadProgress(Math.round((i + 1) / files.length * 100));
-        }
-      } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
-        console.error("Upload error:", err);
+      if (!result.success) {
         toast({
           title: "Upload failed",
-          description: errorMessage,
+          description: result.error || "An unexpected error occurred",
           variant: "destructive"
         });
         failedUploads++;
+      } else {
+        successfulUploads++;
+        setUploadProgress(Math.round((i + 1) / files.length * 100));
       }
     }
     
@@ -193,7 +126,7 @@ export function useImageUploadActions(
     await fetchImages();
     setUploading(false);
     setUploadProgress(0);
-  }, [checkBucket, fetchImages, setUploading, setUploadProgress]);
+  }, [checkBucket, fetchImages, setUploading, setUploadProgress, validateFile, uploadFile]);
   
   return { 
     handleUpload,
