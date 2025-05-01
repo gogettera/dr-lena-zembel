@@ -1,9 +1,7 @@
 
 import { useCallback } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useImageDelete } from "./image-delete/useImageDelete";
 import { toast } from "@/components/ui/use-toast";
-
-const BUCKET = "site-images";
 
 export function useImageDeleteActions(
   bucketExists: boolean, 
@@ -12,25 +10,15 @@ export function useImageDeleteActions(
   sharedState: ReturnType<typeof import('./useImageLibraryState').useImageLibraryState>
 ) {
   const { setLoading } = sharedState;
+  const { deleteImage } = useImageDelete();
 
   const handleDelete = useCallback(async (name: string) => {
-    // Check authentication first
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) {
-      toast({
-        title: "Authentication Required",
-        description: "You need to be logged in to delete images.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
     if (!bucketExists) {
       const bucketOk = await checkBucket();
       if (!bucketOk) {
         toast({
           title: "Delete failed",
-          description: `Storage bucket "${BUCKET}" not found`,
+          description: `Storage bucket "site-images" not found`,
           variant: "destructive"
         });
         return;
@@ -39,29 +27,14 @@ export function useImageDeleteActions(
     
     setLoading(true);
     
-    try {
-      const { error } = await supabase.storage.from(BUCKET).remove([name]);
-      if (error) {
-        toast({ 
-          title: "Failed to delete", 
-          description: error.message, 
-          variant: "destructive" 
-        });
-      } else {
-        toast({ title: "Image deleted" });
-        await fetchImages();
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
-      toast({
-        title: "Delete failed",
-        description: errorMessage,
-        variant: "destructive"
-      });
+    const result = await deleteImage(name);
+    
+    if (result.success) {
+      await fetchImages();
     }
     
     setLoading(false);
-  }, [bucketExists, checkBucket, fetchImages, setLoading]);
+  }, [bucketExists, checkBucket, fetchImages, setLoading, deleteImage]);
   
   return { handleDelete };
 }
