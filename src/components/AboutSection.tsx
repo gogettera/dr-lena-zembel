@@ -4,14 +4,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Avatar } from '@/components/ui/avatar';
 import { Languages } from 'lucide-react';
 import DoctorPortrait from '@/components/shared/DoctorPortrait';
+import { TranslatedText } from './ui/translated-text';
 
 const AboutSection = () => {
-  const { t, language } = useLanguage();
-  const isRTL = language === 'he' || language === 'ar';
+  const { t, language, isRTL } = useLanguage();
   
   return (
-    <section className="bg-gradient-to-br from-dental-beige via-white to-dental-pink py-16">
-      <div className="container mx-auto px-4" dir={isRTL ? 'rtl' : 'ltr'}>
+    <section className="bg-gradient-to-br from-dental-beige via-white to-dental-pink py-16" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <div className={`md:w-1/3 ${isRTL ? 'md:order-last' : ''}`}>
             <div className="relative" style={{ width: '100%', maxWidth: '420px', margin: '0 auto' }}>
@@ -38,13 +38,21 @@ const AboutSection = () => {
 
           <div className="md:w-2/3 space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold text-dental-navy mb-6 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-              {t('about.aboutMe')}
+              <TranslatedText textKey="about.aboutMe" defaultText="אודותיי" />
             </h2>
             <div className="space-y-4 leading-relaxed text-lg opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-              <p>{t('about.aboutMeIntro')}</p>
-              <p>{t('about.aboutMeClinic')}</p>
-              <p>{t('about.aboutMeLanguages')}</p>
-              <p className="font-medium">{t('about.aboutMeInvite')}</p>
+              <p>
+                <TranslatedText textKey="about.aboutMeIntro" defaultText="אני דוקטור לנה זמבל, רופאת שיניים מוסמכת עם מעל 15 שנות ניסיון בתחום. התמחיתי בטיפולי אסתטיקה, שתלים וטיפולי שורש מורכבים." />
+              </p>
+              <p>
+                <TranslatedText textKey="about.aboutMeClinic" defaultText="המרפאה שלנו בצפון יפו מציעה סביבה נעימה וחדשנית, המצוידת בטכנולוגיה מתקדמת ביותר לתת לכם את הטיפול האיכותי ביותר." />
+              </p>
+              <p>
+                <TranslatedText textKey="about.aboutMeLanguages" defaultText="אנו מדברים עברית, אנגלית, רוסית וגרמנית, ומקבלים מטופלים מכל רחבי תל אביב והסביבה." />
+              </p>
+              <p className="font-medium">
+                <TranslatedText textKey="about.aboutMeInvite" defaultText="אשמח לראותכם במרפאה ולהעניק לכם חיוך בריא ויפה!" />
+              </p>
             </div>
           </div>
         </div>

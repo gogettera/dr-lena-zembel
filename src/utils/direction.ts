@@ -1,13 +1,18 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/types/language';
 
 /**
  * Set the text direction of the document
  * @param direction 'rtl' or 'ltr'
  */
 export const setDirection = (direction: 'rtl' | 'ltr'): void => {
+  // Set the document's dir attribute
   document.documentElement.dir = direction;
+  
+  // Set the lang attribute based on direction
+  // This is a simplification - in a real app we would set exact language code
   document.documentElement.lang = direction === 'rtl' ? 'he' : 'en';
   
   // Add appropriate class to body for styling
@@ -17,16 +22,29 @@ export const setDirection = (direction: 'rtl' | 'ltr'): void => {
   // Add data attribute to enable CSS targeting
   document.documentElement.setAttribute('data-direction', direction);
   
+  // Set a CSS variable for more flexible styling
+  document.documentElement.style.setProperty('--direction', direction);
+  document.documentElement.style.setProperty('--opposite-direction', direction === 'rtl' ? 'ltr' : 'rtl');
+  
   // Log direction change
   console.log(`Document direction set to: ${direction}`);
+};
+
+/**
+ * Determine if a language is RTL
+ * @param language Language code
+ * @returns boolean indicating if the language is RTL
+ */
+export const isRTLLanguage = (language: Language): boolean => {
+  return ['he', 'ar'].includes(language);
 };
 
 /**
  * Setup direction based on the current language
  * @param language Current language code
  */
-export const setupDirectionByLanguage = (language: string): void => {
-  const isRTL = language === 'he' || language === 'ar';
+export const setupDirectionByLanguage = (language: Language): void => {
+  const isRTL = isRTLLanguage(language);
   setDirection(isRTL ? 'rtl' : 'ltr');
   
   // Log the direction change

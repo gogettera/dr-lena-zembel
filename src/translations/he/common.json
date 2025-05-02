@@ -1,9 +1,20 @@
 
 {
+  "clinicName": "ד״ר לנה זמבל",
+  "allRightsReserved": "כל הזכויות שמורות",
   "bookVisit": "לקביעת ביקור",
   "scrollForMore": "גלול למטה",
   "learnMore": "למידע נוסף",
   "call": "התקשר",
   "mainNavigation": "ניווט ראשי",
-  "toggleMenu": "תפריט"
+  "toggleMenu": "תפריט",
+  "switchToLanguage": "החלף לשפה {{language}}",
+  "dentistryWithLove": "רפואת שיניים באהבה",
+  "localDental": "מרפאת שיניים מקצועית בצפון יפו, המעניקה טיפול איכותי ומקיף למטופלים שלנו.",
+  "clinicDescription": "מרפאת השיניים המקצועית שלך בצפון יפו",
+  "bookNow": "קבע תור עכשיו",
+  "moreDetails": "פרטים נוספים",
+  "completelyHappy": "אלפי מטופלים מרוצים",
+  "newLook": "המרפאה החדשה שלנו",
+  "practiceFresh": "המרפאה שלנו עברה שדרוג מלא! ציוד חדש, טכנולוגיה מתקדמת וסביבת טיפול מודרנית מחכים לך."
 }

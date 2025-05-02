@@ -1,20 +1,13 @@
 
 import { Language } from '@/types/language';
-import heTranslations from '@/translations/he';
-import enTranslations from '@/translations/en';
-import ruTranslations from '@/translations/ru';
-import deTranslations from '@/translations/de';
-import arTranslations from '@/translations/ar';
 import { TranslationOptions, TranslationsType } from './types';
+import { logMissingTranslationKeys } from '@/translations/utils/validation';
 
-// Translations object with all languages
-export const translations = {
-  he: heTranslations,
-  en: enTranslations,
-  ru: ruTranslations,
-  de: deTranslations,
-  ar: arTranslations
-};
+// Import all translations
+import translations from '@/translations';
+
+// Export translations for use in other modules
+export { translations };
 
 /**
  * Get a nested property from an object using a dot-separated path
@@ -70,50 +63,89 @@ export const formatTranslationValue = (value: any): string => {
 };
 
 /**
- * Create a translation function
+ * Create a translation function with improved fallback handling
  */
 export const createTranslationFunction = (
   language: Language,
   allTranslations: Record<Language, any>,
   defaultLanguage: Language = 'he'
 ) => {
+  // Log missing translations in development environment
+  if (process.env.NODE_ENV === 'development') {
+    logMissingTranslationKeys(allTranslations);
+  }
+
   return (key: string, options?: string | TranslationOptions): any => {
     // Handle the case where options is a string (used as defaultValue)
     const opts: TranslationOptions = typeof options === 'string' 
       ? { defaultValue: options } 
       : options || {};
     
-    const { defaultValue, returnObjects } = opts;
+    const { 
+      defaultValue, 
+      returnObjects = false,
+      returnNull = false,
+      showDebug = process.env.NODE_ENV === 'development'
+    } = opts;
     
-    // Get current language translations
-    const currentTranslations = allTranslations[language] || {};
+    // Lookup chain: current language -> intermediate fallbacks -> default language -> default value/key
+    const languageChain: Language[] = [];
     
-    // Try to get translation from current language
-    let translationValue = getNestedProperty(currentTranslations, key);
+    // Start with the requested language
+    languageChain.push(language);
     
-    // If not found, try English as intermediate fallback (more likely to be complete than Hebrew for some users)
-    if (translationValue === undefined && language !== 'en') {
-      const enTranslations = allTranslations['en'] || {};
-      translationValue = getNestedProperty(enTranslations, key);
+    // English as common intermediate fallback (unless it's already the current language)
+    if (language !== 'en') {
+      languageChain.push('en');
     }
     
-    // If still not found, try default language (Hebrew)
-    if (translationValue === undefined && language !== defaultLanguage) {
-      const defaultTranslations = allTranslations[defaultLanguage] || {};
-      translationValue = getNestedProperty(defaultTranslations, key);
+    // Default language as final fallback (unless already checked)
+    if (defaultLanguage !== language && defaultLanguage !== 'en') {
+      languageChain.push(defaultLanguage);
     }
     
-    // If still not found, return defaultValue or key itself
+    // Try to get translation from the language chain
+    let translationValue: any = undefined;
+    let sourceLanguage: Language | undefined = undefined;
+    
+    for (const lang of languageChain) {
+      const langTranslations = allTranslations[lang];
+      if (!langTranslations) continue;
+      
+      const value = getNestedProperty(langTranslations, key);
+      if (value !== undefined) {
+        translationValue = value;
+        sourceLanguage = lang;
+        break;
+      }
+    }
+    
+    // If no translation found in any language, return fallback
     if (translationValue === undefined) {
+      // If returnNull is true, return null instead of defaultValue/key
+      if (returnNull) return null;
+      
+      // Show debug info in dev mode if enabled
+      if (showDebug && process.env.NODE_ENV === 'development') {
+        const debugValue = `[${language}:${key}]`;
+        console.warn(`Missing translation: ${debugValue}`);
+        return defaultValue !== undefined ? defaultValue : debugValue;
+      }
+      
       return defaultValue !== undefined ? defaultValue : key;
     }
     
-    // Handle nested objects if needed for component-specific translations
+    // Handle nested objects if needed
     if (isNestedObject(translationValue) && !returnObjects) {
       return formatTranslationValue(translationValue);
     }
     
-    // Format the value to a string
+    // If source language is different from requested language and in dev mode, log a warning
+    if (showDebug && process.env.NODE_ENV === 'development' && sourceLanguage !== language) {
+      console.info(`Used fallback for '${key}': ${language} -> ${sourceLanguage}`);
+    }
+    
+    // Format the value to a string or return object if requested
     return returnObjects ? translationValue : formatTranslationValue(translationValue);
   };
 };

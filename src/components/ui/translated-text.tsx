@@ -2,6 +2,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
+import { TranslationOptions } from '@/utils/translation';
 
 interface TranslatedTextProps {
   textKey: string;
@@ -10,6 +11,9 @@ interface TranslatedTextProps {
   as?: React.ElementType;
   withNamespace?: boolean;
   children?: React.ReactNode;
+  debug?: boolean;
+  params?: Record<string, any>;
+  options?: TranslationOptions;
   [key: string]: any;
 }
 
@@ -24,33 +28,41 @@ export const TranslatedText = ({
   as: Component = 'span',
   withNamespace = false,
   children,
+  debug = process.env.NODE_ENV === 'development',
+  params,
+  options = {},
   ...rest
 }: TranslatedTextProps) => {
-  const { t, language } = useLanguage();
+  const { t, language, isRTL } = useLanguage();
+  
+  // Merge options with props
+  const translationOptions: TranslationOptions = {
+    defaultValue: defaultText || textKey,
+    showDebug: debug,
+    ...options,
+    ...(params ? { params } : {})
+  };
   
   // Use the translation function with a fallback
-  const translatedText = t(textKey, { defaultValue: defaultText || textKey });
+  const translatedText = t(textKey, translationOptions);
   
   // If the translation is the same as the key and not the default text,
   // it likely means the translation is missing
-  const isMissingTranslation = !defaultText && translatedText === textKey;
-  
-  // If debugging is enabled, highlight missing translations
-  const debuggingEnabled = process.env.NODE_ENV === 'development';
+  const isMissingTranslation = translatedText === textKey && !defaultText;
   
   return (
     <Component 
       className={cn(
         className,
-        debuggingEnabled && isMissingTranslation && 'border border-dashed border-red-300 bg-red-50 px-1'
+        debug && isMissingTranslation && 'border border-dashed border-red-300 bg-red-50/30 px-1'
       )}
       data-translation-key={textKey}
-      dir={language === 'he' || language === 'ar' ? 'rtl' : 'ltr'}
+      dir={isRTL ? 'rtl' : 'ltr'}
       {...rest}
     >
       {translatedText}
-      {debuggingEnabled && isMissingTranslation && (
-        <span className="text-xs text-red-500 mx-1">[{language}:{textKey}]</span>
+      {debug && isMissingTranslation && (
+        <span className="text-xs text-red-500 mx-1 inline-block opacity-70">[{language}:{textKey}]</span>
       )}
       {children}
     </Component>

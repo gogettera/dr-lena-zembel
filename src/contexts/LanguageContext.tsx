@@ -7,7 +7,7 @@ import {
   createTranslationFunction
 } from '@/utils/translation';
 import { translations } from '@/utils/translation/core';
-import { validateTranslationKeys } from '@/utils/translation/core';
+import { logMissingTranslationKeys } from '@/translations/utils/validation';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -81,14 +81,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     // Log any missing translations in development
     if (process.env.NODE_ENV === 'development') {
       console.log(`Current language: ${language}`);
-      console.log(`Current translations are loaded:`, translations[language] !== undefined);
+      console.log(`RTL enabled: ${isRTL}`);
       
-      const missingKeys = validateTranslationKeys(translations);
-      if (missingKeys.length > 0) {
-        console.warn('Missing translation keys:', missingKeys);
-      }
+      // Log missing translations
+      logMissingTranslationKeys(translations);
     }
-  }, [language]);
+  }, [language, isRTL]);
 
   // Create translation function using our utility
   const t = createTranslationFunction(language, translations, DEFAULT_LANGUAGE);

@@ -1,5 +1,7 @@
 
 {
+  "clinicName": "Dr. Lena Zembel",
+  "allRightsReserved": "All rights reserved",
   "dentistryWithLove": "Professional Dentistry",
   "localDental": "Professional dental clinic in North Jaffa, providing comprehensive quality care for our patients.",
   "clinicDescription": "Your professional dental clinic in North Jaffa",
@@ -51,5 +53,9 @@
   "sundayToThursday": "Sunday to Thursday",
   "contactUs": "Contact us",
   "address": "Ben Zvi Rd 2, North Jaffa",
-  "readyToStart": "Ready to Start Your Treatment?"
+  "readyToStart": "Ready to Start Your Treatment?",
+  "call": "Call",
+  "mainNavigation": "Main navigation",
+  "toggleMenu": "Toggle menu",
+  "switchToLanguage": "Switch to {{language}}"
 }

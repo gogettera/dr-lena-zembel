@@ -11,11 +11,25 @@
   "team": "Team",
   "patients": "Für Patienten",
   "testimonials": "Patientenbewertungen",
+  "patientsExperiences": "Unsere Patienten teilen ihre Erfahrungen",
+  "ourTreatments": "Unsere Behandlungen",
+  "wideRangeOfTreatments": "Wir bieten eine breite Palette fortschrittlicher Zahnbehandlungen an",
+  "updatesFromPractice": "Neuigkeiten aus der Praxis",
+  "followOnFacebook": "Folgen Sie uns auf Facebook für regelmäßige Updates",
+  "followOnFacebookButton": "Auf Facebook folgen",
+  "learnMore": "Mehr erfahren",
+  "sitemap": "Sitemap",
+  "backToHome": "Zurück zur Startseite",
+  "treatmentNotFound": "Behandlung nicht gefunden",
+  "info": "Informationen",
+  "followUs": "Folgen Sie uns",
   "accessibility": {
     "skipToContent": "Zum Hauptinhalt springen",
     "statement": "Barrierefreiheitserklärung"
   },
   "legal": {
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsOfService": "Nutzungsbedingungen",
     "privacy": "Datenschutzrichtlinie",
     "terms": "Nutzungsbedingungen"
   }

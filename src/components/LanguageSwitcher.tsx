@@ -14,6 +14,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { LanguageFlag } from '@/components/ui/language-flag';
 import { supportedLanguages } from '@/utils/languageRoutes';
+import { isRTLLanguage } from '@/utils/direction';
+import { TranslatedText } from './ui/translated-text';
 
 const languageOptions: { value: Language; label: string; name: string }[] = [
   { value: 'he', label: 'עברית', name: 'עברית' },
@@ -24,7 +26,7 @@ const languageOptions: { value: Language; label: string; name: string }[] = [
 ];
 
 const LanguageSwitcher: React.FC = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t, isRTL } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,6 +44,15 @@ const LanguageSwitcher: React.FC = () => {
       // Log navigation intent
       console.log(`Switching language from ${language} to ${newLanguage}`);
       console.log(`Current path: ${location.pathname}, hash: ${location.hash}`);
+      
+      // Check if we're switching between RTL/LTR languages
+      const isCurrentRTL = isRTLLanguage(language);
+      const isTargetRTL = isRTLLanguage(newLanguage);
+      const isDirectionChange = isCurrentRTL !== isTargetRTL;
+      
+      if (isDirectionChange) {
+        console.log('Direction will change: ', isCurrentRTL ? 'RTL → LTR' : 'LTR → RTL');
+      }
       
       // Set language in context
       setLanguage(newLanguage);
@@ -73,29 +84,33 @@ const LanguageSwitcher: React.FC = () => {
           data-testid="language-switcher-button"
         >
           <LanguageFlag language={language} />
-          <ChevronDown className="w-4 h-4 opacity-50" />
+          <ChevronDown className={cn("w-4 h-4 opacity-50", isRTL && "rotate-180")} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
-        align="end" 
+        align={isRTL ? "start" : "end"}
         className="w-40 bg-white border border-gray-100 shadow-md rounded-md p-1"
+        side={isRTL ? "right" : "bottom"}
       >
         {languageOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
             className={cn(
-              "flex items-center justify-center text-sm cursor-pointer py-2 px-3",
+              "flex items-center justify-between text-sm cursor-pointer py-2 px-3",
               "hover:bg-gray-50 transition-colors",
               language === option.value 
                 ? 'font-medium text-gray-900' 
                 : 'text-gray-600'
             )}
             onClick={() => handleLanguageChange(option.value)}
-            aria-label={`Switch to ${option.label}`}
+            aria-label={t('common.switchToLanguage', `Switch to ${option.label}`)}
             data-testid={`language-option-${option.value}`}
+            dir={isRTLLanguage(option.value) ? 'rtl' : 'ltr'}
           >
             <LanguageFlag language={option.value} />
-            <span className="ml-2">{option.name}</span>
+            <span className={isRTLLanguage(option.value) ? "mr-2" : "ml-2"}>
+              {option.name}
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
