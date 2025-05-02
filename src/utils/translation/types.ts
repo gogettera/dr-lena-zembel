@@ -18,6 +18,12 @@ export interface TranslationOptions {
   /** Whether to return the raw object for object translations */
   returnObjects?: boolean;
   
+  /** Whether to return null instead of defaultValue/key when translation is missing */
+  returnNull?: boolean;
+  
+  /** Whether to show debug information for missing translations */
+  showDebug?: boolean;
+  
   /** Context variables for interpolation */
   context?: any;
   
