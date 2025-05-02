@@ -39,12 +39,42 @@ export const useHebrewText = () => {
     return hebrewPattern.test(text);
   };
 
+  /**
+   * Format numbers according to the current language
+   */
+  const formatNumber = (num: number): string => {
+    try {
+      return new Intl.NumberFormat(language).format(num);
+    } catch (error) {
+      console.error('Error formatting number:', error);
+      return num.toString();
+    }
+  };
+
+  /**
+   * Format dates according to the current language
+   */
+  const formatDate = (date: Date): string => {
+    try {
+      return new Intl.DateTimeFormat(language, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }).format(date);
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return date.toLocaleDateString();
+    }
+  };
+
   return {
     isRTL,
     getTextDirectionClass,
     getTextDirection,
     getRTLClasses,
     containsHebrew,
+    formatNumber,
+    formatDate,
     currentLanguage: language
   };
 };

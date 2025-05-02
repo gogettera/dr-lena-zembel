@@ -41,7 +41,13 @@ export const logMissingTranslationKeys = (translations: Record<Language, Record<
   extractKeys(baseTranslations);
   
   // Check each language against the baseline
-  const missingTranslations: Record<Language, string[]> = {};
+  const missingTranslations: Record<Language, string[]> = {
+    he: [],
+    en: [],
+    ru: [],
+    de: [],
+    ar: []
+  };
   
   languages.forEach(lang => {
     if (lang === baseLanguage) return;
@@ -69,11 +75,13 @@ export const logMissingTranslationKeys = (translations: Record<Language, Record<
   });
   
   // Log results
-  if (Object.keys(missingTranslations).length > 0) {
+  if (Object.keys(missingTranslations).some(lang => missingTranslations[lang as Language].length > 0)) {
     console.group('Missing Translation Keys:');
     Object.entries(missingTranslations).forEach(([lang, keys]) => {
-      console.log(`${lang}: ${keys.length} missing keys`);
-      console.log(keys);
+      if (keys.length > 0) {
+        console.log(`${lang}: ${keys.length} missing keys`);
+        console.log(keys);
+      }
     });
     console.groupEnd();
   }
