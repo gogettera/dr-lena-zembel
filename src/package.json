@@ -4,6 +4,7 @@
     "test": "vitest",
     "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "check-translations": "node ../scripts/check-translations.js"
   }
 }
