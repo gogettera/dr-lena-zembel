@@ -16,6 +16,9 @@ export const setDirection = (direction: 'rtl' | 'ltr'): void => {
   
   // Add data attribute to enable CSS targeting
   document.documentElement.setAttribute('data-direction', direction);
+  
+  // Log direction change
+  console.log(`Document direction set to: ${direction}`);
 };
 
 /**
@@ -23,11 +26,11 @@ export const setDirection = (direction: 'rtl' | 'ltr'): void => {
  * @param language Current language code
  */
 export const setupDirectionByLanguage = (language: string): void => {
-  if (language === 'he' || language === 'ar') {
-    setDirection('rtl');
-  } else {
-    setDirection('ltr');
-  }
+  const isRTL = language === 'he' || language === 'ar';
+  setDirection(isRTL ? 'rtl' : 'ltr');
+  
+  // Log the direction change
+  console.log(`Direction set based on language ${language}: ${isRTL ? 'RTL' : 'LTR'}`);
 };
 
 /**
@@ -110,7 +113,8 @@ export const createDirectionalWrapper = (
     'div',
     {
       dir: isRTL ? 'rtl' : 'ltr',
-      className: className
+      className: className,
+      'data-direction': isRTL ? 'rtl' : 'ltr'
     },
     children
   );

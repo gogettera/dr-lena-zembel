@@ -1,0 +1,22 @@
+
+{
+  "home": "Startseite",
+  "about": "Über uns",
+  "treatments": "Behandlungen",
+  "botoxTreatments": "Botox-Behandlungen",
+  "aestheticTreatments": "Ästhetische Behandlungen",
+  "preventiveMedicine": "Präventivmedizin",
+  "contact": "Kontakt",
+  "practice": "Unsere Praxis",
+  "team": "Team",
+  "patients": "Für Patienten",
+  "testimonials": "Patientenbewertungen",
+  "accessibility": {
+    "skipToContent": "Zum Hauptinhalt springen",
+    "statement": "Barrierefreiheitserklärung"
+  },
+  "legal": {
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen"
+  }
+}

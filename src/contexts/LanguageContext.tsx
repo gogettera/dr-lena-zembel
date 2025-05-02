@@ -69,6 +69,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       setLanguageState(newLanguage);
       // Update document direction
       setupDirectionByLanguage(newLanguage);
+      // Log language change
+      console.log(`Language changed to: ${newLanguage}, RTL: ${RTL_LANGUAGES.includes(newLanguage)}`);
     }
   };
 

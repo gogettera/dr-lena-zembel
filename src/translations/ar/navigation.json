@@ -1,0 +1,22 @@
+
+{
+  "home": "الصفحة الرئيسية",
+  "about": "من نحن",
+  "treatments": "العلاجات",
+  "botoxTreatments": "علاجات البوتوكس",
+  "aestheticTreatments": "علاجات تجميلية",
+  "preventiveMedicine": "طب وقائي",
+  "contact": "اتصل بنا",
+  "practice": "عيادتنا",
+  "team": "فريقنا",
+  "patients": "للمرضى",
+  "testimonials": "آراء المرضى",
+  "accessibility": {
+    "skipToContent": "انتقل إلى المحتوى الرئيسي",
+    "statement": "بيان إمكانية الوصول"
+  },
+  "legal": {
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة"
+  }
+}

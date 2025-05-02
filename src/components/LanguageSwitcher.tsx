@@ -39,6 +39,10 @@ const LanguageSwitcher: React.FC = () => {
         return;
       }
       
+      // Log navigation intent
+      console.log(`Switching language from ${language} to ${newLanguage}`);
+      console.log(`Current path: ${location.pathname}, hash: ${location.hash}`);
+      
       // Set language in context
       setLanguage(newLanguage);
       
@@ -47,8 +51,12 @@ const LanguageSwitcher: React.FC = () => {
       const pathWithoutLanguage = pathSegments.length > 1 ? `/${pathSegments.slice(1).join('/')}` : '/';
       const hash = location.hash;
       
+      // Build the new URL
+      const newUrl = `/${newLanguage}${pathWithoutLanguage}${hash}`;
+      console.log(`Navigating to: ${newUrl}`);
+      
       // Navigate to the same page with new language
-      navigate(`/${newLanguage}${pathWithoutLanguage}${hash}`);
+      navigate(newUrl);
     } catch (error) {
       console.error('Error changing language:', error);
     }
@@ -62,6 +70,7 @@ const LanguageSwitcher: React.FC = () => {
           size="sm" 
           className="px-2 py-1.5 hover:bg-gray-50 transition-colors text-sm font-normal gap-2"
           aria-label={`Current language: ${languageOptions.find(o => o.value === language)?.label || 'Unknown'}`}
+          data-testid="language-switcher-button"
         >
           <LanguageFlag language={language} />
           <ChevronDown className="w-4 h-4 opacity-50" />
@@ -83,8 +92,10 @@ const LanguageSwitcher: React.FC = () => {
             )}
             onClick={() => handleLanguageChange(option.value)}
             aria-label={`Switch to ${option.label}`}
+            data-testid={`language-option-${option.value}`}
           >
             <LanguageFlag language={option.value} />
+            <span className="ml-2">{option.name}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -91,7 +91,13 @@ export const createTranslationFunction = (
     // Try to get translation from current language
     let translationValue = getNestedProperty(currentTranslations, key);
     
-    // If not found, try default language
+    // If not found, try English as intermediate fallback (more likely to be complete than Hebrew for some users)
+    if (translationValue === undefined && language !== 'en') {
+      const enTranslations = allTranslations['en'] || {};
+      translationValue = getNestedProperty(enTranslations, key);
+    }
+    
+    // If still not found, try default language (Hebrew)
     if (translationValue === undefined && language !== defaultLanguage) {
       const defaultTranslations = allTranslations[defaultLanguage] || {};
       translationValue = getNestedProperty(defaultTranslations, key);
