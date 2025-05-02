@@ -33,11 +33,11 @@ import enAccessibility from './en/accessibility.json';
 import enLegal from './en/legal.json';
 
 import arCommon from './ar/common.json';
-import arNavigation from './ar/navigation.json';
+// Arabic doesn't have navigation.json, using common instead
 import ruCommon from './ru/common.json';
 import ruNavigation from './ru/navigation.json';
 import deCommon from './de/common.json';
-import deNavigation from './de/navigation.json';
+// German doesn't have navigation.json, using common instead
 
 // Export translations with proper namespaces
 export default {
@@ -77,7 +77,7 @@ export default {
   },
   ar: {
     common: arCommon,
-    navigation: arNavigation
+    navigation: arCommon  // Use common as a fallback since navigation doesn't exist
   },
   ru: {
     common: ruCommon,
@@ -85,6 +85,6 @@ export default {
   },
   de: {
     common: deCommon,
-    navigation: deNavigation
+    navigation: deCommon  // Use common as a fallback since navigation doesn't exist
   },
 };
