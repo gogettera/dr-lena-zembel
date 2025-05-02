@@ -7,59 +7,59 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
     main: [
       {
         key: 'home',
-        labelKey: 'home',
+        labelKey: 'navigation.home',
         path: `/${language}`
       },
       {
         key: 'about',
-        labelKey: 'about',
+        labelKey: 'navigation.about',
         path: `/${language}#about`
       },
       {
         key: 'treatments',
-        labelKey: 'treatments',
+        labelKey: 'navigation.treatments',
         path: `/${language}#treatments`,
         children: [
           {
             key: 'aesthetic-treatments',
-            labelKey: 'aestheticTreatments',
+            labelKey: 'navigation.aestheticTreatments',
             path: `/${language}/treatments/aesthetic-treatments`
           },
           {
             key: 'botox-treatments',
-            labelKey: 'botoxTreatments',
+            labelKey: 'navigation.botoxTreatments',
             path: `/${language}/treatments/botox-treatments`
           },
           {
             key: 'children-dentistry',
-            labelKey: 'childrenDentistry',
+            labelKey: 'navigation.childrenDentistry',
             path: `/${language}/treatments/children-dentistry`
           },
           {
             key: 'preventive-medicine',
-            labelKey: 'preventiveMedicine',
+            labelKey: 'navigation.preventiveMedicine',
             path: `/${language}/treatments/preventive-medicine`
           },
           {
             key: 'root-canal',
-            labelKey: 'rootCanal',
+            labelKey: 'navigation.rootCanal',
             path: `/${language}/treatments/root-canal`
           },
           {
             key: 'oral-rehabilitation',
-            labelKey: 'oralRehabilitation',
+            labelKey: 'navigation.oralRehabilitation',
             path: `/${language}/treatments/oral-rehabilitation`
           },
           {
             key: 'orthodontics',
-            labelKey: 'orthodontics',
+            labelKey: 'navigation.orthodontics',
             path: `/${language}/treatments/orthodontics`
           }
         ]
       },
       {
         key: 'contact',
-        labelKey: 'contact',
+        labelKey: 'navigation.contact',
         path: `/${language}#contact`
       }
     ],
@@ -67,86 +67,86 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
       info: [
         {
           key: 'home',
-          labelKey: 'home',
+          labelKey: 'navigation.home',
           path: `/${language}`
         },
         {
           key: 'about',
-          labelKey: 'about',
+          labelKey: 'navigation.about',
           path: `/${language}#about`
         },
         {
           key: 'practice',
-          labelKey: 'practice',
+          labelKey: 'navigation.practice',
           path: `/${language}#practice`
         },
         {
           key: 'team',
-          labelKey: 'team',
+          labelKey: 'navigation.team',
           path: `/${language}#team`
         },
         {
           key: 'testimonials',
-          labelKey: 'testimonials',
+          labelKey: 'navigation.testimonials',
           path: `/${language}#testimonials`
         },
         {
           key: 'contact',
-          labelKey: 'contact',
+          labelKey: 'navigation.contact',
           path: `/${language}#contact`
         }
       ],
       treatments: [
         {
           key: 'aesthetic-treatments',
-          labelKey: 'aestheticTreatments',
+          labelKey: 'navigation.aestheticTreatments',
           path: `/${language}/treatments/aesthetic-treatments`
         },
         {
           key: 'botox-treatments',
-          labelKey: 'botoxTreatments',
+          labelKey: 'navigation.botoxTreatments',
           path: `/${language}/treatments/botox-treatments`
         },
         {
           key: 'children-dentistry',
-          labelKey: 'childrenDentistry',
+          labelKey: 'navigation.childrenDentistry',
           path: `/${language}/treatments/children-dentistry`
         },
         {
           key: 'preventive-medicine',
-          labelKey: 'preventiveMedicine',
+          labelKey: 'navigation.preventiveMedicine',
           path: `/${language}/treatments/preventive-medicine`
         },
         {
           key: 'root-canal',
-          labelKey: 'rootCanal',
+          labelKey: 'navigation.rootCanal',
           path: `/${language}/treatments/root-canal`
         },
         {
           key: 'oral-rehabilitation',
-          labelKey: 'oralRehabilitation',
+          labelKey: 'navigation.oralRehabilitation',
           path: `/${language}/treatments/oral-rehabilitation`
         },
         {
           key: 'orthodontics',
-          labelKey: 'orthodontics',
+          labelKey: 'navigation.orthodontics',
           path: `/${language}/treatments/orthodontics`
         }
       ],
       legal: [
         {
           key: 'accessibility',
-          labelKey: 'accessibility.statement',
+          labelKey: 'navigation.accessibility.statement',
           path: `/${language}/accessibility-statement`
         },
         {
           key: 'privacyPolicy',
-          labelKey: 'legal.privacyPolicy',
+          labelKey: 'navigation.legal.privacyPolicy',
           path: `/${language}/privacy-policy`
         },
         {
           key: 'termsOfService',
-          labelKey: 'legal.termsOfService',
+          labelKey: 'navigation.legal.termsOfService',
           path: `/${language}/terms-of-service`
         }
       ]

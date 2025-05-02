@@ -58,40 +58,40 @@ export const languageRoutes: RouteConfig[] = [
   {
     path: '',
     element: LanguageHome,
-    label: 'home',
+    label: 'navigation.home',
     inNavigation: true
   },
   {
     path: 'treatments/botox-treatments',
     element: BotoxTreatmentsPage,
-    label: 'botoxTreatments',
+    label: 'navigation.botoxTreatments',
     inNavigation: true
   },
   {
     path: 'treatments/:treatmentType',
     element: LanguageTreatmentPage,
-    label: 'treatments'
+    label: 'navigation.treatments'
   },
   {
     path: 'preventive-medicine',
     element: PreventiveMedicinePage,
-    label: 'preventiveMedicine',
+    label: 'navigation.preventiveMedicine',
     inNavigation: true
   },
   {
     path: 'accessibility-statement',
     element: AccessibilityStatementPage,
-    label: 'accessibility.statement'
+    label: 'navigation.accessibility.statement'
   },
   {
     path: 'privacy-policy',
     element: PrivacyPolicy,
-    label: 'legal.privacy'
+    label: 'navigation.legal.privacy'
   },
   {
     path: 'terms-of-service',
     element: TermsOfService,
-    label: 'legal.terms'
+    label: 'navigation.legal.terms'
   }
 ];
 

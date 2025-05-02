@@ -40,11 +40,11 @@ const MobileNav = () => {
           variant="ghost" 
           size="icon"
           className="md:hidden hover:bg-dental-beige/20"
-          aria-label={t('toggleMenu', 'Toggle menu')}
+          aria-label={t('common.toggleMenu', 'Toggle menu')}
           ref={firstFocusableRef}
         >
           <Menu className="h-5 w-5 text-dental-navy" />
-          <span className="sr-only">{t('toggleMenu', 'Toggle menu')}</span>
+          <span className="sr-only">{t('common.toggleMenu', 'Toggle menu')}</span>
         </Button>
       </SheetTrigger>
       <SheetContent 
@@ -53,7 +53,7 @@ const MobileNav = () => {
         aria-modal="true"
         role="dialog"
       >
-        <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('mainNavigation', 'Main navigation')}>
+        <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('navigation.mainNavigation', 'Main navigation')}>
           <NavigationLinks
             links={navigation.main}
             vertical
