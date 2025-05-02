@@ -28,9 +28,9 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-unused-vars": "off",
       
-      // i18next plugin rules
+      // i18next plugin rules - strengthen to error level
       "i18next/no-literal-string": [
-        "warn", 
+        "error", 
         {
           // Exclude certain file patterns
           exclude: [

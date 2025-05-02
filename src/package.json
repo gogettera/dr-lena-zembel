@@ -5,6 +5,8 @@
     "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "check-translations": "node ../scripts/check-translations.js"
+    "check-translations": "node ../scripts/check-translations.js",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:i18n": "eslint . --ext ts,tsx --rule 'i18next/no-literal-string: error'"
   }
 }
