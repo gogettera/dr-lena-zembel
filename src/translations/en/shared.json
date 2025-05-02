@@ -1,0 +1,50 @@
+
+{
+  "doctorStory": {
+    "common": {
+      "imageAlt": "Photo of Dr. Lena Zembel",
+      "education": "Graduate of the School of Dentistry at the University of Cologne, Germany",
+      "patientPhoto": "Patient photo"
+    },
+    "orthodontics": {
+      "tagText": "Orthodontics Specialist",
+      "title": "Dr. Lena Zembel - Orthodontics Specialist",
+      "approach": "My approach is based on creating a pleasant and positive experience, while providing professional and gentle treatment personally tailored to each patient.",
+      "experience": "With over 15 years of experience in the field, specializing in orthodontic treatments for adults and youth.",
+      "expertise1": "Advanced alignment treatments",
+      "expertise2": "Gentle and calming approach",
+      "testimonialName": "Tal Cohen",
+      "testimonial": "Dr. Lena treated me throughout the process with exceptional care and patience. My teeth are now completely straight and I can't stop smiling!"
+    },
+    "childenDentistry": {
+      "tagText": "Children's Dental Specialist",
+      "title": "Dr. Lena Zembel - Children's Dental Specialist",
+      "approach": "I believe that dental treatment for children should be a positive and even fun experience. My approach is based on patience, lots of explanations, and building trust with children.",
+      "experience": "Treating children from a young age through adulthood, with special focus on reducing fears and anxieties through gentle and respectful treatment.",
+      "expertise1": "Specializing in anxious children",
+      "expertise2": "Gentle and playful approach",
+      "testimonialName": "Dana Levy, Rotem's mom",
+      "testimonial": "For the first time in his life, my son wasn't afraid of visiting the dentist. Dr. Lena created an amazing connection with him and he's even excited to come for treatments!"
+    },
+    "rehabilitation": {
+      "tagText": "Oral Rehabilitation Specialist",
+      "title": "Dr. Lena Zembel - Oral Rehabilitation Specialist",
+      "approach": "In oral rehabilitation, I focus on restoring full functionality alongside perfect aesthetics. Each treatment is carefully planned with personal customization.",
+      "experience": "Graduate of advanced training in rehabilitation, specializing in implant-supported restorations and advanced CAD/CAM technologies.",
+      "expertise1": "Implant-based rehabilitation",
+      "expertise2": "Advanced aesthetics",
+      "testimonialName": "Moshe Cohen",
+      "testimonial": "Dr. Lena restored my ability to eat and smile with confidence. The rehabilitation I underwent at her clinic changed my quality of life."
+    },
+    "rootCanal": {
+      "tagText": "Root Canal Specialist",
+      "title": "Dr. Lena Zembel - Root Canal Specialist",
+      "approach": "Root canal treatments raise many concerns, but my approach is to make them as simple and pain-free as possible, using advanced technologies.",
+      "experience": "Many years of experience in complex root canal treatments, with emphasis on precision and minimal intervention.",
+      "expertise1": "Pain-free root canal treatments",
+      "expertise2": "Solutions for difficult-to-treat teeth",
+      "testimonialName": "Yael Golan",
+      "testimonial": "I was very apprehensive about root canal treatment, but Dr. Lena surprised me positively. The treatment was quick, painless, and the tooth was successfully preserved."
+    }
+  }
+}

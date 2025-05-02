@@ -1,0 +1,58 @@
+
+{
+  "header": {
+    "title": "Follow Us",
+    "subtitle": "Stay updated with our latest content"
+  },
+  "tabs": {
+    "all": "All",
+    "facebook": "Facebook",
+    "instagram": "Instagram"
+  },
+  "posts": [
+    {
+      "id": 1,
+      "content": "A new patient finished treatment today and the results are amazing! Thank you for your trust 😊",
+      "image": "/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg",
+      "likes": 45,
+      "comments": 12,
+      "shares": 3,
+      "date": "2 hours ago",
+      "platform": "facebook"
+    },
+    {
+      "id": 2,
+      "content": "Dental care for children in a pleasant and soothing environment. With us, every child receives personal and loving attention ❤️",
+      "image": "/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg",
+      "likes": 38,
+      "comments": 8,
+      "shares": 2,
+      "date": "2 days ago",
+      "platform": "instagram"
+    },
+    {
+      "id": 3,
+      "content": "Happy to announce the arrival of new equipment to the clinic! Advanced technology for optimal treatment 🦷",
+      "image": "/lovable-uploads/11fa7c9b-39fc-4d60-b09b-13f0578ebffe.png",
+      "likes": 62,
+      "comments": 15,
+      "shares": 7,
+      "date": "3 days ago",
+      "platform": "facebook"
+    },
+    {
+      "id": 4,
+      "content": "Dr. Lena at the annual dentists' conference. Always staying updated with the latest developments in the field! 👩‍⚕️",
+      "image": "/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg",
+      "likes": 53,
+      "comments": 7,
+      "shares": 4,
+      "date": "1 week ago",
+      "platform": "instagram"
+    }
+  ],
+  "followButtons": {
+    "facebook": "Follow us on Facebook",
+    "instagram": "Follow us on Instagram"
+  }
+}

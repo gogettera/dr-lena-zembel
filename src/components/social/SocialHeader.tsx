@@ -1,23 +1,18 @@
 
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { TranslatedText } from '@/components/ui/translated-text';
 
 const SocialHeader = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="text-center mb-10">
-      <TranslatedText
-        textKey="social.updatesFromPractice"
-        defaultText="Updates From Our Practice"
-        as="h2" 
-        className="text-3xl md:text-4xl font-bold text-dental-navy mb-4"
-      />
-      <TranslatedText
-        textKey="social.followOnFacebook"
-        defaultText="Follow us on Facebook for regular updates"
-        as="p" 
-        className="text-lg text-dental-navy/70 max-w-3xl mx-auto"
-      />
+      <h2 className="text-3xl font-bold text-dental-navy mb-2">
+        {t('social.header.title', 'עקבו אחרינו')}
+      </h2>
+      <p className="text-dental-navy/70 text-lg">
+        {t('social.header.subtitle', 'הישארו מעודכנים עם התכנים החדשים שלנו')}
+      </p>
     </div>
   );
 };

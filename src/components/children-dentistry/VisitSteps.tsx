@@ -2,24 +2,24 @@
 import React from "react";
 import { Clock, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-
-const steps = [
-  { icon: "🧸", label: "קבלת פנים עם צעצוע", desc: "נתחיל בפגישה בחדר המשחקים" },
-  { icon: "💬", label: "הסבר קצר בעמדת הילדים", desc: "נראה ציוד וצעצועים דנטליים" },
-  { icon: "🪥", label: "צחצוח יחד מול מראה", desc: "נלמד טכניקת צחצוח נכונה" },
-  { icon: "📸", label: "סריקה עדינה עם מצלמה קטנה", desc: "נספור שיניים בעזרת מצלמה" },
-  { icon: "🎁", label: "פרס אישי בסיום", desc: "בחירת מדבקה או הפתעה קטנה" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
+import TranslatedText from "@/components/ui/translated-text";
 
 const VisitSteps = () => {
   const isMobile = useIsMobile();
+  const { t } = useLanguage();
+
+  // Get steps from translations
+  const steps = t('childrenDentistry.visitSteps.steps', [], { returnObjects: true }) || [];
 
   return (
     <section id="visit-steps" className="py-14 md:py-20 px-4 bg-[#FFDEE2]/60 scroll-mt-24">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-2xl font-bold text-dental-navy mb-12 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-          מהלך הביקור הראשון
-        </h2>
+        <TranslatedText
+          textKey="childrenDentistry.visitSteps.title"
+          as="h2"
+          className="text-2xl font-bold text-dental-navy mb-12 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
+        />
         
         <div className="relative">
           {!isMobile && (
@@ -27,7 +27,7 @@ const VisitSteps = () => {
           )}
           
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4">
-            {steps.map((step, idx) => (
+            {steps.map((step: any, idx: number) => (
               <div 
                 key={idx} 
                 className="flex flex-col items-center gap-3 w-full relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
@@ -38,8 +38,8 @@ const VisitSteps = () => {
                 </div>
                 
                 <div className="text-center space-y-1">
-                  <div className="font-bold text-dental-navy">{step.label}</div>
-                  <div className="text-dental-navy/70 text-sm hidden md:block">{step.desc}</div>
+                  <div className="font-bold text-dental-navy">{step.title}</div>
+                  <div className="text-dental-navy/70 text-sm hidden md:block">{step.description}</div>
                 </div>
                 
                 {idx < steps.length - 1 && isMobile && (
@@ -55,9 +55,12 @@ const VisitSteps = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mt-10 gap-4 bg-white/80 rounded-xl p-4 shadow-sm border border-dental-beige/30">
           <div className="flex items-center text-dental-navy">
             <Clock className="ml-2 text-dental-orange" />
-            <span>ממוצע משך ביקור ראשון: 25-30 דקות</span>
+            <TranslatedText textKey="childrenDentistry.visitSteps.footer.duration" />
           </div>
-          <div className="text-dental-navy/70 text-sm md:text-base">אין טיפולים בביקור ראשון אלא אם יש צורך רפואי מיידי</div>
+          <TranslatedText 
+            textKey="childrenDentistry.visitSteps.footer.note"
+            className="text-dental-navy/70 text-sm md:text-base"
+          />
         </div>
       </div>
     </section>

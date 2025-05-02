@@ -1,73 +1,106 @@
 
 {
-  "headline1": "Children's Dentistry",
-  "headline2": "Gentle Care for Young Smiles",
-  "subheading": "We understand that children have unique dental needs. Our team is specially trained to provide gentle, calming care that makes dental visits a positive experience.",
-  "mainPoints": [
-    "Kid-friendly environment with games and entertainment",
-    "Gentle approach focusing on prevention",
-    "Specialized in treating dental anxiety in children",
-    "Clear explanations using child-friendly language"
-  ],
-  "services": {
-    "preventiveCare": {
-      "title": "Preventive Care",
-      "description": "Regular check-ups, cleanings, fluoride treatments, and sealants to prevent cavities and promote healthy oral habits from an early age."
-    },
-    "earlyOrthodontics": {
-      "title": "Early Orthodontics",
-      "description": "Early intervention for alignment issues, helping to guide proper jaw and teeth development and potentially reducing future treatment needs."
-    },
-    "traumaManagement": {
-      "title": "Trauma Management",
-      "description": "Expert care for dental injuries such as chips, cracks, or knocked-out teeth, with emergency appointments available."
-    },
-    "behavioralManagement": {
-      "title": "Behavioral Management",
-      "description": "Special techniques to help anxious children feel comfortable, including tell-show-do approach, positive reinforcement, and sedation options when necessary."
+  "hero": {
+    "title": "Happy Children - Dental Treatment with Love and Patience",
+    "subtitle": "At Dr. Lena Zembel's clinic, we don't just treat teeth - we build confidence, peace of mind, and positive experiences for children and parents."
+  },
+  "whyUs": {
+    "title": "Why Children (and Parents) Love Coming to Us?",
+    "items": [
+      {
+        "title": "No Pressure",
+        "description": "The first visit always starts with a conversation, not treatment. We create a pleasant and relaxed visit experience."
+      },
+      {
+        "title": "Age-Appropriate Approach",
+        "description": "Eye-level explanations, without stressful words. Using adapted developmental language."
+      },
+      {
+        "title": "Positive Distractions",
+        "description": "Screen with favorite videos, toys, stickers, and also the option to bring a toy from home."
+      },
+      {
+        "title": "Parents as Partners",
+        "description": "One parent always stays with the child - and even participates if desired. Parents are an important part of the process."
+      }
+    ],
+    "expertise": {
+      "title": "Expertise in Child Treatment",
+      "description": "Our clinic team undergoes special training in treating children and is in constant contact with leading experts in pediatric dentistry. We believe that your child's first experience with a dentist can affect their attitude towards oral and dental health for life."
     }
   },
-  "visitExperience": {
-    "title": "What to Expect During Your Child's Visit",
-    "step1": "Friendly introduction to our team and office",
-    "step2": "Gentle examination with explanation at each step",
-    "step3": "Age-appropriate oral health education with fun demonstrations",
-    "step4": "Treatment using gentle techniques, if needed",
-    "step5": "Positive reinforcement with a small reward"
-  },
-  "ageSpecific": {
-    "infant": {
-      "title": "Infants (0-2 years)",
-      "care": "Early examination, guidance on teething, bottle use, and pacifier habits"
-    },
-    "preschool": {
-      "title": "Preschoolers (3-5 years)",
-      "care": "First complete dental visits, preventive care, habit counseling, and nutritional guidance"
-    },
-    "schoolAge": {
-      "title": "School-Age (6-12 years)",
-      "care": "Mixed dentition management, space maintenance, sealants, and early orthodontic assessment"
-    },
-    "teens": {
-      "title": "Teenagers (13-18 years)",
-      "care": "Advanced preventive care, orthodontics, wisdom teeth monitoring, and oral hygiene reinforcement"
+  "visitSteps": {
+    "title": "First Visit Process",
+    "steps": [
+      {
+        "icon": "🧸",
+        "title": "Welcome with a Toy",
+        "description": "We'll start with a meeting in the playroom"
+      },
+      {
+        "icon": "💬",
+        "title": "Brief Explanation at the Children's Station",
+        "description": "We'll show dental equipment and toys"
+      },
+      {
+        "icon": "🪥",
+        "title": "Brushing Together in Front of a Mirror",
+        "description": "We'll learn the correct brushing technique"
+      },
+      {
+        "icon": "📸",
+        "title": "Gentle Scanning with a Small Camera",
+        "description": "We'll count teeth with a camera"
+      },
+      {
+        "icon": "🎁",
+        "title": "Personal Prize at the End",
+        "description": "Choosing a sticker or small surprise"
+      }
+    ],
+    "footer": {
+      "duration": "Average first visit duration: 25-30 minutes",
+      "note": "No treatments during the first visit unless there is an immediate medical need"
     }
-  },
-  "parentResources": {
-    "title": "Resources for Parents",
-    "homecare": "Home care instructions for each age group",
-    "nutrition": "Nutritional guidance for dental health",
-    "habits": "Managing thumb-sucking and other oral habits",
-    "emergencies": "Dental emergency preparedness"
   },
   "faq": {
-    "q1": "When should my child first visit the dentist?",
-    "a1": "We recommend the first dental visit around your child's first birthday or within six months after the first tooth appears.",
-    "q2": "How often should children have dental check-ups?",
-    "a2": "Most children should visit the dentist every six months. Some may need more frequent visits based on their individual oral health needs.",
-    "q3": "What if my child is afraid of the dentist?",
-    "a3": "Our practice specializes in helping anxious children. We use gentle introduction techniques, child-friendly explanations, and positive reinforcement. For more anxious children, we offer options like nitrous oxide (laughing gas) when appropriate.",
-    "q4": "Are baby teeth really important since they fall out anyway?",
-    "a4": "Yes! Baby teeth hold space for permanent teeth, assist in proper speech development, and allow for proper nutrition. Early loss can lead to spacing issues and potentially more extensive orthodontic treatment later."
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "question": "At what age should dental treatments begin?",
+        "answer": "Usually recommended around two and a half years old - or after the eruption of the first teeth. An early visit helps accustom the child to the clinic environment and build a positive experience from the start."
+      },
+      {
+        "question": "What if the child doesn't cooperate?",
+        "answer": "That's perfectly fine - we have gentle methods based on a psychological approach for children. We adapt the treatment to the child's pace, and sometimes start with just a brief introduction and play during the first visit."
+      },
+      {
+        "question": "Can we come just for consultation?",
+        "answer": "Certainly. There is no commitment to continue treatment. An initial consultation is a good opportunity to ask questions, meet the team, and see if the clinic suits you and your child."
+      },
+      {
+        "question": "How do I prepare my child for the first visit?",
+        "answer": "It's recommended to discuss the visit with the child in a positive and light way, emphasizing that it's a visit to meet the dentist and count teeth. Avoid frightening terms or stories of negative experiences."
+      },
+      {
+        "question": "Can parents be present during treatment?",
+        "answer": "Of course. We encourage parental presence in the treatment room, especially with young children. However, sometimes older children cooperate better when they enter alone."
+      }
+    ]
+  },
+  "clinicExpertise": {
+    "experience": "Over 13 years of experience",
+    "title": "Leading Children's Clinic",
+    "description": "Dr. Lena Zembel, a specialist doctor graduated from the University of Cologne, and the clinic team specialize in gentle dental treatments, full of patience and personalized for every age. Professionalism that provides confidence and peace of mind to parents and children.",
+    "features": [
+      "Specialist doctor certified by the Ministry of Health",
+      "Patience, personal attention, and age-appropriate explanations",
+      "Staff speaking Hebrew, English, Russian, and German"
+    ]
+  },
+  "colors": {
+    "primary": "#FCA5A5",
+    "secondary": "#FECACA",
+    "accent": "#FEE2E2"
   }
 }

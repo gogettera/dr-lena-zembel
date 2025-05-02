@@ -1,44 +1,49 @@
 
 import React from 'react';
-import { Facebook, Instagram } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-type TabType = "all" | "facebook" | "instagram";
+import { cn } from '@/lib/utils';
+import { Facebook, Instagram } from 'lucide-react';
 
 interface SocialFeedTabsProps {
-  activeTab: TabType;
-  onTabChange: (tab: TabType) => void;
+  activeTab: "all" | "facebook" | "instagram";
+  onTabChange: (tab: "all" | "facebook" | "instagram") => void;
 }
 
-const SocialFeedTabs = ({ activeTab, onTabChange }: SocialFeedTabsProps) => {
+const SocialFeedTabs: React.FC<SocialFeedTabsProps> = ({ activeTab, onTabChange }) => {
   const { t } = useLanguage();
   
-  const tabs = [
-    { id: 'all', label: 'הכל', icon: null },
-    { id: 'facebook', label: 'Facebook', icon: <Facebook className="w-4 h-4 text-[#1877F2]" /> },
-    { id: 'instagram', label: 'Instagram', icon: <Instagram className="w-4 h-4 text-[#E1306C]" /> }
-  ] as const;
-
   return (
-    <div className="flex justify-center mb-8">
-      <div className="inline-flex bg-white rounded-full p-1 shadow-md">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => onTabChange(tab.id)}
-            className={cn(
-              "px-4 py-2 rounded-full flex items-center gap-2 transition-colors",
-              activeTab === tab.id
-                ? "bg-dental-orange text-white"
-                : "text-gray-600 hover:text-dental-navy"
-            )}
-            aria-label={`Show ${tab.label} posts`}
-          >
-            {tab.icon}
-            <span>{tab.label}</span>
-          </button>
-        ))}
+    <div className="flex justify-center mb-6">
+      <div className="flex gap-2 rounded-full border border-dental-beige/40 p-1 bg-white/70">
+        <button 
+          className={cn(
+            "px-4 py-2 rounded-full transition-colors",
+            activeTab === "all" ? "bg-dental-navy text-white" : "hover:bg-dental-beige/30"
+          )}
+          onClick={() => onTabChange("all")}
+        >
+          {t('social.tabs.all', 'הכל')}
+        </button>
+        <button 
+          className={cn(
+            "px-4 py-2 rounded-full flex items-center transition-colors gap-2",
+            activeTab === "facebook" ? "bg-[#1877F2] text-white" : "hover:bg-dental-beige/30"
+          )}
+          onClick={() => onTabChange("facebook")}
+        >
+          <Facebook size={18} />
+          {t('social.tabs.facebook', 'פייסבוק')}
+        </button>
+        <button 
+          className={cn(
+            "px-4 py-2 rounded-full flex items-center transition-colors gap-2",
+            activeTab === "instagram" ? "bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white" : "hover:bg-dental-beige/30"
+          )}
+          onClick={() => onTabChange("instagram")}
+        >
+          <Instagram size={18} />
+          {t('social.tabs.instagram', 'אינסטגרם')}
+        </button>
       </div>
     </div>
   );

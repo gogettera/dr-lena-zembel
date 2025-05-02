@@ -2,8 +2,12 @@
 import React from "react";
 import { Book } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
+import { useLanguage } from "@/contexts/LanguageContext";
+import TranslatedText from "@/components/ui/translated-text";
 
 const OrthodonticsHero: React.FC = () => {
+  const { t } = useLanguage();
+  
   return (
     <section
       id="hero"
@@ -18,7 +22,7 @@ const OrthodonticsHero: React.FC = () => {
           <div className="relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
             <OptimizedImage
               src="/images/ortho-hero.jpg"
-              alt="יישור שיניים במרפאה"
+              alt={t("orthodontics.hero.imageAlt", "יישור שיניים במרפאה")}
               className="rounded-3xl shadow-lg w-[340px] md:w-[420px] h-auto object-cover border-4 border-white"
             />
             <Book className="absolute -top-8 rtl:-right-8 left-1/2 -translate-x-1/2 h-14 w-14 text-[#9b87f5] bg-white rounded-full border shadow-lg p-2 animate-pulse" />
@@ -26,12 +30,16 @@ const OrthodonticsHero: React.FC = () => {
         </div>
         {/* Hero Text */}
         <div className="md:w-1/2 text-center md:text-right flex flex-col items-center md:items-end">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 text-[#6E59A5] font-[Heebo] leading-snug opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-            חיוך ישר – בריאות וביטחון עצמי לכל החיים
-          </h1>
-          <p className="text-lg md:text-xl text-[#6E59A5]/80 mb-8 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]">
-            יישור שיניים מותאם אישית, באווירה נעימה ובגישה חדשנית לטיפול במבוגרים ובילדים.
-          </p>
+          <TranslatedText
+            textKey="orthodontics.hero.title"
+            as="h1"
+            className="text-3xl md:text-5xl font-bold mb-6 text-[#6E59A5] font-[Heebo] leading-snug opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
+          />
+          <TranslatedText
+            textKey="orthodontics.hero.subtitle"
+            as="p"
+            className="text-lg md:text-xl text-[#6E59A5]/80 mb-8 opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards]"
+          />
         </div>
       </div>
     </section>

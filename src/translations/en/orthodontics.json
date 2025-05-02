@@ -1,58 +1,99 @@
 
 {
-  "headline": "Modern Orthodontic Solutions",
-  "headline2": "Straighter Teeth, Confident Smiles",
-  "subheading": "Our clinic offers advanced orthodontic treatments for all ages, combining the latest technology with personalized care for optimal results.",
-  "treatmentTypes": "Types of Orthodontic Treatments",
-  "traditionalBraces": "Traditional Braces",
-  "traditionalBracesDesc": "Effective metal braces for comprehensive tooth movement, suitable for complex cases and now more comfortable than ever.",
-  "ceramicBraces": "Ceramic Braces",
-  "ceramicBracesDesc": "Less noticeable than metal braces with tooth-colored or clear brackets, offering both aesthetics and effectiveness.",
-  "clearAligners": "Clear Aligners",
-  "clearAlignersDesc": "Virtually invisible, removable aligners that gradually straighten teeth without metal brackets or wires.",
-  "lingualBraces": "Lingual Braces",
-  "lingualBracesDesc": "Braces that attach to the back of teeth, making them completely hidden from view while still effectively treating alignment issues.",
-  "retainers": "Retainers",
-  "retainersDesc": "Custom-made devices that maintain tooth position after active orthodontic treatment is completed.",
-  "benefits": "Benefits of Orthodontic Treatment",
-  "benefitsSubtitle": "More than just a beautiful smile",
-  "benefit1": "Improved dental function and bite alignment",
-  "benefit2": "Better oral hygiene with properly aligned teeth",
-  "benefit3": "Reduced risk of tooth damage and uneven wear",
-  "benefit4": "Enhanced facial appearance and profile",
-  "benefit5": "Increased self-confidence and comfort",
-  "benefit6": "Long-lasting results with proper maintenance",
-  "idealFor": "Orthodontic Treatment is Ideal For:",
-  "idealFor1": "Children with developing bite problems (early intervention)",
-  "idealFor2": "Teenagers with crooked teeth or spacing issues",
-  "idealFor3": "Adults of any age looking to improve their smile",
-  "idealFor4": "Patients with bite alignment problems causing pain or discomfort",
-  "treatmentProcess": "Orthodontic Treatment Process",
-  "step1Title": "Initial Consultation",
-  "step1Desc": "Comprehensive examination including X-rays and digital scans to assess your unique needs and plan your treatment.",
-  "step2Title": "Treatment Planning",
-  "step2Desc": "Discussion of treatment options, timeframes, and costs, with a personalized plan created for your specific case.",
-  "step3Title": "Active Treatment Phase",
-  "step3Desc": "Regular appointments to adjust your braces or provide new aligners, monitoring progress throughout treatment.",
-  "step4Title": "Retention Phase",
-  "step4Desc": "Custom retainer fitting and instructions for maintaining your new smile after active treatment is complete.",
-  "duration": "Treatment Duration",
-  "durationDesc": "Most orthodontic treatments take 12-24 months, depending on complexity. We offer accelerated options for some patients.",
+  "hero": {
+    "title": "Straight Smile - Health and Self-Confidence for Life",
+    "subtitle": "Personalized orthodontic treatment in a pleasant atmosphere with an innovative approach for adults and children."
+  },
+  "whyUs": {
+    "title": "Why Choose Us for Orthodontics?",
+    "items": [
+      {
+        "title": "Precise and Advanced Planning",
+        "description": "Treatment is done using the most advanced technologies with full personal customization."
+      },
+      {
+        "title": "Close Guidance",
+        "description": "Our team accompanies you throughout the journey – from examination to completion of treatment."
+      },
+      {
+        "title": "Full Transparency",
+        "description": "Every step is explained, every question is answered – no surprises with us."
+      },
+      {
+        "title": "Humane Approach",
+        "description": "A homely feeling and emotional support for teenagers, children and adults."
+      }
+    ],
+    "expertise": {
+      "title": "Experts in Creating Smiles",
+      "description": "Using the world's leading methods – including clear aligners, invisible braces, and treatments customized to patient needs."
+    }
+  },
+  "visitSteps": {
+    "title": "The Orthodontic Treatment Process",
+    "steps": [
+      {
+        "icon": "📋",
+        "title": "Diagnosis and Personal Planning",
+        "description": "Examination of oral condition, imaging and creation of a computerized treatment plan."
+      },
+      {
+        "icon": "🦷",
+        "title": "Appliance Installation",
+        "description": "Fixing braces/invisible aligners according to the plan."
+      },
+      {
+        "icon": "🔁",
+        "title": "Reviews and Monitoring",
+        "description": "Guidance for close monitoring and monthly review to advance the process."
+      },
+      {
+        "icon": "✨",
+        "title": "Revealing the New Smile",
+        "description": "Removal of appliances, guidance for maintaining results."
+      }
+    ],
+    "footer": {
+      "duration": "Average timeframe: 12-24 months",
+      "note": "The plan is customized for each patient and varies according to need"
+    }
+  },
   "faq": {
     "title": "Frequently Asked Questions",
-    "q1": "At what age should orthodontic treatment begin?",
-    "a1": "The American Association of Orthodontists recommends a first orthodontic evaluation by age 7, though treatment often begins later. For adults, it's never too late to start.",
-    "q2": "Do braces hurt?",
-    "a2": "Some discomfort is normal for a few days after adjustments. Modern orthodontics focuses on gentle, continuous forces that minimize pain.",
-    "q3": "How often will I need appointments?",
-    "a3": "Typically every 4-8 weeks, depending on your treatment type and stage of treatment.",
-    "q4": "Can I still play sports with braces?",
-    "a4": "Yes, but we recommend wearing a custom-fitted mouthguard to protect both your braces and teeth during sports.",
-    "q5": "How do I clean my teeth with braces?",
-    "a5": "Special brushing techniques, flossing tools, and regular professional cleanings are all part of maintaining oral health during orthodontic treatment.",
-    "q6": "What foods should I avoid with braces?",
-    "a6": "Hard, sticky, or chewy foods should be avoided with traditional braces. Clear aligner users can remove their aligners for meals without restrictions."
+    "items": [
+      {
+        "question": "Is orthodontic treatment only suitable for children?",
+        "answer": "No! Adults and teenagers also undergo orthodontic treatment today, and innovative technologies make the process comfortable and efficient at any age."
+      },
+      {
+        "question": "How long does an average treatment take?",
+        "answer": "Most processes range from one to two years, depending on complexity and alignment method."
+      },
+      {
+        "question": "Is it possible to perform invisible alignment?",
+        "answer": "Absolutely. We offer clear aligners and invisible braces techniques – according to patient needs."
+      },
+      {
+        "question": "Is there pain during treatment?",
+        "answer": "Sometimes there is discomfort in the first hours after installing the appliances, but it subsides quickly."
+      },
+      {
+        "question": "How do you maintain the result?",
+        "answer": "After completing the process, you receive a retainer and full instructions for maintaining straight teeth over time."
+      }
+    ]
   },
-  "cta": "Ready to Transform Your Smile?",
-  "ctaButton": "Schedule a Consultation"
+  "bookVisit": {
+    "title": "Time to Smile with Confidence!",
+    "subtitle": "We'll provide personal and professional guidance at every stage.",
+    "address": "104 Hadera St, Tel Aviv",
+    "hours": "Days: Sunday–Thursday, Hours: 09:00–18:00",
+    "cta": "Book an Initial Consultation",
+    "backToTop": "Back to Top"
+  },
+  "colors": {
+    "primary": "#6E59A5",
+    "secondary": "#9b87f5",
+    "accent": "#E5DEFF"
+  }
 }

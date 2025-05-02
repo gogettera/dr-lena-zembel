@@ -1,72 +1,103 @@
 
-import React from "react";
-import { useDoctorInfo } from "@/hooks/use-doctor-info";
-import { TreatmentArea } from "@/types/doctor";
-import DoctorPortrait from "@/components/shared/DoctorPortrait";
-import { Icon } from 'lucide-react';
+import React from 'react';
+import { useIsMobile } from "@/hooks/use-mobile";
+import { NextGenImage } from "@/components/ui/next-gen-image";
+import { cn } from '@/lib/utils';
+import { LucideIcon } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import TranslatedText from '@/components/ui/translated-text';
 
 interface DoctorStoryProps {
-  treatmentArea: TreatmentArea;
-  icon: React.ElementType;
-  titleColor?: string;
-  tagBgColor?: string;
-  tagTextColor?: string;
-  cardBgColor?: string;
+  treatmentArea: string;
+  icon: LucideIcon;
+  titleColor: string;
+  tagBgColor: string;
+  tagTextColor: string;
+  cardBgColor: string;
 }
 
-/**
- * Reusable Doctor Story component that pulls consistent information from doctorInfo
- * Always use this component for displaying doctor information to ensure consistency
- */
-const DoctorStory: React.FC<DoctorStoryProps> = ({ 
+const DoctorStory: React.FC<DoctorStoryProps> = ({
   treatmentArea,
-  icon: IconComponent,
-  titleColor = "text-dental-navy",
-  tagBgColor = "bg-dental-navy/5",
-  tagTextColor = "text-dental-navy",
-  cardBgColor = "bg-[#F1F0FB]"
+  icon: Icon,
+  titleColor,
+  tagBgColor,
+  tagTextColor,
+  cardBgColor
 }) => {
-  const { getDoctorInfo, getDoctorSpecialty, getDoctorTags } = useDoctorInfo();
-  const doctorInfo = getDoctorInfo();
-  const specialty = getDoctorSpecialty(treatmentArea);
-  const tags = getDoctorTags(treatmentArea);
+  const isMobile = useIsMobile();
+  const { t } = useLanguage();
 
   return (
-    <section className="py-14 md:py-20 px-4 bg-white">
+    <section className="py-12 md:py-16 px-6 bg-white">
       <div className="container mx-auto max-w-4xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-          <div className="flex justify-center md:col-span-1 order-2 md:order-1">
-            <div className="relative opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
-              <div className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden">
-                <DoctorPortrait 
-                  style="medical" 
-                  width={220} 
-                  height={220} 
-                  rounded="full"
-                />
+        <div className="relative bg-white rounded-3xl overflow-hidden shadow-xl">
+          <div className={cn("absolute top-4 right-4 px-4 py-2 rounded-full flex items-center gap-2 text-sm font-medium z-10", tagBgColor, tagTextColor)}>
+            <Icon size={18} />
+            <TranslatedText textKey={`${treatmentArea}.doctorStory.tagText`} defaultText="המומחים שלנו" />
+          </div>
+          
+          {/* Main content area */}
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12">
+            {/* Doctor image */}
+            <div className="md:w-1/3 relative">
+              <NextGenImage
+                src="/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg"
+                alt={t(`${treatmentArea}.doctorStory.imageAlt`, "תמונה של ד\"ר לנה זמבל")}
+                width={400}
+                height={500}
+                className="w-full h-60 md:h-full object-cover md:rounded-r-3xl"
+                priority
+              />
+            </div>
+            
+            {/* Content */}
+            <div className="md:w-2/3 p-6 md:p-8 flex flex-col justify-center">
+              <div className={cn("text-xl md:text-2xl font-bold mb-4", titleColor)}>
+                <TranslatedText textKey={`${treatmentArea}.doctorStory.title`} defaultText="ד״ר לנה זמבל" />
               </div>
-              <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-2 shadow-md">
-                <IconComponent className="text-dental-orange h-6 w-6" />
+              <div className="mb-4 text-zinc-600">
+                <TranslatedText textKey={`${treatmentArea}.doctorStory.education`} defaultText="בוגרת בית הספר לרפואת שיניים באוניברסיטת קלן, גרמניה" />
+              </div>
+              <div className="space-y-4 text-zinc-700">
+                <p>
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.approach`} defaultText="הגישה שלי מתבססת על יצירת חוויה נעימה וחיובית, תוך מתן טיפול מקצועי ועדין המתאים אישית לכל מטופל ומטופלת." />
+                </p>
+                <p>
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.experience`} defaultText="בעלת ניסיון של למעלה מ-15 שנה בתחום, עם התמחות מיוחדת בטיפולי יישור שיניים למבוגרים ונוער." />
+                </p>
+              </div>
+              
+              {/* Expertise tags */}
+              <div className="mt-6 flex flex-wrap gap-2">
+                <div className={cn("px-3 py-1 rounded-full text-xs", tagBgColor, tagTextColor)}>
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.expertise1`} defaultText="מומחיות בטיפולי יישור מתקדמים" />
+                </div>
+                <div className={cn("px-3 py-1 rounded-full text-xs", tagBgColor, tagTextColor)}>
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.expertise2`} defaultText="גישה עדינה ומרגיעה" />
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="md:col-span-2 order-1 md:order-2">
-            <div className={`${cardBgColor} rounded-2xl p-8 shadow-soft border border-dental-beige/40 text-right opacity-0 animate-[fade-in_0.5s_ease-out_0.2s_forwards]`}>
-              <h2 className={`text-2xl font-bold ${titleColor} mb-4`}>{specialty.title}</h2>
-              <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                {specialty.description || doctorInfo.approach}
-              </p>
-              <p className="text-dental-navy/80 text-lg leading-relaxed mb-3">
-                במרפאה, כל מטופל זוכה לתשומת לב מלאה וטיפול מותאם אישית.
-              </p>
-              
-              <div className="flex flex-wrap gap-3 mt-6">
-                {tags.map((tag, index) => (
-                  <div key={index} className={`${tagBgColor} px-3 py-1 rounded text-sm ${tagTextColor}`}>
-                    {tag}
-                  </div>
-                ))}
+          {/* Testimonial card */}
+          <div className={cn("mx-6 mb-6 p-5 rounded-2xl relative", cardBgColor)}>
+            <div className="flex items-start gap-4">
+              <div className="h-10 w-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-white">
+                <NextGenImage
+                  src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
+                  alt={t('common.patientPhoto', "תמונת מטופל/ת")}
+                  width={40}
+                  height={40}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <div className="font-medium mb-1">
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.testimonialName`} defaultText="טל כהן" />
+                </div>
+                <div className="text-sm text-zinc-600">
+                  <TranslatedText textKey={`${treatmentArea}.doctorStory.testimonial`} defaultText="ד״ר לנה טיפלה בי לאורך כל התהליך באכפתיות ובסבלנות יוצאת דופן. השיניים שלי ישרות לחלוטין עכשיו ואני לא מפסיקה לחייך!" />
+                </div>
               </div>
             </div>
           </div>
