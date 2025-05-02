@@ -1,89 +1,80 @@
 
-import type { Language } from '@/types/language';
+import { Language } from '@/types/language';
 
 /**
- * Validates that all translation keys in the reference language exist in the target language
- * @param translations The complete translations object
- * @param referenceLanguage The language to use as reference (typically 'en' or 'he')
- * @param targetLanguage The language to check against the reference 
- * @returns An array of missing key paths
+ * Log missing translation keys to help identify gaps in translation coverage
  */
-export function validateTranslationKeys(
-  translations: Record<Language, any>,
-  referenceLanguage: Language = 'he',
-  targetLanguage?: Language
-): string[] {
-  const missingKeys: string[] = [];
-  const referenceObj = translations[referenceLanguage];
-  
-  if (!referenceObj) {
-    console.warn(`Reference language '${referenceLanguage}' not found in translations.`);
-    return missingKeys;
+export const logMissingTranslationKeys = (translations: Record<Language, Record<string, any>>) => {
+  // Only run in development mode
+  if (process.env.NODE_ENV !== 'development') {
+    return;
   }
 
-  // Check all languages if no specific target language is provided
-  const languagesToCheck = targetLanguage 
-    ? [targetLanguage]
-    : (Object.keys(translations) as Language[]).filter(lang => lang !== referenceLanguage);
+  // Get all supported languages
+  const languages = Object.keys(translations) as Language[];
   
-  // Helper function to recursively check keys
-  function checkKeysRecursively(refObj: any, targetObj: any, keyPath: string = '') {
-    if (!refObj || typeof refObj !== 'object') return;
-    if (!targetObj || typeof targetObj !== 'object') {
-      missingKeys.push(keyPath || 'root');
-      return;
-    }
+  // Skip if we don't have proper translation data
+  if (languages.length < 2) return;
 
-    Object.keys(refObj).forEach(key => {
-      const newPath = keyPath ? `${keyPath}.${key}` : key;
+  // Use Hebrew (or first language) as the baseline
+  const baseLanguage = 'he' in translations ? 'he' : languages[0];
+  const baseTranslations = translations[baseLanguage];
+
+  // Extract all translation keys from the baseline
+  const baseKeys: string[] = [];
+  
+  // Helper function to recursively extract keys
+  const extractKeys = (obj: any, prefix = '') => {
+    if (!obj || typeof obj !== 'object') return;
+    
+    Object.entries(obj).forEach(([key, value]) => {
+      const fullKey = prefix ? `${prefix}.${key}` : key;
       
-      if (!(key in targetObj)) {
-        missingKeys.push(newPath);
-      } else if (
-        typeof refObj[key] === 'object' && 
-        refObj[key] !== null &&
-        !Array.isArray(refObj[key])
-      ) {
-        checkKeysRecursively(refObj[key], targetObj[key], newPath);
+      if (value && typeof value === 'object' && !Array.isArray(value)) {
+        extractKeys(value, fullKey);
+      } else {
+        baseKeys.push(fullKey);
       }
     });
-  }
-
-  // Check each language against the reference
-  languagesToCheck.forEach(lang => {
-    const langObj = translations[lang];
-    if (!langObj) {
-      console.warn(`Language '${lang}' not found in translations.`);
-      return;
-    }
-    
-    checkKeysRecursively(referenceObj, langObj);
-  });
-
-  return missingKeys;
-}
-
-/**
- * Logs missing translation keys in a clean format during development
- * @param translations The complete translations object
- */
-export function logMissingTranslationKeys(translations: Record<Language, any>): void {
-  if (process.env.NODE_ENV !== 'development') return;
-
-  const referenceLanguages = ['he', 'en'] as Language[];
+  };
   
-  // Check with each reference language
-  referenceLanguages.forEach(refLang => {
-    const otherLanguages = (Object.keys(translations) as Language[])
-      .filter(lang => lang !== refLang);
+  extractKeys(baseTranslations);
+  
+  // Check each language against the baseline
+  const missingTranslations: Record<Language, string[]> = {};
+  
+  languages.forEach(lang => {
+    if (lang === baseLanguage) return;
     
-    otherLanguages.forEach(lang => {
-      const missing = validateTranslationKeys(translations, refLang, lang);
-      if (missing.length > 0) {
-        console.warn(`Missing translations in '${lang}' (compared to '${refLang}'):`, 
-          missing.slice(0, 15), 
-          missing.length > 15 ? `... and ${missing.length - 15} more` : '');
+    const missingKeys = baseKeys.filter(key => {
+      const keyParts = key.split('.');
+      let current = translations[lang];
+      
+      for (const part of keyParts) {
+        if (!current || typeof current !== 'object') {
+          return true;
+        }
+        current = current[part];
+        if (current === undefined) {
+          return true;
+        }
       }
+      
+      return false;
     });
+    
+    if (missingKeys.length > 0) {
+      missingTranslations[lang] = missingKeys;
+    }
   });
-}
+  
+  // Log results
+  if (Object.keys(missingTranslations).length > 0) {
+    console.group('Missing Translation Keys:');
+    Object.entries(missingTranslations).forEach(([lang, keys]) => {
+      console.log(`${lang}: ${keys.length} missing keys`);
+      console.log(keys);
+    });
+    console.groupEnd();
+  }
+};

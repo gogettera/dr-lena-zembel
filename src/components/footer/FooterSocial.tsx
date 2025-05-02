@@ -2,6 +2,7 @@
 import React from 'react';
 import { Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react';
 import { useSocialLinks } from '@/hooks/use-social-links';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const iconMap: { [key: string]: React.ReactNode } = {
   facebook: <Facebook size={20} />,
@@ -13,6 +14,7 @@ const iconMap: { [key: string]: React.ReactNode } = {
 
 const FooterSocial = () => {
   const { links, loading } = useSocialLinks();
+  const { t } = useLanguage();
 
   if (loading || !links || links.showSocialIcons === false) return null;
 
@@ -33,7 +35,7 @@ const FooterSocial = () => {
           target="_blank"
           rel="noopener noreferrer"
           className="text-dental-navy hover:text-dental-orange transition-colors"
-          aria-label={key.charAt(0).toUpperCase() + key.slice(1)}
+          aria-label={t(`social.${key}`, key.charAt(0).toUpperCase() + key.slice(1))}
         >
           {iconMap[key]}
         </a>
