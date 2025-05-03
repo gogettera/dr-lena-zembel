@@ -9,6 +9,7 @@
     "facebook": "Facebook",
     "instagram": "Instagram"
   },
+  "noPosts": "No posts available",
   "posts": [
     {
       "id": 1,

@@ -23,8 +23,8 @@ const SocialFeedSection = () => {
   const [activeTab, setActiveTab] = useState<"all" | "facebook" | "instagram">("all");
   const { t } = useLanguage();
   
-  // Get posts from translations
-  const posts: SocialPostType[] = t('social.posts', [], { returnObjects: true }) || [];
+  // Get posts from translations - make sure to use returnObjects:true in a separate options object
+  const posts: SocialPostType[] = t('social.posts', { returnObjects: true }) || [];
   
   const filteredPosts = activeTab === "all" 
     ? posts 
@@ -38,13 +38,21 @@ const SocialFeedSection = () => {
 
         <div className="w-full relative">
           <EnhancedCarousel className="w-full max-w-5xl mx-auto">
-            {filteredPosts.map((post) => (
-              <CarouselItem key={post.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                <div className="p-1">
-                  <SocialPost post={post} />
+            {Array.isArray(filteredPosts) && filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <CarouselItem key={post.id} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <SocialPost post={post} />
+                  </div>
+                </CarouselItem>
+              ))
+            ) : (
+              <CarouselItem className="pl-2 md:pl-4 basis-full">
+                <div className="p-4 text-center text-gray-500">
+                  {t('social.noPosts', 'No posts available')}
                 </div>
               </CarouselItem>
-            ))}
+            )}
           </EnhancedCarousel>
         </div>
 

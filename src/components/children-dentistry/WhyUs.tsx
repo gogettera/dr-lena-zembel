@@ -1,64 +1,49 @@
 
-import React from "react";
-import { Baby, Headphones, HandHeart, Award } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useLanguage } from "@/contexts/LanguageContext";
-import TranslatedText from "@/components/ui/translated-text";
+import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 const WhyUs = () => {
-  const isMobile = useIsMobile();
   const { t } = useLanguage();
-
-  // Get items from translations
-  const whyUsItems = t('childrenDentistry.whyUs.items', [], { returnObjects: true }) || [];
   
-  // Map icons to items
-  const icons = [
-    <span key="emoji" className="text-3xl leading-none">🎈</span>,
-    <Baby key="baby" className="text-dental-orange" size={30} />,
-    <Headphones key="headphones" className="text-dental-orange" size={30} />,
-    <HandHeart key="handheart" className="text-dental-orange" size={30} />
-  ];
-
+  // Ensure we use correct options format with returnObjects set to true
+  const reasons = t('childrenDentistry.whyUs.reasons', { returnObjects: true }) || [];
+  
   return (
-    <section id="why-us" className="py-14 md:py-20 bg-[#D3E4FD]/50 scroll-mt-24">
-      <div className="container mx-auto">
-        <TranslatedText
-          textKey="childrenDentistry.whyUs.title"
-          as="h2"
-          className="text-2xl md:text-3xl font-bold text-dental-navy mb-10 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-        />
+    <section id="why-us" className="py-16 bg-gradient-to-b from-white to-dental-beige/20">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-dental-navy text-center mb-3">
+          <TranslatedText textKey="childrenDentistry.whyUs.title" />
+        </h2>
+        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          <TranslatedText textKey="childrenDentistry.whyUs.subtitle" />
+        </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto px-4">
-          {whyUsItems.map((item: any, i: number) => (
-            <div 
-              key={i} 
-              className="bg-white/80 rounded-2xl shadow-soft border border-dental-beige/40 p-6 text-center flex flex-col items-center group hover:shadow-lg transition-all duration-300 opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="mb-4 bg-[#F1F0FB]/70 rounded-full p-4 w-16 h-16 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                {icons[i % icons.length]}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Array.isArray(reasons) && reasons.map((reason, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
+              <div className="text-dental-orange mb-4 flex justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
               </div>
-              <div className="font-bold text-dental-navy text-lg mb-3">{item.title}</div>
-              <div className="text-dental-navy/80 text-sm">{item.description}</div>
+              <h3 className="text-xl font-semibold mb-3 text-dental-navy text-center">
+                {reason.title}
+              </h3>
+              <p className="text-gray-700 text-center">{reason.description}</p>
             </div>
           ))}
-        </div>
-        
-        <div className="mt-12 max-w-2xl mx-auto bg-dental-navy/5 rounded-2xl p-6 border border-dental-beige/30 opacity-0 animate-[fade-in_0.5s_ease-out_0.4s_forwards]">
-          <div className="flex items-center mb-3">
-            <Award className="text-dental-orange ml-3" size={24} />
-            <TranslatedText
-              textKey="childrenDentistry.whyUs.expertise.title"
-              as="h3"
-              className="font-bold text-dental-navy text-lg"
-            />
-          </div>
-          <TranslatedText
-            textKey="childrenDentistry.whyUs.expertise.description"
-            as="p"
-            className="text-dental-navy/80 text-sm md:text-base"
-          />
         </div>
       </div>
     </section>
