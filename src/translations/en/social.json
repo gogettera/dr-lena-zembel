@@ -10,6 +10,38 @@
     "instagram": "Instagram"
   },
   "noPosts": "No posts available",
+  "errors": {
+    "load_failed": "Failed to load social feed",
+    "fetch_failed": "Error refreshing feed",
+    "try_again": "Please try again later"
+  },
+  "actions": {
+    "try_again": "Try Again",
+    "refresh": "Refresh Feed",
+    "share": "Share this post",
+    "view_original": "View original post"
+  },
+  "refresh": {
+    "success": "Feed Refreshed",
+    "updated": "Social feed has been updated with latest posts",
+    "failed": "Refresh Failed",
+    "try_again": "Unable to fetch new posts. Please try again later."
+  },
+  "time": {
+    "just_now": "just now",
+    "minutes_ago": "{{count}} min ago",
+    "hours_ago": "{{count}} hours ago",
+    "days_ago": "{{count}} days ago",
+    "weeks_ago": "{{count}} weeks ago",
+    "months_ago": "{{count}} months ago",
+    "years_ago": "{{count}} years ago"
+  },
+  "share": {
+    "check_out_post": "Check out this post from Dr. Zembel's Dental Clinic"
+  },
+  "post": {
+    "image_alt": "Social media post image: {{content}}"
+  },
   "posts": [
     {
       "id": 1,

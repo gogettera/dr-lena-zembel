@@ -1,114 +1,180 @@
 
-import React from "react";
-import { Form, FormField, FormItem, FormLabel, FormDescription, FormControl } from "@/components/ui/form";
+import React from 'react';
+import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl, FormDescription } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Linkedin, Youtube, Twitter, Share2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "@/hooks/use-toast";
 import SocialInputRow from "./SocialInputRow";
-import { Switch } from "@/components/ui/switch";
-import { UseFormReturn } from "react-hook-form";
-import type { SocialMediaSettingsFormFields } from "./useSocialMediaSettingsForm";
 
-interface SocialMediaSettingsFormProps {
-  form: UseFormReturn<SocialMediaSettingsFormFields>;
-  loading: boolean;
-  onSubmit: (data: SocialMediaSettingsFormFields) => void;
-}
+const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
+  const handleFetchPosts = async () => {
+    try {
+      const response = await fetch('/api/functions/v1/fetch-facebook-posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pageId: form.getValues('facebook_page_id') || 'drzembel',
+          limit: 10
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        toast.success({
+          title: 'Posts updated successfully',
+          description: `Fetched ${data.posts?.length || 0} posts from Facebook`
+        });
+      } else {
+        toast.error({
+          title: 'Failed to fetch posts',
+          description: data.error || 'An unknown error occurred'
+        });
+      }
+    } catch (error) {
+      toast.error({
+        title: 'Failed to fetch posts',
+        description: error.message
+      });
+    }
+  };
 
-const SocialMediaSettingsForm: React.FC<SocialMediaSettingsFormProps> = ({ form, loading, onSubmit }) => (
-  <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-      <FormField
-        control={form.control}
-        name="facebook"
-        render={({ field }) => (
-          <SocialInputRow
-            icon={<Facebook className="w-5 h-5 text-[#1877F2] mr-2" />}
-            label="Facebook Page URL"
-            placeholder="https://facebook.com/yourpage"
-            field={field}
-            loading={loading}
-          />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="instagram"
-        render={({ field }) => (
-          <SocialInputRow
-            icon={<Instagram className="w-5 h-5 text-[#E1306C] mr-2" />}
-            label="Instagram Profile URL"
-            placeholder="https://instagram.com/yourprofile"
-            field={field}
-            loading={loading}
-          />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="linkedin"
-        render={({ field }) => (
-          <SocialInputRow
-            icon={<Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />}
-            label="LinkedIn Profile URL"
-            placeholder="https://linkedin.com/in/yourprofile"
-            field={field}
-            loading={loading}
-          />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="youtube"
-        render={({ field }) => (
-          <SocialInputRow
-            icon={<Youtube className="w-5 h-5 text-[#FF0000] mr-2" />}
-            label="YouTube Channel URL"
-            placeholder="https://youtube.com/channel/yourchannelid"
-            field={field}
-            loading={loading}
-          />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="twitter"
-        render={({ field }) => (
-          <SocialInputRow
-            icon={<Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />}
-            label="Twitter Profile URL"
-            placeholder="https://twitter.com/yourhandle"
-            field={field}
-            loading={loading}
-          />
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="showSocialIcons"
-        render={({ field }) => (
-          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 mt-6">
-            <div className="space-y-0.5">
-              <FormLabel className="text-base">Show Social Media Icons</FormLabel>
-              <FormDescription>
-                Toggle to show or hide social media icons in the website footer
-              </FormDescription>
-            </div>
-            <FormControl>
-              <Switch
-                checked={field.value}
-                onCheckedChange={field.onChange}
-                disabled={loading}
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="space-y-6">
+          <FormField
+            control={form.control}
+            name="facebook"
+            render={({ field }) => (
+              <SocialInputRow
+                icon="facebook"
+                field={field}
+                label="Facebook URL"
+                placeholder="https://facebook.com/your-page"
               />
-            </FormControl>
-          </FormItem>
-        )}
-      />
-      <Button type="submit" disabled={loading}>
-        <Share2 className="w-4 h-4 mr-2" />
-        {loading ? "Saving..." : "Save Social Media Settings"}
-      </Button>
-    </form>
-  </Form>
-);
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="facebook_page_id"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Facebook Page ID or username</FormLabel>
+                <FormControl>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="drzembel"
+                      {...field}
+                      value={field.value || ''}
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="button" 
+                      variant="outline"
+                      onClick={handleFetchPosts}
+                      disabled={loading || !field.value}
+                    >
+                      Fetch Posts
+                    </Button>
+                  </div>
+                </FormControl>
+                <FormDescription>
+                  Enter your Facebook Page ID or username to fetch posts automatically
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="instagram"
+            render={({ field }) => (
+              <SocialInputRow
+                icon="instagram"
+                field={field}
+                label="Instagram URL"
+                placeholder="https://instagram.com/your-username"
+              />
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="twitter"
+            render={({ field }) => (
+              <SocialInputRow
+                icon="twitter"
+                field={field}
+                label="Twitter URL"
+                placeholder="https://twitter.com/your-handle"
+              />
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <SocialInputRow
+                icon="linkedin"
+                field={field}
+                label="LinkedIn URL"
+                placeholder="https://linkedin.com/company/your-company"
+              />
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="youtube"
+            render={({ field }) => (
+              <SocialInputRow
+                icon="youtube"
+                field={field}
+                label="YouTube URL"
+                placeholder="https://youtube.com/@your-channel"
+              />
+            )}
+          />
+        </div>
+        
+        <FormField
+          control={form.control}
+          name="show_social_icons"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <div className="space-y-1 leading-none">
+                <FormLabel>
+                  Show social media icons
+                </FormLabel>
+                <FormDescription>
+                  Display social media icons in the website footer
+                </FormDescription>
+              </div>
+            </FormItem>
+          )}
+        />
+        
+        <div className="flex justify-end">
+          <Button type="submit" disabled={loading} className="w-full md:w-auto">
+            {loading ? "Saving..." : "Save Settings"}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
 
 export default SocialMediaSettingsForm;

@@ -126,6 +126,48 @@ export type Database = {
         }
         Relationships: []
       }
+      facebook_posts: {
+        Row: {
+          comments_count: number | null
+          content: string | null
+          created_at: string | null
+          fetched_at: string | null
+          id: string
+          image_url: string | null
+          likes_count: number | null
+          platform: string
+          post_url: string | null
+          shares_count: number | null
+          video_url: string | null
+        }
+        Insert: {
+          comments_count?: number | null
+          content?: string | null
+          created_at?: string | null
+          fetched_at?: string | null
+          id: string
+          image_url?: string | null
+          likes_count?: number | null
+          platform?: string
+          post_url?: string | null
+          shares_count?: number | null
+          video_url?: string | null
+        }
+        Update: {
+          comments_count?: number | null
+          content?: string | null
+          created_at?: string | null
+          fetched_at?: string | null
+          id?: string
+          image_url?: string | null
+          likes_count?: number | null
+          platform?: string
+          post_url?: string | null
+          shares_count?: number | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       google_reviews: {
         Row: {
           author_name: string

@@ -1,111 +1,107 @@
 
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
 
-import { useForm } from "react-hook-form";
-import React from 'react';
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+// Form schema
+const socialMediaFormSchema = z.object({
+  facebook: z.string().nullable(),
+  facebook_page_id: z.string().nullable(),
+  instagram: z.string().nullable(),
+  twitter: z.string().nullable(),
+  linkedin: z.string().nullable(),
+  youtube: z.string().nullable(),
+  show_social_icons: z.boolean().default(true),
+});
 
-export interface SocialMediaSettingsFormFields {
-  facebook: string;
-  instagram: string;
-  linkedin: string;
-  youtube: string;
-  twitter: string;
-  showSocialIcons: boolean;
-}
+type SocialMediaFormValues = z.infer<typeof socialMediaFormSchema>;
 
 export function useSocialMediaSettingsForm() {
-  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const form = useForm<SocialMediaSettingsFormFields>({
+  // Initialize form
+  const form = useForm<SocialMediaFormValues>({
+    resolver: zodResolver(socialMediaFormSchema),
     defaultValues: {
       facebook: '',
+      facebook_page_id: '',
       instagram: '',
+      twitter: '',
       linkedin: '',
       youtube: '',
-      twitter: '',
-      showSocialIcons: true,
+      show_social_icons: true,
     },
   });
 
-  const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    const load = async () => {
+  // Fetch existing settings
+  useEffect(() => {
+    async function fetchSettings() {
       setLoading(true);
-      let { data, error } = await supabase
-        .from('site_social')
-        .select('*')
-        .eq('id', 1)
-        .maybeSingle();
+      try {
+        const { data, error } = await supabase
+          .from('site_social')
+          .select('*')
+          .eq('id', 1)
+          .single();
 
-      // Handle not found case: insert a blank row first
-      if (!data && !error) {
-        const { error: insertError } = await supabase.from('site_social').insert([{ id: 1 }]);
-        if (insertError) {
-          toast({
-            title: "Couldn't initialize social settings",
-            description: insertError.message,
-            variant: "destructive"
-          });
-          setLoading(false);
+        if (error) {
+          console.error('Error fetching social media settings', error);
           return;
         }
-        const res = await supabase.from('site_social').select('*').eq('id', 1).maybeSingle();
-        data = res.data;
-      }
 
-      if (data) {
+        // Map database fields to form fields
         form.reset({
           facebook: data.facebook || '',
+          facebook_page_id: data.facebook_page_id || '',
           instagram: data.instagram || '',
+          twitter: data.twitter || '',
           linkedin: data.linkedin || '',
           youtube: data.youtube || '',
-          twitter: data.twitter || '',
-          showSocialIcons: typeof data.show_social_icons === "boolean" ? data.show_social_icons : true
+          show_social_icons: typeof data.show_social_icons === 'boolean' ? data.show_social_icons : true,
         });
+      } catch (err) {
+        console.error('Error in fetching social media settings', err);
+      } finally {
+        setLoading(false);
       }
-      if (error) {
-        toast({
-          title: "Error loading social settings",
-          description: error.message,
-          variant: "destructive"
-        });
-      }
-      setLoading(false);
-    };
-    load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    }
 
-  const onSubmit = async (fields: SocialMediaSettingsFormFields) => {
+    fetchSettings();
+  }, [form]);
+
+  // Form submission handler
+  const onSubmit = async (values: SocialMediaFormValues) => {
     setLoading(true);
     try {
-      const updateObj = {
-        id: 1,
-        facebook: fields.facebook || '',
-        instagram: fields.instagram || '',
-        linkedin: fields.linkedin || '',
-        youtube: fields.youtube || '',
-        twitter: fields.twitter || '',
-        show_social_icons: typeof fields.showSocialIcons === 'boolean' ? fields.showSocialIcons : true,
-        updated_at: new Date().toISOString()
-      };
       const { error } = await supabase
         .from('site_social')
-        .upsert(updateObj, { onConflict: 'id' });
-      if (error) {
-        toast({
-          title: "Error saving social media settings",
-          description: error.message,
-          variant: "destructive",
+        .upsert({
+          id: 1,
+          facebook: values.facebook,
+          facebook_page_id: values.facebook_page_id,
+          instagram: values.instagram,
+          twitter: values.twitter,
+          linkedin: values.linkedin,
+          youtube: values.youtube,
+          show_social_icons: values.show_social_icons,
+          updated_at: new Date(),
         });
-      } else {
-        toast({
-          title: "Social media settings updated",
-          description: "Your social media links have been updated successfully.",
-        });
-      }
+
+      if (error) throw error;
+
+      toast.success({
+        title: 'Settings saved',
+        description: 'Social media settings have been updated',
+      });
+    } catch (error) {
+      console.error('Error saving social media settings', error);
+      toast.error({
+        title: 'Error saving settings',
+        description: error.message || 'Please try again',
+      });
     } finally {
       setLoading(false);
     }
