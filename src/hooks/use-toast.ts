@@ -1,6 +1,5 @@
 
 import { toast as shadcnToast } from "@/components/ui/sonner";
-import { useToast as useShadcnToast } from "@/components/ui/toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatTranslation } from "@/utils/translation/format";
 

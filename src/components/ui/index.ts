@@ -34,3 +34,6 @@ export * from "./resizable";
 export * from "./scroll-area";
 export * from "./section-header";
 export * from "./separator";
+export * from "./sonner";
+export * from "./toaster";
+export * from "./toast";
