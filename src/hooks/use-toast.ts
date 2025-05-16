@@ -84,8 +84,19 @@ export function useToast() {
   };
 }
 
-// For direct import - create functions that can be called directly
-const showToast = (props: ToastProps) => {
+// Create a type for the toast function that includes both call signature and properties
+type ToastFunction = {
+  (props: ToastProps): string | number;
+  success: (props: ToastProps) => string | number;
+  error: (props: ToastProps) => string | number;
+  warning: (props: ToastProps) => string | number;
+  info: (props: ToastProps) => string | number;
+  default: (props: ToastProps) => string | number;
+  passwordSecurityInfo: () => string | number;
+};
+
+// Create the base toast function
+const toastFn = (props: ToastProps): string | number => {
   const variant = props.variant || "default";
   if (variant === "success") {
     return shadcnToast.success(props.title || "", { description: props.description });
@@ -100,23 +111,16 @@ const showToast = (props: ToastProps) => {
   }
 };
 
-// Export a singleton instance for direct import
-export const toast = {
-  // Make the toast object callable as a function directly
-  __proto__: new Proxy({}, {
-    apply: (_target, _thisArg, [props]: [ToastProps]) => showToast(props)
-  }),
-  
-  // Individual methods
-  success: (props: ToastProps) => shadcnToast.success(props.title || "", { description: props.description }),
-  error: (props: ToastProps) => shadcnToast.error(props.title || "", { description: props.description }),
-  warning: (props: ToastProps) => shadcnToast.warning(props.title || "", { description: props.description }),
-  info: (props: ToastProps) => shadcnToast.info(props.title || "", { description: props.description }),
-  default: (props: ToastProps) => shadcnToast(props.title || "", { description: props.description }),
-  passwordSecurityInfo: () => shadcnToast.info(
-    "Password Security Check",
-    { 
-      description: "Your password will be checked against known data breaches to ensure your account remains secure."
-    }
-  )
-};
+// Add properties to the function
+export const toast = toastFn as ToastFunction;
+
+// Add methods to the toast function
+toast.success = (props: ToastProps) => shadcnToast.success(props.title || "", { description: props.description });
+toast.error = (props: ToastProps) => shadcnToast.error(props.title || "", { description: props.description });
+toast.warning = (props: ToastProps) => shadcnToast.warning(props.title || "", { description: props.description });
+toast.info = (props: ToastProps) => shadcnToast.info(props.title || "", { description: props.description });
+toast.default = (props: ToastProps) => shadcnToast(props.title || "", { description: props.description });
+toast.passwordSecurityInfo = () => shadcnToast.info(
+  "Enhanced Password Security", 
+  { description: "Your password will be checked against known data breaches to ensure your account remains secure." }
+);
