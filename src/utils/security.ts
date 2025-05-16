@@ -2,6 +2,8 @@
  * Security utility functions
  */
 
+import { toast } from "@/hooks/use-toast";
+
 /**
  * Sanitizes text content to prevent XSS attacks
  * @param text Text to sanitize
@@ -53,11 +55,10 @@ export const getPasswordRequirements = (): Record<string, string> => {
 
 /**
  * Enhances password security by showing alerts about leaked password protection
- * @param showToast Function to display a toast notification
  */
-export const enhancePasswordSecurity = (showToast: () => void): void => {
+export const enhancePasswordSecurity = (): void => {
   // Display password security information toast
-  showToast();
+  toast.passwordSecurityInfo();
 };
 
 /**

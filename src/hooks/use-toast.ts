@@ -1,6 +1,6 @@
 
-import { Toast as ShadcnToast, toast as shadcnToast } from "@/components/ui/sonner";
-import { useToast as useShadcnToast } from "@/components/ui/use-toast";
+import { Toast, toast as shadcnToast } from "@/components/ui/sonner";
+import { useToast as useShadcnToast } from "@radix-ui/react-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatTranslation } from "@/utils/translation/format";
 
@@ -18,7 +18,7 @@ export interface ToastProps {
 }
 
 export function useToast() {
-  const toast = useShadcnToast();
+  const { toast } = useShadcnToast();
   const { t } = useLanguage();
 
   const showToast = ({
@@ -44,7 +44,7 @@ export function useToast() {
       finalDescription = t(descriptionKey, { params: descriptionParams });
     }
 
-    toast.toast({
+    toast({
       title: finalTitle,
       description: finalDescription,
       action,
@@ -75,7 +75,6 @@ export function useToast() {
   };
 
   return {
-    ...toast,
     toast: showToast,
     success: showSuccess,
     error: showError,
@@ -99,5 +98,3 @@ export const toast = {
     }
   )
 };
-
-export default useToast;
