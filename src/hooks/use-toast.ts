@@ -1,6 +1,6 @@
 
 import { toast as shadcnToast } from "@/components/ui/sonner";
-import { useToast as useShadcnToast } from "@radix-ui/react-toast";
+import { useToast as useShadcnToast } from "@/components/ui/toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatTranslation } from "@/utils/translation/format";
 
@@ -18,8 +18,9 @@ export interface ToastProps {
 }
 
 export function useToast() {
-  const { toast } = useShadcnToast();
   const { t } = useLanguage();
+  // Create a fake toasts array to satisfy the toaster component
+  const toasts: any[] = [];
 
   const showToast = ({
     title,
@@ -44,13 +45,17 @@ export function useToast() {
       finalDescription = t(descriptionKey, { params: descriptionParams });
     }
 
-    toast({
-      title: finalTitle,
-      description: finalDescription,
-      action,
-      variant,
-      duration,
-    });
+    if (variant === "success") {
+      shadcnToast.success(finalTitle || "", { description: finalDescription, action });
+    } else if (variant === "destructive") {
+      shadcnToast.error(finalTitle || "", { description: finalDescription, action });
+    } else if (variant === "warning") {
+      shadcnToast.warning(finalTitle || "", { description: finalDescription, action });
+    } else if (variant === "info") {
+      shadcnToast.info(finalTitle || "", { description: finalDescription, action });
+    } else {
+      shadcnToast(finalTitle || "", { description: finalDescription, action });
+    }
   };
 
   // Predefined toast types
@@ -80,34 +85,36 @@ export function useToast() {
     error: showError,
     warning: showWarning,
     info: showInfo,
-    passwordSecurityInfo: showPasswordSecurityInfo
+    passwordSecurityInfo: showPasswordSecurityInfo,
+    // Add the toasts property to satisfy the Toaster component
+    toasts
   };
 }
 
 // Create a type for the toast function that includes both call signature and properties
 type ToastFunction = {
-  (props: ToastProps): string | number;
-  success: (props: ToastProps) => string | number;
-  error: (props: ToastProps) => string | number;
-  warning: (props: ToastProps) => string | number;
-  info: (props: ToastProps) => string | number;
-  default: (props: ToastProps) => string | number;
-  passwordSecurityInfo: () => string | number;
+  (props: ToastProps): void;
+  success: (props: ToastProps) => void;
+  error: (props: ToastProps) => void;
+  warning: (props: ToastProps) => void;
+  info: (props: ToastProps) => void;
+  default: (props: ToastProps) => void;
+  passwordSecurityInfo: () => void;
 };
 
 // Create the base toast function
-const toastFn = (props: ToastProps): string | number => {
+const toastFn = (props: ToastProps): void => {
   const variant = props.variant || "default";
   if (variant === "success") {
-    return shadcnToast.success(props.title || "", { description: props.description });
+    shadcnToast.success(props.title || "", { description: props.description });
   } else if (variant === "destructive") {
-    return shadcnToast.error(props.title || "", { description: props.description });
+    shadcnToast.error(props.title || "", { description: props.description });
   } else if (variant === "warning") {
-    return shadcnToast.warning(props.title || "", { description: props.description });
+    shadcnToast.warning(props.title || "", { description: props.description });
   } else if (variant === "info") {
-    return shadcnToast.info(props.title || "", { description: props.description });
+    shadcnToast.info(props.title || "", { description: props.description });
   } else {
-    return shadcnToast(props.title || "", { description: props.description });
+    shadcnToast(props.title || "", { description: props.description });
   }
 };
 
