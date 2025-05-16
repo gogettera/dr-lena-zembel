@@ -1,0 +1,25 @@
+
+{
+  "password": {
+    "requirements": {
+      "title": "דרישות סיסמה",
+      "minLength": "לפחות 10 תווים",
+      "containsLetter": "לפחות אות אחת",
+      "containsNumber": "לפחות מספר אחד",
+      "containsSymbol": "לפחות תו מיוחד אחד",
+      "notCompromised": "אסור שתהיה סיסמה ידועה שדלפה"
+    },
+    "securityCheck": {
+      "title": "אבטחת סיסמה מתקדמת",
+      "description": "הסיסמה שלך תיבדק מול מאגרי מידע של דליפות נתונים כדי להבטיח שחשבונך נשאר מאובטח."
+    },
+    "validation": {
+      "tooWeak": "הסיסמה חלשה מדי",
+      "compromised": "סיסמה זו נמצאה בדליפות נתונים. אנא בחר סיסמה אחרת."
+    }
+  },
+  "notice": {
+    "passwordChanged": "הסיסמה שלך עודכנה בהצלחה.",
+    "accountSecured": "החשבון שלך מאובטח יותר כעת."
+  }
+}

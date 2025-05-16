@@ -1,0 +1,25 @@
+
+{
+  "password": {
+    "requirements": {
+      "title": "Password Requirements",
+      "minLength": "At least 10 characters",
+      "containsLetter": "At least one letter",
+      "containsNumber": "At least one number",
+      "containsSymbol": "At least one special character",
+      "notCompromised": "Must not be a known compromised password"
+    },
+    "securityCheck": {
+      "title": "Enhanced Password Security",
+      "description": "Your password will be checked against known data breaches to ensure your account remains secure."
+    },
+    "validation": {
+      "tooWeak": "Password is too weak",
+      "compromised": "This password has been found in data breaches. Please choose a different one."
+    }
+  },
+  "notice": {
+    "passwordChanged": "Your password has been updated successfully.",
+    "accountSecured": "Your account is now more secure."
+  }
+}

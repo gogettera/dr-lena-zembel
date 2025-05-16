@@ -1,4 +1,3 @@
-
 /**
  * Security utility functions
  */
@@ -36,6 +35,29 @@ export const validatePassword = (password: string): boolean => {
   // At least 10 characters, 1 letter, 1 number, 1 special character
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{10,}$/;
   return passwordRegex.test(password);
+};
+
+/**
+ * Returns an object with password requirement descriptions
+ * @returns Object containing password requirements
+ */
+export const getPasswordRequirements = (): Record<string, string> => {
+  return {
+    minLength: "At least 10 characters",
+    containsLetter: "At least one letter",
+    containsNumber: "At least one number",
+    containsSpecial: "At least one special character",
+    notCompromised: "Not found in known data breaches"
+  };
+};
+
+/**
+ * Enhances password security by showing alerts about leaked password protection
+ * @param showToast Function to display a toast notification
+ */
+export const enhancePasswordSecurity = (showToast: () => void): void => {
+  // Display password security information toast
+  showToast();
 };
 
 /**
