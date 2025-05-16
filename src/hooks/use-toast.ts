@@ -1,5 +1,5 @@
 
-import { Toast, toast as shadcnToast } from "@/components/ui/sonner";
+import { toast as shadcnToast } from "@/components/ui/sonner";
 import { useToast as useShadcnToast } from "@radix-ui/react-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatTranslation } from "@/utils/translation/format";
@@ -84,8 +84,30 @@ export function useToast() {
   };
 }
 
+// For direct import - create functions that can be called directly
+const showToast = (props: ToastProps) => {
+  const variant = props.variant || "default";
+  if (variant === "success") {
+    return shadcnToast.success(props.title || "", { description: props.description });
+  } else if (variant === "destructive") {
+    return shadcnToast.error(props.title || "", { description: props.description });
+  } else if (variant === "warning") {
+    return shadcnToast.warning(props.title || "", { description: props.description });
+  } else if (variant === "info") {
+    return shadcnToast.info(props.title || "", { description: props.description });
+  } else {
+    return shadcnToast(props.title || "", { description: props.description });
+  }
+};
+
 // Export a singleton instance for direct import
 export const toast = {
+  // Make the toast object callable as a function directly
+  __proto__: new Proxy({}, {
+    apply: (_target, _thisArg, [props]: [ToastProps]) => showToast(props)
+  }),
+  
+  // Individual methods
   success: (props: ToastProps) => shadcnToast.success(props.title || "", { description: props.description }),
   error: (props: ToastProps) => shadcnToast.error(props.title || "", { description: props.description }),
   warning: (props: ToastProps) => shadcnToast.warning(props.title || "", { description: props.description }),
