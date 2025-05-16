@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
 import SocialPost from './social/SocialPost';
 import SocialHeader from './social/SocialHeader';
@@ -22,10 +22,24 @@ interface SocialPostType {
 const SocialFeedSection = () => {
   const [activeTab, setActiveTab] = useState<"all" | "facebook" | "instagram">("all");
   const { t } = useLanguage();
+  const [posts, setPosts] = useState<SocialPostType[]>([]);
   
-  // Get posts from translations - make sure to use returnObjects:true in a separate options object
-  const posts: SocialPostType[] = t('social.posts', { returnObjects: true }) || [];
+  // Get posts from translations with proper typing and error handling
+  useEffect(() => {
+    // Ensure we're using the correct options format with returnObjects set to true
+    const translatedPosts = t('social.posts', { returnObjects: true });
+    
+    // Make sure translatedPosts is an array before setting it
+    if (Array.isArray(translatedPosts)) {
+      setPosts(translatedPosts);
+    } else {
+      console.error('Expected social.posts to be an array, got:', translatedPosts);
+      // Fallback to empty array if translation doesn't return array
+      setPosts([]);
+    }
+  }, [t]);
   
+  // Filter posts based on active tab
   const filteredPosts = activeTab === "all" 
     ? posts 
     : posts.filter(post => post.platform === activeTab);

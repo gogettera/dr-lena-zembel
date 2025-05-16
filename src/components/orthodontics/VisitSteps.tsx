@@ -1,13 +1,28 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TranslatedText } from '@/components/ui/translated-text';
 
+// Define interface for step items
+interface StepItem {
+  title: string;
+  description: string;
+}
+
 const VisitSteps = () => {
   const { t } = useLanguage();
+  const [steps, setSteps] = useState<StepItem[]>([]);
   
-  // Ensure we use correct options format with returnObjects set to true
-  const steps = t('orthodontics.visitSteps.steps', { returnObjects: true }) || [];
+  useEffect(() => {
+    // Ensure we use correct options format with returnObjects set to true
+    const stepsData = t('orthodontics.visitSteps.steps', { returnObjects: true });
+    if (Array.isArray(stepsData)) {
+      setSteps(stepsData);
+    } else {
+      console.error('Expected orthodontics.visitSteps.steps to be an array, got:', stepsData);
+      setSteps([]);
+    }
+  }, [t]);
   
   return (
     <section id="visit-steps" className="py-16 bg-white">
@@ -20,7 +35,7 @@ const VisitSteps = () => {
         </p>
         
         <div className="flex flex-col space-y-6">
-          {Array.isArray(steps) && steps.map((step, index) => (
+          {steps.map((step, index) => (
             <div key={index} className="flex flex-col md:flex-row items-start bg-dental-beige/10 rounded-lg p-6">
               <div className="bg-dental-navy text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-lg mb-4 md:mb-0 md:mr-6 shrink-0">
                 {index + 1}

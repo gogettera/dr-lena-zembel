@@ -1,87 +1,58 @@
 
-/**
- * Helper functions for formatting translation values
- */
+import { TranslationOptions } from './types';
 
 /**
- * Format a translation value into a string
+ * Format a date according to the specified locale
+ * 
+ * @param date The date to format
+ * @param locale The locale to use for formatting
+ * @returns A formatted date string
  */
-export const formatTranslationValue = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
-
-  if (typeof value === 'string') {
-    return value;
-  }
-
-  if (typeof value === 'number' || typeof value === 'boolean') {
-    return value.toString();
-  }
-
-  if (isNestedObject(value)) {
-    return safeString(JSON.stringify(value));
-  }
-
-  return String(value);
+export const formatDate = (date: Date, locale: string = 'en-US'): string => {
+  return new Intl.DateTimeFormat(locale).format(date);
 };
 
 /**
- * Check if a value is a nested object (not null, an object, and not an array)
+ * Format a number according to the specified locale
+ * 
+ * @param num The number to format
+ * @param locale The locale to use for formatting
+ * @returns A formatted number string
  */
-export const isNestedObject = (value: any): boolean => {
-  return value !== null && typeof value === 'object' && !Array.isArray(value);
+export const formatNumber = (num: number, locale: string = 'en-US'): string => {
+  return new Intl.NumberFormat(locale).format(num);
 };
 
 /**
- * Convert any value to a safe string representation
+ * Format a currency value according to the specified locale and currency
+ * 
+ * @param value The number to format as currency
+ * @param locale The locale to use for formatting
+ * @param currency The currency code (e.g., 'USD', 'EUR', 'ILS')
+ * @returns A formatted currency string
  */
-export const safeString = (value: any): string => {
-  if (value === null || value === undefined) {
-    return '';
-  }
-  
-  if (typeof value === 'string') {
-    return value;
-  }
-  
-  try {
-    return String(value);
-  } catch (error) {
-    console.error('Error converting value to string:', error);
-    return '';
-  }
+export const formatCurrency = (
+  value: number, 
+  locale: string = 'en-US', 
+  currency: string = 'USD'
+): string => {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+  }).format(value);
 };
 
 /**
- * Format a translation entry (typically from i18next)
- * Handles nested objects and arrays safely
+ * Format a translation value based on options
+ * 
+ * @param value The translation value
+ * @param options Options for formatting
+ * @returns The formatted string
  */
-export const formatTranslation = (translationValue: any): string => {
-  if (translationValue === null || translationValue === undefined) {
-    return '';
-  }
-
-  if (typeof translationValue === 'string') {
-    return translationValue;
-  }
-
-  if (typeof translationValue === 'number' || typeof translationValue === 'boolean') {
-    return String(translationValue);
-  }
-
-  if (Array.isArray(translationValue)) {
-    return translationValue.map(formatTranslation).join(', ');
-  }
-
-  if (isNestedObject(translationValue)) {
-    try {
-      return JSON.stringify(translationValue);
-    } catch (error) {
-      console.error('Error stringifying object:', error);
-      return '[Complex Object]';
-    }
-  }
-
-  return String(translationValue);
+export const formatTranslationValue = (
+  value: string, 
+  options?: TranslationOptions
+): string => {
+  // For now, just return the value - we can add more formatting options later
+  return value;
 };

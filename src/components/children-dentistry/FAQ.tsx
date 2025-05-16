@@ -1,14 +1,29 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TranslatedText } from '@/components/ui/translated-text';
 
+// Define the FAQ item interface
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
 const FAQ = () => {
   const { t } = useLanguage();
+  const [faqItems, setFaqItems] = useState<FAQItem[]>([]);
   
-  // Ensure we use correct options format with returnObjects set to true
-  const faqItems = t('childrenDentistry.faq.items', { returnObjects: true }) || [];
+  useEffect(() => {
+    // Fetch FAQ items with proper error handling
+    const items = t('childrenDentistry.faq.items', { returnObjects: true });
+    if (Array.isArray(items)) {
+      setFaqItems(items);
+    } else {
+      console.error('Expected childrenDentistry.faq.items to be an array, got:', items);
+      setFaqItems([]);
+    }
+  }, [t]);
   
   return (
     <section id="faq" className="py-16 bg-dental-beige/10">
@@ -18,7 +33,7 @@ const FAQ = () => {
         </h2>
         
         <Accordion type="single" collapsible className="w-full max-w-3xl mx-auto">
-          {Array.isArray(faqItems) && faqItems.map((faq, index) => (
+          {faqItems.map((faq, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
               <AccordionTrigger className="text-dental-navy font-medium text-left">
                 {faq.question}
