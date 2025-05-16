@@ -35,5 +35,6 @@ export * from "./scroll-area";
 export * from "./section-header";
 export * from "./separator";
 export * from "./sonner";
-export * from "./toaster";
+// We're removing the explicit export from toaster since it creates a conflict
+// export * from "./toaster";
 export * from "./toast";

@@ -31,7 +31,7 @@ export function useToast() {
     descriptionKey,
     titleParams,
     descriptionParams
-  }: ToastProps) => {
+  }: ToastProps): void => {
     let finalTitle = title;
     let finalDescription = description;
 
@@ -93,11 +93,11 @@ export function useToast() {
 // Create a type for the toast function that includes both call signature and properties
 type ToastFunction = {
   (props: ToastProps): void;
-  success: (props: ToastProps) => void;
-  error: (props: ToastProps) => void;
-  warning: (props: ToastProps) => void;
-  info: (props: ToastProps) => void;
-  default: (props: ToastProps) => void;
+  success: (props: Omit<ToastProps, "variant">) => void;
+  error: (props: Omit<ToastProps, "variant">) => void;
+  warning: (props: Omit<ToastProps, "variant">) => void;
+  info: (props: Omit<ToastProps, "variant">) => void;
+  default: (props: Omit<ToastProps, "variant">) => void;
   passwordSecurityInfo: () => void;
 };
 
@@ -121,11 +121,11 @@ const toastFn = (props: ToastProps): void => {
 export const toast = toastFn as ToastFunction;
 
 // Add methods to the toast function
-toast.success = (props: ToastProps) => shadcnToast.success(props.title || "", { description: props.description });
-toast.error = (props: ToastProps) => shadcnToast.error(props.title || "", { description: props.description });
-toast.warning = (props: ToastProps) => shadcnToast.warning(props.title || "", { description: props.description });
-toast.info = (props: ToastProps) => shadcnToast.info(props.title || "", { description: props.description });
-toast.default = (props: ToastProps) => shadcnToast(props.title || "", { description: props.description });
+toast.success = (props: Omit<ToastProps, "variant">) => shadcnToast.success(props.title || "", { description: props.description });
+toast.error = (props: Omit<ToastProps, "variant">) => shadcnToast.error(props.title || "", { description: props.description });
+toast.warning = (props: Omit<ToastProps, "variant">) => shadcnToast.warning(props.title || "", { description: props.description });
+toast.info = (props: Omit<ToastProps, "variant">) => shadcnToast.info(props.title || "", { description: props.description });
+toast.default = (props: Omit<ToastProps, "variant">) => shadcnToast(props.title || "", { description: props.description });
 toast.passwordSecurityInfo = () => shadcnToast.info(
   "Enhanced Password Security", 
   { description: "Your password will be checked against known data breaches to ensure your account remains secure." }
