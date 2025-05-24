@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LanguageRoute from '@/components/LanguageRoute';
 import AccessibleLayout from '@/components/layout/AccessibleLayout';
 import LanguageBotoxTreatmentsPage from '@/pages/LanguageBotoxTreatmentsPage';
+import LanguageTreatmentPage from '@/pages/LanguageTreatmentPage';
 import BotoxTreatmentsPage from '@/pages/BotoxTreatmentsPage';
 import PreventiveMedicinePage from '@/pages/PreventiveMedicinePage';
 import NotFound from '@/pages/NotFound';
@@ -25,6 +26,7 @@ function App() {
         <Route element={<AccessibleLayout><Outlet /></AccessibleLayout>}>
           <Route index element={<LanguageHome />} />
           <Route path="treatments/botox-treatments" element={<LanguageBotoxTreatmentsPage />} />
+          <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
           <Route path="treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
