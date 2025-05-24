@@ -101,6 +101,11 @@ const TranslationAudit: React.FC = () => {
             <Download className="h-4 w-4 mr-2" />
             Download Report
           </Button>
+          <Link to="/admin/audit-results">
+            <Button variant="default" size="sm">
+              View Detailed Results
+            </Button>
+          </Link>
         </div>
       </div>
 

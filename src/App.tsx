@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LanguageRoute from '@/components/LanguageRoute';
@@ -17,6 +16,9 @@ import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 import OralRehabilitationLanding from '@/components/oral-rehabilitation/OralRehabilitationLanding';
 import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
+import AdminDashboard from '@/components/admin/AdminDashboard';
+import TranslationsAdminPage from '@/components/admin/TranslationsAdminPage';
+import TranslationAuditPage from '@/components/admin/TranslationAuditPage';
 
 function App() {
   return (
@@ -89,6 +91,12 @@ function App() {
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/treatments/botox-treatments" element={<BotoxTreatmentsPage />} />
         <Route path="/treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
+        
+        {/* Admin routes */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/translations" element={<TranslationsAdminPage />} />
+        <Route path="/admin/audit-results" element={<TranslationAuditPage />} />
+        
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
