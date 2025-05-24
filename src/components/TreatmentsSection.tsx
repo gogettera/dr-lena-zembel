@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Star, Smile, Heart, Shield, Stethoscope, PieChart } from 'lucide-react';
+import { Star, Smile, Heart, Shield, Stethoscope, PieChart, ExternalLink } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -21,37 +21,43 @@ const TreatmentsSection = () => {
       icon: Smile,
       titleKey: 'treatments.childrenDentistry', 
       descKey: 'treatments.childrenDentistryDesc',
-      slug: 'children-dentistry'
+      slug: 'children-dentistry',
+      hasLandingPage: true
     },
     {
       icon: Star,
       titleKey: 'treatments.aestheticTreatments',
       descKey: 'treatments.aestheticTreatmentsDesc',
-      slug: 'aesthetic-treatments'
+      slug: 'aesthetic-treatments',
+      hasLandingPage: true
     },
     {
       icon: Shield,
       titleKey: 'treatments.preventiveMedicine',
       descKey: 'treatments.preventiveMedicineDesc',
-      slug: 'preventive-medicine'
+      slug: 'preventive-medicine',
+      hasLandingPage: true
     },
     {
       icon: Stethoscope,
       titleKey: 'treatments.rootCanal',
       descKey: 'treatments.rootCanalDesc',
-      slug: 'root-canal'
+      slug: 'root-canal',
+      hasLandingPage: true
     },
     {
       icon: PieChart,
       titleKey: 'treatments.oralRehabilitation',
       descKey: 'treatments.oralRehabilitationDesc',
-      slug: 'oral-rehabilitation'
+      slug: 'oral-rehabilitation',
+      hasLandingPage: true
     },
     {
       icon: Heart,
       titleKey: 'treatments.orthodontics',
       descKey: 'treatments.orthodonticsDesc',
-      slug: 'orthodontics'
+      slug: 'orthodontics',
+      hasLandingPage: true
     }
   ];
 
@@ -107,12 +113,27 @@ const TreatmentCard = ({ treatment, index, language }) => {
             <TranslatedText textKey={treatment.descKey} />
           </HebrewText>
           
-          <div className="text-center transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
+          <div className="space-y-3 text-center transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
+            {treatment.hasLandingPage && (
+              <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}/landing`)}>
+                <Button 
+                  variant="orange" 
+                  size="sm" 
+                  className="w-full rounded-full transition-all duration-300 group-hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <HebrewText>
+                    <TranslatedText textKey="treatments.viewFullPage" defaultText="דף מלא" />
+                  </HebrewText>
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              </Link>
+            )}
+            
             <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="rounded-full border-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"
+                className="w-full rounded-full border-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"
               >
                 <HebrewText>
                   <TranslatedText textKey="common.learnMore" defaultText="למידע נוסף" />

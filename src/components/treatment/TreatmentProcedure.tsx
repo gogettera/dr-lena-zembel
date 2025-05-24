@@ -41,39 +41,174 @@ const TreatmentProcedure: React.FC<TreatmentProcedureProps> = ({ treatmentType }
             description: t('childrenDentistry.visitSteps.steps.4.description')
           }
         ];
+      case 'aesthetic-treatments':
+        return [
+          {
+            id: 'step1',
+            title: t('aestheticTreatments.process.steps.consultation'),
+            description: t('aestheticTreatments.process.steps.consultationDesc')
+          },
+          {
+            id: 'step2',
+            title: t('aestheticTreatments.process.steps.planning'),
+            description: t('aestheticTreatments.process.steps.planningDesc')
+          },
+          {
+            id: 'step3',
+            title: t('aestheticTreatments.process.steps.treatment'),
+            description: t('aestheticTreatments.process.steps.treatmentDesc')
+          },
+          {
+            id: 'step4',
+            title: t('aestheticTreatments.process.steps.followup'),
+            description: t('aestheticTreatments.process.steps.followupDesc')
+          }
+        ];
+      case 'orthodontics':
+        return [
+          {
+            id: 'step1',
+            title: t('orthodontics.visitSteps.steps.0.title'),
+            description: t('orthodontics.visitSteps.steps.0.description')
+          },
+          {
+            id: 'step2',
+            title: t('orthodontics.visitSteps.steps.1.title'),
+            description: t('orthodontics.visitSteps.steps.1.description')
+          },
+          {
+            id: 'step3',
+            title: t('orthodontics.visitSteps.steps.2.title'),
+            description: t('orthodontics.visitSteps.steps.2.description')
+          },
+          {
+            id: 'step4',
+            title: t('orthodontics.visitSteps.steps.3.title'),
+            description: t('orthodontics.visitSteps.steps.3.description')
+          }
+        ];
+      case 'root-canal':
+        return [
+          {
+            id: 'step1',
+            title: t('rootCanal.visitSteps.steps.0.title'),
+            description: t('rootCanal.visitSteps.steps.0.description')
+          },
+          {
+            id: 'step2',
+            title: t('rootCanal.visitSteps.steps.1.title'),
+            description: t('rootCanal.visitSteps.steps.1.description')
+          },
+          {
+            id: 'step3',
+            title: t('rootCanal.visitSteps.steps.2.title'),
+            description: t('rootCanal.visitSteps.steps.2.description')
+          },
+          {
+            id: 'step4',
+            title: t('rootCanal.visitSteps.steps.3.title'),
+            description: t('rootCanal.visitSteps.steps.3.description')
+          }
+        ];
+      case 'preventive-medicine':
+        return [
+          {
+            id: 'step1',
+            title: t('treatments.preventiveMedicine.process.examination'),
+            description: t('treatments.preventiveMedicine.process.examinationDesc')
+          },
+          {
+            id: 'step2',
+            title: t('treatments.preventiveMedicine.process.cleaning'),
+            description: t('treatments.preventiveMedicine.process.cleaningDesc')
+          },
+          {
+            id: 'step3',
+            title: t('treatments.preventiveMedicine.process.consultation'),
+            description: t('treatments.preventiveMedicine.process.consultationDesc')
+          },
+          {
+            id: 'step4',
+            title: t('treatments.preventiveMedicine.process.planning'),
+            description: t('treatments.preventiveMedicine.process.planningDesc')
+          }
+        ];
+      case 'oral-rehabilitation':
+        return [
+          {
+            id: 'step1',
+            title: t('treatments.oralRehabilitation.process.assessment'),
+            description: t('treatments.oralRehabilitation.process.assessmentDesc')
+          },
+          {
+            id: 'step2',
+            title: t('treatments.oralRehabilitation.process.planning'),
+            description: t('treatments.oralRehabilitation.process.planningDesc')
+          },
+          {
+            id: 'step3',
+            title: t('treatments.oralRehabilitation.process.preparation'),
+            description: t('treatments.oralRehabilitation.process.preparationDesc')
+          },
+          {
+            id: 'step4',
+            title: t('treatments.oralRehabilitation.process.restoration'),
+            description: t('treatments.oralRehabilitation.process.restorationDesc')
+          },
+          {
+            id: 'step5',
+            title: t('treatments.oralRehabilitation.process.maintenance'),
+            description: t('treatments.oralRehabilitation.process.maintenanceDesc')
+          }
+        ];
       default:
         return [
           {
             id: 'step1',
-            title: `${t('procedureStep1')}`,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+            title: t('treatments.procedure.consultation'),
+            description: t('treatments.procedure.consultationDesc')
           },
           {
             id: 'step2',
-            title: `${t('procedureStep2')}`,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+            title: t('treatments.procedure.examination'),
+            description: t('treatments.procedure.examinationDesc')
           },
           {
             id: 'step3',
-            title: `${t('procedureStep3')}`,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+            title: t('treatments.procedure.treatment'),
+            description: t('treatments.procedure.treatmentDesc')
           },
           {
             id: 'step4',
-            title: `${t('procedureStep4')}`,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+            title: t('treatments.procedure.followup'),
+            description: t('treatments.procedure.followupDesc')
           }
         ];
     }
   };
 
   const procedures = getProcedureSteps(treatmentType);
+  
+  const getTitleKey = (type: string) => {
+    switch (type) {
+      case 'children-dentistry':
+        return 'childrenDentistry.visitSteps.title';
+      case 'aesthetic-treatments':
+        return 'aestheticTreatments.process.title';
+      case 'orthodontics':
+        return 'orthodontics.visitSteps.title';
+      case 'root-canal':
+        return 'rootCanal.visitSteps.title';
+      default:
+        return 'treatments.procedure.title';
+    }
+  };
 
   return (
     <Card>
       <CardContent className="pt-6">
         <h3 className="text-2xl font-bold text-dental-navy mb-6">
-          {treatmentType === 'children-dentistry' ? t('childrenDentistry.visitSteps.title') : t('procedureDetails')}
+          {t(getTitleKey(treatmentType))}
         </h3>
         
         <div className="relative">
@@ -93,12 +228,14 @@ const TreatmentProcedure: React.FC<TreatmentProcedureProps> = ({ treatmentType }
           
           {treatmentType !== 'children-dentistry' && (
             <div className="mt-8 pt-8 border-t border-dental-beige/50">
-              <h4 className="text-lg font-semibold text-dental-navy mb-4">{t('afterProcedure')}</h4>
+              <h4 className="text-lg font-semibold text-dental-navy mb-4">
+                {t('treatments.procedure.afterCare')}
+              </h4>
               <p className="text-dental-navy/80 mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.
+                {t('treatments.procedure.afterCareDesc')}
               </p>
               <p className="text-dental-navy/80">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.
+                {t('treatments.procedure.followUpDesc')}
               </p>
             </div>
           )}

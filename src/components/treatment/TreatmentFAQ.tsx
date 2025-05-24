@@ -45,38 +45,168 @@ const TreatmentFAQ: React.FC<TreatmentFAQProps> = ({ treatmentType }) => {
             answer: t('childrenDentistry.faq.items.4.answer')
           }
         ];
+      case 'aesthetic-treatments':
+        return [
+          {
+            id: 'faq1',
+            question: t('aestheticTreatments.faq.items.0.question'),
+            answer: t('aestheticTreatments.faq.items.0.answer')
+          },
+          {
+            id: 'faq2',
+            question: t('aestheticTreatments.faq.items.1.question'),
+            answer: t('aestheticTreatments.faq.items.1.answer')
+          },
+          {
+            id: 'faq3',
+            question: t('aestheticTreatments.faq.items.2.question'),
+            answer: t('aestheticTreatments.faq.items.2.answer')
+          },
+          {
+            id: 'faq4',
+            question: t('aestheticTreatments.faq.items.3.question'),
+            answer: t('aestheticTreatments.faq.items.3.answer')
+          }
+        ];
+      case 'orthodontics':
+        return [
+          {
+            id: 'faq1',
+            question: t('orthodontics.faq.items.0.question'),
+            answer: t('orthodontics.faq.items.0.answer')
+          },
+          {
+            id: 'faq2',
+            question: t('orthodontics.faq.items.1.question'),
+            answer: t('orthodontics.faq.items.1.answer')
+          },
+          {
+            id: 'faq3',
+            question: t('orthodontics.faq.items.2.question'),
+            answer: t('orthodontics.faq.items.2.answer')
+          },
+          {
+            id: 'faq4',
+            question: t('orthodontics.faq.items.3.question'),
+            answer: t('orthodontics.faq.items.3.answer')
+          }
+        ];
+      case 'root-canal':
+        return [
+          {
+            id: 'faq1',
+            question: t('rootCanal.faq.items.0.question'),
+            answer: t('rootCanal.faq.items.0.answer')
+          },
+          {
+            id: 'faq2',
+            question: t('rootCanal.faq.items.1.question'),
+            answer: t('rootCanal.faq.items.1.answer')
+          },
+          {
+            id: 'faq3',
+            question: t('rootCanal.faq.items.2.question'),
+            answer: t('rootCanal.faq.items.2.answer')
+          },
+          {
+            id: 'faq4',
+            question: t('rootCanal.faq.items.3.question'),
+            answer: t('rootCanal.faq.items.3.answer')
+          }
+        ];
+      case 'preventive-medicine':
+        return [
+          {
+            id: 'faq1',
+            question: t('treatments.preventiveMedicine.faq.frequency'),
+            answer: t('treatments.preventiveMedicine.faq.frequencyAnswer')
+          },
+          {
+            id: 'faq2',
+            question: t('treatments.preventiveMedicine.faq.pain'),
+            answer: t('treatments.preventiveMedicine.faq.painAnswer')
+          },
+          {
+            id: 'faq3',
+            question: t('treatments.preventiveMedicine.faq.duration'),
+            answer: t('treatments.preventiveMedicine.faq.durationAnswer')
+          },
+          {
+            id: 'faq4',
+            question: t('treatments.preventiveMedicine.faq.preparation'),
+            answer: t('treatments.preventiveMedicine.faq.preparationAnswer')
+          }
+        ];
+      case 'oral-rehabilitation':
+        return [
+          {
+            id: 'faq1',
+            question: t('treatments.oralRehabilitation.faq.timeline'),
+            answer: t('treatments.oralRehabilitation.faq.timelineAnswer')
+          },
+          {
+            id: 'faq2',
+            question: t('treatments.oralRehabilitation.faq.cost'),
+            answer: t('treatments.oralRehabilitation.faq.costAnswer')
+          },
+          {
+            id: 'faq3',
+            question: t('treatments.oralRehabilitation.faq.options'),
+            answer: t('treatments.oralRehabilitation.faq.optionsAnswer')
+          },
+          {
+            id: 'faq4',
+            question: t('treatments.oralRehabilitation.faq.maintenance'),
+            answer: t('treatments.oralRehabilitation.faq.maintenanceAnswer')
+          }
+        ];
       default:
         return [
           {
             id: 'faq1',
-            question: `${t('faqQuestion1')}`,
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+            question: t('treatments.faq.duration'),
+            answer: t('treatments.faq.durationAnswer')
           },
           {
             id: 'faq2',
-            question: `${t('faqQuestion2')}`,
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+            question: t('treatments.faq.pain'),
+            answer: t('treatments.faq.painAnswer')
           },
           {
             id: 'faq3',
-            question: `${t('faqQuestion3')}`,
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+            question: t('treatments.faq.cost'),
+            answer: t('treatments.faq.costAnswer')
           },
           {
             id: 'faq4',
-            question: `${t('faqQuestion4')}`,
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+            question: t('treatments.faq.aftercare'),
+            answer: t('treatments.faq.aftercareAnswer')
           },
           {
             id: 'faq5',
-            question: `${t('faqQuestion5')}`,
-            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+            question: t('treatments.faq.followup'),
+            answer: t('treatments.faq.followupAnswer')
           }
         ];
     }
   };
 
   const faqs = getFAQs(treatmentType);
+  
+  const getTitleKey = (type: string) => {
+    switch (type) {
+      case 'children-dentistry':
+        return 'childrenDentistry.faq.title';
+      case 'aesthetic-treatments':
+        return 'aestheticTreatments.faq.title';
+      case 'orthodontics':
+        return 'orthodontics.faq.title';
+      case 'root-canal':
+        return 'rootCanal.faq.title';
+      default:
+        return 'treatments.faq.title';
+    }
+  };
 
   const toggleItem = (id: string) => {
     setOpenItem(openItem === id ? null : id);
@@ -86,7 +216,7 @@ const TreatmentFAQ: React.FC<TreatmentFAQProps> = ({ treatmentType }) => {
     <Card>
       <CardContent className="pt-6">
         <TranslatedText
-          textKey={treatmentType === 'children-dentistry' ? 'childrenDentistry.faq.title' : 'frequentlyAskedQuestions'}
+          textKey={getTitleKey(treatmentType)}
           as="h3"
           className="text-2xl font-bold text-dental-navy mb-6" 
         />

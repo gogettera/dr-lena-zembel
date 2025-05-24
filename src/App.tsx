@@ -12,6 +12,11 @@ import { getBrowserLanguage } from '@/utils/languageRoutes';
 import Index from '@/pages/Index';
 import LanguageHome from '@/pages/LanguageHome';
 import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
+import AestheticTreatmentsLanding from '@/components/aesthetic-treatments/AestheticTreatmentsLanding';
+import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
+import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
+import OralRehabilitationLanding from '@/components/oral-rehabilitation/OralRehabilitationLanding';
+import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
 
 function App() {
   return (
@@ -27,6 +32,8 @@ function App() {
         <Route element={<AccessibleLayout><Outlet /></AccessibleLayout>}>
           <Route index element={<LanguageHome />} />
           <Route path="treatments/botox-treatments" element={<LanguageBotoxTreatmentsPage />} />
+          
+          {/* Dedicated treatment landing pages */}
           <Route path="treatments/children-dentistry/landing" element={
             <div className="bg-white">
               <main className="pt-0">
@@ -34,6 +41,43 @@ function App() {
               </main>
             </div>
           } />
+          <Route path="treatments/aesthetic-treatments/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <AestheticTreatmentsLanding />
+              </main>
+            </div>
+          } />
+          <Route path="treatments/orthodontics/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <OrthodonticsLanding />
+              </main>
+            </div>
+          } />
+          <Route path="treatments/root-canal/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <RootCanalLanding />
+              </main>
+            </div>
+          } />
+          <Route path="treatments/oral-rehabilitation/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <OralRehabilitationLanding />
+              </main>
+            </div>
+          } />
+          <Route path="treatments/preventive-medicine/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <PreventiveMedicineLanding />
+              </main>
+            </div>
+          } />
+          
+          {/* Tab-based treatment pages */}
           <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
           <Route path="treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
           <Route path="*" element={<NotFound />} />
