@@ -11,6 +11,7 @@ import NotFound from '@/pages/NotFound';
 import { getBrowserLanguage } from '@/utils/languageRoutes';
 import Index from '@/pages/Index';
 import LanguageHome from '@/pages/LanguageHome';
+import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 
 function App() {
   return (
@@ -26,6 +27,13 @@ function App() {
         <Route element={<AccessibleLayout><Outlet /></AccessibleLayout>}>
           <Route index element={<LanguageHome />} />
           <Route path="treatments/botox-treatments" element={<LanguageBotoxTreatmentsPage />} />
+          <Route path="treatments/children-dentistry/landing" element={
+            <div className="bg-white">
+              <main className="pt-0">
+                <ChildrenDentistryLanding />
+              </main>
+            </div>
+          } />
           <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
           <Route path="treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
           <Route path="*" element={<NotFound />} />

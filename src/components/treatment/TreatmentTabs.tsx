@@ -8,7 +8,6 @@ import TreatmentFAQ from './TreatmentFAQ';
 import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
-import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -23,18 +22,27 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 }) => {
   const { t } = useLanguage();
 
-  // Special case: children-dentistry gets its own dedicated landing page
-  if (treatmentType === "children-dentistry") {
-    return <ChildrenDentistryLanding />;
-  }
+  // Get treatment-specific benefits
+  const getTreatmentBenefits = (type: string) => {
+    switch (type) {
+      case 'children-dentistry':
+        return [
+          t('childrenDentistry.whyUs.reasons.0.title'),
+          t('childrenDentistry.whyUs.reasons.1.title'),
+          t('childrenDentistry.whyUs.reasons.2.title'),
+          t('childrenDentistry.whyUs.reasons.3.title')
+        ];
+      default:
+        return [
+          t('benefit1'),
+          t('benefit2'),
+          t('benefit3'),
+          t('benefit4')
+        ];
+    }
+  };
 
-  // For all other treatments, use tab-based content
-  const defaultBenefits = [
-    t('benefit1'),
-    t('benefit2'),
-    t('benefit3'),
-    t('benefit4')
-  ];
+  const benefits = getTreatmentBenefits(treatmentType);
 
   return (
     <Tabs defaultValue="overview" className="w-full mt-4">
@@ -55,7 +63,7 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
             <div className="mb-2">
               <b>{t('keyPoints')}</b>
               <ul className="ml-4 mt-1 list-disc">
-                {defaultBenefits.map((benefit, index) =>
+                {benefits.map((benefit, index) =>
                   benefit ? (
                     <li key={index}>{benefit}</li>
                   ) : null
@@ -73,7 +81,7 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
       <TabsContent value="benefits">
         <Card>
           <CardContent className="pt-4">
-            <TreatmentBenefits benefits={defaultBenefits} showBooking={true} />
+            <TreatmentBenefits benefits={benefits} showBooking={true} />
           </CardContent>
         </Card>
       </TabsContent>

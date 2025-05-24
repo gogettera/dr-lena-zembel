@@ -14,34 +14,69 @@ const TreatmentFAQ: React.FC<TreatmentFAQProps> = ({ treatmentType }) => {
   const { t } = useLanguage();
   const [openItem, setOpenItem] = React.useState<string | null>(null);
   
-  // This would come from a real data source in a complete implementation
-  const faqs = [
-    {
-      id: 'faq1',
-      question: `${t('faqQuestion1')}`,
-      answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
-    },
-    {
-      id: 'faq2',
-      question: `${t('faqQuestion2')}`,
-      answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
-    },
-    {
-      id: 'faq3',
-      question: `${t('faqQuestion3')}`,
-      answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
-    },
-    {
-      id: 'faq4',
-      question: `${t('faqQuestion4')}`,
-      answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
-    },
-    {
-      id: 'faq5',
-      question: `${t('faqQuestion5')}`,
-      answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+  // Get treatment-specific FAQ content
+  const getFAQs = (type: string) => {
+    switch (type) {
+      case 'children-dentistry':
+        return [
+          {
+            id: 'faq1',
+            question: t('childrenDentistry.faq.items.0.question'),
+            answer: t('childrenDentistry.faq.items.0.answer')
+          },
+          {
+            id: 'faq2',
+            question: t('childrenDentistry.faq.items.1.question'),
+            answer: t('childrenDentistry.faq.items.1.answer')
+          },
+          {
+            id: 'faq3',
+            question: t('childrenDentistry.faq.items.2.question'),
+            answer: t('childrenDentistry.faq.items.2.answer')
+          },
+          {
+            id: 'faq4',
+            question: t('childrenDentistry.faq.items.3.question'),
+            answer: t('childrenDentistry.faq.items.3.answer')
+          },
+          {
+            id: 'faq5',
+            question: t('childrenDentistry.faq.items.4.question'),
+            answer: t('childrenDentistry.faq.items.4.answer')
+          }
+        ];
+      default:
+        return [
+          {
+            id: 'faq1',
+            question: `${t('faqQuestion1')}`,
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+          },
+          {
+            id: 'faq2',
+            question: `${t('faqQuestion2')}`,
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+          },
+          {
+            id: 'faq3',
+            question: `${t('faqQuestion3')}`,
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+          },
+          {
+            id: 'faq4',
+            question: `${t('faqQuestion4')}`,
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+          },
+          {
+            id: 'faq5',
+            question: `${t('faqQuestion5')}`,
+            answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.'
+          }
+        ];
     }
-  ];
+  };
+
+  const faqs = getFAQs(treatmentType);
 
   const toggleItem = (id: string) => {
     setOpenItem(openItem === id ? null : id);
@@ -51,7 +86,7 @@ const TreatmentFAQ: React.FC<TreatmentFAQProps> = ({ treatmentType }) => {
     <Card>
       <CardContent className="pt-6">
         <TranslatedText
-          textKey="frequentlyAskedQuestions"
+          textKey={treatmentType === 'children-dentistry' ? 'childrenDentistry.faq.title' : 'frequentlyAskedQuestions'}
           as="h3"
           className="text-2xl font-bold text-dental-navy mb-6" 
         />

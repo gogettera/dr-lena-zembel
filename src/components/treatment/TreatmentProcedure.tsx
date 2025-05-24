@@ -10,35 +10,70 @@ interface TreatmentProcedureProps {
 const TreatmentProcedure: React.FC<TreatmentProcedureProps> = ({ treatmentType }) => {
   const { t } = useLanguage();
   
-  // These would come from a real data source in a complete implementation
-  const procedures = [
-    {
-      id: 'step1',
-      title: `${t('procedureStep1')}`,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
-    },
-    {
-      id: 'step2',
-      title: `${t('procedureStep2')}`,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
-    },
-    {
-      id: 'step3',
-      title: `${t('procedureStep3')}`,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
-    },
-    {
-      id: 'step4',
-      title: `${t('procedureStep4')}`,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+  // Get treatment-specific procedure steps
+  const getProcedureSteps = (type: string) => {
+    switch (type) {
+      case 'children-dentistry':
+        return [
+          {
+            id: 'step1',
+            title: t('childrenDentistry.visitSteps.steps.0.title'),
+            description: t('childrenDentistry.visitSteps.steps.0.description')
+          },
+          {
+            id: 'step2',
+            title: t('childrenDentistry.visitSteps.steps.1.title'),
+            description: t('childrenDentistry.visitSteps.steps.1.description')
+          },
+          {
+            id: 'step3',
+            title: t('childrenDentistry.visitSteps.steps.2.title'),
+            description: t('childrenDentistry.visitSteps.steps.2.description')
+          },
+          {
+            id: 'step4',
+            title: t('childrenDentistry.visitSteps.steps.3.title'),
+            description: t('childrenDentistry.visitSteps.steps.3.description')
+          },
+          {
+            id: 'step5',
+            title: t('childrenDentistry.visitSteps.steps.4.title'),
+            description: t('childrenDentistry.visitSteps.steps.4.description')
+          }
+        ];
+      default:
+        return [
+          {
+            id: 'step1',
+            title: `${t('procedureStep1')}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+          },
+          {
+            id: 'step2',
+            title: `${t('procedureStep2')}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+          },
+          {
+            id: 'step3',
+            title: `${t('procedureStep3')}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+          },
+          {
+            id: 'step4',
+            title: `${t('procedureStep4')}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.'
+          }
+        ];
     }
-  ];
+  };
+
+  const procedures = getProcedureSteps(treatmentType);
 
   return (
     <Card>
       <CardContent className="pt-6">
         <h3 className="text-2xl font-bold text-dental-navy mb-6">
-          {t('procedureDetails')}
+          {treatmentType === 'children-dentistry' ? t('childrenDentistry.visitSteps.title') : t('procedureDetails')}
         </h3>
         
         <div className="relative">
@@ -56,15 +91,17 @@ const TreatmentProcedure: React.FC<TreatmentProcedureProps> = ({ treatmentType }
             ))}
           </div>
           
-          <div className="mt-8 pt-8 border-t border-dental-beige/50">
-            <h4 className="text-lg font-semibold text-dental-navy mb-4">{t('afterProcedure')}</h4>
-            <p className="text-dental-navy/80 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.
-            </p>
-            <p className="text-dental-navy/80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.
-            </p>
-          </div>
+          {treatmentType !== 'children-dentistry' && (
+            <div className="mt-8 pt-8 border-t border-dental-beige/50">
+              <h4 className="text-lg font-semibold text-dental-navy mb-4">{t('afterProcedure')}</h4>
+              <p className="text-dental-navy/80 mb-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi. Vivamus vitae efficitur eros, nec finibus dui.
+              </p>
+              <p className="text-dental-navy/80">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et turpis in odio finibus posuere. Nulla facilisi.
+              </p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
