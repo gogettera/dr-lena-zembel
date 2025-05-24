@@ -14,12 +14,35 @@ const sanitizePath = (path: string): string => {
   return path.replace(/[^\w\s\-._~:/?#[\]@!$&'()*+,;=]/g, '');
 };
 
+// Get language from current URL
+const getCurrentLanguageFromURL = (): string | null => {
+  const pathname = window.location.pathname;
+  const pathLang = pathname.split('/')[1];
+  
+  if (pathLang && supportedLanguages.includes(pathLang as any)) {
+    console.log(`Current URL language: ${pathLang}`);
+    return pathLang;
+  }
+  
+  return null;
+};
+
 const Index = () => {
   const navigate = useNavigate();
   
   useEffect(() => {
+    console.log('Index component mounted, determining redirect language');
+    
+    // Check if we're already on a language route
+    const currentUrlLang = getCurrentLanguageFromURL();
+    if (currentUrlLang) {
+      console.log(`Already on language route: ${currentUrlLang}, no redirect needed`);
+      return;
+    }
+    
     // Get browser language for potential selection
     const browserLang = navigator.language.split('-')[0];
+    console.log(`Browser language: ${browserLang}`);
     
     // Default to 'he' (Hebrew)
     let redirectLang = 'he';
@@ -28,11 +51,15 @@ const Index = () => {
     const storedLang = localStorage.getItem('preferredLanguage');
     if (storedLang && supportedLanguages.includes(storedLang as any)) {
       redirectLang = storedLang;
+      console.log(`Using stored language: ${redirectLang}`);
     }
     // If no stored language, check if browser language is supported
     else if (supportedLanguages.includes(browserLang as any)) {
       redirectLang = browserLang;
+      console.log(`Using browser language: ${redirectLang}`);
     }
+    
+    console.log(`Redirecting to: /${redirectLang}`);
     
     // Perform navigation to language home page
     navigate(`/${redirectLang}`, { replace: true });

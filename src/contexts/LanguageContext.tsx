@@ -29,33 +29,52 @@ const RTL_LANGUAGES: Language[] = ['he', 'ar'];
 // Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+// Get language from URL path
+const getLanguageFromURL = (): Language | null => {
+  const pathname = window.location.pathname;
+  const pathLang = pathname.split('/')[1] as Language;
+  
+  if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
+    console.log(`Language detected from URL: ${pathLang}`);
+    return pathLang;
+  }
+  
+  console.log(`No valid language found in URL path: ${pathname}`);
+  return null;
+};
+
+// Get initial language with proper priority
+const getInitialLanguage = (): Language => {
+  // 1. First priority: URL parameter
+  const urlLang = getLanguageFromURL();
+  if (urlLang) {
+    return urlLang;
+  }
+  
+  // 2. Second priority: localStorage
+  const savedLang = localStorage.getItem('preferredLanguage') as Language;
+  if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
+    console.log(`Language from localStorage: ${savedLang}`);
+    return savedLang;
+  }
+  
+  // 3. Third priority: browser language
+  const browserLang = navigator.language.split('-')[0] as Language;
+  if (AVAILABLE_LANGUAGES.includes(browserLang)) {
+    console.log(`Language from browser: ${browserLang}`);
+    return browserLang;
+  }
+  
+  // 4. Default fallback
+  console.log(`Using default language: ${DEFAULT_LANGUAGE}`);
+  return DEFAULT_LANGUAGE;
+};
+
 // Provider component
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize with language from localStorage or default
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Try to get language from URL path
-    const pathname = window.location.pathname;
-    const pathLang = pathname.split('/')[1] as Language;
-    
-    if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
-      return pathLang;
-    }
-    
-    // Check localStorage next
-    const savedLang = localStorage.getItem('preferredLanguage') as Language;
-    if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
-      return savedLang;
-    }
-    
-    // Try to detect browser language
-    const browserLang = navigator.language.split('-')[0] as Language;
-    if (AVAILABLE_LANGUAGES.includes(browserLang)) {
-      return browserLang;
-    }
-    
-    // Default to Hebrew
-    return DEFAULT_LANGUAGE;
-  });
+  // Initialize with proper language detection
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Derived state
   const isRTL = RTL_LANGUAGES.includes(language);
@@ -63,30 +82,67 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Handle language change
   const setLanguage = (newLanguage: Language) => {
     if (AVAILABLE_LANGUAGES.includes(newLanguage) && newLanguage !== language) {
+      console.log(`Language changing from ${language} to ${newLanguage}`);
+      
       // Save to localStorage
       localStorage.setItem('preferredLanguage', newLanguage);
+      
       // Update state
       setLanguageState(newLanguage);
+      
       // Update document direction
       setupDirectionByLanguage(newLanguage);
-      // Log language change
+      
       console.log(`Language changed to: ${newLanguage}, RTL: ${RTL_LANGUAGES.includes(newLanguage)}`);
     }
   };
 
-  // Set up document direction on mount and language change
+  // Monitor URL changes and sync language
   useEffect(() => {
-    setupDirectionByLanguage(language);
-    
-    // Log any missing translations in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log(`Current language: ${language}`);
-      console.log(`RTL enabled: ${isRTL}`);
+    const syncLanguageWithURL = () => {
+      const urlLang = getLanguageFromURL();
       
-      // Log missing translations
-      logMissingTranslationKeys(translations);
+      if (urlLang && urlLang !== language) {
+        console.log(`URL language mismatch detected. URL: ${urlLang}, Context: ${language}`);
+        setLanguageState(urlLang);
+        setupDirectionByLanguage(urlLang);
+        
+        // Update localStorage to match URL
+        localStorage.setItem('preferredLanguage', urlLang);
+      }
+      
+      if (!isInitialized) {
+        setIsInitialized(true);
+      }
+    };
+
+    // Initial sync
+    syncLanguageWithURL();
+
+    // Listen for URL changes (popstate for back/forward navigation)
+    window.addEventListener('popstate', syncLanguageWithURL);
+    
+    return () => {
+      window.removeEventListener('popstate', syncLanguageWithURL);
+    };
+  }, [language, isInitialized]);
+
+  // Set up document direction on language change
+  useEffect(() => {
+    if (isInitialized) {
+      setupDirectionByLanguage(language);
+      
+      // Log development information
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Current language: ${language}`);
+        console.log(`RTL enabled: ${isRTL}`);
+        console.log(`URL path: ${window.location.pathname}`);
+        
+        // Log missing translations
+        logMissingTranslationKeys(translations);
+      }
     }
-  }, [language, isRTL]);
+  }, [language, isRTL, isInitialized]);
 
   // Create translation function using our utility
   const t = createTranslationFunction(language, translations, DEFAULT_LANGUAGE);
