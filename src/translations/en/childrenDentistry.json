@@ -2,9 +2,9 @@
 {
   "nav": {
     "main": "Main",
-    "whyUs": "Why Us",
+    "whyUs": "Why Us", 
     "visitSteps": "Visit Process",
-    "testimonials": "Testimonials", 
+    "testimonials": "Testimonials",
     "faq": "FAQ",
     "contact": "Contact"
   },
@@ -21,7 +21,7 @@
         "description": "The first visit always starts with a conversation, not treatment. We create a pleasant and relaxed visit experience."
       },
       {
-        "title": "Age-Appropriate Approach", 
+        "title": "Age-Appropriate Approach",
         "description": "Eye-level explanations, without stressful words. Using adapted developmental language."
       },
       {
@@ -29,7 +29,7 @@
         "description": "Screen with favorite videos, toys, stickers, and also the option to bring a toy from home."
       },
       {
-        "title": "Parents as Partners",
+        "title": "Parents as Partners", 
         "description": "One parent always stays with the child - and even participates if desired. Parents are an important part of the process."
       }
     ]
@@ -47,7 +47,7 @@
         "description": "We'll show dental equipment and toys"
       },
       {
-        "title": "Brushing Together in Front of a Mirror", 
+        "title": "Brushing Together in Front of a Mirror",
         "description": "We'll learn the correct brushing technique"
       },
       {
@@ -107,8 +107,8 @@
     "subtitle": "Fill out the form and we'll contact you soon with all the information",
     "form": {
       "parentName": "Parent's Name",
-      "childName": "Child's Name", 
-      "age": "Age",
+      "childName": "Child's Name",
+      "age": "Age", 
       "phone": "Phone",
       "message": "What's important for us to know before the visit?",
       "privacy": "Your details will be kept completely confidential and will not be transferred to third parties",

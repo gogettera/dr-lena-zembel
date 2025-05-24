@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 type ImageFormat = 'original' | 'webp' | 'avif';
 
@@ -30,6 +30,9 @@ export const useResponsiveImage = ({
   format = 'webp',
   breakpoints = [640, 750, 828, 1080, 1200, 1920]
 }: ResponsiveImageOptions): ResponsiveImageResult => {
+  // Memoize breakpoints to prevent unnecessary recalculations
+  const memoizedBreakpoints = useMemo(() => breakpoints, [breakpoints.join(',')]);
+  
   const [result, setResult] = useState<ResponsiveImageResult>({
     srcSet: '',
     src,
@@ -70,7 +73,7 @@ export const useResponsiveImage = ({
     }
 
     // Generate srcSet for different viewport sizes
-    const srcSetEntries = breakpoints.map(bp => {
+    const srcSetEntries = memoizedBreakpoints.map(bp => {
       // Skip generating srcset for breakpoints larger than original image
       if (width && bp > width) return '';
       
@@ -92,7 +95,7 @@ export const useResponsiveImage = ({
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
       type: mimeType
     });
-  }, [src, width, height, quality, format, breakpoints]);
+  }, [src, width, height, quality, format, memoizedBreakpoints]); // Fixed dependencies
 
   return result;
 };

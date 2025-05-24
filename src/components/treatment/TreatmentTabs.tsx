@@ -9,12 +9,6 @@ import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
 import ChildrenDentistryLanding from '@/components/children-dentistry/ChildrenDentistryLanding';
-import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
-import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
-import AestheticTreatmentsLanding from '@/components/aesthetic-treatments/AestheticTreatmentsLanding';
-import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
-import OralRehabilitationLanding from '@/components/oral-rehabilitation/OralRehabilitationLanding';
-import BotoxTreatmentsLanding from '@/components/botox-treatments/BotoxTreatmentsLanding';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -29,28 +23,12 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 }) => {
   const { t } = useLanguage();
 
+  // Special case: children-dentistry gets its own dedicated landing page
   if (treatmentType === "children-dentistry") {
     return <ChildrenDentistryLanding />;
   }
-  if (treatmentType === "orthodontics") {
-    return <OrthodonticsLanding />;
-  }
-  if (treatmentType === "root-canal") {
-    return <RootCanalLanding />;
-  }
-  if (treatmentType === "aesthetic-treatments") {
-    return <AestheticTreatmentsLanding />;
-  }
-  if (treatmentType === "preventive-medicine") {
-    return <PreventiveMedicineLanding />;
-  }
-  if (treatmentType === "oral-rehabilitation") {
-    return <OralRehabilitationLanding />;
-  }
-  if (treatmentType === "botox-treatments") {
-    return <BotoxTreatmentsLanding />;
-  }
 
+  // For all other treatments, use tab-based content
   const defaultBenefits = [
     t('benefit1'),
     t('benefit2'),
@@ -63,6 +41,7 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
       <TabsList className="flex flex-wrap mb-4 gap-2">
         <TabsTrigger value="overview">{t('overview')}</TabsTrigger>
         <TabsTrigger value="procedure">{t('procedure')}</TabsTrigger>
+        <TabsTrigger value="benefits">{t('benefits')}</TabsTrigger>
         <TabsTrigger value="faq">{t('faq')}</TabsTrigger>
         <TabsTrigger value="testimonials">{t('testimonials')}</TabsTrigger>
         <TabsTrigger value="related">{t('relatedTreatments')}</TabsTrigger>
@@ -83,19 +62,30 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
                 )}
               </ul>
             </div>
-            <TreatmentBenefits benefits={defaultBenefits} showBooking={false} />
           </CardContent>
         </Card>
       </TabsContent>
+      
       <TabsContent value="procedure">
         <TreatmentProcedure treatmentType={treatmentType} />
       </TabsContent>
+      
+      <TabsContent value="benefits">
+        <Card>
+          <CardContent className="pt-4">
+            <TreatmentBenefits benefits={defaultBenefits} showBooking={true} />
+          </CardContent>
+        </Card>
+      </TabsContent>
+      
       <TabsContent value="faq">
         <TreatmentFAQ treatmentType={treatmentType} />
       </TabsContent>
+      
       <TabsContent value="testimonials">
         <TreatmentTestimonials treatmentType={treatmentType} />
       </TabsContent>
+      
       <TabsContent value="related">
         <RelatedTreatments currentTreatment={treatmentType} />
       </TabsContent>
