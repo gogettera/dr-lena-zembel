@@ -5,11 +5,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Mail, Send, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { TranslatedText } from "@/components/ui/translated-text";
 
 const QuickContactForm = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   // We'll just log for now (no backend)
   const handleSubmit = (e: React.FormEvent) => {
@@ -21,8 +24,8 @@ const QuickContactForm = () => {
       setLoading(false);
       setSubmitted(true);
       toast({
-        title: "הטופס נשלח בהצלחה!",
-        description: "נחזור אליכם בהקדם עם כל המידע",
+        title: t('childrenDentistry.contact.success.title'),
+        description: t('childrenDentistry.contact.success.description'),
         variant: "default",
       });
       
@@ -39,16 +42,9 @@ const QuickContactForm = () => {
     <section id="contact" className="py-14 md:py-20 px-4 bg-white scroll-mt-24">
       <div className="container mx-auto max-w-lg">
 
-        {/* Added caption above contact form */}
-        <div className="mb-3 text-center">
-          <span className="inline-block text-dental-orange bg-[#FFDEE2]/60 rounded-full font-semibold px-4 py-1 text-base shadow-sm tracking-wide">
-            קפטן
-          </span>
-        </div>
-
         <h2 className="text-2xl font-bold text-dental-navy mb-6 text-center opacity-0 animate-[fade-in_0.5s_ease-out_forwards]">
           <Mail className="inline-block ml-2 text-dental-orange" />
-          צור קשר - נחזור אליכם עם חיוך
+          <TranslatedText textKey="childrenDentistry.contact.title" />
         </h2>
         
         <form 
@@ -57,7 +53,9 @@ const QuickContactForm = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-dental-navy font-medium mb-1">שם ההורה</label>
+              <label className="block text-dental-navy font-medium mb-1">
+                <TranslatedText textKey="childrenDentistry.contact.form.parentName" />
+              </label>
               <Input 
                 type="text" 
                 required 
@@ -66,7 +64,9 @@ const QuickContactForm = () => {
               />
             </div>
             <div>
-              <label className="block text-dental-navy font-medium mb-1">שם הילד</label>
+              <label className="block text-dental-navy font-medium mb-1">
+                <TranslatedText textKey="childrenDentistry.contact.form.childName" />
+              </label>
               <Input 
                 type="text" 
                 required 
@@ -78,7 +78,9 @@ const QuickContactForm = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-dental-navy font-medium mb-1">גיל</label>
+              <label className="block text-dental-navy font-medium mb-1">
+                <TranslatedText textKey="childrenDentistry.contact.form.age" />
+              </label>
               <Input 
                 type="number" 
                 min={1} 
@@ -89,7 +91,9 @@ const QuickContactForm = () => {
               />
             </div>
             <div>
-              <label className="block text-dental-navy font-medium mb-1">טלפון</label>
+              <label className="block text-dental-navy font-medium mb-1">
+                <TranslatedText textKey="childrenDentistry.contact.form.phone" />
+              </label>
               <Input 
                 type="tel" 
                 required 
@@ -100,7 +104,9 @@ const QuickContactForm = () => {
           </div>
           
           <div>
-            <label className="block text-dental-navy font-medium mb-1">מה חשוב שנדע לקראת הביקור?</label>
+            <label className="block text-dental-navy font-medium mb-1">
+              <TranslatedText textKey="childrenDentistry.contact.form.message" />
+            </label>
             <Textarea 
               className="resize-none bg-white/80 border-dental-beige/50 focus:border-dental-orange focus:ring-dental-orange/20" 
               rows={3} 
@@ -109,7 +115,7 @@ const QuickContactForm = () => {
           </div>
           
           <div className="text-sm text-dental-navy/70 italic">
-            * פרטיכם יישמרו בסודיות מלאה ולא יועברו לגורם שלישי
+            <TranslatedText textKey="childrenDentistry.contact.form.privacy" />
           </div>
           
           <Button
@@ -121,17 +127,17 @@ const QuickContactForm = () => {
             {loading ? (
               <span className="flex items-center">
                 <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2" />
-                שולחים...
+                <TranslatedText textKey="childrenDentistry.contact.form.sending" />
               </span>
             ) : submitted ? (
               <span className="flex items-center">
                 <Check className="mr-2" size={18} />
-                נשלח בהצלחה!
+                <TranslatedText textKey="childrenDentistry.contact.form.success" />
               </span>
             ) : (
               <span className="flex items-center">
                 <Send className="mr-2" size={18} />
-                שולחים חיוך
+                <TranslatedText textKey="childrenDentistry.contact.form.submitButton" />
               </span>
             )}
           </Button>

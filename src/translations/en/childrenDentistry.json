@@ -1,18 +1,27 @@
 
 {
+  "nav": {
+    "main": "Main",
+    "whyUs": "Why Us",
+    "visitSteps": "Visit Process",
+    "testimonials": "Testimonials", 
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
   "hero": {
     "title": "Happy Children - Dental Treatment with Love and Patience",
     "subtitle": "At Dr. Lena Zembel's clinic, we don't just treat teeth - we build confidence, peace of mind, and positive experiences for children and parents."
   },
   "whyUs": {
     "title": "Why Children (and Parents) Love Coming to Us?",
-    "items": [
+    "subtitle": "Our approach is built on creating positive experiences for both children and parents",
+    "reasons": [
       {
         "title": "No Pressure",
         "description": "The first visit always starts with a conversation, not treatment. We create a pleasant and relaxed visit experience."
       },
       {
-        "title": "Age-Appropriate Approach",
+        "title": "Age-Appropriate Approach", 
         "description": "Eye-level explanations, without stressful words. Using adapted developmental language."
       },
       {
@@ -23,45 +32,50 @@
         "title": "Parents as Partners",
         "description": "One parent always stays with the child - and even participates if desired. Parents are an important part of the process."
       }
-    ],
-    "expertise": {
-      "title": "Expertise in Child Treatment",
-      "description": "Our clinic team undergoes special training in treating children and is in constant contact with leading experts in pediatric dentistry. We believe that your child's first experience with a dentist can affect their attitude towards oral and dental health for life."
-    }
+    ]
   },
   "visitSteps": {
     "title": "First Visit Process",
+    "subtitle": "A gentle, step-by-step approach designed to make children feel comfortable and safe",
     "steps": [
       {
-        "icon": "🧸",
         "title": "Welcome with a Toy",
         "description": "We'll start with a meeting in the playroom"
       },
       {
-        "icon": "💬",
         "title": "Brief Explanation at the Children's Station",
         "description": "We'll show dental equipment and toys"
       },
       {
-        "icon": "🪥",
-        "title": "Brushing Together in Front of a Mirror",
+        "title": "Brushing Together in Front of a Mirror", 
         "description": "We'll learn the correct brushing technique"
       },
       {
-        "icon": "📸",
         "title": "Gentle Scanning with a Small Camera",
         "description": "We'll count teeth with a camera"
       },
       {
-        "icon": "🎁",
         "title": "Personal Prize at the End",
         "description": "Choosing a sticker or small surprise"
       }
-    ],
-    "footer": {
-      "duration": "Average first visit duration: 25-30 minutes",
-      "note": "No treatments during the first visit unless there is an immediate medical need"
-    }
+    ]
+  },
+  "clinicExpertise": {
+    "title": "Leading Children's Clinic",
+    "items": [
+      {
+        "title": "Specialist Doctor Certified by Ministry of Health",
+        "description": "Dr. Lena Zembel is a certified specialist with extensive training in pediatric dentistry."
+      },
+      {
+        "title": "Patience and Personal Attention",
+        "description": "Age-appropriate explanations and individualized care for every child."
+      },
+      {
+        "title": "Multilingual Staff",
+        "description": "Our team speaks Hebrew, English, Russian, and German for your convenience."
+      }
+    ]
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -88,19 +102,35 @@
       }
     ]
   },
-  "clinicExpertise": {
-    "experience": "Over 13 years of experience",
-    "title": "Leading Children's Clinic",
-    "description": "Dr. Lena Zembel, a specialist doctor graduated from the University of Cologne, and the clinic team specialize in gentle dental treatments, full of patience and personalized for every age. Professionalism that provides confidence and peace of mind to parents and children.",
-    "features": [
-      "Specialist doctor certified by the Ministry of Health",
-      "Patience, personal attention, and age-appropriate explanations",
-      "Staff speaking Hebrew, English, Russian, and German"
-    ]
+  "contact": {
+    "title": "Contact Us - We'll Get Back to You with a Smile",
+    "subtitle": "Fill out the form and we'll contact you soon with all the information",
+    "form": {
+      "parentName": "Parent's Name",
+      "childName": "Child's Name", 
+      "age": "Age",
+      "phone": "Phone",
+      "message": "What's important for us to know before the visit?",
+      "privacy": "Your details will be kept completely confidential and will not be transferred to third parties",
+      "submitButton": "Send with a Smile",
+      "sending": "Sending...",
+      "success": "Sent Successfully!"
+    },
+    "success": {
+      "title": "Form sent successfully!",
+      "description": "We'll get back to you soon with all the information"
+    }
   },
-  "colors": {
-    "primary": "#FCA5A5",
-    "secondary": "#FECACA",
-    "accent": "#FEE2E2"
+  "bookVisit": {
+    "title": "The child's first visit can affect their entire life. Let's start it right.",
+    "subtitle": "Our clinic team is here to help, support and accompany.",
+    "address": "Ben Zvi Road 2, Tel Aviv-Jaffa",
+    "hours": "Sunday to Thursday: 09:00-19:00 | Friday: 09:00-13:00",
+    "wazeButton": "Navigate to us on Waze",
+    "backToTop": "Back to Top"
+  },
+  "testimonials": {
+    "title": "What Parents Say About Us",
+    "subtitle": "Real experiences from families who visited our clinic"
   }
 }
