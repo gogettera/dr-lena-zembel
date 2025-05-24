@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import LanguageRoute from '@/components/LanguageRoute';
@@ -16,9 +17,9 @@ import OrthodonticsLanding from '@/components/orthodontics/OrthodonticsLanding';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 import OralRehabilitationLanding from '@/components/oral-rehabilitation/OralRehabilitationLanding';
 import PreventiveMedicineLanding from '@/components/preventive-medicine/PreventiveMedicineLanding';
-import AdminDashboard from '@/components/admin/AdminDashboard';
-import TranslationsAdminPage from '@/components/admin/TranslationsAdminPage';
-import TranslationAuditPage from '@/components/admin/TranslationAuditPage';
+import AdminDashboard from '@/pages/admin/index';
+import TranslationsAdminPage from '@/pages/admin/TranslationsAdminPage';
+import TranslationAuditPage from '@/pages/admin/TranslationAuditPage';
 
 function App() {
   return (
