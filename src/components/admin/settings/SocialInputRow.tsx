@@ -8,7 +8,7 @@ interface SocialInputRowProps {
   label: string;
   placeholder: string;
   field: any;
-  loading: boolean;
+  loading?: boolean;
 }
 
 const SocialInputRow: React.FC<SocialInputRowProps> = ({
@@ -16,7 +16,7 @@ const SocialInputRow: React.FC<SocialInputRowProps> = ({
   label,
   placeholder,
   field,
-  loading,
+  loading = false,
 }) => (
   <FormItem>
     <FormLabel>{label}</FormLabel>

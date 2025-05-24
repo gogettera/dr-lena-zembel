@@ -9,6 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useSocialFeed } from '@/hooks/use-social-feed';
 import { Button } from '@/components/ui/button';
 import { RefreshCw } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 const SocialFeedSection = () => {
   const [activeTab, setActiveTab] = useState<"all" | "facebook" | "instagram">("all");

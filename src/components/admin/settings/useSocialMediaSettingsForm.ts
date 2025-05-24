@@ -52,7 +52,7 @@ export function useSocialMediaSettingsForm() {
           return;
         }
 
-        // Map database fields to form fields
+        // Map database fields to form fields, handling the new facebook_page_id column
         form.reset({
           facebook: data.facebook || '',
           facebook_page_id: data.facebook_page_id || '',
@@ -87,7 +87,7 @@ export function useSocialMediaSettingsForm() {
           linkedin: values.linkedin,
           youtube: values.youtube,
           show_social_icons: values.show_social_icons,
-          updated_at: new Date(),
+          updated_at: new Date().toISOString(),
         });
 
       if (error) throw error;

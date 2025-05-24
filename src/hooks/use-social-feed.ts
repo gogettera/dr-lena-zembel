@@ -6,15 +6,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 export interface SocialPost {
   id: string;
-  content: string;
+  content: string | null;
   image_url: string | null;
   video_url: string | null;
-  post_url: string;
-  likes_count: number;
-  comments_count: number;
-  shares_count: number;
+  post_url: string | null;
+  likes_count: number | null;
+  comments_count: number | null;
+  shares_count: number | null;
   platform: 'facebook' | 'instagram';
-  created_at: string;
+  created_at: string | null;
   relative_time?: string;
 }
 
@@ -78,10 +78,19 @@ export function useSocialFeed({
         throw new Error(fetchError.message);
       }
       
-      // Format posts with relative time
-      const formattedPosts = data.map(post => ({
-        ...post,
-        relative_time: formatRelativeTime(post.created_at)
+      // Format posts with relative time and proper typing
+      const formattedPosts: SocialPost[] = (data || []).map(post => ({
+        id: post.id,
+        content: post.content,
+        image_url: post.image_url,
+        video_url: post.video_url,
+        post_url: post.post_url,
+        likes_count: post.likes_count,
+        comments_count: post.comments_count,
+        shares_count: post.shares_count,
+        platform: post.platform as 'facebook' | 'instagram',
+        created_at: post.created_at,
+        relative_time: post.created_at ? formatRelativeTime(post.created_at) : ''
       }));
       
       setPosts(formattedPosts);

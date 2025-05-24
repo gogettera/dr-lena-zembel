@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "@/hooks/use-toast";
 import SocialInputRow from "./SocialInputRow";
+import { Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 
 const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
   const handleFetchPosts = async () => {
@@ -51,10 +52,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="facebook"
             render={({ field }) => (
               <SocialInputRow
-                icon="facebook"
+                icon={<Facebook className="w-5 h-5 text-[#1877F2] mr-2" />}
                 field={field}
                 label="Facebook URL"
                 placeholder="https://facebook.com/your-page"
+                loading={loading}
               />
             )}
           />
@@ -96,10 +98,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="instagram"
             render={({ field }) => (
               <SocialInputRow
-                icon="instagram"
+                icon={<Instagram className="w-5 h-5 text-[#E1306C] mr-2" />}
                 field={field}
                 label="Instagram URL"
                 placeholder="https://instagram.com/your-username"
+                loading={loading}
               />
             )}
           />
@@ -109,10 +112,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="twitter"
             render={({ field }) => (
               <SocialInputRow
-                icon="twitter"
+                icon={<Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />}
                 field={field}
                 label="Twitter URL"
                 placeholder="https://twitter.com/your-handle"
+                loading={loading}
               />
             )}
           />
@@ -122,10 +126,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="linkedin"
             render={({ field }) => (
               <SocialInputRow
-                icon="linkedin"
+                icon={<Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />}
                 field={field}
                 label="LinkedIn URL"
                 placeholder="https://linkedin.com/company/your-company"
+                loading={loading}
               />
             )}
           />
@@ -135,10 +140,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="youtube"
             render={({ field }) => (
               <SocialInputRow
-                icon="youtube"
+                icon={<Youtube className="w-5 h-5 text-[#FF0000] mr-2" />}
                 field={field}
                 label="YouTube URL"
                 placeholder="https://youtube.com/@your-channel"
+                loading={loading}
               />
             )}
           />

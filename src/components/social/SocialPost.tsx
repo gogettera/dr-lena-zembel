@@ -24,11 +24,13 @@ const SocialPost = ({ post }: SocialPostProps) => {
     
   const handleViewOriginal = (e: React.MouseEvent) => {
     e.stopPropagation();
-    window.open(post.post_url, '_blank', 'noopener,noreferrer');
+    if (post.post_url) {
+      window.open(post.post_url, '_blank', 'noopener,noreferrer');
+    }
   };
   
-  // Format the post date for display
-  const displayDate = post.relative_time || post.date || '';
+  // Format the post date for display - use relative_time if available
+  const displayDate = post.relative_time || '';
 
   return (
     <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden h-full flex flex-col">
@@ -37,7 +39,7 @@ const SocialPost = ({ post }: SocialPostProps) => {
           {post.image_url ? (
             <img
               src={post.image_url}
-              alt={t('social.post.image_alt', { content: post.content.substring(0, 30) })}
+              alt={t('social.post.image_alt', { context: { content: (post.content || '').substring(0, 30) } })}
               className="w-full h-48 object-cover"
               loading="lazy"
             />
@@ -64,18 +66,18 @@ const SocialPost = ({ post }: SocialPostProps) => {
         </div>
         
         <div className="p-6 flex-grow flex flex-col">
-          <p className="text-dental-navy mb-4 line-clamp-3 flex-grow">{post.content}</p>
+          <p className="text-dental-navy mb-4 line-clamp-3 flex-grow">{post.content || ''}</p>
           
           <div className="mt-auto">
             <div className="flex items-center justify-between text-sm text-gray-500">
               <div className="flex gap-3">
                 <div className="flex items-center gap-1">
                   <Heart className="w-4 h-4" />
-                  <span>{post.likes_count}</span>
+                  <span>{post.likes_count || 0}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <MessageCircle className="w-4 h-4" />
-                  <span>{post.comments_count}</span>
+                  <span>{post.comments_count || 0}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <button 
@@ -84,26 +86,28 @@ const SocialPost = ({ post }: SocialPostProps) => {
                     aria-label={t('social.actions.share')}
                   >
                     <Share className="w-4 h-4" />
-                    <span>{post.shares_count}</span>
+                    <span>{post.shares_count || 0}</span>
                   </button>
                 </div>
               </div>
               <span className="text-xs">{displayDate}</span>
             </div>
             
-            <button 
-              onClick={handleViewOriginal}
-              className="mt-3 text-xs flex items-center gap-1 text-dental-navy/70 hover:text-dental-navy transition-colors"
-            >
-              <ExternalLink size={12} />
-              {t('social.actions.view_original')}
-            </button>
+            {post.post_url && (
+              <button 
+                onClick={handleViewOriginal}
+                className="mt-3 text-xs flex items-center gap-1 text-dental-navy/70 hover:text-dental-navy transition-colors"
+              >
+                <ExternalLink size={12} />
+                {t('social.actions.view_original')}
+              </button>
+            )}
             
-            {isSharing && (
+            {isSharing && post.post_url && (
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <SocialShareButtons 
                   url={post.post_url}
-                  title={post.content.substring(0, 50) + '...'}
+                  title={(post.content || '').substring(0, 50) + '...'}
                   description={t('social.share.check_out_post')}
                   compact={true}
                 />
