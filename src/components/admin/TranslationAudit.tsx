@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { AlertTriangle, CheckCircle, Download, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { auditTranslationKeys, generateTranslationReport, MissingTranslationKey } from '@/utils/translationAudit';
+import { auditTranslationKeys, generateTranslationReport, auditSpecificTreatment, MissingTranslationKey } from '@/utils/translationAudit';
 import { Language } from '@/types/language';
 
 const TranslationAudit: React.FC = () => {
