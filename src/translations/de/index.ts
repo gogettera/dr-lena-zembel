@@ -4,11 +4,7 @@
 import commonJson from './common.json';
 import navigationJson from './navigation.json';
 
-// Export named exports for modular translations
-export const common = commonJson;
-export const navigation = navigationJson;
-
-// Export a combined object with all translations
+// Export a combined object with all translations - this is the structure the translation function expects
 export default {
   common: commonJson,
   navigation: navigationJson

@@ -71,12 +71,10 @@ export const createTranslationFunction = (
   defaultLanguage: Language = 'he'
 ) => {
   // Debug: Log translation structure in development
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`Creating translation function for language: ${language}`);
-    console.log(`Available languages:`, Object.keys(allTranslations));
-    console.log(`Current language translations structure:`, Object.keys(allTranslations[language] || {}));
-    logMissingTranslationKeys(allTranslations);
-  }
+  console.log(`[Translation Debug] Creating translation function for language: ${language}`);
+  console.log(`[Translation Debug] Available languages:`, Object.keys(allTranslations));
+  console.log(`[Translation Debug] Current language translation structure:`, allTranslations[language]);
+  console.log(`[Translation Debug] Sample translation lookup test:`, getNestedProperty(allTranslations[language], 'common.clinicName'));
 
   return (key: string, options?: string | TranslationOptions): any => {
     // Handle the case where options is a string (used as defaultValue)
@@ -88,8 +86,10 @@ export const createTranslationFunction = (
       defaultValue, 
       returnObjects = false,
       returnNull = false,
-      showDebug = process.env.NODE_ENV === 'development'
+      showDebug = true // Force debug for now to see what's happening
     } = opts;
+    
+    console.log(`[Translation Debug] Looking up key: ${key} for language: ${language}`);
     
     // Lookup chain: current language -> intermediate fallbacks -> default language -> default value/key
     const languageChain: Language[] = [];
@@ -113,34 +113,33 @@ export const createTranslationFunction = (
     
     for (const lang of languageChain) {
       const langTranslations = allTranslations[lang];
+      console.log(`[Translation Debug] Checking language ${lang}, has translations:`, !!langTranslations);
+      
       if (!langTranslations) {
-        if (showDebug) {
-          console.warn(`No translations found for language: ${lang}`);
-        }
+        console.warn(`[Translation Debug] No translations found for language: ${lang}`);
         continue;
       }
       
       const value = getNestedProperty(langTranslations, key);
+      console.log(`[Translation Debug] Key ${key} in ${lang}:`, value);
+      
       if (value !== undefined) {
         translationValue = value;
         sourceLanguage = lang;
+        console.log(`[Translation Debug] Found translation in ${lang}:`, value);
         break;
       }
     }
     
     // If no translation found in any language, return fallback
     if (translationValue === undefined) {
+      console.warn(`[Translation Debug] Missing translation for key: ${key} in all languages`);
       // If returnNull is true, return null instead of defaultValue/key
       if (returnNull) return null;
       
-      // Show debug info in dev mode if enabled
-      if (showDebug && process.env.NODE_ENV === 'development') {
-        const debugValue = `[${language}:${key}]`;
-        console.warn(`Missing translation: ${debugValue}`);
-        return defaultValue !== undefined ? defaultValue : debugValue;
-      }
-      
-      return defaultValue !== undefined ? defaultValue : key;
+      const fallback = defaultValue !== undefined ? defaultValue : `[${language}:${key}]`;
+      console.log(`[Translation Debug] Using fallback:`, fallback);
+      return fallback;
     }
     
     // Handle nested objects if needed
@@ -149,12 +148,14 @@ export const createTranslationFunction = (
     }
     
     // If source language is different from requested language and in dev mode, log a warning
-    if (showDebug && process.env.NODE_ENV === 'development' && sourceLanguage !== language) {
-      console.info(`Used fallback for '${key}': ${language} -> ${sourceLanguage}`);
+    if (sourceLanguage !== language) {
+      console.info(`[Translation Debug] Used fallback for '${key}': ${language} -> ${sourceLanguage}`);
     }
     
     // Format the value to a string or return object if requested
-    return returnObjects ? translationValue : formatTranslationValue(translationValue);
+    const result = returnObjects ? translationValue : formatTranslationValue(translationValue);
+    console.log(`[Translation Debug] Final result for ${key}:`, result);
+    return result;
   };
 };
 

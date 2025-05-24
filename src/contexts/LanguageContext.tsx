@@ -7,7 +7,6 @@ import {
   createTranslationFunction
 } from '@/utils/translation';
 import { translations } from '@/utils/translation/core';
-import { logMissingTranslationKeys } from '@/translations/utils/validation';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -45,7 +44,7 @@ const getLanguageFromURL = (): Language | null => {
 
 // Get initial language with proper priority
 const getInitialLanguage = (): Language => {
-  // 1. First priority: URL parameter
+  // 1. First priority: URL parameter (HIGHEST PRIORITY)
   const urlLang = getLanguageFromURL();
   if (urlLang) {
     console.log(`[LanguageContext] Using URL language: ${urlLang}`);
@@ -98,13 +97,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
   };
 
-  // Monitor URL changes and sync language
+  // Monitor URL changes and sync language - CRITICAL FIX
   useEffect(() => {
     const syncLanguageWithURL = () => {
       const urlLang = getLanguageFromURL();
       
+      // Always prioritize URL language
       if (urlLang && urlLang !== language) {
-        console.log(`[LanguageContext] URL language mismatch detected. URL: ${urlLang}, Context: ${language}`);
+        console.log(`[LanguageContext] FORCING URL language sync. URL: ${urlLang}, Context: ${language}`);
         setLanguageState(urlLang);
         setupDirectionByLanguage(urlLang);
         
@@ -114,11 +114,11 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       if (!isInitialized) {
         setIsInitialized(true);
-        console.log(`[LanguageContext] Language context initialized with: ${language}`);
+        console.log(`[LanguageContext] Language context initialized with: ${urlLang || language}`);
       }
     };
 
-    // Initial sync
+    // Initial sync - run immediately
     syncLanguageWithURL();
 
     // Listen for URL changes (popstate for back/forward navigation)
@@ -135,15 +135,11 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       setupDirectionByLanguage(language);
       
       // Log development information
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`[LanguageContext] Current language: ${language}`);
-        console.log(`[LanguageContext] RTL enabled: ${isRTL}`);
-        console.log(`[LanguageContext] URL path: ${window.location.pathname}`);
-        console.log(`[LanguageContext] Available translations for ${language}:`, Object.keys(translations[language] || {}));
-        
-        // Log missing translations
-        logMissingTranslationKeys(translations);
-      }
+      console.log(`[LanguageContext] Current language: ${language}`);
+      console.log(`[LanguageContext] RTL enabled: ${isRTL}`);
+      console.log(`[LanguageContext] URL path: ${window.location.pathname}`);
+      console.log(`[LanguageContext] Available translations for ${language}:`, Object.keys(translations[language] || {}));
+      console.log(`[LanguageContext] Full translations object:`, translations);
     }
   }, [language, isRTL, isInitialized]);
 

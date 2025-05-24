@@ -17,25 +17,12 @@ import testimonialsJson from './testimonials.json';
 import accessibilityJson from './accessibility.json';
 import legalJson from './legal.json';
 import botoxTreatmentsJson from './botoxTreatments.json';
+import adminJson from './admin.json';
+import securityJson from './security.json';
+import sharedJson from './shared.json';
+import socialJson from './social.json';
 
-// Re-export all translations as named exports
-export const common = commonJson;
-export const navigation = navigationJson;
-export const treatments = treatmentsJson;
-export const aestheticTreatments = aestheticTreatmentsJson;
-export const orthodontics = orthodonticsJson;
-export const rootCanal = rootCanalJson;
-export const childrenDentistry = childrenDentistryJson;
-export const about = aboutJson;
-export const clinic = clinicJson;
-export const contact = contactJson;
-export const info = infoJson;
-export const testimonials = testimonialsJson;
-export const accessibility = accessibilityJson;
-export const legal = legalJson;
-export const botoxTreatments = botoxTreatmentsJson;
-
-// Export a combined object with all translations
+// Export a combined object with all translations - this is the structure the translation function expects
 export default {
   common: commonJson,
   navigation: navigationJson,
@@ -51,5 +38,9 @@ export default {
   testimonials: testimonialsJson,
   accessibility: accessibilityJson,
   legal: legalJson,
-  botoxTreatments: botoxTreatmentsJson
+  botoxTreatments: botoxTreatmentsJson,
+  admin: adminJson,
+  security: securityJson,
+  shared: sharedJson,
+  social: socialJson
 };
