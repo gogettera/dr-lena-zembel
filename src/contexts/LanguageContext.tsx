@@ -28,52 +28,24 @@ const RTL_LANGUAGES: Language[] = ['he', 'ar'];
 // Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Get language from URL path
+// Get language from URL path with absolute priority
 const getLanguageFromURL = (): Language | null => {
   const pathname = window.location.pathname;
   const pathLang = pathname.split('/')[1] as Language;
   
   if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
-    console.log(`[LanguageContext] Language detected from URL: ${pathLang}`);
+    console.log(`[LanguageContext] URL language detected: ${pathLang}`);
     return pathLang;
   }
   
-  console.log(`[LanguageContext] No valid language found in URL path: ${pathname}`);
   return null;
-};
-
-// Get initial language with proper priority
-const getInitialLanguage = (): Language => {
-  // 1. First priority: URL parameter (HIGHEST PRIORITY)
-  const urlLang = getLanguageFromURL();
-  if (urlLang) {
-    console.log(`[LanguageContext] Using URL language: ${urlLang}`);
-    return urlLang;
-  }
-  
-  // 2. Second priority: localStorage
-  const savedLang = localStorage.getItem('preferredLanguage') as Language;
-  if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
-    console.log(`[LanguageContext] Using localStorage language: ${savedLang}`);
-    return savedLang;
-  }
-  
-  // 3. Third priority: browser language
-  const browserLang = navigator.language.split('-')[0] as Language;
-  if (AVAILABLE_LANGUAGES.includes(browserLang)) {
-    console.log(`[LanguageContext] Using browser language: ${browserLang}`);
-    return browserLang;
-  }
-  
-  // 4. Default fallback
-  console.log(`[LanguageContext] Using default language: ${DEFAULT_LANGUAGE}`);
-  return DEFAULT_LANGUAGE;
 };
 
 // Provider component
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize with proper language detection
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  // Get initial language with URL having absolute priority
+  const urlLanguage = getLanguageFromURL();
+  const [language, setLanguageState] = useState<Language>(urlLanguage || DEFAULT_LANGUAGE);
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Derived state
@@ -82,7 +54,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Handle language change
   const setLanguage = (newLanguage: Language) => {
     if (AVAILABLE_LANGUAGES.includes(newLanguage) && newLanguage !== language) {
-      console.log(`[LanguageContext] Language changing from ${language} to ${newLanguage}`);
+      console.log(`[LanguageContext] Changing language to: ${newLanguage}`);
       
       // Save to localStorage
       localStorage.setItem('preferredLanguage', newLanguage);
@@ -92,58 +64,52 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       // Update document direction
       setupDirectionByLanguage(newLanguage);
-      
-      console.log(`[LanguageContext] Language changed to: ${newLanguage}, RTL: ${RTL_LANGUAGES.includes(newLanguage)}`);
     }
   };
 
-  // Monitor URL changes and sync language - CRITICAL FIX
+  // URL language detection with absolute priority
   useEffect(() => {
-    const syncLanguageWithURL = () => {
-      const urlLang = getLanguageFromURL();
-      
-      // Always prioritize URL language
-      if (urlLang && urlLang !== language) {
-        console.log(`[LanguageContext] FORCING URL language sync. URL: ${urlLang}, Context: ${language}`);
-        setLanguageState(urlLang);
-        setupDirectionByLanguage(urlLang);
-        
-        // Update localStorage to match URL
-        localStorage.setItem('preferredLanguage', urlLang);
-      }
-      
-      if (!isInitialized) {
-        setIsInitialized(true);
-        console.log(`[LanguageContext] Language context initialized with: ${urlLang || language}`);
-      }
-    };
-
-    // Initial sync - run immediately
-    syncLanguageWithURL();
-
-    // Listen for URL changes (popstate for back/forward navigation)
-    window.addEventListener('popstate', syncLanguageWithURL);
+    const currentUrlLang = getLanguageFromURL();
     
-    return () => {
-      window.removeEventListener('popstate', syncLanguageWithURL);
-    };
+    // URL language ALWAYS takes precedence
+    if (currentUrlLang && currentUrlLang !== language) {
+      console.log(`[LanguageContext] URL language override: ${language} -> ${currentUrlLang}`);
+      setLanguageState(currentUrlLang);
+      setupDirectionByLanguage(currentUrlLang);
+      localStorage.setItem('preferredLanguage', currentUrlLang);
+    }
+    
+    if (!isInitialized) {
+      setIsInitialized(true);
+      console.log(`[LanguageContext] Initialized with language: ${currentUrlLang || language}`);
+    }
   }, [language, isInitialized]);
 
   // Set up document direction on language change
   useEffect(() => {
     if (isInitialized) {
       setupDirectionByLanguage(language);
-      
-      // Log development information
-      console.log(`[LanguageContext] Current language: ${language}`);
-      console.log(`[LanguageContext] RTL enabled: ${isRTL}`);
-      console.log(`[LanguageContext] URL path: ${window.location.pathname}`);
-      console.log(`[LanguageContext] Available translations for ${language}:`, Object.keys(translations[language] || {}));
-      console.log(`[LanguageContext] Full translations object:`, translations);
+      console.log(`[LanguageContext] Language: ${language}, RTL: ${isRTL}`);
+      console.log(`[LanguageContext] Available translations:`, Object.keys(translations[language] || {}));
     }
   }, [language, isRTL, isInitialized]);
 
-  // Create translation function using our utility
+  // Listen for URL changes
+  useEffect(() => {
+    const handlePopState = () => {
+      const newUrlLang = getLanguageFromURL();
+      if (newUrlLang && newUrlLang !== language) {
+        console.log(`[LanguageContext] URL change detected: ${newUrlLang}`);
+        setLanguageState(newUrlLang);
+        setupDirectionByLanguage(newUrlLang);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [language]);
+
+  // Create translation function
   const t = createTranslationFunction(language, translations, DEFAULT_LANGUAGE);
 
   return (

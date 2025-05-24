@@ -70,11 +70,8 @@ export const createTranslationFunction = (
   allTranslations: Record<Language, any>,
   defaultLanguage: Language = 'he'
 ) => {
-  // Debug: Log translation structure in development
-  console.log(`[Translation Debug] Creating translation function for language: ${language}`);
-  console.log(`[Translation Debug] Available languages:`, Object.keys(allTranslations));
-  console.log(`[Translation Debug] Current language translation structure:`, allTranslations[language]);
-  console.log(`[Translation Debug] Sample translation lookup test:`, getNestedProperty(allTranslations[language], 'common.clinicName'));
+  console.log(`[Translation] Creating function for language: ${language}`);
+  console.log(`[Translation] Available languages:`, Object.keys(allTranslations));
 
   return (key: string, options?: string | TranslationOptions): any => {
     // Handle the case where options is a string (used as defaultValue)
@@ -85,77 +82,47 @@ export const createTranslationFunction = (
     const { 
       defaultValue, 
       returnObjects = false,
-      returnNull = false,
-      showDebug = true // Force debug for now to see what's happening
+      returnNull = false
     } = opts;
     
-    console.log(`[Translation Debug] Looking up key: ${key} for language: ${language}`);
-    
-    // Lookup chain: current language -> intermediate fallbacks -> default language -> default value/key
-    const languageChain: Language[] = [];
-    
-    // Start with the requested language
-    languageChain.push(language);
-    
-    // English as common intermediate fallback (unless it's already the current language)
-    if (language !== 'en') {
-      languageChain.push('en');
-    }
-    
-    // Default language as final fallback (unless already checked)
-    if (defaultLanguage !== language && defaultLanguage !== 'en') {
-      languageChain.push(defaultLanguage);
-    }
-    
-    // Try to get translation from the language chain
-    let translationValue: any = undefined;
-    let sourceLanguage: Language | undefined = undefined;
-    
-    for (const lang of languageChain) {
-      const langTranslations = allTranslations[lang];
-      console.log(`[Translation Debug] Checking language ${lang}, has translations:`, !!langTranslations);
-      
-      if (!langTranslations) {
-        console.warn(`[Translation Debug] No translations found for language: ${lang}`);
-        continue;
-      }
-      
-      const value = getNestedProperty(langTranslations, key);
-      console.log(`[Translation Debug] Key ${key} in ${lang}:`, value);
-      
+    // Try to get translation from current language first
+    const currentLangTranslations = allTranslations[language];
+    if (currentLangTranslations) {
+      const value = getNestedProperty(currentLangTranslations, key);
       if (value !== undefined) {
-        translationValue = value;
-        sourceLanguage = lang;
-        console.log(`[Translation Debug] Found translation in ${lang}:`, value);
-        break;
+        console.log(`[Translation] Found key "${key}" in ${language}:`, value);
+        return returnObjects ? value : formatTranslationValue(value);
       }
     }
     
-    // If no translation found in any language, return fallback
-    if (translationValue === undefined) {
-      console.warn(`[Translation Debug] Missing translation for key: ${key} in all languages`);
-      // If returnNull is true, return null instead of defaultValue/key
-      if (returnNull) return null;
-      
-      const fallback = defaultValue !== undefined ? defaultValue : `[${language}:${key}]`;
-      console.log(`[Translation Debug] Using fallback:`, fallback);
-      return fallback;
+    // Fallback to English if not the current language
+    if (language !== 'en') {
+      const enTranslations = allTranslations['en'];
+      if (enTranslations) {
+        const value = getNestedProperty(enTranslations, key);
+        if (value !== undefined) {
+          console.log(`[Translation] Fallback to English for "${key}":`, value);
+          return returnObjects ? value : formatTranslationValue(value);
+        }
+      }
     }
     
-    // Handle nested objects if needed
-    if (isNestedObject(translationValue) && !returnObjects) {
-      return formatTranslationValue(translationValue);
+    // Fallback to default language if different from current and English
+    if (language !== defaultLanguage && defaultLanguage !== 'en') {
+      const defaultTranslations = allTranslations[defaultLanguage];
+      if (defaultTranslations) {
+        const value = getNestedProperty(defaultTranslations, key);
+        if (value !== undefined) {
+          console.log(`[Translation] Fallback to ${defaultLanguage} for "${key}":`, value);
+          return returnObjects ? value : formatTranslationValue(value);
+        }
+      }
     }
     
-    // If source language is different from requested language and in dev mode, log a warning
-    if (sourceLanguage !== language) {
-      console.info(`[Translation Debug] Used fallback for '${key}': ${language} -> ${sourceLanguage}`);
-    }
-    
-    // Format the value to a string or return object if requested
-    const result = returnObjects ? translationValue : formatTranslationValue(translationValue);
-    console.log(`[Translation Debug] Final result for ${key}:`, result);
-    return result;
+    // Final fallback
+    console.warn(`[Translation] Missing key "${key}" in all languages`);
+    if (returnNull) return null;
+    return defaultValue !== undefined ? defaultValue : `[${language}:${key}]`;
   };
 };
 
@@ -187,18 +154,6 @@ export const validateTranslationKeys = (
     };
     
     collectKeys(translations);
-  });
-  
-  // Compare keys across languages
-  const languages = Object.keys(allTranslations);
-  const baseLanguage = languages[0];
-  
-  languages.slice(1).forEach(lang => {
-    languageKeys[baseLanguage].forEach(key => {
-      if (!languageKeys[lang].has(key)) {
-        missingKeys.push(`${lang}:${key}`);
-      }
-    });
   });
   
   return missingKeys;

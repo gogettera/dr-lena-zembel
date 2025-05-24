@@ -1,26 +1,26 @@
 
 {
   "home": "Home",
+  "about": "About",
   "treatments": "Treatments",
   "botoxTreatments": "Botox Treatments",
   "aestheticTreatments": "Aesthetic Treatments",
-  "preventiveMedicine": "Preventive Care",
+  "preventiveMedicine": "Preventive Medicine",
   "contact": "Contact",
-  "about": "About",
   "practice": "Our Practice",
   "team": "Team",
   "patients": "For Patients",
   "testimonials": "Patient Reviews",
-  "patientsExperiences": "Our patients share their experiences",
+  "patientsExperiences": "Our patients share their experience",
   "ourTreatments": "Our Treatments",
   "wideRangeOfTreatments": "We offer a wide range of advanced dental treatments",
-  "updatesFromPractice": "Practice Updates",
+  "updatesFromPractice": "Updates from the Practice",
   "followOnFacebook": "Follow us on Facebook for regular updates",
-  "followOnFacebookButton": "Follow on Facebook",
+  "followOnFacebookButton": "Follow us on Facebook",
   "learnMore": "Learn More",
   "sitemap": "Sitemap",
   "backToHome": "Back to Home",
-  "treatmentNotFound": "Treatment Not Found",
+  "treatmentNotFound": "Treatment not found",
   "info": "Information",
   "followUs": "Follow Us",
   "accessibility": {
@@ -28,7 +28,9 @@
     "statement": "Accessibility Statement"
   },
   "legal": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Use"
   }
 }

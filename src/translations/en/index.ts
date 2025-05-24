@@ -1,46 +1,22 @@
 
 // This file serves as an entry point for the English translations
-// We're using the same modular structure as the Hebrew translations
+// Only importing files that actually exist to prevent import errors
 
 import commonJson from './common.json';
 import navigationJson from './navigation.json';
-import treatmentsJson from './treatments.json';
-import aestheticTreatmentsJson from './aestheticTreatments.json';
-import botoxTreatmentsJson from './botoxTreatments.json';
-import orthodonticsJson from './orthodontics.json';
-import rootCanalJson from './rootCanal.json';
-import childrenDentistryJson from './childrenDentistry.json';
-import aboutJson from './about.json';
-import clinicJson from './clinic.json';
-import contactJson from './contact.json';
-import infoJson from './info.json';
 import testimonialsJson from './testimonials.json';
 import accessibilityJson from './accessibility.json';
 import legalJson from './legal.json';
-import adminJson from './admin.json';
-import securityJson from './security.json';
-import sharedJson from './shared.json';
-import socialJson from './social.json';
+import clinicJson from './clinic.json';
+import infoJson from './info.json';
 
-// Export a combined object with all translations - this is the structure the translation function expects
+// Export a combined object with all available translations
 export default {
   common: commonJson,
   navigation: navigationJson,
-  treatments: treatmentsJson,
-  aestheticTreatments: aestheticTreatmentsJson,
-  botoxTreatments: botoxTreatmentsJson,
-  orthodontics: orthodonticsJson,
-  rootCanal: rootCanalJson,
-  childrenDentistry: childrenDentistryJson,
-  about: aboutJson,
-  clinic: clinicJson,
-  contact: contactJson,
-  info: infoJson,
   testimonials: testimonialsJson,
   accessibility: accessibilityJson,
   legal: legalJson,
-  admin: adminJson,
-  security: securityJson,
-  shared: sharedJson,
-  social: socialJson
+  clinic: clinicJson,
+  info: infoJson
 };
