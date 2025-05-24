@@ -4,11 +4,15 @@ import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl, FormDes
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 import SocialInputRow from "./SocialInputRow";
 import { Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 
 const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
+  const { toast } = useToast();
+  const { t } = useLanguage();
+
   const handleFetchPosts = async () => {
     try {
       const response = await fetch('/api/functions/v1/fetch-facebook-posts', {
@@ -25,20 +29,24 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
       const data = await response.json();
       
       if (response.ok) {
-        toast.success({
-          title: 'Posts updated successfully',
-          description: `Fetched ${data.posts?.length || 0} posts from Facebook`
+        toast({
+          titleKey: 'admin.settings.social.posts_fetched',
+          descriptionKey: 'admin.settings.social.posts_fetched_description',
+          descriptionParams: { count: data.posts?.length || 0 },
+          variant: 'success'
         });
       } else {
-        toast.error({
-          title: 'Failed to fetch posts',
-          description: data.error || 'An unknown error occurred'
+        toast({
+          titleKey: 'admin.settings.social.fetch_failed',
+          description: data.error || t('admin.settings.social.error_try_again'),
+          variant: 'destructive'
         });
       }
     } catch (error) {
-      toast.error({
-        title: 'Failed to fetch posts',
-        description: error.message
+      toast({
+        titleKey: 'admin.settings.social.fetch_failed',
+        description: error.message,
+        variant: 'destructive'
       });
     }
   };
@@ -54,8 +62,8 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               <SocialInputRow
                 icon={<Facebook className="w-5 h-5 text-[#1877F2] mr-2" />}
                 field={field}
-                label="Facebook URL"
-                placeholder="https://facebook.com/your-page"
+                label={t('admin.settings.social.facebook_url')}
+                placeholder={t('admin.settings.social.placeholders.facebook')}
                 loading={loading}
               />
             )}
@@ -66,11 +74,11 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
             name="facebook_page_id"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Facebook Page ID or username</FormLabel>
+                <FormLabel>{t('admin.settings.social.facebook_page_id')}</FormLabel>
                 <FormControl>
                   <div className="flex gap-2">
                     <Input
-                      placeholder="drzembel"
+                      placeholder={t('admin.settings.social.placeholders.facebook_page_id')}
                       {...field}
                       value={field.value || ''}
                       className="flex-1"
@@ -81,12 +89,12 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
                       onClick={handleFetchPosts}
                       disabled={loading || !field.value}
                     >
-                      Fetch Posts
+                      {t('admin.settings.social.fetch_posts')}
                     </Button>
                   </div>
                 </FormControl>
                 <FormDescription>
-                  Enter your Facebook Page ID or username to fetch posts automatically
+                  {t('admin.settings.social.facebook_page_id_description')}
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -100,8 +108,8 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               <SocialInputRow
                 icon={<Instagram className="w-5 h-5 text-[#E1306C] mr-2" />}
                 field={field}
-                label="Instagram URL"
-                placeholder="https://instagram.com/your-username"
+                label={t('admin.settings.social.instagram_url')}
+                placeholder={t('admin.settings.social.placeholders.instagram')}
                 loading={loading}
               />
             )}
@@ -114,8 +122,8 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               <SocialInputRow
                 icon={<Twitter className="w-5 h-5 text-[#1DA1F2] mr-2" />}
                 field={field}
-                label="Twitter URL"
-                placeholder="https://twitter.com/your-handle"
+                label={t('admin.settings.social.twitter_url')}
+                placeholder={t('admin.settings.social.placeholders.twitter')}
                 loading={loading}
               />
             )}
@@ -128,8 +136,8 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               <SocialInputRow
                 icon={<Linkedin className="w-5 h-5 text-[#0077B5] mr-2" />}
                 field={field}
-                label="LinkedIn URL"
-                placeholder="https://linkedin.com/company/your-company"
+                label={t('admin.settings.social.linkedin_url')}
+                placeholder={t('admin.settings.social.placeholders.linkedin')}
                 loading={loading}
               />
             )}
@@ -142,8 +150,8 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               <SocialInputRow
                 icon={<Youtube className="w-5 h-5 text-[#FF0000] mr-2" />}
                 field={field}
-                label="YouTube URL"
-                placeholder="https://youtube.com/@your-channel"
+                label={t('admin.settings.social.youtube_url')}
+                placeholder={t('admin.settings.social.placeholders.youtube')}
                 loading={loading}
               />
             )}
@@ -163,10 +171,10 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
               </FormControl>
               <div className="space-y-1 leading-none">
                 <FormLabel>
-                  Show social media icons
+                  {t('admin.settings.social.show_social_icons')}
                 </FormLabel>
                 <FormDescription>
-                  Display social media icons in the website footer
+                  {t('admin.settings.social.show_social_icons_description')}
                 </FormDescription>
               </div>
             </FormItem>
@@ -175,7 +183,7 @@ const SocialMediaSettingsForm = ({ form, loading, onSubmit }) => {
         
         <div className="flex justify-end">
           <Button type="submit" disabled={loading} className="w-full md:w-auto">
-            {loading ? "Saving..." : "Save Settings"}
+            {loading ? t('admin.settings.social.saving') : t('admin.settings.social.save_settings')}
           </Button>
         </div>
       </form>

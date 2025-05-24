@@ -27,6 +27,7 @@ const SocialInputRow: React.FC<SocialInputRowProps> = ({
           {...field}
           placeholder={placeholder}
           disabled={loading}
+          value={field.value || ''}
         />
       </div>
     </FormControl>

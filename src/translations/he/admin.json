@@ -1,0 +1,41 @@
+
+{
+  "settings": {
+    "social": {
+      "title": "הגדרות רשתות חברתיות",
+      "description": "נהל את קישורי הרשתות החברתיות שלך",
+      "facebook": "פייסבוק",
+      "facebook_url": "כתובת פייסבוק",
+      "facebook_page_id": "מזהה דף פייסבוק או שם משתמש",
+      "facebook_page_id_description": "הכנס את מזהה הדף או שם המשתמש שלך בפייסבוק כדי לטעון פוסטים אוטומטית",
+      "instagram": "אינסטגרם",
+      "instagram_url": "כתובת אינסטגרם",
+      "twitter": "טוויטר",
+      "twitter_url": "כתובת טוויטר",
+      "linkedin": "לינקדאין",
+      "linkedin_url": "כתובת לינקדאין",
+      "youtube": "יוטיוב",
+      "youtube_url": "כתובת יוטיוב",
+      "show_social_icons": "הצג אייקוני רשתות חברתיות",
+      "show_social_icons_description": "הצג אייקוני רשתות חברתיות בתחתית האתר",
+      "fetch_posts": "טען פוסטים",
+      "save_settings": "שמור הגדרות",
+      "saving": "שומר...",
+      "settings_saved": "ההגדרות נשמרו",
+      "settings_saved_description": "הגדרות הרשתות החברתיות עודכנו בהצלחה",
+      "error_saving": "שגיאה בשמירת ההגדרות",
+      "error_try_again": "אנא נסה שוב",
+      "posts_fetched": "הפוסטים עודכנו בהצלחה",
+      "posts_fetched_description": "נטענו {{count}} פוסטים מפייסבוק",
+      "fetch_failed": "נכשלה טעינת הפוסטים",
+      "placeholders": {
+        "facebook": "https://facebook.com/your-page",
+        "instagram": "https://instagram.com/your-username",
+        "twitter": "https://twitter.com/your-handle",
+        "linkedin": "https://linkedin.com/company/your-company",
+        "youtube": "https://youtube.com/@your-channel",
+        "facebook_page_id": "drzembel"
+      }
+    }
+  }
+}

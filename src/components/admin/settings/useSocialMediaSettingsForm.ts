@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { supabase } from '@/integrations/supabase/client';
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 // Form schema
 const socialMediaFormSchema = z.object({
@@ -21,6 +21,7 @@ type SocialMediaFormValues = z.infer<typeof socialMediaFormSchema>;
 
 export function useSocialMediaSettingsForm() {
   const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
 
   // Initialize form
   const form = useForm<SocialMediaFormValues>({
@@ -93,13 +94,14 @@ export function useSocialMediaSettingsForm() {
       if (error) throw error;
 
       toast({
-        title: 'Settings saved',
-        description: 'Social media settings have been updated',
+        titleKey: 'admin.settings.social.settings_saved',
+        descriptionKey: 'admin.settings.social.settings_saved_description',
+        variant: 'success'
       });
     } catch (error) {
       console.error('Error saving social media settings', error);
       toast({
-        title: 'Error saving settings',
+        titleKey: 'admin.settings.social.error_saving',
         description: error.message || 'Please try again',
         variant: 'destructive',
       });
