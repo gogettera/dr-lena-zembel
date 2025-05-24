@@ -52,10 +52,10 @@ export function useSocialMediaSettingsForm() {
           return;
         }
 
-        // Map database fields to form fields, handling the new facebook_page_id column
+        // Map database fields to form fields, safely handling the facebook_page_id column
         form.reset({
           facebook: data.facebook || '',
-          facebook_page_id: data.facebook_page_id || '',
+          facebook_page_id: (data as any).facebook_page_id || '',
           instagram: data.instagram || '',
           twitter: data.twitter || '',
           linkedin: data.linkedin || '',
@@ -92,15 +92,16 @@ export function useSocialMediaSettingsForm() {
 
       if (error) throw error;
 
-      toast.success({
+      toast({
         title: 'Settings saved',
         description: 'Social media settings have been updated',
       });
     } catch (error) {
       console.error('Error saving social media settings', error);
-      toast.error({
+      toast({
         title: 'Error saving settings',
         description: error.message || 'Please try again',
+        variant: 'destructive',
       });
     } finally {
       setLoading(false);

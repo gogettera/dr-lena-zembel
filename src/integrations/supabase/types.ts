@@ -255,6 +255,7 @@ export type Database = {
       site_social: {
         Row: {
           facebook: string | null
+          facebook_page_id: string | null
           id: number
           instagram: string | null
           linkedin: string | null
@@ -265,6 +266,7 @@ export type Database = {
         }
         Insert: {
           facebook?: string | null
+          facebook_page_id?: string | null
           id?: number
           instagram?: string | null
           linkedin?: string | null
@@ -275,6 +277,7 @@ export type Database = {
         }
         Update: {
           facebook?: string | null
+          facebook_page_id?: string | null
           id?: number
           instagram?: string | null
           linkedin?: string | null
