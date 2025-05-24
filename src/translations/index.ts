@@ -1,12 +1,12 @@
 
-// Main translation indexes - fully importing all translation files
-import * as heTranslations from './he';
-import * as enTranslations from './en';
-import * as ruTranslations from './ru';
-import * as deTranslations from './de';
-import * as arTranslations from './ar';
+// Main translation indexes - properly structured imports
+import heTranslations from './he';
+import enTranslations from './en';
+import ruTranslations from './ru';
+import deTranslations from './de';
+import arTranslations from './ar';
 
-// Export translations with proper namespaces
+// Export translations with flattened structure
 export default {
   he: heTranslations,
   en: enTranslations,

@@ -1,20 +1,18 @@
 
 // This file serves as an entry point for the Russian translations
 
-import botoxTreatmentsJson from './botoxTreatments.json';
-import navigationJson from './navigation.json';
 import commonJson from './common.json';
-import ruTranslations from '../ru.json';
+import navigationJson from './navigation.json';
+import botoxTreatmentsJson from './botoxTreatments.json';
 
 // Export named exports for modular translations
-export const botoxTreatments = botoxTreatmentsJson;
-export const navigation = navigationJson;
 export const common = commonJson;
+export const navigation = navigationJson;
+export const botoxTreatments = botoxTreatmentsJson;
 
 // Export a combined object with all translations
 export default {
-  ...ruTranslations,
-  botoxTreatments: botoxTreatmentsJson,
+  common: commonJson,
   navigation: navigationJson,
-  common: commonJson
+  botoxTreatments: botoxTreatmentsJson
 };

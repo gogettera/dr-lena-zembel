@@ -63,15 +63,18 @@ export const formatTranslationValue = (value: any): string => {
 };
 
 /**
- * Create a translation function with improved fallback handling
+ * Create a translation function with improved fallback handling and debugging
  */
 export const createTranslationFunction = (
   language: Language,
   allTranslations: Record<Language, any>,
   defaultLanguage: Language = 'he'
 ) => {
-  // Log missing translations in development environment
+  // Debug: Log translation structure in development
   if (process.env.NODE_ENV === 'development') {
+    console.log(`Creating translation function for language: ${language}`);
+    console.log(`Available languages:`, Object.keys(allTranslations));
+    console.log(`Current language translations structure:`, Object.keys(allTranslations[language] || {}));
     logMissingTranslationKeys(allTranslations);
   }
 
@@ -110,7 +113,12 @@ export const createTranslationFunction = (
     
     for (const lang of languageChain) {
       const langTranslations = allTranslations[lang];
-      if (!langTranslations) continue;
+      if (!langTranslations) {
+        if (showDebug) {
+          console.warn(`No translations found for language: ${lang}`);
+        }
+        continue;
+      }
       
       const value = getNestedProperty(langTranslations, key);
       if (value !== undefined) {

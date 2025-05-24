@@ -35,11 +35,11 @@ const getLanguageFromURL = (): Language | null => {
   const pathLang = pathname.split('/')[1] as Language;
   
   if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
-    console.log(`Language detected from URL: ${pathLang}`);
+    console.log(`[LanguageContext] Language detected from URL: ${pathLang}`);
     return pathLang;
   }
   
-  console.log(`No valid language found in URL path: ${pathname}`);
+  console.log(`[LanguageContext] No valid language found in URL path: ${pathname}`);
   return null;
 };
 
@@ -48,25 +48,26 @@ const getInitialLanguage = (): Language => {
   // 1. First priority: URL parameter
   const urlLang = getLanguageFromURL();
   if (urlLang) {
+    console.log(`[LanguageContext] Using URL language: ${urlLang}`);
     return urlLang;
   }
   
   // 2. Second priority: localStorage
   const savedLang = localStorage.getItem('preferredLanguage') as Language;
   if (savedLang && AVAILABLE_LANGUAGES.includes(savedLang)) {
-    console.log(`Language from localStorage: ${savedLang}`);
+    console.log(`[LanguageContext] Using localStorage language: ${savedLang}`);
     return savedLang;
   }
   
   // 3. Third priority: browser language
   const browserLang = navigator.language.split('-')[0] as Language;
   if (AVAILABLE_LANGUAGES.includes(browserLang)) {
-    console.log(`Language from browser: ${browserLang}`);
+    console.log(`[LanguageContext] Using browser language: ${browserLang}`);
     return browserLang;
   }
   
   // 4. Default fallback
-  console.log(`Using default language: ${DEFAULT_LANGUAGE}`);
+  console.log(`[LanguageContext] Using default language: ${DEFAULT_LANGUAGE}`);
   return DEFAULT_LANGUAGE;
 };
 
@@ -82,7 +83,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Handle language change
   const setLanguage = (newLanguage: Language) => {
     if (AVAILABLE_LANGUAGES.includes(newLanguage) && newLanguage !== language) {
-      console.log(`Language changing from ${language} to ${newLanguage}`);
+      console.log(`[LanguageContext] Language changing from ${language} to ${newLanguage}`);
       
       // Save to localStorage
       localStorage.setItem('preferredLanguage', newLanguage);
@@ -93,7 +94,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       // Update document direction
       setupDirectionByLanguage(newLanguage);
       
-      console.log(`Language changed to: ${newLanguage}, RTL: ${RTL_LANGUAGES.includes(newLanguage)}`);
+      console.log(`[LanguageContext] Language changed to: ${newLanguage}, RTL: ${RTL_LANGUAGES.includes(newLanguage)}`);
     }
   };
 
@@ -103,7 +104,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       const urlLang = getLanguageFromURL();
       
       if (urlLang && urlLang !== language) {
-        console.log(`URL language mismatch detected. URL: ${urlLang}, Context: ${language}`);
+        console.log(`[LanguageContext] URL language mismatch detected. URL: ${urlLang}, Context: ${language}`);
         setLanguageState(urlLang);
         setupDirectionByLanguage(urlLang);
         
@@ -113,6 +114,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       if (!isInitialized) {
         setIsInitialized(true);
+        console.log(`[LanguageContext] Language context initialized with: ${language}`);
       }
     };
 
@@ -134,9 +136,10 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       
       // Log development information
       if (process.env.NODE_ENV === 'development') {
-        console.log(`Current language: ${language}`);
-        console.log(`RTL enabled: ${isRTL}`);
-        console.log(`URL path: ${window.location.pathname}`);
+        console.log(`[LanguageContext] Current language: ${language}`);
+        console.log(`[LanguageContext] RTL enabled: ${isRTL}`);
+        console.log(`[LanguageContext] URL path: ${window.location.pathname}`);
+        console.log(`[LanguageContext] Available translations for ${language}:`, Object.keys(translations[language] || {}));
         
         // Log missing translations
         logMissingTranslationKeys(translations);
