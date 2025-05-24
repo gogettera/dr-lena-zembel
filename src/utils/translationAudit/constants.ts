@@ -1,4 +1,6 @@
 
+import { Language } from '@/types/language';
+
 // Treatment-specific keys that should exist for each treatment
 export const EXPECTED_TREATMENT_KEYS = [
   // Basic treatment info
