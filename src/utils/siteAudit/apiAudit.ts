@@ -99,16 +99,16 @@ export async function auditAPIEndpoints(): Promise<AuditIssue[]> {
 export async function auditDatabaseHealth(): Promise<AuditIssue[]> {
   const issues: AuditIssue[] = [];
 
-  // Check core tables
-  const coreTables = [
-    'clinic_info',
-    'doctor_info', 
-    'site_meta',
-    'site_social',
-    'videos'
+  // Check each table individually to avoid type issues
+  const tableChecks = [
+    { name: 'clinic_info', table: 'clinic_info' as const },
+    { name: 'doctor_info', table: 'doctor_info' as const },
+    { name: 'site_meta', table: 'site_meta' as const },
+    { name: 'site_social', table: 'site_social' as const },
+    { name: 'videos', table: 'videos' as const }
   ];
 
-  for (const table of coreTables) {
+  for (const { name, table } of tableChecks) {
     try {
       const { error } = await supabase
         .from(table)
@@ -117,21 +117,21 @@ export async function auditDatabaseHealth(): Promise<AuditIssue[]> {
       
       if (error) {
         issues.push({
-          id: `db-table-${table}`,
+          id: `db-table-${name}`,
           category: 'api',
           severity: 'critical',
-          title: `Database Table ${table} Error`,
-          description: `Cannot access table ${table}: ${error.message}`,
+          title: `Database Table ${name} Error`,
+          description: `Cannot access table ${name}: ${error.message}`,
           fixSuggestion: 'Check table permissions and RLS policies'
         });
       }
     } catch (error) {
       issues.push({
-        id: `db-connection-${table}`,
+        id: `db-connection-${name}`,
         category: 'api',
         severity: 'critical',
-        title: `Database Connection Error for ${table}`,
-        description: `Failed to connect to table ${table}`,
+        title: `Database Connection Error for ${name}`,
+        description: `Failed to connect to table ${name}`,
         fixSuggestion: 'Verify Supabase connection and table existence'
       });
     }
