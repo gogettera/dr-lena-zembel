@@ -1,7 +1,5 @@
-
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { render, act } from '@testing-library/react';
-import { screen, fireEvent } from '@testing-library/dom';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { LanguageProvider, useLanguage } from '@/contexts/LanguageContext';
 import React from 'react';
 
