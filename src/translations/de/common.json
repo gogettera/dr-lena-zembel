@@ -15,5 +15,10 @@
   "call": "Anrufen",
   "mainNavigation": "Hauptnavigation",
   "toggleMenu": "Menü",
-  "switchToLanguage": "Zu {{language}} wechseln"
+  "switchToLanguage": "Zu {{language}} wechseln",
+  "bookNow": "Jetzt buchen",
+  "logo": {
+    "altText": "Dr. Lena Zembel Zahnklinik Logo",
+    "srText": "Dr. Lena Zembel - Zahnklinik"
+  }
 }

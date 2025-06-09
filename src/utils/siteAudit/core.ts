@@ -7,6 +7,7 @@ import { auditSecurity } from './securityAudit';
 import { auditAccessibility } from './accessibilityAudit';
 import { auditSEO } from './seoAudit';
 import { auditContent } from './contentAudit';
+import { auditConsoleUsage, auditErrorHandling } from './consoleAudit';
 
 const DEFAULT_CONFIG: AuditConfig = {
   enabledCategories: ['api', 'translation', 'performance', 'security', 'accessibility', 'seo', 'content'],
@@ -107,7 +108,9 @@ export async function runComprehensiveAudit(config: Partial<AuditConfig> = {}): 
     console.log('📝 Auditing content...');
     try {
       const contentIssues = auditContent();
-      allIssues.push(...contentIssues);
+      const consoleIssues = auditConsoleUsage();
+      const errorHandlingIssues = auditErrorHandling();
+      allIssues.push(...contentIssues, ...consoleIssues, ...errorHandlingIssues);
     } catch (error) {
       console.error('Content audit failed:', error);
     }
@@ -203,6 +206,10 @@ function generateRecommendations(
 
   if (issuesByCategory.seo.length > 0) {
     recommendations.push('🔍 Enhance SEO elements to improve search engine visibility');
+  }
+
+  if (issuesByCategory.content.length > 0) {
+    recommendations.push('📝 Clean up debug logging and improve error handling patterns');
   }
 
   if (recommendations.length === 0) {

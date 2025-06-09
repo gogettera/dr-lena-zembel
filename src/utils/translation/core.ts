@@ -1,7 +1,7 @@
 
 import { Language } from '@/types/language';
 import { TranslationOptions, TranslationsType } from './types';
-import { logMissingTranslationKeys } from '@/translations/utils/validation';
+import { logger } from '@/utils/logger';
 
 // Import all translations
 import translations from '@/translations';
@@ -70,8 +70,7 @@ export const createTranslationFunction = (
   allTranslations: Record<Language, any>,
   defaultLanguage: Language = 'he'
 ) => {
-  console.log(`[Translation] Creating function for language: ${language}`);
-  console.log(`[Translation] Available languages:`, Object.keys(allTranslations));
+  logger.debug(`Creating translation function for language: ${language}`);
 
   return (key: string, options?: string | TranslationOptions): any => {
     // Handle the case where options is a string (used as defaultValue)
@@ -90,7 +89,7 @@ export const createTranslationFunction = (
     if (currentLangTranslations) {
       const value = getNestedProperty(currentLangTranslations, key);
       if (value !== undefined) {
-        console.log(`[Translation] Found key "${key}" in ${language}:`, value);
+        logger.debug(`Found key "${key}" in ${language}`);
         return returnObjects ? value : formatTranslationValue(value);
       }
     }
@@ -101,7 +100,7 @@ export const createTranslationFunction = (
       if (enTranslations) {
         const value = getNestedProperty(enTranslations, key);
         if (value !== undefined) {
-          console.log(`[Translation] Fallback to English for "${key}":`, value);
+          logger.debug(`Fallback to English for "${key}"`);
           return returnObjects ? value : formatTranslationValue(value);
         }
       }
@@ -113,14 +112,14 @@ export const createTranslationFunction = (
       if (defaultTranslations) {
         const value = getNestedProperty(defaultTranslations, key);
         if (value !== undefined) {
-          console.log(`[Translation] Fallback to ${defaultLanguage} for "${key}":`, value);
+          logger.debug(`Fallback to ${defaultLanguage} for "${key}"`);
           return returnObjects ? value : formatTranslationValue(value);
         }
       }
     }
     
-    // Final fallback
-    console.warn(`[Translation] Missing key "${key}" in all languages`);
+    // Final fallback - only warn in development
+    logger.warn(`Missing translation key: "${key}" in all languages`);
     if (returnNull) return null;
     return defaultValue !== undefined ? defaultValue : `[${language}:${key}]`;
   };

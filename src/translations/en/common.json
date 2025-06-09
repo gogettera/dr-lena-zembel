@@ -16,5 +16,9 @@
   "moreDetails": "More Details",
   "completelyHappy": "Thousands of satisfied patients",
   "newLook": "Our New Clinic",
-  "practiceFresh": "Our clinic has undergone a complete upgrade! New equipment, advanced technology and a modern treatment environment await you."
+  "practiceFresh": "Our clinic has undergone a complete upgrade! New equipment, advanced technology and a modern treatment environment await you.",
+  "logo": {
+    "altText": "Dr. Lena Zembel Dental Clinic Logo",
+    "srText": "Dr. Lena Zembel - Dental Clinic"
+  }
 }

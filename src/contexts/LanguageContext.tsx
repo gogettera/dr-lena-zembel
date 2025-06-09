@@ -7,6 +7,7 @@ import {
   createTranslationFunction
 } from '@/utils/translation';
 import { translations } from '@/utils/translation/core';
+import { logger } from '@/utils/logger';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -34,7 +35,7 @@ const getLanguageFromURL = (): Language | null => {
   const pathLang = pathname.split('/')[1] as Language;
   
   if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
-    console.log(`[LanguageContext] URL language detected: ${pathLang}`);
+    logger.debug(`URL language detected: ${pathLang}`);
     return pathLang;
   }
   
@@ -54,7 +55,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   // Handle language change
   const setLanguage = (newLanguage: Language) => {
     if (AVAILABLE_LANGUAGES.includes(newLanguage) && newLanguage !== language) {
-      console.log(`[LanguageContext] Changing language to: ${newLanguage}`);
+      logger.debug(`Changing language to: ${newLanguage}`);
       
       // Save to localStorage
       localStorage.setItem('preferredLanguage', newLanguage);
@@ -73,7 +74,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     
     // URL language ALWAYS takes precedence
     if (currentUrlLang && currentUrlLang !== language) {
-      console.log(`[LanguageContext] URL language override: ${language} -> ${currentUrlLang}`);
+      logger.debug(`URL language override: ${language} -> ${currentUrlLang}`);
       setLanguageState(currentUrlLang);
       setupDirectionByLanguage(currentUrlLang);
       localStorage.setItem('preferredLanguage', currentUrlLang);
@@ -81,7 +82,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     
     if (!isInitialized) {
       setIsInitialized(true);
-      console.log(`[LanguageContext] Initialized with language: ${currentUrlLang || language}`);
+      logger.debug(`Initialized with language: ${currentUrlLang || language}`);
     }
   }, [language, isInitialized]);
 
@@ -89,8 +90,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   useEffect(() => {
     if (isInitialized) {
       setupDirectionByLanguage(language);
-      console.log(`[LanguageContext] Language: ${language}, RTL: ${isRTL}`);
-      console.log(`[LanguageContext] Available translations:`, Object.keys(translations[language] || {}));
+      logger.debug(`Language: ${language}, RTL: ${isRTL}`);
     }
   }, [language, isRTL, isInitialized]);
 
@@ -99,7 +99,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const handlePopState = () => {
       const newUrlLang = getLanguageFromURL();
       if (newUrlLang && newUrlLang !== language) {
-        console.log(`[LanguageContext] URL change detected: ${newUrlLang}`);
+        logger.debug(`URL change detected: ${newUrlLang}`);
         setLanguageState(newUrlLang);
         setupDirectionByLanguage(newUrlLang);
       }
