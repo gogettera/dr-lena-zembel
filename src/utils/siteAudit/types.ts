@@ -16,6 +16,7 @@ export interface AuditIssue {
 
 export interface AuditReport {
   timestamp: string;
+  executionTime: number;
   totalIssues: number;
   criticalIssues: number;
   highIssues: number;
@@ -24,6 +25,18 @@ export interface AuditReport {
   issuesByCategory: Record<AuditCategory, AuditIssue[]>;
   overallScore: number; // 0-100
   recommendations: string[];
+  categories: AuditCategory[];
+  issues: AuditIssue[];
+}
+
+export interface AuditOptions {
+  enabledCategories?: AuditCategory[];
+  skipAutoFixable?: boolean;
+  performanceThresholds?: {
+    lcp?: number;
+    fid?: number;
+    cls?: number;
+  };
 }
 
 export interface AuditConfig {

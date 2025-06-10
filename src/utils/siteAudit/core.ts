@@ -1,4 +1,5 @@
-import { AuditIssue, AuditOptions, AuditReport } from './types';
+
+import { AuditIssue, AuditOptions, AuditReport, AuditCategory } from './types';
 import { runTranslationAudit } from './translationAudit';
 import { auditAPIEndpoints, auditDatabaseHealth } from './apiAudit';
 
@@ -66,6 +67,34 @@ export async function runComprehensiveAudit(options: AuditOptions = {}): Promise
   const weightedScore = Math.max(0, 100 - (criticalIssues * 25 + highIssues * 10 + mediumIssues * 5 + lowIssues * 1));
   const overallScore = totalIssues === 0 ? 100 : Math.round(weightedScore);
 
+  // Group issues by category
+  const issuesByCategory: Record<AuditCategory, AuditIssue[]> = {
+    api: [],
+    translation: [],
+    performance: [],
+    security: [],
+    accessibility: [],
+    seo: [],
+    content: [],
+    ux: []
+  };
+
+  issues.forEach(issue => {
+    issuesByCategory[issue.category].push(issue);
+  });
+
+  // Generate recommendations
+  const recommendations: string[] = [];
+  if (criticalIssues > 0) {
+    recommendations.push(`Address ${criticalIssues} critical issues immediately`);
+  }
+  if (highIssues > 0) {
+    recommendations.push(`Fix ${highIssues} high priority issues this week`);
+  }
+  if (overallScore < 70) {
+    recommendations.push('Overall site health needs improvement');
+  }
+
   return {
     timestamp: new Date().toISOString(),
     executionTime,
@@ -76,6 +105,46 @@ export async function runComprehensiveAudit(options: AuditOptions = {}): Promise
     lowIssues,
     overallScore,
     issues,
-    categories: enabledCategories
+    issuesByCategory,
+    categories: enabledCategories,
+    recommendations
   };
+}
+
+export function generateAuditReport(report: AuditReport): string {
+  let markdown = `# Site Audit Report\n\n`;
+  markdown += `**Generated:** ${report.timestamp}\n`;
+  markdown += `**Execution Time:** ${report.executionTime}ms\n`;
+  markdown += `**Overall Score:** ${report.overallScore}/100\n\n`;
+  
+  markdown += `## Summary\n`;
+  markdown += `- **Total Issues:** ${report.totalIssues}\n`;
+  markdown += `- **Critical:** ${report.criticalIssues}\n`;
+  markdown += `- **High:** ${report.highIssues}\n`;
+  markdown += `- **Medium:** ${report.mediumIssues}\n`;
+  markdown += `- **Low:** ${report.lowIssues}\n\n`;
+
+  if (report.recommendations.length > 0) {
+    markdown += `## Recommendations\n`;
+    report.recommendations.forEach(rec => {
+      markdown += `- ${rec}\n`;
+    });
+    markdown += `\n`;
+  }
+
+  markdown += `## Issues by Category\n`;
+  Object.entries(report.issuesByCategory).forEach(([category, issues]) => {
+    if (issues.length > 0) {
+      markdown += `\n### ${category.charAt(0).toUpperCase() + category.slice(1)} (${issues.length})\n`;
+      issues.forEach(issue => {
+        markdown += `\n**${issue.title}** (${issue.severity})\n`;
+        markdown += `${issue.description}\n`;
+        if (issue.fixSuggestion) {
+          markdown += `*Fix:* ${issue.fixSuggestion}\n`;
+        }
+      });
+    }
+  });
+
+  return markdown;
 }

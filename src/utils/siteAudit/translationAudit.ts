@@ -10,6 +10,13 @@ import {
 } from '../translationAudit/constants';
 import { checkKeyExists, generateTreatmentKeys } from '../translationAudit/helpers';
 
+export function runTranslationAudit(): Promise<AuditIssue[]> {
+  return new Promise((resolve) => {
+    const issues = auditTranslations();
+    resolve(issues);
+  });
+}
+
 export function auditTranslations(): AuditIssue[] {
   const issues: AuditIssue[] = [];
   const allKeysToCheck: string[] = [];
