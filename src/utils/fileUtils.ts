@@ -49,22 +49,41 @@ export function isImageFile(filename: string): boolean {
   return imageExtensions.includes(getFileExtension(filename).toLowerCase());
 }
 
-export function validateImageFile(file: File): { valid: boolean; error?: string } {
-  // Check file type
-  if (!file.type.startsWith('image/')) {
-    return { valid: false, error: 'קובץ חייב להיות תמונה' };
+export function validateImageFile(file: File | null, maxSizeMB: number = 10): { valid: boolean; message?: string } {
+  if (!file) {
+    return { valid: false, message: 'No file selected' };
   }
 
-  // Check file size (max 10MB)
-  const maxSize = 10 * 1024 * 1024;
+  // Check file type
+  if (!file.type.startsWith('image/')) {
+    return { valid: false, message: 'קובץ חייב להיות תמונה' };
+  }
+
+  // Check file size
+  const maxSize = maxSizeMB * 1024 * 1024;
   if (file.size > maxSize) {
-    return { valid: false, error: 'גודל הקובץ חייב להיות קטן מ-10MB' };
+    return { valid: false, message: `גודל הקובץ חייב להיות קטן מ-${maxSizeMB}MB` };
   }
 
   // Check file extension
   if (!isImageFile(file.name)) {
-    return { valid: false, error: 'סוג קובץ לא נתמך' };
+    return { valid: false, message: 'סוג קובץ לא נתמך' };
   }
 
   return { valid: true };
+}
+
+export function createFilePreview(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (e.target?.result) {
+        resolve(e.target.result as string);
+      } else {
+        reject(new Error('Failed to read file'));
+      }
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
 }

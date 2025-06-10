@@ -7,7 +7,7 @@ interface ResponsiveImageOptions {
   width?: number;
   height?: number;
   quality?: 'low' | 'medium' | 'high' | number;
-  format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif';
+  format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif' | 'original';
 }
 
 interface ResponsiveImageResult {
@@ -35,6 +35,16 @@ export const useResponsiveImage = ({
       };
     }
 
+    // Handle 'original' format by detecting from URL
+    let actualFormat = format;
+    if (format === 'original') {
+      const extension = src.split('.').pop()?.toLowerCase();
+      if (extension === 'png') actualFormat = 'png';
+      else if (extension === 'gif') actualFormat = 'gif';
+      else if (extension === 'webp') actualFormat = 'webp';
+      else actualFormat = 'jpg';
+    }
+
     // Generate different sizes for responsive images
     const sizes = [320, 640, 768, 1024, 1280, 1920];
     const srcSetEntries: string[] = [];
@@ -46,7 +56,7 @@ export const useResponsiveImage = ({
           width: size,
           height: height ? Math.round((height * size) / (width || size)) : undefined,
           quality,
-          format
+          format: actualFormat
         });
         srcSetEntries.push(`${optimizedUrl} ${size}w`);
       }
@@ -58,7 +68,7 @@ export const useResponsiveImage = ({
       width,
       height,
       quality,
-      format
+      format: actualFormat
     });
 
     // Default sizes attribute for responsive behavior
@@ -66,10 +76,10 @@ export const useResponsiveImage = ({
 
     // Determine MIME type based on format
     let mimeType = 'image/jpeg';
-    if (format === 'webp') mimeType = 'image/webp';
-    else if (format === 'avif') mimeType = 'image/avif';
-    else if (format === 'png') mimeType = 'image/png';
-    else if (format === 'gif') mimeType = 'image/gif';
+    if (actualFormat === 'webp') mimeType = 'image/webp';
+    else if (actualFormat === 'avif') mimeType = 'image/avif';
+    else if (actualFormat === 'png') mimeType = 'image/png';
+    else if (actualFormat === 'gif') mimeType = 'image/gif';
 
     return {
       src: mainSrc,
