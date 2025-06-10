@@ -1,103 +1,89 @@
 
 import { useEffect } from 'react';
+import { isUrlAccessible } from '@/utils/fileUtils';
+import { logger } from '@/utils/logger';
 
-/**
- * Hook to preload images with improved performance characteristics
- * @param imagePaths Array of image URLs to preload
- * @param priority Optional priority level (high, medium, low)
- */
+interface PreloadOptions {
+  priority?: 'high' | 'low' | 'auto';
+  as?: 'image' | 'script' | 'style';
+  crossOrigin?: 'anonymous' | 'use-credentials';
+}
+
 export const usePreloadImages = (
   imagePaths: string[],
-  priority: 'high' | 'medium' | 'low' = 'medium'
+  options: PreloadOptions = {}
 ) => {
   useEffect(() => {
     if (!imagePaths.length) return;
 
-    // Filter out any invalid paths
-    const validPaths = imagePaths.filter(Boolean);
-    if (!validPaths.length) return;
+    const { priority = 'auto', as = 'image', crossOrigin = 'anonymous' } = options;
 
-    // Create an AbortController to cancel any pending preloads if the component unmounts
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    const preloadImages = async () => {
-      const promises = validPaths.map(path => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-          
-          // Set importance based on priority
-          if ('importance' in img) {
-            (img as any).importance = priority;
-          }
-          
-          // Add event listeners to track load status
-          img.onload = () => resolve();
-          img.onerror = () => resolve(); // Resolve anyway to not block other images
-          
-          // Start loading the image
-          img.src = path;
-          
-          // Check if signal is aborted
-          if (signal.aborted) {
-            resolve();
-            return;
-          }
-        });
-      });
-
+    const preloadImage = async (path: string) => {
       try {
-        await Promise.all(promises);
-      } catch (error) {
-        if (!signal.aborted) {
-          console.error('Error preloading images:', error);
+        // Check if image is accessible before preloading
+        const isAccessible = await isUrlAccessible(path);
+        if (!isAccessible) {
+          logger.debug(`Skipping preload for inaccessible image: ${path}`);
+          return;
         }
+
+        // Check if already preloaded
+        const existingLink = document.querySelector(`link[rel="preload"][href="${path}"]`);
+        if (existingLink) {
+          return;
+        }
+
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = path;
+        link.as = as;
+        
+        if (crossOrigin) {
+          link.crossOrigin = crossOrigin;
+        }
+
+        // Set fetchpriority if supported
+        if ('fetchpriority' in HTMLLinkElement.prototype) {
+          (link as any).fetchpriority = priority;
+        }
+
+        // Add error handling
+        link.onerror = () => {
+          logger.warn(`Failed to preload image: ${path}`);
+        };
+
+        link.onload = () => {
+          logger.debug(`Successfully preloaded image: ${path}`);
+        };
+
+        document.head.appendChild(link);
+
+      } catch (error) {
+        logger.warn(`Error preloading image ${path}:`, error);
       }
     };
 
-    // For high priority images, preload immediately
-    if (priority === 'high') {
-      preloadImages();
-    } else {
-      // For medium/low priority, use requestIdleCallback or setTimeout
-      const timeoutDuration = priority === 'medium' ? 100 : 1000;
-      
-      if ('requestIdleCallback' in window) {
-        const idleCallbackId = (window as any).requestIdleCallback(
-          () => {
-            if (!signal.aborted) {
-              preloadImages();
-            }
-          },
-          { timeout: priority === 'medium' ? 1000 : 3000 }
-        );
-        
-        // Clean up if component unmounts
-        return () => {
-          controller.abort();
-          if ('cancelIdleCallback' in window) {
-            (window as any).cancelIdleCallback(idleCallbackId);
-          }
-        };
-      } else {
-        // Fallback to setTimeout for browsers that don't support requestIdleCallback
-        const timeoutId = setTimeout(() => {
-          if (!signal.aborted) {
-            preloadImages();
-          }
-        }, timeoutDuration);
-        
-        // Clean up if component unmounts
-        return () => {
-          controller.abort();
-          clearTimeout(timeoutId);
-        };
-      }
-    }
-    
-    // Clean up function
+    // Preload images with a small delay to avoid blocking critical resources
+    const preloadPromises = imagePaths.map((path, index) => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          preloadImage(path).finally(() => resolve());
+        }, index * 50); // Stagger preloads by 50ms
+      });
+    });
+
+    Promise.all(preloadPromises).catch(error => {
+      logger.warn('Error in batch image preloading:', error);
+    });
+
+    // Cleanup function to remove preload links when component unmounts
     return () => {
-      controller.abort();
+      imagePaths.forEach(path => {
+        const link = document.querySelector(`link[rel="preload"][href="${path}"]`);
+        if (link) {
+          document.head.removeChild(link);
+        }
+      });
     };
-  }, [imagePaths, priority]);
+  }, [imagePaths, options]);
 };

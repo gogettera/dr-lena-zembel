@@ -1,101 +1,70 @@
 
-/**
- * Utility functions for file handling and image operations
- */
+export async function isUrlAccessible(url: string): Promise<boolean> {
+  try {
+    // Don't check data URLs or blob URLs
+    if (url.startsWith('data:') || url.startsWith('blob:')) {
+      return true;
+    }
 
-/**
- * Validates an image file for size and type
- * @param file The file to validate
- * @param maxSizeMB Maximum file size in MB
- * @returns Object containing validation result and error message if any
- */
-export const validateImageFile = (
-  file: File | null, 
-  maxSizeMB: number = 1
-): { valid: boolean; message?: string } => {
-  if (!file) {
-    return { valid: false, message: "No file selected" };
+    // For relative URLs, convert to absolute
+    const absoluteUrl = url.startsWith('http') ? url : new URL(url, window.location.origin).href;
+    
+    const response = await fetch(absoluteUrl, { 
+      method: 'HEAD',
+      mode: 'no-cors' // This allows checking cross-origin resources
+    });
+    
+    // no-cors mode doesn't give us status, so we assume success if no error
+    return true;
+  } catch (error) {
+    // If fetch fails, try a different approach for local URLs
+    if (!url.startsWith('http')) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+    return false;
   }
+}
 
+export function formatFileSize(bytes: number): string {
+  if (bytes === 0) return '0 Bytes';
+  
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+export function getFileExtension(filename: string): string {
+  return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2);
+}
+
+export function isImageFile(filename: string): boolean {
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'ico'];
+  return imageExtensions.includes(getFileExtension(filename).toLowerCase());
+}
+
+export function validateImageFile(file: File): { valid: boolean; error?: string } {
   // Check file type
   if (!file.type.startsWith('image/')) {
-    return { 
-      valid: false, 
-      message: "Invalid file type. Please upload an image file (PNG, JPG, or SVG)" 
-    };
+    return { valid: false, error: 'קובץ חייב להיות תמונה' };
   }
 
-  // Check file size
-  const maxSizeBytes = maxSizeMB * 1024 * 1024;
-  if (file.size > maxSizeBytes) {
-    return { 
-      valid: false, 
-      message: `File too large. Maximum size is ${maxSizeMB}MB` 
-    };
+  // Check file size (max 10MB)
+  const maxSize = 10 * 1024 * 1024;
+  if (file.size > maxSize) {
+    return { valid: false, error: 'גודל הקובץ חייב להיות קטן מ-10MB' };
+  }
+
+  // Check file extension
+  if (!isImageFile(file.name)) {
+    return { valid: false, error: 'סוג קובץ לא נתמך' };
   }
 
   return { valid: true };
-};
-
-/**
- * Creates a data URL from a file for preview
- * @param file The file to create a preview for
- * @returns Promise that resolves to the data URL
- */
-export const createFilePreview = (file: File): Promise<string> => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
-/**
- * Determines the appropriate favicon link tags based on file type
- * @param faviconUrl URL of the favicon
- * @param fileType MIME type of the favicon
- * @returns HTML string with appropriate link tags
- */
-export const generateFaviconTags = (faviconUrl: string, fileType: string): string => {
-  if (!faviconUrl) return '';
-  
-  let tags = '';
-  
-  if (fileType === 'image/svg+xml') {
-    tags = `
-      <link rel="icon" href="${faviconUrl}" type="image/svg+xml">
-      <link rel="alternate icon" href="${faviconUrl}" type="image/png">
-    `;
-  } else if (fileType === 'image/png') {
-    tags = `
-      <link rel="icon" href="${faviconUrl}" type="image/png">
-      <link rel="apple-touch-icon" href="${faviconUrl}">
-    `;
-  } else if (fileType === 'image/jpeg' || fileType === 'image/jpg') {
-    tags = `
-      <link rel="icon" href="${faviconUrl}" type="image/jpeg">
-      <link rel="apple-touch-icon" href="${faviconUrl}">
-    `;
-  }
-  
-  return tags;
-};
-
-/**
- * Checks if the given URL is accessible
- * @param url URL to check
- * @returns Promise that resolves to a boolean indicating if the URL is accessible
- */
-export const isUrlAccessible = async (url: string): Promise<boolean> => {
-  if (!url) return false;
-  
-  try {
-    const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
-    return true; // If no error is thrown, assume the URL is accessible
-  } catch (error) {
-    console.error('URL check failed:', error);
-    return false;
-  }
-};
+}

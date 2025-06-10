@@ -1,14 +1,18 @@
-
 import { AuditIssue, AuditOptions, AuditReport, AuditCategory } from './types';
 import { runTranslationAudit } from './translationAudit';
 import { auditAPIEndpoints, auditDatabaseHealth } from './apiAudit';
+import { auditPerformance, auditCoreWebVitals } from './performanceAudit';
+import { auditAccessibility } from './accessibilityAudit';
+import { auditSEO } from './seoAudit';
+import { auditConsoleUsage, auditErrorHandling } from './consoleAudit';
+import { auditUXPatterns, auditContentQuality } from './uxAudit';
 
 export async function runComprehensiveAudit(options: AuditOptions = {}): Promise<AuditReport> {
   const startTime = performance.now();
   const issues: AuditIssue[] = [];
   
   const enabledCategories = options.enabledCategories || [
-    'translation', 'api', 'seo', 'accessibility', 'performance', 'security'
+    'translation', 'api', 'seo', 'accessibility', 'performance', 'security', 'content', 'ux'
   ];
 
   try {
@@ -25,21 +29,44 @@ export async function runComprehensiveAudit(options: AuditOptions = {}): Promise
       issues.push(...apiIssues, ...dbIssues);
     }
 
-    // TODO: Other audit categories will be implemented in future phases
-    if (enabledCategories.includes('seo')) {
-      // SEO audit implementation
-    }
-
-    if (enabledCategories.includes('accessibility')) {
-      // Accessibility audit implementation  
-    }
-
+    // Performance audit
     if (enabledCategories.includes('performance')) {
-      // Performance audit implementation
+      const performanceIssues = auditPerformance();
+      const webVitalsIssues = auditCoreWebVitals();
+      issues.push(...performanceIssues, ...webVitalsIssues);
     }
 
+    // Accessibility audit
+    if (enabledCategories.includes('accessibility')) {
+      const a11yIssues = auditAccessibility();
+      issues.push(...a11yIssues);
+    }
+
+    // SEO audit
+    if (enabledCategories.includes('seo')) {
+      const seoIssues = auditSEO();
+      issues.push(...seoIssues);
+    }
+
+    // Content audit
+    if (enabledCategories.includes('content')) {
+      const consoleIssues = auditConsoleUsage();
+      const contentIssues = auditContentQuality();
+      issues.push(...consoleIssues, ...contentIssues);
+    }
+
+    // UX audit
+    if (enabledCategories.includes('ux')) {
+      const uxIssues = auditUXPatterns();
+      const errorHandlingIssues = auditErrorHandling();
+      issues.push(...uxIssues, ...errorHandlingIssues);
+    }
+
+    // Security audit (basic checks)
     if (enabledCategories.includes('security')) {
-      // Security audit implementation
+      // Basic security checks from SEO audit
+      const securityIssues = auditSEO().filter(issue => issue.category === 'security');
+      issues.push(...securityIssues);
     }
 
   } catch (error) {

@@ -1,10 +1,11 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
+import { webVitalsTracker } from '@/utils/performance/webVitals';
+import { logger } from '@/utils/logger';
 import './index.css';
 
 /**
@@ -22,20 +23,12 @@ const queryClient = new QueryClient({
 });
 
 /**
- * Performance monitoring with Web Vitals
+ * Enhanced performance monitoring with Web Vitals
  */
 const reportWebVitals = () => {
   if (process.env.NODE_ENV === 'production') {
-    import('web-vitals').then(({ onFCP, onLCP, onCLS, onFID, onTTFB }) => {
-      // Core Web Vitals
-      onLCP(metric => console.log('LCP:', metric.value));
-      onFID(metric => console.log('FID:', metric.value));
-      onCLS(metric => console.log('CLS:', metric.value));
-      
-      // Additional metrics
-      onFCP(metric => console.log('FCP:', metric.value));
-      onTTFB(metric => console.log('TTFB:', metric.value));
-    });
+    // Web Vitals are automatically tracked by webVitalsTracker
+    logger.info('Web Vitals tracking initialized');
   }
 };
 
@@ -68,7 +61,14 @@ const mountApp = () => {
   
   // Initialize performance monitoring
   reportWebVitals();
+  
+  // Clean up performance observers on page unload
+  window.addEventListener('beforeunload', () => {
+    webVitalsTracker.disconnect();
+  });
 };
 
 // Initialize the application
 mountApp();
+
+</edits_to_apply>

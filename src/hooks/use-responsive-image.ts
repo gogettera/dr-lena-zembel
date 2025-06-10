@@ -1,101 +1,81 @@
 
-import { useState, useEffect, useMemo } from 'react';
-
-type ImageFormat = 'original' | 'webp' | 'avif';
+import { useMemo } from 'react';
+import { getOptimizedImageUrl } from '@/utils/image-loader';
 
 interface ResponsiveImageOptions {
   src: string;
   width?: number;
   height?: number;
-  quality?: number;
-  format?: ImageFormat;
-  breakpoints?: number[];
+  quality?: 'low' | 'medium' | 'high' | number;
+  format?: 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif';
 }
 
 interface ResponsiveImageResult {
-  srcSet: string;
   src: string;
+  srcSet: string;
   sizes: string;
   type: string;
 }
 
-/**
- * Hook to generate responsive image attributes for modern web
- */
 export const useResponsiveImage = ({
   src,
   width,
   height,
-  quality = 80,
-  format = 'webp',
-  breakpoints = [640, 750, 828, 1080, 1200, 1920]
+  quality = 'high',
+  format = 'auto'
 }: ResponsiveImageOptions): ResponsiveImageResult => {
-  // Memoize breakpoints to prevent unnecessary recalculations
-  const memoizedBreakpoints = useMemo(() => breakpoints, [breakpoints.join(',')]);
   
-  const [result, setResult] = useState<ResponsiveImageResult>({
-    srcSet: '',
-    src,
-    sizes: '100vw',
-    type: 'image/jpeg'
-  });
-
-  useEffect(() => {
-    if (!src) return;
-
-    // Get image extension
-    const extension = src.split('.').pop()?.toLowerCase() || 'jpg';
-    
-    // Determine MIME type based on format or original image extension
-    let mimeType = 'image/jpeg';
-    
-    if (format === 'webp') {
-      mimeType = 'image/webp';
-    } else if (format === 'avif') {
-      mimeType = 'image/avif';
-    } else if (extension === 'png') {
-      mimeType = 'image/png';
-    } else if (extension === 'svg') {
-      mimeType = 'image/svg+xml';
-    } else if (extension === 'gif') {
-      mimeType = 'image/gif';
-    }
-
-    // For SVG, we don't need responsive handling
-    if (extension === 'svg') {
-      setResult({
+  return useMemo(() => {
+    if (!src) {
+      return {
+        src: '',
         srcSet: '',
-        src,
         sizes: '',
-        type: mimeType
-      });
-      return;
+        type: 'image/jpeg'
+      };
     }
 
-    // Generate srcSet for different viewport sizes
-    const srcSetEntries = memoizedBreakpoints.map(bp => {
-      // Skip generating srcset for breakpoints larger than original image
-      if (width && bp > width) return '';
-      
-      // Construct URL for each breakpoint
-      // This is a simplified example - adapt based on your image service
-      const url = `${src}?width=${bp}&quality=${quality}${format !== 'original' ? `&format=${format}` : ''}`;
-      return `${url} ${bp}w`;
-    }).filter(Boolean);
+    // Generate different sizes for responsive images
+    const sizes = [320, 640, 768, 1024, 1280, 1920];
+    const srcSetEntries: string[] = [];
 
-    // Default source should be optimized too if width/height are provided
-    let optimizedSrc = src;
-    if (width && height) {
-      optimizedSrc = `${src}?width=${width}&height=${height}&quality=${quality}${format !== 'original' ? `&format=${format}` : ''}`;
-    }
-
-    setResult({
-      srcSet: srcSetEntries.join(', '),
-      src: optimizedSrc,
-      sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
-      type: mimeType
+    sizes.forEach(size => {
+      if (!width || size <= width * 2) { // Don't generate sizes larger than 2x the target
+        const optimizedUrl = getOptimizedImageUrl({
+          src,
+          width: size,
+          height: height ? Math.round((height * size) / (width || size)) : undefined,
+          quality,
+          format
+        });
+        srcSetEntries.push(`${optimizedUrl} ${size}w`);
+      }
     });
-  }, [src, width, height, quality, format, memoizedBreakpoints]); // Fixed dependencies
 
-  return result;
+    // Generate the main src URL
+    const mainSrc = getOptimizedImageUrl({
+      src,
+      width,
+      height,
+      quality,
+      format
+    });
+
+    // Default sizes attribute for responsive behavior
+    const sizesAttr = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
+
+    // Determine MIME type based on format
+    let mimeType = 'image/jpeg';
+    if (format === 'webp') mimeType = 'image/webp';
+    else if (format === 'avif') mimeType = 'image/avif';
+    else if (format === 'png') mimeType = 'image/png';
+    else if (format === 'gif') mimeType = 'image/gif';
+
+    return {
+      src: mainSrc,
+      srcSet: srcSetEntries.join(', '),
+      sizes: sizesAttr,
+      type: mimeType
+    };
+  }, [src, width, height, quality, format]);
 };
