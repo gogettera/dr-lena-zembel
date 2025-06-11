@@ -1,3 +1,4 @@
+
 import { isUrlAccessible } from './fileUtils';
 
 type ImageFormat = 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif' | 'original';
@@ -168,5 +169,3 @@ export const getResponsiveSizes = (
       return '100vw';
   }
 };
-
-}
