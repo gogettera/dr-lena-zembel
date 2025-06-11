@@ -36,7 +36,7 @@ export const useResponsiveImage = ({
     }
 
     // Handle 'original' format by detecting from URL
-    let actualFormat = format;
+    let actualFormat: 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif' = format as any;
     if (format === 'original') {
       const extension = src.split('.').pop()?.toLowerCase();
       if (extension === 'png') actualFormat = 'png';

@@ -1,7 +1,6 @@
-
 import { isUrlAccessible } from './fileUtils';
 
-type ImageFormat = 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif';
+type ImageFormat = 'auto' | 'webp' | 'avif' | 'jpg' | 'png' | 'gif' | 'original';
 type ImageQuality = 'low' | 'medium' | 'high' | number;
 
 interface ImageLoaderOptions {
@@ -87,8 +86,7 @@ export const getOptimizedImageUrl = ({
       } else if (supportsImageFormat('webp')) {
         params.set('fm', 'webp');
       }
-    } else {
-      // Changed from format !== 'auto' to fix type comparison
+    } else if (format !== 'original') {
       params.set('fm', format);
     }
     
@@ -110,7 +108,7 @@ export const getOptimizedImageUrl = ({
     // Add format if needed
     if (format === 'auto' && supportsImageFormat('webp')) {
       result += `${result.includes('?') ? '&' : '?'}fm=webp`;
-    } else if (format !== 'auto') {
+    } else if (format !== 'auto' && format !== 'original') {
       result += `${result.includes('?') ? '&' : '?'}fm=${format}`;
     }
     
@@ -170,3 +168,5 @@ export const getResponsiveSizes = (
       return '100vw';
   }
 };
+
+}
