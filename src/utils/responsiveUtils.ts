@@ -1,4 +1,5 @@
 
+
 export const getResponsiveClasses = () => {
   return {
     responsiveText: {
@@ -22,3 +23,34 @@ export const getResponsiveClasses = () => {
     }
   };
 };
+
+export const getDirectionalClasses = (isRTL: boolean) => {
+  return {
+    textAlign: isRTL ? 'text-right' : 'text-left',
+    spaceDir: isRTL ? 'space-x-reverse' : '',
+    flexDir: isRTL ? 'flex-row-reverse' : 'flex-row',
+    marginLeft: isRTL ? 'ml-auto' : '',
+    marginRight: isRTL ? 'mr-auto' : '',
+    left: isRTL ? 'right-0' : 'left-0',
+    right: isRTL ? 'left-0' : 'right-0',
+    padding: isRTL ? 'pl-4 pr-2' : 'pr-4 pl-2',
+    borderSide: isRTL ? 'border-r' : 'border-l',
+    transformOrigin: isRTL ? 'origin-right' : 'origin-left',
+    scroll: isRTL ? 'rtl-scrollbar' : '',
+    order: {
+      first: isRTL ? 'order-last' : 'order-first',
+      last: isRTL ? 'order-first' : 'order-last',
+      nav: isRTL ? 'flex-row-reverse' : 'flex-row',
+      header: {
+        phone: isRTL ? 'order-3' : 'order-1',
+        logo: 'order-2',
+        nav: isRTL ? 'order-1' : 'order-3'
+      }
+    },
+    icon: {
+      chevron: isRTL ? 'rotate-180' : '',
+      arrow: isRTL ? '-scale-x-100' : '',
+    }
+  };
+};
+
