@@ -1,153 +1,115 @@
 
-import { NavigationConfig, NavigationLink } from '@/types/navigation';
+import { NavigationConfig } from '@/types/navigation';
 import { Language } from '@/types/language';
 
 export const createLocalizedNavigationConfig = (language: Language): NavigationConfig => {
+  const basePath = `/${language}`;
+  
   return {
     main: [
       {
         key: 'home',
         labelKey: 'navigation.home',
-        path: `/${language}`
+        path: basePath
       },
       {
         key: 'about',
         labelKey: 'navigation.about',
-        path: `/${language}#about`
+        path: `${basePath}/about`
       },
       {
         key: 'treatments',
         labelKey: 'navigation.treatments',
-        path: `/${language}#treatments`,
+        path: `${basePath}/treatments`,
         children: [
           {
             key: 'aesthetic-treatments',
             labelKey: 'navigation.aestheticTreatments',
-            path: `/${language}/treatments/aesthetic-treatments`
+            path: `${basePath}/treatments/aesthetic-treatments/landing`
           },
           {
             key: 'botox-treatments',
             labelKey: 'navigation.botoxTreatments',
-            path: `/${language}/treatments/botox-treatments`
-          },
-          {
-            key: 'children-dentistry',
-            labelKey: 'navigation.childrenDentistry',
-            path: `/${language}/treatments/children-dentistry`
+            path: `${basePath}/treatments/botox-treatments`
           },
           {
             key: 'preventive-medicine',
             labelKey: 'navigation.preventiveMedicine',
-            path: `/${language}/treatments/preventive-medicine`
+            path: `${basePath}/treatments/preventive-medicine/landing`
           },
           {
-            key: 'root-canal',
-            labelKey: 'navigation.rootCanal',
-            path: `/${language}/treatments/root-canal`
-          },
-          {
-            key: 'oral-rehabilitation',
-            labelKey: 'navigation.oralRehabilitation',
-            path: `/${language}/treatments/oral-rehabilitation`
+            key: 'children-dentistry',
+            labelKey: 'Children Dentistry',
+            path: `${basePath}/treatments/children-dentistry/landing`
           },
           {
             key: 'orthodontics',
-            labelKey: 'navigation.orthodontics',
-            path: `/${language}/treatments/orthodontics`
+            labelKey: 'Orthodontics',
+            path: `${basePath}/treatments/orthodontics/landing`
+          },
+          {
+            key: 'root-canal',
+            labelKey: 'Root Canal',
+            path: `${basePath}/treatments/root-canal/landing`
+          },
+          {
+            key: 'oral-rehabilitation',
+            labelKey: 'Oral Rehabilitation',
+            path: `${basePath}/treatments/oral-rehabilitation/landing`
           }
         ]
       },
       {
         key: 'contact',
         labelKey: 'navigation.contact',
-        path: `/${language}#contact`
+        path: `${basePath}/contact`
       }
     ],
     footer: {
       info: [
         {
-          key: 'home',
-          labelKey: 'navigation.home',
-          path: `/${language}`
-        },
-        {
           key: 'about',
           labelKey: 'navigation.about',
-          path: `/${language}#about`
-        },
-        {
-          key: 'practice',
-          labelKey: 'navigation.practice',
-          path: `/${language}#practice`
-        },
-        {
-          key: 'team',
-          labelKey: 'navigation.team',
-          path: `/${language}#team`
-        },
-        {
-          key: 'testimonials',
-          labelKey: 'navigation.testimonials',
-          path: `/${language}#testimonials`
+          path: `${basePath}/about`
         },
         {
           key: 'contact',
           labelKey: 'navigation.contact',
-          path: `/${language}#contact`
+          path: `${basePath}/contact`
         }
       ],
       treatments: [
         {
           key: 'aesthetic-treatments',
           labelKey: 'navigation.aestheticTreatments',
-          path: `/${language}/treatments/aesthetic-treatments`
+          path: `${basePath}/treatments/aesthetic-treatments/landing`
         },
         {
           key: 'botox-treatments',
           labelKey: 'navigation.botoxTreatments',
-          path: `/${language}/treatments/botox-treatments`
-        },
-        {
-          key: 'children-dentistry',
-          labelKey: 'navigation.childrenDentistry',
-          path: `/${language}/treatments/children-dentistry`
+          path: `${basePath}/treatments/botox-treatments`
         },
         {
           key: 'preventive-medicine',
           labelKey: 'navigation.preventiveMedicine',
-          path: `/${language}/treatments/preventive-medicine`
-        },
-        {
-          key: 'root-canal',
-          labelKey: 'navigation.rootCanal',
-          path: `/${language}/treatments/root-canal`
-        },
-        {
-          key: 'oral-rehabilitation',
-          labelKey: 'navigation.oralRehabilitation',
-          path: `/${language}/treatments/oral-rehabilitation`
-        },
-        {
-          key: 'orthodontics',
-          labelKey: 'navigation.orthodontics',
-          path: `/${language}/treatments/orthodontics`
+          path: `${basePath}/treatments/preventive-medicine/landing`
         }
       ],
       legal: [
         {
+          key: 'privacy',
+          labelKey: 'navigation.legal.privacy',
+          path: `${basePath}/privacy-policy`
+        },
+        {
+          key: 'terms',
+          labelKey: 'navigation.legal.terms',
+          path: `${basePath}/terms-of-service`
+        },
+        {
           key: 'accessibility',
           labelKey: 'navigation.accessibility.statement',
-          path: `/${language}/accessibility-statement`
-        },
-        {
-          key: 'privacyPolicy',
-          labelKey: 'navigation.legal.privacyPolicy',
-          path: `/${language}/privacy-policy`
-        },
-        {
-          key: 'termsOfService',
-          labelKey: 'navigation.legal.termsOfService',
-          path: `/${language}/terms-of-service`
+          path: `${basePath}/accessibility-statement`
         }
       ]
     },
@@ -155,17 +117,12 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
       {
         platform: 'facebook',
         url: 'https://facebook.com',
-        icon: 'facebook'
+        icon: 'Facebook'
       },
       {
         platform: 'instagram',
         url: 'https://instagram.com',
-        icon: 'instagram'
-      },
-      {
-        platform: 'whatsapp',
-        url: 'https://wa.me/',
-        icon: 'whatsapp'
+        icon: 'Instagram'
       }
     ]
   };
