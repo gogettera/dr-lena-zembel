@@ -4,9 +4,20 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
 
 console.log('Starting dental clinic application...');
+
+// Create a client for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => {
   return (
@@ -43,16 +54,18 @@ const mountApp = () => {
   
   const appElement = (
     <React.StrictMode>
-      <ErrorBoundary
-        FallbackComponent={ErrorFallback}
-        onError={(error, errorInfo) => {
-          console.error('Application error:', error, errorInfo);
-        }}
-      >
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onError={(error, errorInfo) => {
+            console.error('Application error:', error, errorInfo);
+          }}
+        >
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ErrorBoundary>
+      </QueryClientProvider>
     </React.StrictMode>
   );
   
