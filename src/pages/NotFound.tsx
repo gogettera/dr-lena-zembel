@@ -1,49 +1,35 @@
 
-import { Link, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/contexts/LanguageContext";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Home, Phone } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-const NotFound = () => {
-  const location = useLocation();
-  const { language } = useLanguage();
-
-  useEffect(() => {
-    // Log the 404 error for analytics
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
-
-    // Set the correct HTTP status code for 404 pages
-    document.title = "404 - Page Not Found | Dr. Zembel";
-    
-    // This is the critical part - we use the document property to set the status code
-    if (typeof window !== 'undefined') {
-      // Create or select the meta tag for status code
-      let metaStatus = document.querySelector('meta[name="http-status"]');
-      if (!metaStatus) {
-        metaStatus = document.createElement('meta');
-        metaStatus.setAttribute('name', 'http-status');
-        document.head.appendChild(metaStatus);
-      }
-      // Set the status code to 404
-      metaStatus.setAttribute('content', '404');
-    }
-  }, [location.pathname]);
-
+const NotFound: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-dental-beige">
-      <div className="text-center px-4 max-w-md">
-        <h1 className="text-6xl font-bold mb-4 text-dental-navy">404</h1>
-        <p className="text-xl text-dental-muted mb-6">Oops! Page not found</p>
-        <p className="mb-8 text-dental-muted">
-          The page you are looking for might have been removed, had its name changed, 
-          or is temporarily unavailable.
+    <div className="min-h-screen bg-dental-beige flex items-center justify-center">
+      <div className="text-center max-w-md mx-auto px-4">
+        <div className="w-24 h-24 bg-dental-navy rounded-full flex items-center justify-center mx-auto mb-8">
+          <span className="text-white text-4xl font-bold">DZ</span>
+        </div>
+        
+        <h1 className="text-6xl font-bold text-dental-navy mb-4">404</h1>
+        <h2 className="text-2xl font-semibold text-dental-navy mb-4">Page Not Found</h2>
+        <p className="text-dental-navy/70 mb-8">
+          The page you're looking for doesn't exist or has been moved.
         </p>
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button variant="orange" asChild>
-            <Link to={`/${language}`}>Home</Link>
+            <Link to="/he">
+              <Home className="w-4 h-4 mr-2" />
+              Back to Home
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <a href="tel:035666915">
+              <Phone className="w-4 h-4 mr-2" />
+              Call Us
+            </a>
           </Button>
         </div>
       </div>
