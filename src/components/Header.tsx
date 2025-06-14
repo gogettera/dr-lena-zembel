@@ -8,14 +8,11 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { TranslatedText } from './ui/translated-text';
-import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
-import NavigationLinks from './ui/NavigationLinks';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, isRTL } = useLanguage();
-  const navigation = createLocalizedNavigationConfig(language);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +26,14 @@ const Header: React.FC = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  // Simple navigation items
+  const navigationItems = [
+    { key: 'home', label: 'navigation.home', path: `/${language}` },
+    { key: 'about', label: 'navigation.about', path: `/${language}/about` },
+    { key: 'treatments', label: 'navigation.treatments', path: `/${language}/treatments/children-dentistry` },
+    { key: 'contact', label: 'navigation.contact', path: `/${language}/contact` },
+  ];
 
   return (
     <header 
@@ -49,7 +54,15 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <NavigationLinks links={navigation.main} />
+            {navigationItems.map((item) => (
+              <Link
+                key={item.key}
+                to={item.path}
+                className="text-dental-navy hover:text-dental-orange transition-colors font-medium"
+              >
+                <TranslatedText textKey={item.label} />
+              </Link>
+            ))}
           </nav>
 
           {/* Right Side Actions */}
@@ -91,11 +104,16 @@ const Header: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
             <div className="px-4 py-6 space-y-4">
-              <NavigationLinks 
-                links={navigation.main} 
-                vertical 
-                onNavigate={() => setIsMobileMenuOpen(false)}
-              />
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.key}
+                  to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-dental-navy hover:text-dental-orange transition-colors font-medium py-2"
+                >
+                  <TranslatedText textKey={item.label} />
+                </Link>
+              ))}
               
               <div className="pt-4 border-t border-gray-200">
                 <Button 
