@@ -34,59 +34,115 @@ function App() {
         <Route index element={<Index />} />
 
         {/* Language routes */}
-        <Route path="/:lang" element={<LanguageRoute />}>
-          <Route element={
+        <Route path="/:lang/*" element={<LanguageRoute />}>
+          <Route path="" element={
             <div className="flex flex-col min-h-screen">
               <Header />
               <main className="flex-grow pt-16">
-                <Routes>
-                  <Route index element={<HomePage />} />
-                  <Route path="about" element={<AboutPage />} />
-                  <Route path="contact" element={<ContactPage />} />
-                  <Route path="treatments/botox-treatments" element={<LanguageBotoxTreatmentsPage />} />
-                  
-                  {/* Dedicated treatment landing pages */}
-                  <Route path="treatments/children-dentistry/landing" element={
-                    <div className="bg-white">
-                      <ChildrenDentistryLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/children-dentistry" element={
-                    <div className="bg-white">
-                      <ChildrenDentistryLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/aesthetic-treatments/landing" element={
-                    <div className="bg-white">
-                      <AestheticTreatmentsLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/orthodontics/landing" element={
-                    <div className="bg-white">
-                      <OrthodonticsLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/root-canal/landing" element={
-                    <div className="bg-white">
-                      <RootCanalLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/oral-rehabilitation/landing" element={
-                    <div className="bg-white">
-                      <OralRehabilitationLanding />
-                    </div>
-                  } />
-                  <Route path="treatments/preventive-medicine/landing" element={
-                    <div className="bg-white">
-                      <PreventiveMedicineLanding />
-                    </div>
-                  } />
-                  
-                  {/* Tab-based treatment pages */}
-                  <Route path="treatments/:treatmentType" element={<LanguageTreatmentPage />} />
-                  <Route path="treatments/preventive-medicine" element={<PreventiveMedicinePage />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <HomePage />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="about" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16">
+                <AboutPage />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="contact" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16">
+                <ContactPage />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/botox-treatments" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16">
+                <LanguageBotoxTreatmentsPage />
+              </main>
+              <Footer />
+            </div>
+          } />
+          
+          {/* Dedicated treatment landing pages */}
+          <Route path="treatments/children-dentistry" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <ChildrenDentistryLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/aesthetic-treatments/landing" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <AestheticTreatmentsLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/orthodontics/landing" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <OrthodonticsLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/root-canal/landing" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <RootCanalLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/oral-rehabilitation/landing" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <OralRehabilitationLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/preventive-medicine/landing" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16 bg-white">
+                <PreventiveMedicineLanding />
+              </main>
+              <Footer />
+            </div>
+          } />
+          
+          {/* Tab-based treatment pages */}
+          <Route path="treatments/:treatmentType" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16">
+                <LanguageTreatmentPage />
+              </main>
+              <Footer />
+            </div>
+          } />
+          <Route path="treatments/preventive-medicine" element={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <main className="flex-grow pt-16">
+                <PreventiveMedicinePage />
               </main>
               <Footer />
             </div>

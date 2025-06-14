@@ -32,6 +32,8 @@ const Index = () => {
   
   useEffect(() => {
     console.log('Index component mounted, determining redirect language');
+    console.log('Current pathname:', window.location.pathname);
+    console.log('Supported languages:', supportedLanguages);
     
     // Check if we're already on a language route
     const currentUrlLang = getCurrentLanguageFromURL();
@@ -67,10 +69,10 @@ const Index = () => {
 
   // Return loading state while redirecting
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-dental-beige">
       <div className="text-center">
         <div className="w-16 h-16 border-t-4 border-dental-orange border-solid rounded-full animate-spin mx-auto"></div>
-        <p className="mt-4 text-lg">Loading...</p>
+        <p className="mt-4 text-lg text-dental-navy">Loading...</p>
       </div>
     </div>
   );
