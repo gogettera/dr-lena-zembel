@@ -21,10 +21,10 @@ const ChildrenDentistryLanding: React.FC = () => {
 
   // Add error boundary for this component
   try {
+    console.log('Rendering ChildrenDentistryLanding');
+    
     return (
       <div className="overflow-x-hidden">
-        {console.log('Rendering ChildrenDentistryLanding')}
-        
         {/* Skip to content link for accessibility */}
         <a href="#hero" className="skip-to-content">דלג לתוכן העיקרי</a>
 
