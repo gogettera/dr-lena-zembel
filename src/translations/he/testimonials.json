@@ -12,5 +12,9 @@
   "reviewsFetchSuccess": "ביקורות Google עודכנו בהצלחה",
   "reviewsFetchError": "כשל בטעינת ביקורות חדשות",
   "refreshReviews": "רענן ביקורות",
-  "patientExperiences": "חוויות מטופלים"
+  "patientExperiences": "חוויות מטופלים",
+  "verified": "מטופל מאומת",
+  "writeReview": "כתוב ביקורת",
+  "patientTestimonials": "חוות דעת מטופלים",
+  "whatOurPatientsSay": "מה המטופלים שלנו אומרים עלינו"
 }

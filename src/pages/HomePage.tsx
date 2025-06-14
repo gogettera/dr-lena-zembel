@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { TranslatedText } from '@/components/ui/translated-text';
+import TestimonialsSection from '@/components/testimonials/TestimonialsSection';
 
 const HomePage: React.FC = () => {
   const { language, isRTL } = useLanguage();
@@ -60,7 +61,7 @@ const HomePage: React.FC = () => {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
                 <h3 className="text-xl font-semibold text-dental-navy mb-3">
@@ -70,7 +71,7 @@ const HomePage: React.FC = () => {
                   Modern aesthetic dental solutions for a perfect smile
                 </p>
                 <Button variant="outline" asChild>
-                  <Link to={`/${language}/treatments/aesthetic-treatments`}>
+                  <Link to={`/${language}/treatments/aesthetic-treatments/landing`}>
                     <TranslatedText textKey="common.learnMore" />
                   </Link>
                 </Button>
@@ -86,7 +87,55 @@ const HomePage: React.FC = () => {
                   Preventive care to maintain your oral health
                 </p>
                 <Button variant="outline" asChild>
-                  <Link to={`/${language}/treatments/preventive-medicine`}>
+                  <Link to={`/${language}/treatments/preventive-medicine/landing`}>
+                    <TranslatedText textKey="common.learnMore" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold text-dental-navy mb-3">
+                  <TranslatedText textKey="navigation.childrenDentistry" />
+                </h3>
+                <p className="text-dental-navy/70 mb-4">
+                  Gentle dental care for children in a friendly environment
+                </p>
+                <Button variant="outline" asChild>
+                  <Link to={`/${language}/treatments/children-dentistry/landing`}>
+                    <TranslatedText textKey="common.learnMore" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold text-dental-navy mb-3">
+                  <TranslatedText textKey="navigation.orthodontics" />
+                </h3>
+                <p className="text-dental-navy/70 mb-4">
+                  Advanced orthodontic treatments for all ages
+                </p>
+                <Button variant="outline" asChild>
+                  <Link to={`/${language}/treatments/orthodontics/landing`}>
+                    <TranslatedText textKey="common.learnMore" />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6 text-center">
+                <h3 className="text-xl font-semibold text-dental-navy mb-3">
+                  <TranslatedText textKey="navigation.rootCanal" />
+                </h3>
+                <p className="text-dental-navy/70 mb-4">
+                  Pain-free root canal treatments with modern technology
+                </p>
+                <Button variant="outline" asChild>
+                  <Link to={`/${language}/treatments/root-canal/landing`}>
                     <TranslatedText textKey="common.learnMore" />
                   </Link>
                 </Button>
@@ -111,6 +160,9 @@ const HomePage: React.FC = () => {
           </div>
         </Container>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* Contact Information */}
       <section className="py-16 bg-dental-beige/30">

@@ -39,22 +39,22 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
           },
           {
             key: 'children-dentistry',
-            labelKey: 'Children Dentistry',
+            labelKey: 'navigation.childrenDentistry',
             path: `${basePath}/treatments/children-dentistry/landing`
           },
           {
             key: 'orthodontics',
-            labelKey: 'Orthodontics',
+            labelKey: 'navigation.orthodontics',
             path: `${basePath}/treatments/orthodontics/landing`
           },
           {
             key: 'root-canal',
-            labelKey: 'Root Canal',
+            labelKey: 'navigation.rootCanal',
             path: `${basePath}/treatments/root-canal/landing`
           },
           {
             key: 'oral-rehabilitation',
-            labelKey: 'Oral Rehabilitation',
+            labelKey: 'navigation.oralRehabilitation',
             path: `${basePath}/treatments/oral-rehabilitation/landing`
           }
         ]
