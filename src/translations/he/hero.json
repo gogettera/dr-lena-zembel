@@ -1,0 +1,17 @@
+
+{
+  "mainHeadline": "רפואת שיניים מתקדמת בצפון יפו",
+  "subHeadline": "טיפול מקצועי ואישי עם הטכנולוגיות החדישות ביותר",
+  "ctaPrimary": "קביעת תור",
+  "ctaSecondary": "למידע נוסף",
+  "trustBadges": {
+    "experience": "15+ שנות ניסיון",
+    "patients": "5000+ מטופלים מרוצים", 
+    "technology": "טכנולוגיה מתקדמת",
+    "languages": "4 שפות"
+  },
+  "emergencyBanner": {
+    "text": "חירום? אנחנו כאן בשבילכם",
+    "phone": "03-566-6915"
+  }
+}
