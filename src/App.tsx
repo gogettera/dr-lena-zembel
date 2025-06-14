@@ -51,6 +51,11 @@ function App() {
                       <ChildrenDentistryLanding />
                     </div>
                   } />
+                  <Route path="treatments/children-dentistry" element={
+                    <div className="bg-white">
+                      <ChildrenDentistryLanding />
+                    </div>
+                  } />
                   <Route path="treatments/aesthetic-treatments/landing" element={
                     <div className="bg-white">
                       <AestheticTreatmentsLanding />

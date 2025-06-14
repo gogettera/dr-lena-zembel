@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { TranslatedText } from './ui/translated-text';
-import { createLocalizedNavigationConfig } from '@/config/navigation';
+import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
 import NavigationLinks from './ui/NavigationLinks';
 
 const Header: React.FC = () => {

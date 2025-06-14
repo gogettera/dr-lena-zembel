@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,32 +10,28 @@ import { TranslatedText } from './translated-text';
 interface NavigationLinksProps {
   links: NavigationLink[];
   vertical?: boolean;
-  submenuOpenKey?: string | null;
-  setSubmenuOpenKey?: (key: string | null) => void;
   onNavigate?: () => void;
 }
 
 const NavigationLinks: React.FC<NavigationLinksProps> = ({
   links,
   vertical = false,
-  submenuOpenKey,
-  setSubmenuOpenKey,
   onNavigate
 }) => {
   const { isRTL } = useLanguage();
   const location = useLocation();
+  const [submenuOpenKey, setSubmenuOpenKey] = useState<string | null>(null);
 
   const isActive = (path: string) => {
     return location.pathname === path || location.pathname.startsWith(path + '/');
   };
 
   const handleSubmenuToggle = (key: string) => {
-    if (setSubmenuOpenKey) {
-      setSubmenuOpenKey(submenuOpenKey === key ? null : key);
-    }
+    setSubmenuOpenKey(submenuOpenKey === key ? null : key);
   };
 
   const handleNavigation = () => {
+    setSubmenuOpenKey(null);
     if (onNavigate) {
       onNavigate();
     }
