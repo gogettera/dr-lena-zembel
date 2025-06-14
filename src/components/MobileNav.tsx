@@ -5,7 +5,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
-import { createLocalizedNavigationConfig } from '@/config/navigation';
+import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
 import { useDirectionalStyles } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
 import { cn } from '@/lib/utils';
@@ -15,7 +15,6 @@ const MobileNav = () => {
   const { t, language } = useLanguage();
   const isRTL = language === 'he' || language === 'ar';
   const navigation = createLocalizedNavigationConfig(language);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const styles = useDirectionalStyles();
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -29,8 +28,6 @@ const MobileNav = () => {
 
   const handleSheetOpenChange = (open: boolean) => {
     setSheetOpen(open);
-    // Reset submenu when sheet closes
-    if (!open) setOpenSubmenu(null);
   };
 
   return (
@@ -57,8 +54,6 @@ const MobileNav = () => {
           <NavigationLinks
             links={navigation.main}
             vertical
-            submenuOpenKey={openSubmenu}
-            setSubmenuOpenKey={setOpenSubmenu}
             onNavigate={() => setSheetOpen(false)}
           />
           <div className="my-4"><hr /></div>
