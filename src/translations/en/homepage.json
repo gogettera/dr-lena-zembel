@@ -1,0 +1,62 @@
+
+{
+  "sections": {
+    "hero": {
+      "title": "Your Perfect Smile Starts Here",
+      "subtitle": "The Leading Clinic in North Jaffa with the Most Advanced Equipment and the Biggest Heart",
+      "description": "We don't just treat teeth - we create smiles, build confidence, and change lives with the most advanced technology and personal care that comes only from a place of genuine caring"
+    },
+    "whyChooseUs": {
+      "title": "Why Do Thousands of Patients Choose Us Again and Again?",
+      "subtitle": "Because we combine world-class professionalism with warm personal care that makes you feel safe and well-cared for",
+      "reasons": [
+        {
+          "title": "13 Years of Proven Excellence",
+          "description": "More than a decade of achievements, recommendations, and happy smiles that speak for us"
+        },
+        {
+          "title": "The Most Advanced Technology in Israel",
+          "description": "We've invested in the newest equipment that ensures precise, comfortable treatment and perfect results"
+        },
+        {
+          "title": "Personal Care That Feels Like Family",
+          "description": "Every patient receives full attention, genuine listening, and treatment tailored exactly to their needs"
+        },
+        {
+          "title": "We Speak Your Language",
+          "description": "Hebrew, English, German, and Russian - because it's important that you feel comfortable asking everything and understanding everything"
+        }
+      ]
+    },
+    "stats": {
+      "title": "The Numbers That Prove Why We're the Right Choice",
+      "items": [
+        {
+          "number": "5000+",
+          "label": "Patients Who Chose Us Again and Again",
+          "icon": "users"
+        },
+        {
+          "number": "13+",
+          "label": "Years of Excellence and Professionalism",
+          "icon": "award"
+        },
+        {
+          "number": "4.9/5",
+          "label": "Our Average Rating from Patients",
+          "icon": "star"
+        },
+        {
+          "number": "100%",
+          "label": "Commitment to Your Satisfaction",
+          "icon": "heart"
+        }
+      ]
+    },
+    "emergency": {
+      "title": "Severe Pain? Need Urgent Help?",
+      "description": "We're here for you 24/7 - call and get immediate response and quick solution",
+      "cta": "Call Now for Emergency"
+    }
+  }
+}

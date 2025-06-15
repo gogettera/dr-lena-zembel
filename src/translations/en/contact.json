@@ -1,25 +1,50 @@
 
 {
-  "contactUs": "Contact Us",
-  "contactForm": "Contact Form",
-  "name": "Name",
-  "email": "Email",
-  "phone": "Phone",
-  "message": "Message",
-  "send": "Send",
-  "requiredField": "Required field",
-  "invalidEmail": "Please enter a valid email address",
-  "messageSent": "Your message has been sent successfully",
-  "errorSending": "There was an error sending your message. Please try again.",
-  "findUs": "Find Us",
-  "directions": "Directions",
-  "publicTransport": "Public Transport",
-  "parking": "Parking",
-  "nearbyBusLines": "Nearby Bus Lines",
-  "contactInfo": "Contact Information",
-  "callUs": "Call Us",
-  "emailUs": "Email Us",
-  "visitUs": "Visit Us",
-  "followUs": "Follow Us",
-  "businessHours": "Business Hours"
+  "contactUs": "Let's Start the Journey to Your Perfect Smile",
+  "contactIntro": "Have questions? Want to schedule an appointment? Or just curious to know more? We're here for you! Our team is available for any question and will help you find the perfect solution - in the language most comfortable for you.",
+  
+  "clinicInfo": "Your Clinic in North Jaffa",
+  "address": "Ben Zvi Road 2, North Jaffa (Convenient location with parking!)",
+  "phone": "03-566-6915",
+  "whatsapp": "051-566-6915 (Also available on WhatsApp)",
+  "email": "info@drzembel.co.il",
+  
+  "openingHours": "Our Operating Hours",
+  "weekdaysHours": "Sunday - Thursday: 09:00-18:00",
+  "fridayHours": "Friday: 09:00-13:00",
+  "saturdayHours": "Saturday: Closed (but available for emergencies)",
+  "emergencyNote": "Emergency? Don't wait - call the mobile and we'll get back within minutes",
+  
+  "emergencyContact": "Severe Pain? We're Here 24/7",
+  "emergencyText": "Toothache doesn't wait for business hours. We're available for emergencies at any time - call the mobile number and get immediate response and quick solution.",
+  
+  "contactForm": "Write to Us and We'll Get Back Within Two Hours",
+  "formIntro": "Fill in brief details and we'll get back to you with all the information shortly",
+  "name": "Your Name *",
+  "phone": "Your Phone * (We'll get back by phone or WhatsApp)",
+  "email": "Your Email (Optional)",
+  "message": "How can we help? *",
+  "send": "Send to Us",
+  "sending": "Sending message...",
+  "messageSent": "We got it! We'll get back to you within two hours maximum",
+  "errorSending": "Something didn't work... Try again or call directly - we'll be happy to help",
+  
+  "howToReach": "How to Get to Us (It's Easy!)",
+  "publicTransport": "Public Transportation",
+  "publicTransportDesc": "Lines 4, 18, 25 stop right nearby - 'Ben Zvi/Jerusalem' station",
+  "parking": "Parking (No Problem!)",
+  "parkingDesc": "Free street parking + paid parking lot within short walking distance",
+  "accessibility": "Full Accessibility",
+  "accessibilityDesc": "The clinic is wheelchair accessible with a convenient elevator",
+  
+  "socialMedia": "Follow Us and See What's Happening at the Clinic",
+  "facebook": "Our Facebook",
+  "instagram": "Our Instagram",
+  "whatsappContact": "Quick WhatsApp",
+  
+  "appointmentBooking": "Appointment Booking - Simple and Convenient",
+  "appointmentText": "Phone, WhatsApp, or website form - choose what's most convenient for you. We'll find the most suitable time for you and try to accommodate urgent requests too.",
+  
+  "insuranceInfo": "Insurance and Health Funds - We Take Care of All the Details",
+  "insuranceText": "We work with all major health funds and accept various payment methods. Want to know how much you'll pay? Contact us and we'll check your insurance coverage for you."
 }

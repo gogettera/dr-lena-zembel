@@ -1,9 +1,23 @@
 
 {
-  "aboutMe": "About Our Clinic",
-  "aboutMeIntro": "The clinic was established in 2013, and since then, we have continuously updated and developed our practice. The world of dentistry advances year by year, and we work to provide our patients with a professional, safe, and pleasant treatment experience.",
-  "aboutMeClinic": "In our North Jaffa clinic, we offer comprehensive family dentistry. Every patient and every problem has a professional solution - from patients requiring sedation to surgical extractions and trauma care.",
-  "aboutMeLanguages": "In our clinic, we speak 4 languages - Hebrew, German, English, and Russian - to provide the best service to every patient.",
-  "aboutMeInvite": "We invite you to visit our clinic in North Jaffa and see for yourself.",
-  "doctorProfile": "Profile picture of Dr. Lena Zembel"
+  "aboutMe": "Meet Dr. Lena Zembel - The Doctor Who Changes Lives",
+  "aboutMeIntro": "13 years of dedication, thousands of perfect smiles, and a reputation that speaks for itself. Dr. Lena Zembel is not just an excellent dentist - she's your partner on the journey to a smile you'll be proud of for life.",
+  "aboutMeClinic": "In our clinic, you're not just patients - you're family. Every treatment is carefully planned, personally customized, and performed with the highest sensitivity and professionalism. From basic treatments to advanced solutions - we're here for every dental challenge.",
+  "aboutMeLanguages": "Our clinic speaks your language - Hebrew, German, English, and Russian. Because we believe that quality treatment starts with clear and comfortable communication.",
+  "aboutMeInvite": "Come discover why thousands of patients choose us again and again. In our North Jaffa clinic, advanced equipment, professional staff, and a warm atmosphere that will make you feel at home await you.",
+  "doctorProfile": "Dr. Lena Zembel - The Doctor Who Believes Every Smile Tells a Story",
+  "personalApproach": "The Philosophy That Guides Me",
+  "personalApproachText": "\"Every patient is a complete world\" - this is the philosophy that has guided me for 13 years. I believe that quality treatment starts with genuine listening, continues with clear explanation, and ends with results that exceed expectations. Every smile I create is not just a professional achievement - it's a personal story of renewed confidence.",
+  "professionalBackground": "My Professional Journey",
+  "education": "Leading International Education",
+  "educationDetails": "Graduate with honors from the University of Cologne in Germany (2011), with continuous training at the forefront of global dental technology. International education provides me with a broad perspective and advanced treatment approaches.",
+  "specializations": "My Areas of Expertise",
+  "specializationsList": [
+    "Orthodontics for all ages - from traditional to invisible",
+    "Pediatric dentistry - with an approach that turns fear into a positive experience",
+    "Pain-free root canal treatments with the most advanced technology",
+    "Dental aesthetics - from beautiful smiles to perfect smiles",
+    "Professional Botox and fillers - natural beauty that enhances confidence",
+    "Preventive medicine - because prevention is several times better than treatment"
+  ]
 }

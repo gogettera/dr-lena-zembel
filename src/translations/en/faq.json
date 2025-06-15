@@ -1,0 +1,75 @@
+
+{
+  "title": "The Questions Everyone Asks (And We Love to Answer)",
+  "subtitle": "Everything you wanted to know about dental treatments - with clear answers directly from the experts",
+  "categories": {
+    "general": {
+      "title": "General Questions Everyone Asks",
+      "questions": [
+        {
+          "question": "What exactly does the first visit include? And how much does it cost?",
+          "answer": "The first visit includes a comprehensive consultation, thorough oral examination, X-rays as needed, and presentation of a personalized treatment plan. This is the most important visit because it determines your entire plan."
+        },
+        {
+          "question": "Do you work with health insurance? How does it work with insurance?",
+          "answer": "Yes! We work with all major health insurance providers. Some treatments are partially or fully covered, and we'll help you find out in advance exactly what's covered and what's not."
+        },
+        {
+          "question": "How long does it take to schedule an appointment? Are there available slots?",
+          "answer": "Usually you can schedule an appointment within two to three days. For emergencies and urgent cases, we always try to find an immediate solution - don't hesitate to call."
+        },
+        {
+          "question": "How about anesthesia? Are there different options?",
+          "answer": "Absolutely! We have advanced local anesthesia without pain, anesthesia adapted for children, and also the option for general anesthesia in special cases. We'll adapt exactly what's most comfortable for you."
+        }
+      ]
+    },
+    "treatments": {
+      "title": "Questions About Different Treatments",
+      "questions": [
+        {
+          "question": "Root canal treatment - does it really hurt like they say?",
+          "answer": "That was in the past... Today with our advanced technology and state-of-the-art anesthesia, root canal treatment usually doesn't hurt at all. Most patients are surprised how comfortable it is!"
+        },
+        {
+          "question": "Orthodontics - how long does it take and are there transparent options?",
+          "answer": "Depends on the case, usually 12-24 months. We have a variety of options including nearly invisible clear aligners and technologies that shorten treatment time."
+        },
+        {
+          "question": "What's the difference between a regular filling and a crown? When do you need what?",
+          "answer": "A filling is suitable for small to medium holes, a crown for teeth with extensive damage or after root canal treatment. We'll choose exactly what's most suitable for your case."
+        },
+        {
+          "question": "Implants - are they suitable for everyone? How does it work?",
+          "answer": "Implants are suitable for most people over 18 with healthy bone. It's the best solution for missing teeth - looks and feels like a natural tooth."
+        }
+      ]
+    },
+    "children": {
+      "title": "Questions About Children - What Every Parent Wants to Know",
+      "questions": [
+        {
+          "question": "From what age do you bring children for checkups? When is it best?",
+          "answer": "The ideal age is around two and a half years or after the first teeth erupt. An early visit helps the child get to know the dentist and build a positive experience."
+        },
+        {
+          "question": "How do you prepare a child for the first visit? What not to do?",
+          "answer": "Talk about the visit positively, tell them they'll meet a nice doctor who helps keep teeth healthy. Avoid scary stories or frightening words like 'injection' or 'pain'."
+        },
+        {
+          "question": "Can I be with my child in the treatment room?",
+          "answer": "Absolutely! We encourage parental presence, especially with young children. It helps the child feel safe. With older children, sometimes it's better for them to go in alone."
+        },
+        {
+          "question": "What happens if the child runs away or doesn't cooperate?",
+          "answer": "We have lots of experience with this! We use gentle methods, lots of patience, and sometimes just start with getting acquainted and playing. Every child at their own pace."
+        }
+      ]
+    }
+  },
+  "contactCta": {
+    "title": "More Questions? We're Here for You",
+    "description": "Don't hesitate to reach out - we love to help and answer any question",
+    "button": "Ask Us Everything"
+  }
+}
