@@ -2,14 +2,22 @@
 {
   "title": "הטיפולים שלנו",
   "subtitle": "מגוון מקיף של טיפולי שיניים מתקדמים",
+  "ourTreatments": "הטיפולים שלנו",
+  "wideRangeOfTreatments": "אנו מציעים מגוון רחב של טיפולי שיניים מתקדמים",
   "generalTreatments": "טיפולים כלליים",
   "specializedTreatments": "טיפולים מתמחים",
   "aestheticTreatments": "טיפולים אסתטיים",
+  "aestheticTreatmentsDesc": "טיפולים לשיפור מראה החיוך והשיניים",
   "childrenTreatments": "טיפולי ילדים",
+  "childrenDentistry": "רפואת שיניים לילדים",
+  "childrenDentistryDesc": "טיפול מותאם במיוחד לילדים עם סבלנות ואהבה",
   "preventiveMedicine": "רפואה מונעת",
+  "preventiveMedicineDesc": "בדיקות תקופתיות ומניעת בעיות שיניים",
   "botoxTreatments": "טיפולי בוטוקס",
   "orthodontics": "יישור שיניים",
+  "orthodonticsDesc": "יישור שיניים עם שיטות מתקדמות ומודרניות",
   "rootCanal": "טיפולי שורש",
+  "rootCanalDesc": "טיפול מקצועי לשמירה על השן הטבעית",
   "implants": "שתלים",
   "crownsAndBridges": "כתרים וגשרים",
   "teethWhitening": "הלבנת שיניים",
@@ -18,6 +26,26 @@
   "cleaning": "ניקוי אבנית",
   "fillings": "סתימות",
   "extractions": "עקירות",
+  "oralRehabilitation": "שיקום הפה",
+  "oralRehabilitationDesc": "שיקום מקיף של הפה והשיניים",
   "bookTreatment": "קבע תור לטיפול",
-  "learnMore": "למד עוד"
+  "learnMore": "למד עוד",
+  "viewFullPage": "דף מלא",
+  "benefits": {
+    "professional": "טיפול מקצועי ברמה הגבוהה ביותר",
+    "modern": "ציוד מתקדם וטכנולוגיות חדישות",
+    "comfortable": "סביבה נעימה ומרגיעה",
+    "effective": "תוצאות מוכחות ויעילות גבוהה"
+  },
+  "tabs": {
+    "overview": "סקירה כללית",
+    "procedure": "תהליך הטיפול",
+    "benefits": "יתרונות",
+    "faq": "שאלות נפוצות",
+    "testimonials": "המלצות",
+    "related": "טיפולים קשורים"
+  },
+  "keyPoints": "נקודות מפתח:",
+  "fullExperience": "חוויה מלאה",
+  "viewCompleteLandingPage": "צפו בדף הנחיתה המלא עם כל המידע והפרטים"
 }

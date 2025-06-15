@@ -21,6 +21,12 @@
   "contactUs": "בואו נתחיל את השינוי - צרו קשר",
   "contactDescription": "אנחנו כאן לכל שאלה, בכל שעה. הצוות שלנו ישמח לעזור לכם למצוא את הפתרון המושלם",
   "whatsapp": "WhatsApp",
+  "watchOurClinic": "סיור במרפאה",
+  "clinicTourDescription": "צפו בסרטון קצר על המרפאה שלנו",
+  "clinicTourThumbnail": "תמונת תצוגה מקדימה של סיור המרפאה",
+  "noThumbnail": "אין תמונת תצוגה מקדימה",
+  "frequentlyAskedQuestions": "שאלות נפוצות",
+  "faqDescription": "מצאו תשובות לשאלות נפוצות על הטיפולים והשירותים שלנו",
   "logo": {
     "altText": "לוגו מרפאת השיניים ד״ר לנה זמבל",
     "srText": "ד״ר לנה זמבל - מרפאת שיניים"
