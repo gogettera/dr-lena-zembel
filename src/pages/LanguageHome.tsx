@@ -1,4 +1,3 @@
-
 import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
@@ -11,10 +10,12 @@ import BackToTop from '@/components/BackToTop';
 import AboutSection from '@/components/AboutSection';
 import { Section } from '@/components/ui/section';
 import PageContainer from '@/components/layout/PageContainer';
+import EmergencyBanner from '@/components/EmergencyBanner';
 
 const LanguageHome = () => {
   return (
     <PageContainer title="home.pageTitle" description="home.pageDescription" className="overflow-hidden">
+      <EmergencyBanner />
       <main>
         <Section background="none" spacing="none" containerClass="px-0">
           <HeroSection />

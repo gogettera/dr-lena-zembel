@@ -14,7 +14,7 @@ const HeroSection = () => {
   const isMobile = useIsMobile();
 
   const getWhatsAppLink = () => {
-    const phone = "97235666915";
+    const phone = "972515666915";
     const message = encodeURIComponent(t('common.whatsappMessage'));
     return `https://api.whatsapp.com/send?phone=${phone}&text=${message}`;
   };
@@ -28,11 +28,11 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className={`md:w-1/2 space-y-6 ${isMobile ? 'text-center' : isRTL ? 'md:order-1 text-right' : 'text-left'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-dental-navy leading-tight max-w-2xl opacity-0 animate-[fade-in_0.8s_ease-out_forwards]">
-              <TranslatedText textKey="common.dentistryWithLove" defaultText="Professional Dentistry" />
+              {t("hero.heroTitle", "רפואת שיניים מתקדמת – סטנדרט חדש של מצוינות, אמון ואסתטיקה בתל אביב")}
             </h1>
 
             <p className="text-lg md:text-xl text-dental-navy/80 leading-relaxed opacity-0 animate-[fade-in_0.5s_ease-out_0.3s_forwards] max-w-2xl">
-              <TranslatedText textKey="common.localDental" defaultText="Professional dental clinic in North Jaffa, providing comprehensive quality care for our patients." />
+              {t("hero.heroSubtitle", "מרפאה יוקרתית בצפון יפו, בה המומחיות פוגשת יחס אישי. כל חיוך מקבל כאן תשומת לב, ליווי ולוק יוקרתי.")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 opacity-0 animate-[fade-in_0.5s_ease-out_0.6s_forwards] justify-center md:justify-start">
@@ -44,15 +44,18 @@ const HeroSection = () => {
               >
                 <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer">
                   <Calendar className={`h-5 w-5 transition-transform group-hover:scale-110 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                  <TranslatedText textKey="common.bookVisit" defaultText="Book an Appointment" />
+                  {t("hero.bookAppointment", "לתיאום ייעוץ דיסקרטי")}
                 </a>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
                 className="rounded-full text-base md:text-lg border-2 border-dental-navy text-dental-navy hover:bg-dental-navy hover:text-white transition-all duration-300 w-full sm:w-auto"
+                asChild
               >
-                <TranslatedText textKey="common.moreDetails" defaultText="More Details" />
+                <a href="#why-premium" >
+                  {t("hero.learnMore", "לגלות את חוויית הפרימיום")}
+                </a>
               </Button>
             </div>
           </div>
@@ -94,5 +97,4 @@ const HeroSection = () => {
     </section>
   );
 };
-
 export default HeroSection;
