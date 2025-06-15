@@ -9,6 +9,25 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import DoctorStory from './DoctorStory';
 import { treatmentTypes } from '@/data/treatmentTypes';
 
+/** באנר חירום חדש */
+const EmergencyBanner: React.FC = () => (
+  <div className="w-full bg-gradient-to-l from-dental-orange/90 to-dental-orange/70 text-white py-2 px-4 text-center text-sm font-semibold flex flex-col sm:flex-row items-center justify-center gap-2 z-50">
+    <span className="mr-2">
+      כאב פתאומי? זמינים לכם 24/7&nbsp;
+      <a href="tel:03-566-6915" className="underline font-bold text-white hover:text-dental-azure transition">03-566-6915</a>
+    </span>
+    <span className="hidden sm:inline-block">|</span>
+    <a
+      href="https://wa.me/972515666915"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 underline font-bold text-white hover:text-[#64d25a] transition"
+    >
+      לייעוץ דיסקרטי ב־WhatsApp
+    </a>
+  </div>
+);
+
 const PreventiveMedicineLanding = () => {
   const { t } = useLanguage();
   const treatmentType = 'preventive-medicine';
@@ -16,6 +35,7 @@ const PreventiveMedicineLanding = () => {
 
   return (
     <>
+      <EmergencyBanner />
       <PreventiveMedicineHero
         treatment={treatment}
         treatmentNameKey="preventiveMedicine"
@@ -36,3 +56,4 @@ const PreventiveMedicineLanding = () => {
 };
 
 export default PreventiveMedicineLanding;
+
