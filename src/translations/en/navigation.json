@@ -3,39 +3,9 @@
   "home": "Home",
   "about": "About",
   "treatments": "Treatments",
-  "botoxTreatments": "Botox Treatments",
-  "aestheticTreatments": "Aesthetic Treatments",
-  "preventiveMedicine": "Preventive Medicine",
-  "childrenDentistry": "Children Dentistry",
-  "orthodontics": "Orthodontics",
-  "rootCanal": "Root Canal",
-  "oralRehabilitation": "Oral Rehabilitation",
   "contact": "Contact",
-  "practice": "Our Practice",
-  "team": "Team",
-  "patients": "For Patients",
-  "testimonials": "Patient Reviews",
-  "patientsExperiences": "Our patients share their experience",
-  "ourTreatments": "Our Treatments",
-  "wideRangeOfTreatments": "We offer a wide range of advanced dental treatments",
-  "updatesFromPractice": "Updates from the Practice",
-  "followOnFacebook": "Follow us on Facebook for regular updates",
-  "followOnFacebookButton": "Follow us on Facebook",
-  "learnMore": "Learn More",
-  "sitemap": "Sitemap",
+  "faq": "FAQ",
+  "emergency": "Emergency",
   "backToHome": "Back to Home",
-  "treatmentNotFound": "Treatment not found",
-  "info": "Information",
-  "followUs": "Follow Us",
-  "mainNavigation": "Main Navigation",
-  "accessibility": {
-    "skipToContent": "Skip to main content",
-    "statement": "Accessibility Statement"
-  },
-  "legal": {
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Use"
-  }
+  "skipToContent": "Skip to main content"
 }
