@@ -13,5 +13,14 @@
   "orthodontics": "יישור שיניים",
   "childrenDentistry": "רפואת ילדים",
   "rootCanal": "טיפולי שורש",
-  "aestheticTreatments": "טיפולים אסתטיים"
+  "aestheticTreatments": "טיפולים אסתטיים",
+  "oralRehabilitation": "שיקום הפה",
+  "mainNavigation": "ניווט ראשי",
+  "legal": {
+    "privacy": "מדיניות פרטיות",
+    "terms": "תנאי שירות"
+  },
+  "accessibility": {
+    "statement": "הצהרת נגישות"
+  }
 }
