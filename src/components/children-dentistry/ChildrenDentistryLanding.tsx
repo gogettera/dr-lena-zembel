@@ -11,6 +11,7 @@ import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
 import ClinicExpertise from "./ClinicExpertise";
+import SiteAuditDashboard from "@/components/admin/SiteAuditDashboard";
 
 const ChildrenDentistryLanding: React.FC = () => {
   // Debug logging
@@ -75,6 +76,14 @@ const ChildrenDentistryLanding: React.FC = () => {
         <Section background="none" spacing="none" containerClass="px-0">
           <BookVisitAnchor />
         </Section>
+        
+        {/* Site Audit Dashboard */}
+        <div className="my-16 border-t-4 border-dashed border-dental-orange pt-16">
+          <Section background="white" spacing="md" maxWidth="full" id="site-audit">
+            <h2 className="text-3xl font-bold text-center text-dental-navy mb-12">Site Health Audit (For Admin Review)</h2>
+            <SiteAuditDashboard />
+          </Section>
+        </div>
       </div>
     );
   } catch (error) {
