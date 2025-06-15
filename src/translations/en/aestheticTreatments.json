@@ -1,4 +1,3 @@
-
 {
   "headline1": "Aesthetic Treatments",
   "headline2": "Perfect Smile Solutions",
@@ -46,5 +45,15 @@
   "faqSection": "Frequently Asked Questions",
   "faqSectionSubtitle": "Answers to the most common questions about aesthetic treatments",
   "bookNowCTA": "Ready to upgrade your smile? Let's start with a consultation",
-  "bookNowSubtitle": "Our clinic team is here to provide you with the most advanced and personalized aesthetic treatment."
+  "bookNowSubtitle": "Our clinic team is here to provide you with the most advanced and personalized aesthetic treatment.",
+  "benefits": {
+    "items": [
+      { "title": "Natural, customized results for your face and personality" },
+      { "title": "Significant improvement in self-confidence and self-image" },
+      { "title": "Advanced technologies for optimal results" },
+      { "title": "Comfortable and fast treatment with short recovery times" },
+      { "title": "Comprehensive diagnosis and digital planning for maximum precision" },
+      { "title": "Long-term solutions with simple maintenance" }
+    ]
+  }
 }

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -40,29 +39,30 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 
   // Get treatment-specific benefits
   const getTreatmentBenefits = (type: string) => {
+    const { t, language } = useLanguage();
     switch (type) {
-      case 'children-dentistry':
+      case "aesthetic-treatments":
+        // Fetch benefits array dynamically for proper i18n
+        const benefitsArray = t("aestheticTreatments.benefits.items", { returnObjects: true }) || [];
+        if (Array.isArray(benefitsArray)) {
+          return benefitsArray.map((b: any) => b.title || "");
+        }
+        return [];
+      case "children-dentistry":
         return [
           t('childrenDentistry.whyUs.reasons.0.title'),
           t('childrenDentistry.whyUs.reasons.1.title'),
           t('childrenDentistry.whyUs.reasons.2.title'),
           t('childrenDentistry.whyUs.reasons.3.title')
         ];
-      case 'aesthetic-treatments':
-        return [
-          t('aestheticTreatments.benefits.items.0.title'),
-          t('aestheticTreatments.benefits.items.1.title'),
-          t('aestheticTreatments.benefits.items.2.title'),
-          t('aestheticTreatments.benefits.items.3.title')
-        ];
-      case 'orthodontics':
+      case "orthodontics":
         return [
           t('orthodontics.whyUs.reasons.0.title'),
           t('orthodontics.whyUs.reasons.1.title'),
           t('orthodontics.whyUs.reasons.2.title'),
           t('orthodontics.whyUs.reasons.3.title')
         ];
-      case 'root-canal':
+      case "root-canal":
         return [
           t('rootCanal.whyUs.reasons.0.title'),
           t('rootCanal.whyUs.reasons.1.title'),
