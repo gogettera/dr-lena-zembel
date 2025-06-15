@@ -10,9 +10,10 @@ import Testimonials from "./Testimonials";
 import FAQ from "./FAQ";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
+import EmergencyBanner from "@/components/EmergencyBanner";
 
 const AestheticTreatmentsLanding: React.FC = () => {
-  const { isRTL } = useLanguage();
+  const { isRTL, t } = useLanguage();
   
   useEffect(() => {
     // Scroll to top when component mounts
@@ -20,9 +21,15 @@ const AestheticTreatmentsLanding: React.FC = () => {
   }, []);
 
   return (
-    <div dir={isRTL ? 'rtl' : 'ltr'}>
-      <a href="#hero" className="sr-only focus:not-sr-only focus:fixed focus:z-50 focus:top-4 focus:left-4 focus:bg-white focus:text-dental-navy focus:px-4 focus:py-2 focus:rounded-md">
-        Skip to main content
+    <div dir={isRTL ? 'rtl' : 'ltr'} className="overflow-x-hidden">
+      {/* Emergency Banner */}
+      <EmergencyBanner />
+
+      <a 
+        href="#hero" 
+        className="skip-to-content"
+      >
+        {t("accessibility.skipToContent", "דלג לתוכן הראשי")}
       </a>
       <StickyNavigation />
       
@@ -58,3 +65,4 @@ const AestheticTreatmentsLanding: React.FC = () => {
 };
 
 export default AestheticTreatmentsLanding;
+
