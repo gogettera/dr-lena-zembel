@@ -9,6 +9,7 @@ import Testimonials from "./Testimonials";
 import FAQ from "./FAQ";
 import BookVisitAnchor from "./BookVisitAnchor";
 import { useLanguage } from "@/contexts/LanguageContext";
+import EmergencyBanner from "@/components/EmergencyBanner";
 
 const RootCanalLanding: React.FC = () => {
   const { t } = useLanguage();
@@ -19,6 +20,9 @@ const RootCanalLanding: React.FC = () => {
 
   return (
     <div className="overflow-x-hidden">
+      {/* Emergency Banner */}
+      <EmergencyBanner />
+
       <a href="#hero" className="skip-to-content">
         {t("accessibility.skipToContent", "Skip to main content")}
       </a>
@@ -55,3 +59,4 @@ const RootCanalLanding: React.FC = () => {
 };
 
 export default RootCanalLanding;
+
