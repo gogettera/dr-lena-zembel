@@ -1,4 +1,3 @@
-
 {
   "hero": {
     "title": "Botox and Lip Fillers - Natural Beauty That Enhances Confidence",
@@ -108,5 +107,13 @@
     "title": "Ready to Feel More Beautiful?",
     "subtitle": "Come for a free consultation without commitment",
     "description": "We'd be happy to meet you, answer all questions, and plan the perfect treatment for you together"
+  },
+  "benefits": {
+    "items": [
+      { "title": "Strong Medical Background" },
+      { "title": "Quality Materials Only" },
+      { "title": "Conservative and Natural Approach" },
+      { "title": "Professional Medical Environment" }
+    ]
   }
 }

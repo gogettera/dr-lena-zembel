@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -25,6 +26,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 }) => {
   const { t, language } = useLanguage();
 
+  // Helper to convert kebab-case to camelCase
+  const kebabToCamel = (s: string) => s.replace(/-./g, x => x[1].toUpperCase());
+
   // Treatments that have dedicated landing pages
   const treatmentsWithLandingPages = [
     'children-dentistry',
@@ -39,8 +43,11 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 
   // Unified benefits array getter
   const getTreatmentBenefits = (type: string) => {
+    // Convert kebab-case type to camelCase for translation key
+    const camelCaseType = kebabToCamel(type);
+
     // Try by convention: [type].benefits.items
-    const dynamicArray = t(`${type}.benefits.items`, { returnObjects: true });
+    const dynamicArray = t(`${camelCaseType}.benefits.items`, { returnObjects: true });
     if (Array.isArray(dynamicArray) && dynamicArray.length > 0 && dynamicArray[0]?.title) {
       return dynamicArray.map((b: any) => b.title || "");
     }
