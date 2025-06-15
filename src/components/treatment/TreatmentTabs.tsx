@@ -37,50 +37,25 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 
   const hasLandingPage = treatmentsWithLandingPages.includes(treatmentType);
 
-  // Get treatment-specific benefits
+  // Unified benefits array getter
   const getTreatmentBenefits = (type: string) => {
-    const { t } = useLanguage();
-    // Always try dynamic array first: `${type}.benefits.items`
+    // Try by convention: [type].benefits.items
     const dynamicArray = t(`${type}.benefits.items`, { returnObjects: true });
-    if (Array.isArray(dynamicArray) && dynamicArray.length > 0) {
+    if (Array.isArray(dynamicArray) && dynamicArray.length > 0 && dynamicArray[0]?.title) {
       return dynamicArray.map((b: any) => b.title || "");
     }
-    // Fallback: old logic for known types
-    switch (type) {
-      case "children-dentistry":
-        return [
-          t('childrenDentistry.whyUs.reasons.0.title', ''),
-          t('childrenDentistry.whyUs.reasons.1.title', ''),
-          t('childrenDentistry.whyUs.reasons.2.title', ''),
-          t('childrenDentistry.whyUs.reasons.3.title', '')
-        ].filter(Boolean);
-      case "orthodontics":
-        return [
-          t('orthodontics.whyUs.reasons.0.title', ''),
-          t('orthodontics.whyUs.reasons.1.title', ''),
-          t('orthodontics.whyUs.reasons.2.title', ''),
-          t('orthodontics.whyUs.reasons.3.title', '')
-        ].filter(Boolean);
-      case "root-canal":
-        return [
-          t('rootCanal.whyUs.reasons.0.title', ''),
-          t('rootCanal.whyUs.reasons.1.title', ''),
-          t('rootCanal.whyUs.reasons.2.title', ''),
-          t('rootCanal.whyUs.reasons.3.title', '')
-        ].filter(Boolean);
-      default:
-        // Use base fallback (generic benefits)
-        const baseBenefits = t('treatments.benefits.items', { returnObjects: true });
-        if (Array.isArray(baseBenefits) && baseBenefits.length > 0) {
-          return baseBenefits.map((b: any) => b.title || "");
-        }
-        return [
-          t('treatments.benefits.professional', ''),
-          t('treatments.benefits.modern', ''),
-          t('treatments.benefits.comfortable', ''),
-          t('treatments.benefits.effective', '')
-        ].filter(Boolean);
+    // Fallback to generic base (treatments.benefits.items)
+    const baseBenefits = t('treatments.benefits.items', { returnObjects: true });
+    if (Array.isArray(baseBenefits) && baseBenefits.length > 0 && baseBenefits[0]?.title) {
+      return baseBenefits.map((b: any) => b.title || "");
     }
+    // Last fallback: simple hardcoded options from base keys
+    return [
+      t('treatments.benefits.professional', ''),
+      t('treatments.benefits.modern', ''),
+      t('treatments.benefits.comfortable', ''),
+      t('treatments.benefits.effective', '')
+    ].filter(Boolean);
   };
 
   const benefits = getTreatmentBenefits(treatmentType);
