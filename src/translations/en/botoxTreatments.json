@@ -1,159 +1,112 @@
 
 {
-  "headline1": "Botox and Hyaluronic Acid Treatments",
-  "headline2": "Refresh Your Look and Smile",
-  "mobileFactoid": "Botox and hyaluronic acid treatments can significantly improve overall appearance",
-  "mobileTip": "Advanced treatments by an expert dentist",
-  "botoxTitle": "Botox Treatments",
-  "hyaluronicTitle": "Hyaluronic Acid Treatments",
-  "botoxDesc": "Botox injections are designed to reduce expression lines and wrinkles, using a safe material approved for medical use",
-  "hyaluronicDesc": "Hyaluronic acid treatments restore volume and elasticity to the skin, smoothing wrinkles and providing a more youthful appearance",
-  "benefitsTitle": "Treatment Benefits",
-  "benefitsSubtitle": "Our treatments provide a variety of aesthetic and medical benefits",
-  "processTitle": "Treatment Process",
-  "processSubtitle": "A simple, quick, and efficient treatment process - in just five steps",
-  "beforeAfterTitle": "Before and After",
-  "beforeAfterSubtitle": "Real results from our patients",
-  "doctorTitle": "Your Doctor",
-  "safetyTitle": "Treatment Safety",
-  "safetySubtitle": "Patient safety is our top priority",
-  "pricingTitle": "Pricing and Packages",
-  "testimonialsTitle": "Patient Testimonials",
-  "testimonialsSubtitle": "What our patients say about their experience",
-  "faqTitle": "Frequently Asked Questions",
-  "faqSubtitle": "Answers to common questions about Botox treatments",
-  "faqCallout": "Still have questions? We're here to help!",
-  "comparisonTitle": "Treatment Comparison",
-  "callUs": "Call Us",
-  "bookAppointment": "Book an Appointment",
-  "commonTreatmentAreas": "Common treatment areas:",
-  "moreInfo": "More Information",
-  "newInClinic": "New at the clinic",
-  "yearsExperience": "years of experience",
-  "satisfiedPatients": "satisfied patients",
-  "treatmentSpeed": "minutes per treatment",
-  "recoveryTime": "recovery time",
-  "monthsEffect": "months of effect",
-  "quickTreatments": "Quick and efficient treatments that fit your busy schedule",
-  "noDowntime": "Immediate return to daily routine with no extended recovery",
-  "longLastingResults": "Long-lasting results that can be maintained with follow-up treatments",
-  "treatmentApproach": "Treatment Approach",
-  "certifications": "Certifications & Approvals",
-  "clinicLocation": "Clinic Location",
-  "openingHours": "Opening Hours",
-  "contactDetails": "Contact Details",
-  "benefits": [
-    "Immediate and natural results",
-    "Quick procedure with minimal discomfort",
-    "Short recovery period",
-    "Long-lasting effects - up to several months",
-    "Improved appearance and self-confidence"
-  ],
-  "botoxAreas": [
-    "Forehead",
-    "Between eyebrows",
-    "Crow's feet",
-    "Around mouth",
-    "Neck and chin"
-  ],
-  "hyaluronicAreas": [
-    "Lips",
-    "Cheeks",
-    "Jawline",
-    "Under-eye hollows",
-    "Deep wrinkles"
-  ],
-  "processSteps": [
-    {
-      "title": "Initial Consultation",
-      "description": "Personal consultation with the doctor to assess needs and create a customized treatment plan"
+  "hero": {
+    "title": "Botox and Lip Fillers - Natural Beauty That Enhances Confidence",
+    "subtitle": "Professional aesthetic treatments at high medical standards with natural and impressive results"
+  },
+  "introduction": {
+    "title": "Real Beauty is Natural Beauty",
+    "description": "At our clinic, we believe that real beauty is natural beauty. Our aesthetic treatments are performed at high medical standards with emphasis on natural results that enhance rather than change your natural appearance."
+  },
+  "treatments": {
+    "title": "Our Treatments",
+    "botox": {
+      "title": "Professional Botox",
+      "description": "Smoothing wrinkles and preventing formation of new wrinkles",
+      "benefits": [
+        "Smoothing forehead and eye area wrinkles",
+        "Prevention of excessive sweating",
+        "Improvement of laugh lines",
+        "Natural results lasting 4-6 months"
+      ],
+      "process": "Precise injection of botox material to required areas, short and painless process"
     },
-    {
-      "title": "Treatment Planning",
-      "description": "Detailed explanation of recommended treatments, expected results, and personal customization"
-    },
-    {
-      "title": "Treatment Execution",
-      "description": "The treatment itself takes only 15-30 minutes, with minimal discomfort"
-    },
-    {
-      "title": "Post-Treatment Instructions",
-      "description": "Detailed explanation of required post-injection care and recommendations for optimal results"
-    },
-    {
-      "title": "Follow-up",
-      "description": "Follow-up appointment after two weeks to check results and make any necessary adjustments"
+    "fillers": {
+      "title": "Hyaluronic Acid Fillers",
+      "description": "Lip enhancement and deep wrinkle filling",
+      "benefits": [
+        "Natural lip enhancement and shaping",
+        "Filling wrinkles around the mouth",
+        "Restoring volume to depleted areas",
+        "Immediate results lasting 6-12 months"
+      ],
+      "process": "Gentle injection of quality hyaluronic acid, with results visible immediately"
     }
-  ],
-  "safetyConcerns": [
-    "All treatments performed by an experienced specialist doctor",
-    "Use of highest quality materials approved by health authorities",
-    "Sterile environment and strict medical conditions",
-    "Personal adaptation of treatment to health conditions and aesthetic needs",
-    "Close follow-up after treatment"
-  ],
-  "faqItems": [
-    {
-      "question": "Are botox and hyaluronic acid treatments painful?",
-      "answer": "The treatments involve minimal discomfort. Local anesthetic cream can be applied before injection. Most patients report only a slight pinching sensation."
-    },
-    {
-      "question": "How long do the results last?",
-      "answer": "Botox results last between 3-6 months. Hyaluronic acid treatments can last 6-18 months, depending on the treated area and type of material."
-    },
-    {
-      "question": "When will I see results?",
-      "answer": "Botox results begin to show within 3-7 days and peak after about two weeks. Hyaluronic acid results are immediate."
-    },
-    {
-      "question": "Are there any side effects?",
-      "answer": "Common side effects include mild redness, swelling, or slight bruising at the injection site, which typically resolve within a few days."
-    },
-    {
-      "question": "Who is suitable for these treatments?",
-      "answer": "These treatments are suitable for healthy individuals looking to improve their aesthetic appearance. A comprehensive assessment will be conducted during the consultation."
-    },
-    {
-      "question": "Is there a minimum age for these treatments?",
-      "answer": "Generally, these treatments are recommended for those over 18. The exact age depends on individual circumstances and medical indication."
-    },
-    {
-      "question": "How much do the treatments cost?",
-      "answer": "Treatment costs vary depending on the area treated and amount of material needed. You'll receive an exact quote during your consultation."
-    }
-  ],
-  "contactCallout": "For more information and to schedule an appointment, contact us today",
-  "bookingButtonText": "Schedule a Personal Consultation",
-  "treatmentComparison": {
-    "title": "Treatment Comparison",
-    "botoxTitle": "Botox",
-    "hyaluronicTitle": "Hyaluronic Acid",
-    "features": [
+  },
+  "whyChooseUs": {
+    "title": "Why Choose Us for Aesthetic Treatments?",
+    "reasons": [
       {
-        "name": "Treatment Duration",
-        "botox": "15-20 minutes",
-        "hyaluronic": "20-40 minutes"
+        "title": "Strong Medical Background",
+        "description": "Treatments performed by experienced dentist with special training"
       },
       {
-        "name": "Pain Level",
-        "botox": "Minimal",
-        "hyaluronic": "Minimal to moderate"
+        "title": "Quality Materials Only",
+        "description": "We use only original, quality materials from leading brands"
       },
       {
-        "name": "Results",
-        "botox": "Wrinkle reduction",
-        "hyaluronic": "Volume addition and filling"
+        "title": "Conservative and Natural Approach",
+        "description": "We believe in 'less is more' - subtle results that enhance"
       },
       {
-        "name": "Recovery Time",
-        "botox": "None - immediate",
-        "hyaluronic": "1-2 days"
-      },
-      {
-        "name": "Results Duration",
-        "botox": "3-6 months",
-        "hyaluronic": "6-18 months"
+        "title": "Professional Medical Environment",
+        "description": "Treatments performed in professional clinic with all hygiene and safety conditions"
       }
     ]
+  },
+  "process": {
+    "title": "Treatment Process - 4 Simple Steps",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Getting Acquainted and Consultation",
+        "description": "We'll get to know you, understand what's important to you, and plan the appropriate treatment together"
+      },
+      {
+        "step": "2",
+        "title": "Precise Planning",
+        "description": "We'll mark treatment points and explain exactly what we'll do and how"
+      },
+      {
+        "step": "3",
+        "title": "Performing the Treatment",
+        "description": "Precise and gentle treatment lasting 15-30 minutes"
+      },
+      {
+        "step": "4",
+        "title": "Follow-up and Support",
+        "description": "Post-treatment follow-up and guidance for maintaining results"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Frequently Asked Questions About Botox and Fillers",
+    "questions": [
+      {
+        "question": "Are the treatments painful?",
+        "answer": "Treatments involve minimal discomfort. We use very thin needles and can use numbing cream before treatment."
+      },
+      {
+        "question": "How long do results last?",
+        "answer": "Botox lasts 4-6 months, hyaluronic acid fillers last 6-12 months, depending on treatment area and individual metabolism."
+      },
+      {
+        "question": "When do you see results?",
+        "answer": "Fillers are visible immediately, botox starts showing after 3-5 days and full results are visible after two weeks."
+      },
+      {
+        "question": "Are there restrictions after treatment?",
+        "answer": "It's recommended to avoid intense physical activity, heat exposure, and touching the treatment area for 24 hours."
+      }
+    ]
+  },
+  "beforeAfter": {
+    "title": "Before and After Photos",
+    "note": "Results may vary between individuals. Real photos of our patients (with their permission)"
+  },
+  "cta": {
+    "title": "Ready to Feel More Beautiful?",
+    "subtitle": "Come for a free consultation without commitment",
+    "description": "We'd be happy to meet you, answer all questions, and plan the perfect treatment for you together"
   }
 }

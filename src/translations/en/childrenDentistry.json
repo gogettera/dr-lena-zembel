@@ -1,136 +1,125 @@
 
 {
-  "nav": {
-    "main": "Main",
-    "whyUs": "Why Us", 
-    "visitSteps": "Visit Process",
-    "testimonials": "Testimonials",
-    "faq": "FAQ",
-    "contact": "Contact"
-  },
   "hero": {
-    "title": "Happy Children - Dental Treatment with Love and Patience",
-    "subtitle": "At Dr. Lena Zembel's clinic, we don't just treat teeth - we build confidence, peace of mind, and positive experiences for children and parents."
+    "title": "Children's Dentistry - Turning Fear into a Fun Experience",
+    "subtitle": "Kids love coming to our clinic! We create positive experiences that stay with them for life",
+    "description": "With a special team that understands children, adapted equipment, and a playful approach - we turn dental visits into enjoyable and empowering experiences"
   },
-  "whyUs": {
-    "title": "Why Children (and Parents) Love Coming to Us?",
-    "subtitle": "Our approach is built on creating positive experiences for both children and parents",
+  "whyChooseUs": {
+    "title": "Why Parents Choose Us for Their Children",
     "reasons": [
       {
-        "title": "No Pressure",
-        "description": "The first visit always starts with a conversation, not treatment. We create a pleasant and relaxed visit experience."
+        "title": "Expertise in Pediatric Care",
+        "description": "Professional team with special training in child psychology and pediatric dentistry"
       },
       {
-        "title": "Age-Appropriate Approach",
-        "description": "Eye-level explanations, without stressful words. Using adapted developmental language."
+        "title": "Playful and Calming Approach",
+        "description": "We turn every treatment into a fun game that children want to come back to"
       },
       {
-        "title": "Positive Distractions",
-        "description": "Screen with favorite videos, toys, stickers, and also the option to bring a toy from home."
+        "title": "Child-Adapted Equipment",
+        "description": "All tools and equipment are sized and designed specifically for children's needs"
       },
       {
-        "title": "Parents as Partners", 
-        "description": "One parent always stays with the child - and even participates if desired. Parents are an important part of the process."
+        "title": "Parents in Treatment",
+        "description": "You're welcome to be with us in the treatment room so your child feels secure"
       }
     ]
   },
-  "visitSteps": {
-    "title": "First Visit Process",
-    "subtitle": "A gentle, step-by-step approach designed to make children feel comfortable and safe",
-    "steps": [
-      {
-        "title": "Welcome with a Toy",
-        "description": "We'll start with a meeting in the playroom"
-      },
-      {
-        "title": "Brief Explanation at the Children's Station",
-        "description": "We'll show dental equipment and toys"
-      },
-      {
-        "title": "Brushing Together in Front of a Mirror",
-        "description": "We'll learn the correct brushing technique"
-      },
-      {
-        "title": "Gentle Scanning with a Small Camera",
-        "description": "We'll count teeth with a camera"
-      },
-      {
-        "title": "Personal Prize at the End",
-        "description": "Choosing a sticker or small surprise"
-      }
-    ]
-  },
-  "clinicExpertise": {
-    "title": "Leading Children's Clinic",
-    "items": [
-      {
-        "title": "Specialist Doctor Certified by Ministry of Health",
-        "description": "Dr. Lena Zembel is a certified specialist with extensive training in pediatric dentistry."
-      },
-      {
-        "title": "Patience and Personal Attention",
-        "description": "Age-appropriate explanations and individualized care for every child."
-      },
-      {
-        "title": "Multilingual Staff",
-        "description": "Our team speaks Hebrew, English, Russian, and German for your convenience."
-      }
-    ]
-  },
-  "faq": {
-    "title": "Frequently Asked Questions",
-    "items": [
-      {
-        "question": "At what age should dental treatments begin?",
-        "answer": "Usually recommended around two and a half years old - or after the eruption of the first teeth. An early visit helps accustom the child to the clinic environment and build a positive experience from the start."
-      },
-      {
-        "question": "What if the child doesn't cooperate?",
-        "answer": "That's perfectly fine - we have gentle methods based on a psychological approach for children. We adapt the treatment to the child's pace, and sometimes start with just a brief introduction and play during the first visit."
-      },
-      {
-        "question": "Can we come just for consultation?",
-        "answer": "Certainly. There is no commitment to continue treatment. An initial consultation is a good opportunity to ask questions, meet the team, and see if the clinic suits you and your child."
-      },
-      {
-        "question": "How do I prepare my child for the first visit?",
-        "answer": "It's recommended to discuss the visit with the child in a positive and light way, emphasizing that it's a visit to meet the dentist and count teeth. Avoid frightening terms or stories of negative experiences."
-      },
-      {
-        "question": "Can parents be present during treatment?",
-        "answer": "Of course. We encourage parental presence in the treatment room, especially with young children. However, sometimes older children cooperate better when they enter alone."
-      }
-    ]
-  },
-  "contact": {
-    "title": "Contact Us - We'll Get Back to You with a Smile",
-    "subtitle": "Fill out the form and we'll contact you soon with all the information",
-    "form": {
-      "parentName": "Parent's Name",
-      "childName": "Child's Name",
-      "age": "Age", 
-      "phone": "Phone",
-      "message": "What's important for us to know before the visit?",
-      "privacy": "Your details will be kept completely confidential and will not be transferred to third parties",
-      "submitButton": "Send with a Smile",
-      "sending": "Sending...",
-      "success": "Sent Successfully!"
+  "treatmentTypes": {
+    "title": "Our Treatments for Children",
+    "preventive": {
+      "title": "Preventive Treatments",
+      "description": "Regular checkups, gentle cleaning, and fluoride strengthening",
+      "details": [
+        "Anxiety-free first examination",
+        "Gentle and fun teeth cleaning",
+        "Fluoride treatments for stronger teeth",
+        "Oral hygiene education with games"
+      ]
     },
-    "success": {
-      "title": "Form sent successfully!",
-      "description": "We'll get back to you soon with all the information"
+    "restorative": {
+      "title": "Restorative Treatments",
+      "description": "Colorful fillings and special crowns for children's teeth",
+      "details": [
+        "Fillings in colors the child chooses",
+        "Stainless steel crowns for baby teeth",
+        "Pain-free treatment with gentle anesthesia",
+        "Games during treatment"
+      ]
+    },
+    "orthodontics": {
+      "title": "Orthodontics for Children",
+      "description": "Special appliances adapted to the child's age and developmental stage",
+      "details": [
+        "Colorful appliances for the child to choose",
+        "Early preventive alignment",
+        "Close monitoring with parent involvement",
+        "Excellent results without pain"
+      ]
     }
   },
-  "bookVisit": {
-    "title": "The child's first visit can affect their entire life. Let's start it right.",
-    "subtitle": "Our clinic team is here to help, support and accompany.",
-    "address": "Ben Zvi Road 2, Tel Aviv-Jaffa",
-    "hours": "Sunday to Thursday: 09:00-19:00 | Friday: 09:00-13:00",
-    "wazeButton": "Navigate to us on Waze",
-    "backToTop": "Back to Top"
+  "ageGroups": {
+    "title": "Treatment Adapted to Every Age",
+    "toddlers": {
+      "title": "Ages 2-5 - The Important Beginning",
+      "description": "Getting acquainted visits, proper habits, and preventing future problems"
+    },
+    "children": {
+      "title": "Ages 6-12 - The Permanent Teeth",
+      "description": "Monitoring permanent tooth growth and professional treatment"
+    },
+    "teens": {
+      "title": "Ages 13+ - Transition to Adulthood",
+      "description": "Orthodontics, aesthetics, and maintaining a perfect smile"
+    }
+  },
+  "parentTips": {
+    "title": "Tips for Parents - How to Prepare Your Child for the Visit",
+    "beforeVisit": [
+      "Tell your child about the visit in a positive way",
+      "Explain that the dentist helps keep teeth strong",
+      "Read books about visiting the dentist",
+      "Bring a beloved comfort object"
+    ],
+    "duringVisit": [
+      "Stay calm - children feel your emotions",
+      "Let your child ask questions",
+      "Praise your child for cooperation",
+      "Support the doctor and staff"
+    ]
   },
   "testimonials": {
     "title": "What Parents Say About Us",
-    "subtitle": "Real experiences from families who visited our clinic"
+    "testimonial1": {
+      "parent": "Merav, mother of Noa (5)",
+      "text": "Noa loves coming to Dr. Lena! She even asks to go to the dentist. Amazing how they turned a scary experience into a fun one."
+    },
+    "testimonial2": {
+      "parent": "David, father of Tom (8)",
+      "text": "Tom was afraid of dentists, but the team here worked with him patiently and now he comes happily to every visit."
+    },
+    "testimonial3": {
+      "parent": "Ronit, mother of two children",
+      "text": "Both my children are treated here and I see how happy and confident they are. The team is simply amazing with children."
+    }
+  },
+  "emergencyTips": {
+    "title": "Emergencies - What to Do?",
+    "scenarios": [
+      {
+        "situation": "Tooth fell out from accident",
+        "action": "Rinse gently with water, place in milk and come to the clinic immediately"
+      },
+      {
+        "situation": "Severe toothache",
+        "action": "Give pain reliever according to dosage, rinse mouth with warm water and call us"
+      },
+      {
+        "situation": "Facial swelling",
+        "action": "Cold compress from outside and immediate arrival at the clinic"
+      }
+    ],
+    "emergency_phone": "050-123-4567"
   }
 }
