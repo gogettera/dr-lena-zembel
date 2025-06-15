@@ -19,7 +19,7 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
     <div className="space-y-6">
       <div>
         <TranslatedText
-          textKey="benefits"
+          textKey="treatments.tabs.benefits"
           as="h3"
           className="text-xl font-bold text-dental-navy mb-4"
         />
