@@ -1,10 +1,11 @@
 
 import React from "react";
-import { MessageCircle, Phone } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const EmergencyBanner: React.FC = () => {
   const { t } = useLanguage();
+
   return (
     <div className="w-full bg-gradient-to-l from-dental-orange/90 to-dental-orange/70 text-white py-2 px-4 text-center text-sm font-semibold flex flex-col sm:flex-row items-center justify-center gap-2 z-50">
       <span className="mr-2">

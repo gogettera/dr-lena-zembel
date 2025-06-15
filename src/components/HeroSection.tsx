@@ -81,7 +81,7 @@ const HeroSection = () => {
                   flex flex-col items-center transform hover:scale-105 transition-all duration-300`}
               >
                 <p className="text-dental-navy font-bold text-base md:text-lg text-center">
-                  <TranslatedText textKey="common.completelyHappy" defaultText="Thousands of Happy Patients" />
+                  <TranslatedText textKey="common.completelyHappy" defaultText="אלפי לקוחות מרוצים – חוויה יוקרתית ושירות עולמי." />
                 </p>
                 <div className="flex text-dental-orange mt-2 text-lg md:text-xl">
                   ★★★★★
