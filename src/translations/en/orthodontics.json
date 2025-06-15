@@ -1,7 +1,7 @@
 
 {
   "hero": {
-    "title": "Straight Smile - Health and Self-Confidence for Life",
+    "title": "Straight Smile - Health and Confidence for Life",
     "subtitle": "Personalized orthodontic treatment in a pleasant atmosphere with an innovative approach for adults and children."
   },
   "whyUs": {
@@ -9,24 +9,24 @@
     "items": [
       {
         "title": "Precise and Advanced Planning",
-        "description": "Treatment is done using the most advanced technologies with full personal customization."
+        "description": "Treatment is performed using the most advanced technologies with complete personalization."
       },
       {
         "title": "Close Guidance",
-        "description": "Our team accompanies you throughout the journey – from examination to completion of treatment."
+        "description": "Our team accompanies you throughout the entire journey - from examination to treatment completion."
       },
       {
-        "title": "Full Transparency",
-        "description": "Every step is explained, every question is answered – no surprises with us."
+        "title": "Complete Transparency",
+        "description": "Every step is explained, every question is answered - no surprises here."
       },
       {
-        "title": "Humane Approach",
-        "description": "A homely feeling and emotional support for teenagers, children and adults."
+        "title": "Human Approach",
+        "description": "A feeling of home and emotional support for teens, children, and adults."
       }
     ],
     "expertise": {
-      "title": "Experts in Creating Smiles",
-      "description": "Using the world's leading methods – including clear aligners, invisible braces, and treatments customized to patient needs."
+      "title": "Specialists in Creating Smiles",
+      "description": "Using the world's leading methods - including clear aligners, hidden braces, and treatments tailored to patient needs."
     }
   },
   "visitSteps": {
@@ -35,22 +35,22 @@
       {
         "icon": "📋",
         "title": "Diagnosis and Personal Planning",
-        "description": "Examination of oral condition, imaging and creation of a computerized treatment plan."
+        "description": "Oral examination, imaging, and creation of a computerized treatment plan."
       },
       {
         "icon": "🦷",
         "title": "Appliance Installation",
-        "description": "Fixing braces/invisible aligners according to the plan."
+        "description": "Placement of braces/hidden aligners according to the plan."
       },
       {
         "icon": "🔁",
-        "title": "Reviews and Monitoring",
-        "description": "Guidance for close monitoring and monthly review to advance the process."
+        "title": "Review and Follow-up",
+        "description": "Close monitoring guidance and monthly reviews to advance the process."
       },
       {
         "icon": "✨",
-        "title": "Revealing the New Smile",
-        "description": "Removal of appliances, guidance for maintaining results."
+        "title": "Revealing Your New Smile",
+        "description": "Appliance removal, guidance for maintaining results."
       }
     ],
     "footer": {
@@ -63,37 +63,32 @@
     "items": [
       {
         "question": "Is orthodontic treatment only suitable for children?",
-        "answer": "No! Adults and teenagers also undergo orthodontic treatment today, and innovative technologies make the process comfortable and efficient at any age."
+        "answer": "No! Adults and teens also undergo orthodontic treatment today, and innovative technologies make the process comfortable and effective at any age."
       },
       {
         "question": "How long does an average treatment take?",
-        "answer": "Most processes range from one to two years, depending on complexity and alignment method."
+        "answer": "Most processes range from one to two years, depending on complexity and straightening method."
       },
       {
-        "question": "Is it possible to perform invisible alignment?",
-        "answer": "Absolutely. We offer clear aligners and invisible braces techniques – according to patient needs."
+        "question": "Is it possible to have hidden orthodontics?",
+        "answer": "Absolutely. We offer clear aligners and hidden bracket techniques - according to patient needs."
       },
       {
         "question": "Is there pain during treatment?",
-        "answer": "Sometimes there is discomfort in the first hours after installing the appliances, but it subsides quickly."
+        "answer": "Sometimes there is discomfort in the first hours after appliance installation, but it passes quickly."
       },
       {
         "question": "How do you maintain the result?",
-        "answer": "After completing the process, you receive a retainer and full instructions for maintaining straight teeth over time."
+        "answer": "After the process ends, you receive a removable appliance and complete guidance for keeping teeth straight long-term."
       }
     ]
   },
   "bookVisit": {
     "title": "Time to Smile with Confidence!",
-    "subtitle": "We'll provide personal and professional guidance at every stage.",
-    "address": "104 Hadera St, Tel Aviv",
-    "hours": "Days: Sunday–Thursday, Hours: 09:00–18:00",
-    "cta": "Book an Initial Consultation",
+    "subtitle": "We will provide personal and professional guidance at every step.",
+    "address": "2 Ben Zvi Road, North Jaffa",
+    "hours": "Days: Sunday-Thursday, Hours: 09:00-18:00",
+    "cta": "Schedule Initial Consultation",
     "backToTop": "Back to Top"
-  },
-  "colors": {
-    "primary": "#6E59A5",
-    "secondary": "#9b87f5",
-    "accent": "#E5DEFF"
   }
 }

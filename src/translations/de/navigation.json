@@ -3,34 +3,9 @@
   "home": "Startseite",
   "about": "Über uns",
   "treatments": "Behandlungen",
-  "botoxTreatments": "Botox-Behandlungen",
-  "aestheticTreatments": "Ästhetische Behandlungen",
-  "preventiveMedicine": "Präventivmedizin",
   "contact": "Kontakt",
-  "practice": "Unsere Praxis",
-  "team": "Team",
-  "patients": "Für Patienten",
-  "testimonials": "Patientenbewertungen",
-  "patientsExperiences": "Unsere Patienten teilen ihre Erfahrungen",
-  "ourTreatments": "Unsere Behandlungen",
-  "wideRangeOfTreatments": "Wir bieten eine breite Palette fortschrittlicher Zahnbehandlungen an",
-  "updatesFromPractice": "Neuigkeiten aus der Praxis",
-  "followOnFacebook": "Folgen Sie uns auf Facebook für regelmäßige Updates",
-  "followOnFacebookButton": "Auf Facebook folgen",
-  "learnMore": "Mehr erfahren",
-  "sitemap": "Sitemap",
+  "faq": "Häufig gestellte Fragen",
+  "emergency": "Notfall",
   "backToHome": "Zurück zur Startseite",
-  "treatmentNotFound": "Behandlung nicht gefunden",
-  "info": "Informationen",
-  "followUs": "Folgen Sie uns",
-  "accessibility": {
-    "skipToContent": "Zum Hauptinhalt springen",
-    "statement": "Barrierefreiheitserklärung"
-  },
-  "legal": {
-    "privacyPolicy": "Datenschutzrichtlinie",
-    "termsOfService": "Nutzungsbedingungen",
-    "privacy": "Datenschutzrichtlinie",
-    "terms": "Nutzungsbedingungen"
-  }
+  "skipToContent": "Zum Hauptinhalt springen"
 }

@@ -3,26 +3,9 @@
   "home": "Главная",
   "about": "О нас",
   "treatments": "Лечение",
-  "botoxTreatments": "Ботокс",
-  "aestheticTreatments": "Эстетические процедуры",
-  "preventiveMedicine": "Профилактика",
   "contact": "Контакты",
-  "practice": "Наша клиника",
-  "team": "Команда",
-  "patients": "Пациентам",
-  "testimonials": "Отзывы",
-  "patientsExperiences": "Опыт наших пациентов в нашей клинике",
-  "ourTreatments": "Наши методы лечения",
-  "wideRangeOfTreatments": "Мы предлагаем широкий спектр современных стоматологических услуг",
-  "updatesFromPractice": "Новости из нашей клиники",
-  "followOnFacebook": "Следите за нами в Facebook для регулярных обновлений",
-  "followOnFacebookButton": "Следите за нами в Facebook",
-  "accessibility": {
-    "skipToContent": "Перейти к основному содержанию",
-    "statement": "Заявление о доступности"
-  },
-  "legal": {
-    "privacy": "Политика конфиденциальности",
-    "terms": "Условия использования"
-  }
+  "faq": "Часто задаваемые вопросы",
+  "emergency": "Экстренная помощь",
+  "backToHome": "Назад на главную",
+  "skipToContent": "Перейти к основному содержанию"
 }

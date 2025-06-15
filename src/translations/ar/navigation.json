@@ -1,36 +1,11 @@
 
 {
-  "home": "الصفحة الرئيسية",
-  "about": "عن العيادة",
+  "home": "الرئيسية",
+  "about": "عنا",
   "treatments": "العلاجات",
-  "botoxTreatments": "علاجات البوتوكس",
-  "aestheticTreatments": "العلاجات التجميلية",
-  "preventiveMedicine": "الطب الوقائي",
   "contact": "اتصل بنا",
-  "practice": "عيادتنا",
-  "team": "الفريق",
-  "patients": "للمرضى",
-  "testimonials": "آراء المرضى",
-  "patientsExperiences": "يشارك مرضانا تجاربهم",
-  "ourTreatments": "علاجاتنا",
-  "wideRangeOfTreatments": "نحن نقدم مجموعة واسعة من علاجات الأسنان المتقدمة",
-  "updatesFromPractice": "تحديثات من العيادة",
-  "followOnFacebook": "تابعنا على فيسبوك للحصول على تحديثات منتظمة",
-  "followOnFacebookButton": "تابعنا على فيسبوك",
-  "learnMore": "معرفة المزيد",
-  "sitemap": "خريطة الموقع",
-  "backToHome": "العودة إلى الصفحة الرئيسية",
-  "treatmentNotFound": "العلاج غير موجود",
-  "info": "معلومات",
-  "followUs": "تابعنا",
-  "accessibility": {
-    "skipToContent": "انتقل إلى المحتوى الرئيسي",
-    "statement": "بيان إمكانية الوصول"
-  },
-  "legal": {
-    "privacyPolicy": "سياسة الخصوصية",
-    "termsOfService": "شروط الخدمة",
-    "privacy": "سياسة الخصوصية",
-    "terms": "شروط الاستخدام"
-  }
+  "faq": "الأسئلة الشائعة",
+  "emergency": "طوارئ",
+  "backToHome": "العودة للرئيسية",
+  "skipToContent": "تخطي للمحتوى الرئيسي"
 }
