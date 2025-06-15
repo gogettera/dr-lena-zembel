@@ -1,4 +1,3 @@
-
 {
   "headline": "Root Canal Treatments with Advanced Technique, Focusing on Comfort and Support",
   "subtext": "Professional and reassuring care – so you can keep your tooth and smile without worry.",
@@ -6,19 +5,12 @@
   "stepsTitle": "Treatment Steps",
   "whyUsTitle": "Why Choose Us?",
   "faqTitle": "Frequently Asked Questions",
-  "whyUs": {
-    "reason1": {
-      "title": "Advanced Equipment and Modern Technologies",
-      "desc": "Treatment is performed with the most advanced equipment – for pain reduction and ensuring treatment success."
-    },
-    "reason2": {
-      "title": "Personal Attention and Close Support",
-      "desc": "We're here for every question and concern, from the first moment until complete recovery."
-    },
-    "reason3": {
-      "title": "Extensive Experience and High Reputation",
-      "desc": "Hundreds of patients have undergone root canal treatments with us – successfully and in a safe environment."
-    }
+  "benefits": {
+    "items": [
+      { "title": "Advanced equipment and technology for pain reduction" },
+      { "title": "Personal attention and support throughout" },
+      { "title": "Extensive experience and high reputation" }
+    ]
   },
   "steps": {
     "step1": {

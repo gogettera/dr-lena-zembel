@@ -1,4 +1,3 @@
-
 {
   "hero": {
     "title": "Straight Smile - Health and Confidence for Life",
@@ -90,5 +89,13 @@
     "hours": "Days: Sunday-Thursday, Hours: 09:00-18:00",
     "cta": "Schedule Initial Consultation",
     "backToTop": "Back to Top"
+  },
+  "benefits": {
+    "items": [
+      { "title": "Precise and advanced personal planning" },
+      { "title": "Personal support throughout the process" },
+      { "title": "Complete transparency at every stage" },
+      { "title": "Human approach – supportive, positive atmosphere" }
+    ]
   }
 }

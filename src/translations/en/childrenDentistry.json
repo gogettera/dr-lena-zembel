@@ -1,4 +1,3 @@
-
 {
   "hero": {
     "title": "Children's Dentistry - Turning Fear into a Fun Experience",
@@ -121,5 +120,13 @@
       }
     ],
     "emergency_phone": "050-123-4567"
+  },
+  "benefits": {
+    "items": [
+      { "title": "Gentle, child-centered dental care" },
+      { "title": "Welcoming, calming environment for kids" },
+      { "title": "Specialized pediatric dentistry team" },
+      { "title": "Focus on prevention and lifelong healthy habits" }
+    ]
   }
 }

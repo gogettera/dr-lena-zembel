@@ -1,4 +1,3 @@
-
 {
   "ourTreatments": "The Treatments That Will Change Your Life",
   "wideRangeOfTreatments": "From Dream Smiles to Reality - The Complete Range of Advanced Dental Treatments at Dr. Lena Zembel's Clinic",
@@ -71,5 +70,17 @@
       "title": "Service in 4 Languages from the Heart",
       "description": "Hebrew, English, German, and Russian - because it's important that you feel comfortable asking everything"
     }
-  ]
+  ],
+  "benefits": {
+    "items": [
+      { "title": "Professional and caring team" },
+      { "title": "Modern technology" },
+      { "title": "Comfortable and positive patient experience" },
+      { "title": "Personalized for each patient" }
+    ],
+    "professional": "Professional, caring team",
+    "modern": "Advanced equipment and technology",
+    "comfortable": "Welcoming, safe environment",
+    "effective": "Proven and effective methods"
+  }
 }

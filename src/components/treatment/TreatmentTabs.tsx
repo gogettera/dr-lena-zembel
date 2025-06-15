@@ -39,43 +39,47 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 
   // Get treatment-specific benefits
   const getTreatmentBenefits = (type: string) => {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
+    // Always try dynamic array first: `${type}.benefits.items`
+    const dynamicArray = t(`${type}.benefits.items`, { returnObjects: true });
+    if (Array.isArray(dynamicArray) && dynamicArray.length > 0) {
+      return dynamicArray.map((b: any) => b.title || "");
+    }
+    // Fallback: old logic for known types
     switch (type) {
-      case "aesthetic-treatments":
-        // Fetch benefits array dynamically for proper i18n
-        const benefitsArray = t("aestheticTreatments.benefits.items", { returnObjects: true }) || [];
-        if (Array.isArray(benefitsArray)) {
-          return benefitsArray.map((b: any) => b.title || "");
-        }
-        return [];
       case "children-dentistry":
         return [
-          t('childrenDentistry.whyUs.reasons.0.title'),
-          t('childrenDentistry.whyUs.reasons.1.title'),
-          t('childrenDentistry.whyUs.reasons.2.title'),
-          t('childrenDentistry.whyUs.reasons.3.title')
-        ];
+          t('childrenDentistry.whyUs.reasons.0.title', ''),
+          t('childrenDentistry.whyUs.reasons.1.title', ''),
+          t('childrenDentistry.whyUs.reasons.2.title', ''),
+          t('childrenDentistry.whyUs.reasons.3.title', '')
+        ].filter(Boolean);
       case "orthodontics":
         return [
-          t('orthodontics.whyUs.reasons.0.title'),
-          t('orthodontics.whyUs.reasons.1.title'),
-          t('orthodontics.whyUs.reasons.2.title'),
-          t('orthodontics.whyUs.reasons.3.title')
-        ];
+          t('orthodontics.whyUs.reasons.0.title', ''),
+          t('orthodontics.whyUs.reasons.1.title', ''),
+          t('orthodontics.whyUs.reasons.2.title', ''),
+          t('orthodontics.whyUs.reasons.3.title', '')
+        ].filter(Boolean);
       case "root-canal":
         return [
-          t('rootCanal.whyUs.reasons.0.title'),
-          t('rootCanal.whyUs.reasons.1.title'),
-          t('rootCanal.whyUs.reasons.2.title'),
-          t('rootCanal.whyUs.reasons.3.title')
-        ];
+          t('rootCanal.whyUs.reasons.0.title', ''),
+          t('rootCanal.whyUs.reasons.1.title', ''),
+          t('rootCanal.whyUs.reasons.2.title', ''),
+          t('rootCanal.whyUs.reasons.3.title', '')
+        ].filter(Boolean);
       default:
+        // Use base fallback (generic benefits)
+        const baseBenefits = t('treatments.benefits.items', { returnObjects: true });
+        if (Array.isArray(baseBenefits) && baseBenefits.length > 0) {
+          return baseBenefits.map((b: any) => b.title || "");
+        }
         return [
-          t('treatments.benefits.professional'),
-          t('treatments.benefits.modern'),
-          t('treatments.benefits.comfortable'),
-          t('treatments.benefits.effective')
-        ];
+          t('treatments.benefits.professional', ''),
+          t('treatments.benefits.modern', ''),
+          t('treatments.benefits.comfortable', ''),
+          t('treatments.benefits.effective', '')
+        ].filter(Boolean);
     }
   };
 
