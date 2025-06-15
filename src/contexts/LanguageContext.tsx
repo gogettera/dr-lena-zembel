@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { setupDirectionByLanguage } from '@/utils/direction';
 import { Language } from '@/types/language';
@@ -43,7 +42,12 @@ const getLanguageFromURL = (): Language | null => {
 };
 
 // Provider component
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Debug info
+  if (typeof window !== "undefined") {
+    console.log("[LanguageProvider] Initialized"); // תוודא שה-Provider נטען
+  }
+  
   // Get initial language with URL having absolute priority
   const urlLanguage = getLanguageFromURL();
   const [language, setLanguageState] = useState<Language>(urlLanguage || DEFAULT_LANGUAGE);
