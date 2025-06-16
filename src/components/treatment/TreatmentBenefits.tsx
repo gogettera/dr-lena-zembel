@@ -20,6 +20,7 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
       <div>
         <TranslatedText
           textKey="treatments.tabs.benefits"
+          defaultText="יתרונות"
           as="h3"
           className="text-xl font-bold text-dental-navy mb-4"
         />
@@ -34,6 +35,7 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
         <div className="text-center mt-16">
           <TranslatedText
             textKey="readyToStart"
+            defaultText="מוכנים להתחיל את הטיפול?"
             as="h3"
             className="text-2xl font-bold text-dental-navy mb-6"
           />
@@ -42,7 +44,10 @@ const TreatmentBenefits: React.FC<TreatmentBenefitsProps> = ({
             size="lg" 
             className="rounded-full text-lg hover:scale-105 transition-transform duration-300 shadow-lg"
           >
-            <TranslatedText textKey="bookVisit" />
+            <TranslatedText 
+              textKey="bookVisit" 
+              defaultText="קביעת תור"
+            />
           </Button>
         </div>
       )}
