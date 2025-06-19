@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { createLocalizedPath } from '@/utils/languageRoutes';
@@ -12,6 +12,7 @@ import TreatmentFAQ from './TreatmentFAQ';
 import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
+import { TranslatedText } from '@/components/ui/translated-text';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -24,7 +25,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   treatmentNameKey,
   treatmentDescKey
 }) => {
-  const { t, language } = useLanguage();
+  const { t, language, isRTL } = useLanguage();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [expandedOverview, setExpandedOverview] = useState(false);
 
   // Helper to convert kebab-case to camelCase
   const kebabToCamel = (s: string) => s.replace(/-./g, x => x[1].toUpperCase());
@@ -125,60 +128,123 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
 
   const benefits = getTreatmentBenefits(treatmentType);
 
-  // Tab labels with fallbacks
+  // Enhanced tab labels with fallbacks
   const getTabLabel = (key: string, fallback: string) => {
     const translated = t(`treatments.tabs.${key}`, fallback);
     return translated.includes('[he:') ? fallback : translated;
   };
 
+  const tabs = [
+    { id: 'overview', label: getTabLabel('overview', 'סקירה כללית') },
+    { id: 'procedure', label: getTabLabel('procedure', 'תהליך הטיפול') },
+    { id: 'benefits', label: getTabLabel('benefits', 'יתרונות') },
+    { id: 'faq', label: getTabLabel('faq', 'שאלות נפוצות') },
+    { id: 'testimonials', label: getTabLabel('testimonials', 'המלצות') },
+    { id: 'related', label: getTabLabel('related', 'טיפולים קשורים') }
+  ];
+
   return (
     <div className="w-full mt-4">
+      {/* Enhanced landing page banner */}
       {hasLandingPage && (
-        <div className="mb-6 p-4 bg-dental-beige/20 rounded-lg border border-dental-orange/20">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="font-semibold text-dental-navy mb-1">
-                {t('treatments.fullExperience', 'החוויה המלאה')}
-              </h3>
-              <p className="text-sm text-dental-navy/70">
-                {t('treatments.viewCompleteLandingPage', 'צפו בדף הנחיתה המלא עם כל הפרטים והמידע')}
-              </p>
+        <Card className="mb-8 border-dental-orange/30 bg-gradient-to-r from-dental-orange/5 to-dental-pink/5 hover:shadow-md transition-all duration-300">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center lg:text-right">
+                <h3 className="font-bold text-lg md:text-xl text-dental-navy mb-2">
+                  <TranslatedText textKey="treatments.fullExperience" defaultText="החוויה המלאה" />
+                </h3>
+                <p className="text-dental-navy/70 leading-relaxed">
+                  <TranslatedText 
+                    textKey="treatments.viewCompleteLandingPage" 
+                    defaultText="צפו בדף הנחיתה המלא עם כל הפרטים והמידע" 
+                  />
+                </p>
+              </div>
+              <Link to={createLocalizedPath(language, `/treatments/${treatmentType}/landing`)}>
+                <Button 
+                  variant="orange" 
+                  size="lg" 
+                  className="flex items-center gap-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  <TranslatedText textKey="treatments.viewFullPage" defaultText="צפו בדף המלא" />
+                  <ExternalLink className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
-            <Link to={createLocalizedPath(language, `/treatments/${treatmentType}/landing`)}>
-              <Button variant="orange" size="sm" className="flex items-center gap-2">
-                {t('treatments.viewFullPage', 'צפו בדף המלא')}
-                <ExternalLink className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       )}
 
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="flex flex-wrap mb-4 gap-2">
-          <TabsTrigger value="overview">{getTabLabel('overview', 'סקירה כללית')}</TabsTrigger>
-          <TabsTrigger value="procedure">{getTabLabel('procedure', 'תהליך הטיפול')}</TabsTrigger>
-          <TabsTrigger value="benefits">{getTabLabel('benefits', 'יתרונות')}</TabsTrigger>
-          <TabsTrigger value="faq">{getTabLabel('faq', 'שאלות נפוצות')}</TabsTrigger>
-          <TabsTrigger value="testimonials">{getTabLabel('testimonials', 'המלצות')}</TabsTrigger>
-          <TabsTrigger value="related">{getTabLabel('related', 'טיפולים קשורים')}</TabsTrigger>
-        </TabsList>
+      {/* Enhanced tabs with mobile-friendly design */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        {/* Mobile-optimized tab list */}
+        <div className="mb-6 overflow-x-auto scrollbar-hide">
+          <TabsList className="flex w-max min-w-full lg:w-full gap-1 p-1 bg-dental-beige/30 rounded-xl">
+            {tabs.map((tab) => (
+              <TabsTrigger 
+                key={tab.id}
+                value={tab.id}
+                className="flex-shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 data-[state=active]:bg-white data-[state=active]:text-dental-navy data-[state=active]:shadow-sm hover:bg-white/50"
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
         
-        <TabsContent value="overview">
-          <Card>
-            <CardContent className="pt-4">
-              <h3 className="text-lg font-bold mb-2">{t(treatmentNameKey)}</h3>
-              <p className="mb-4">{t(treatmentDescKey)}</p>
-              <div className="mb-2">
-                <b>{t('treatments.keyPoints', 'נקודות מפתח:')}</b>
-                <ul className="ml-4 mt-1 list-disc">
-                  {benefits.map((benefit, index) =>
-                    benefit ? (
-                      <li key={index}>{benefit}</li>
-                    ) : null
-                  )}
-                </ul>
+        {/* Enhanced tab content */}
+        <TabsContent value="overview" className="space-y-0">
+          <Card className="shadow-soft hover:shadow-md transition-shadow duration-300">
+            <CardContent className="p-6 md:p-8">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-dental-navy">
+                <TranslatedText textKey={treatmentNameKey} defaultText="טיפול מתקדם" />
+              </h3>
+              
+              <div className={`space-y-4 ${!expandedOverview ? 'line-clamp-3' : ''}`}>
+                <p className="text-dental-navy/80 leading-relaxed">
+                  <TranslatedText textKey={treatmentDescKey} defaultText="תיאור הטיפול" />
+                </p>
+                
+                {expandedOverview && (
+                  <div className="space-y-4 animate-fade-in">
+                    <div className="border-t border-dental-beige/50 pt-4">
+                      <h4 className="font-semibold text-dental-navy mb-3">
+                        <TranslatedText textKey="treatments.keyPoints" defaultText="נקודות מפתח:" />
+                      </h4>
+                      <ul className="space-y-2">
+                        {benefits.slice(0, 4).map((benefit, index) =>
+                          benefit ? (
+                            <li key={index} className="flex items-start gap-3">
+                              <div className="w-2 h-2 bg-dental-orange rounded-full mt-2 flex-shrink-0"></div>
+                              <span className="text-dental-navy/80">{benefit}</span>
+                            </li>
+                          ) : null
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setExpandedOverview(!expandedOverview)}
+                className="mt-4 text-dental-orange hover:text-dental-orange/80 hover:bg-dental-orange/5"
+              >
+                {expandedOverview ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 mr-1" />
+                    <TranslatedText textKey="common.showLess" defaultText="הצג פחות" />
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 mr-1" />
+                    <TranslatedText textKey="common.showMore" defaultText="הצג עוד" />
+                  </>
+                )}
+              </Button>
             </CardContent>
           </Card>
         </TabsContent>
@@ -188,9 +254,9 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
         </TabsContent>
         
         <TabsContent value="benefits">
-          <Card>
-            <CardContent className="pt-4">
-              <TreatmentBenefits benefits={benefits} showBooking={true} />
+          <Card className="shadow-soft hover:shadow-md transition-shadow duration-300">
+            <CardContent className="p-6 md:p-8">
+              <TreatmentBenefits benefits={benefits} showBooking={false} />
             </CardContent>
           </Card>
         </TabsContent>
