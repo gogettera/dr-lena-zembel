@@ -5,7 +5,7 @@ import { Button } from './button';
 import { Card, CardContent } from './card';
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
@@ -74,6 +74,6 @@ export class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    return this.props.children;
+    return this.props.children || null;
   }
 }

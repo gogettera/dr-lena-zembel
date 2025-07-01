@@ -30,7 +30,11 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
   if (!treatment) {
     return (
       <Section spacing="md" background="white">
-        <ErrorBoundary />
+        <ErrorBoundary>
+          <div className="text-center py-8">
+            <p className="text-gray-500">טיפול לא נמצא</p>
+          </div>
+        </ErrorBoundary>
       </Section>
     );
   }

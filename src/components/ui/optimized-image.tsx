@@ -53,3 +53,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     </div>
   );
 };
+
+// Default export for backward compatibility
+export default OptimizedImage;
