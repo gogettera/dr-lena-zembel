@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import TreatmentBenefits from './TreatmentBenefits';
 import TreatmentProcedure from './TreatmentProcedure';
+import TreatmentRecovery from './TreatmentRecovery';
 import TreatmentFAQ from './TreatmentFAQ';
 import TreatmentTestimonials from './TreatmentTestimonials';
 import RelatedTreatments from './RelatedTreatments';
@@ -31,6 +32,9 @@ export const TreatmentTabContent: React.FC<TreatmentTabContentProps> = ({
             </CardContent>
           </Card>
         );
+      
+      case 'recovery':
+        return <TreatmentRecovery treatmentType={treatmentType} />;
       
       case 'faq':
         return <TreatmentFAQ treatmentType={treatmentType} />;

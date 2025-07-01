@@ -29,40 +29,48 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   const treatmentInfo = getTreatmentInfo(treatmentType);
   const hasLandingPage = treatmentInfo?.hasLandingPage || false;
 
-  // Enhanced benefits getter
+  // Enhanced benefits getter with medical focus
   const getTreatmentBenefits = (type: string) => {
-    const fallbackBenefits: Record<string, string[]> = {
-      'children-dentistry': [
-        'טיפול עדין ומותאם במיוחד לילדים',
-        'סביבה חמה ותומכת שמקטינה פחדים',
-        'צוות מקצועי עם ניסיון רב ברפואת שיניים לילדים',
-        'דגש על מניעה וחינוך לבריאות הפה לטווח ארוך'
-      ],
+    const medicalBenefits: Record<string, string[]> = {
       'root-canal': [
-        'טיפולים מדויקים ומהירים',
-        'ללא כאב עם טכנולוגיה מתקדמת',
-        'הצלת שיניים יקרות במקום עקירה',
-        'החזרת ביטחון לחייך ולאכילה'
+        'הצלת השן הטבעית ומניעת עקירה',
+        'טיפול ללא כאב עם הרדמה מתקדמת',
+        'שימור תפקוד הלעיסה הטבעי',
+        'מניעת התפשטות הזיהום לשיניים סמוכות',
+        'פתרון ארוך טווח עם אחוזי הצלחה גבוהים',
+        'שמירה על המראה האסתטי של החיוך'
+      ],
+      'children-dentistry': [
+        'טיפול מותאם לגיל הילד ולרמת החרדה',
+        'בניית יחס חיובי לרפואת שיניים',
+        'מניעת בעיות שיניים בעתיד',
+        'חינוך להיגיינת פה נכונה',
+        'סביבה ידידותית ומעודדת לילדים',
+        'שיטות טיפול עדינות ובטוחות'
       ],
       'aesthetic-treatments': [
-        'הלבנת שיניים מתקדמת ובטוחה',
-        'ציפויי חרסינה דקים וחזקים',
-        'כתרים אסתטיים מהטכנולוgiה המתקדמת',
-        'שתלים איכותיים עם הבטחה לתוצאות ארוכות טווח'
+        'שיפור משמעותי במראה החיוך',
+        'חיזוק הביטחון העצמי',
+        'תוצאות טבעיות ואסתטיות',
+        'חומרים איכותיים ועמידים',
+        'טכנולוגיה מתקדמת לתוצאות מדויקות',
+        'התאמה אישית לצרכי המטופל'
       ],
       'preventive-medicine': [
-        'בדיקות מתקדמות לזיהוי מוקדם של בעיות',
-        'ניקוי מקצועי המחזיר רעננות לפה',
-        'הדרכה אישית לשמירה על בריאות הפה',
-        'חיסכון בעלויות טיפול בעתיד'
+        'זיהוי מוקדם של בעיות שיניים',
+        'חיסכון בעלויות טיפול עתידיות',
+        'שמירה על בריאות הפה לטווח ארוך',
+        'הדרכה מקצועית להיגיינה יומית',
+        'מניעת מחלות חניכיים ועששת',
+        'בדיקות תקופתיות ומקצועיות'
       ]
     };
 
-    return fallbackBenefits[type] || [
+    return medicalBenefits[type] || [
       'טיפול מקצועי ואיכותי',
-      'צוות מנוסה ומיומן',
-      'טכנולוגיה מתקדמת',
-      'תוצאות מוכחות'
+      'צוות מנוסה ומיומן', 
+      'טכנולוgiה רפואית מתקדמת',
+      'תוצאות מוכחות קלינית'
     ];
   };
 
@@ -71,10 +79,10 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   const tabs = [
     { id: 'overview', label: t('treatments.tabs.overview', 'סקירה כללית') },
     { id: 'procedure', label: t('treatments.tabs.procedure', 'תהליך הטיפול') },
-    { id: 'benefits', label: t('treatments.tabs.benefits', 'יתרונות') },
+    { id: 'benefits', label: t('treatments.tabs.benefits', 'יתרונות רפואיים') },
+    { id: 'recovery', label: t('treatments.tabs.recovery', 'תהליך ההחלמה') },
     { id: 'faq', label: t('treatments.tabs.faq', 'שאלות נפוצות') },
-    { id: 'testimonials', label: t('treatments.tabs.testimonials', 'המלצות') },
-    { id: 'related', label: t('treatments.tabs.related', 'טיפולים קשורים') }
+    { id: 'testimonials', label: t('treatments.tabs.testimonials', 'המלצות מטופלים') }
   ];
 
   return (
@@ -90,7 +98,7 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
                 <p className="text-dental-navy/70 leading-relaxed">
                   <TranslatedText 
                     textKey="treatments.viewCompleteLandingPage" 
-                    defaultText="צפו בדף הנחיתה המלא עם כל הפרטים והמידע" 
+                    defaultText="צפו בדף הנחיתה המלא עם כל הפרטים והמידע הרפואי המקצועי" 
                   />
                 </p>
               </div>
