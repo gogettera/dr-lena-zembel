@@ -3,6 +3,7 @@ import React from 'react';
 import { TreatmentType } from '@/data/treatmentTypes';
 import { ChildrenDentistryHero } from '@/components/children-dentistry/Hero';
 import ProfessionalTreatmentHero from './ProfessionalTreatmentHero';
+import RootCanalProfessionalHero from './RootCanalProfessionalHero';
 
 interface TreatmentHeroProps {
   treatment: TreatmentType;
@@ -18,6 +19,11 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
   // Special case for children dentistry with custom hero
   if (treatment?.slug === "children-dentistry") {
     return <ChildrenDentistryHero />;
+  }
+
+  // Special case for root canal with professional hero
+  if (treatment?.slug === "root-canal") {
+    return <RootCanalProfessionalHero />;
   }
 
   // Use professional hero for all other treatments

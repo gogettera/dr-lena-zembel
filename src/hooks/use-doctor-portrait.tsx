@@ -8,10 +8,10 @@ export function useDoctorPortrait() {
   const { t } = useLanguage();
   
   const portraitImages = useMemo(() => ({
-    main: t('doctorInfo.profileImage', '/lovable-uploads/doctor-portrait-professional.png'),
-    medical: t('doctorInfo.profileMedicalImage', '/lovable-uploads/doctor-portrait-stethoscope.png'),
-    authority: t('doctorInfo.profileAuthorityImage', '/lovable-uploads/doctor-portrait-crossed-arms.png')
-  }), [t]);
+    main: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg',
+    medical: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg',
+    authority: '/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg'
+  }), []);
   
   const getDoctorPortraitPath = (style: PortraitStyle = 'main'): string => {
     return portraitImages[style];

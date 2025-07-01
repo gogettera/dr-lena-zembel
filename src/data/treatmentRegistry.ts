@@ -12,8 +12,8 @@ export interface TreatmentInfo {
 export const treatmentRegistry: Record<string, TreatmentInfo> = {
   'children-dentistry': {
     slug: 'children-dentistry',
-    nameKey: 'childrenDentistry',
-    descKey: 'childrenDentistryDesc',
+    nameKey: 'childrenDentistry.hero.title',
+    descKey: 'childrenDentistry.hero.subtitle',
     hasLandingPage: true,
     category: 'pediatric',
     icon: 'children.jpg',
@@ -21,8 +21,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'aesthetic-treatments': {
     slug: 'aesthetic-treatments',
-    nameKey: 'aestheticTreatments',
-    descKey: 'aestheticTreatmentsDesc',
+    nameKey: 'aestheticTreatments.hero.title',
+    descKey: 'aestheticTreatments.hero.subtitle',
     hasLandingPage: true,
     category: 'aesthetic',
     icon: 'aesthetic.jpg',
@@ -30,8 +30,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'preventive-medicine': {
     slug: 'preventive-medicine',
-    nameKey: 'preventiveMedicine',
-    descKey: 'preventiveMedicineDesc',
+    nameKey: 'preventiveMedicine.hero.title',
+    descKey: 'preventiveMedicine.hero.subtitle',
     hasLandingPage: true,
     category: 'general',
     icon: 'preventive.jpg',
@@ -39,8 +39,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'root-canal': {
     slug: 'root-canal',
-    nameKey: 'rootCanal',
-    descKey: 'rootCanalDesc',
+    nameKey: 'rootCanal.hero.title',
+    descKey: 'rootCanal.hero.subtitle',
     hasLandingPage: true,
     category: 'specialized',
     icon: 'root-canal.jpg',
@@ -48,8 +48,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'oral-rehabilitation': {
     slug: 'oral-rehabilitation',
-    nameKey: 'oralRehabilitation',
-    descKey: 'oralRehabilitationDesc',
+    nameKey: 'oralRehabilitation.hero.title',
+    descKey: 'oralRehabilitation.hero.subtitle',
     hasLandingPage: true,
     category: 'specialized',
     icon: 'rehabilitation.jpg',
@@ -57,8 +57,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'orthodontics': {
     slug: 'orthodontics',
-    nameKey: 'orthodontics',
-    descKey: 'orthodonticsDesc',
+    nameKey: 'orthodontics.hero.title',
+    descKey: 'orthodontics.hero.subtitle',
     hasLandingPage: true,
     category: 'specialized',
     icon: 'orthodontics.jpg',
@@ -66,8 +66,8 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
   },
   'botox-treatments': {
     slug: 'botox-treatments',
-    nameKey: 'botoxTreatments',
-    descKey: 'botoxTreatmentsDesc',
+    nameKey: 'botoxTreatments.hero.title',
+    descKey: 'botoxTreatments.hero.subtitle',
     hasLandingPage: false,
     category: 'aesthetic',
     icon: 'botox.jpg',
