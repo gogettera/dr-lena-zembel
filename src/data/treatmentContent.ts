@@ -1,5 +1,5 @@
-
 import { LucideIcon } from 'lucide-react';
+import { getTreatmentContentFromFiles } from './treatments';
 
 export interface TreatmentContent {
   slug: string;
@@ -66,149 +66,6 @@ export interface TreatmentContent {
 }
 
 export const treatmentContent: Record<string, TreatmentContent> = {
-  'orthodontics': {
-    slug: 'orthodontics',
-    hero: {
-      title: 'יישור שיניים מתקדם - חיוך ישר ובריא לכל הגילאים',
-      subtitle: 'טיפולי יישור מותאמים עם טכנולוגיות חדישות לתוצאה מושלמת ונוחה',
-      features: [
-        'מתקנים שקופים (אינביזיליין)',
-        'גישרונים אסתטיים',
-        'תכנון תלת-ממדי מתקדם',
-        'מעקב צמוד ומקצועי'
-      ],
-      imageUrl: '/lovable-uploads/e1744c6a-ff5f-4782-9828-6ede63335c7e.jpg'
-    },
-    whyChooseUs: {
-      title: 'למה לבחור בנו ליישור שיניים?',
-      subtitle: 'המומחיות, הטכנולוגיה והניסיון שמבטיחים לכם את התוצאה הטובה ביותר',
-      stats: [
-        { number: '1500+', label: 'מטופלי יישור מוצלחים', icon: 'Users' },
-        { number: '97%', label: 'שביעות רצון', icon: 'Star' },
-        { number: '13+', label: 'שנות ניסיון', icon: 'Clock' },
-        { number: '3', label: 'התמחויות מתקדמות', icon: 'Award' }
-      ],
-      features: [
-        {
-          title: 'טכנולוגיית הדמיה 3D',
-          description: 'תכנון מדויק של תנועת השיניים וחיזוי התוצאה המדויק',
-          icon: 'Microscope'
-        },
-        {
-          title: 'מתקנים שקופים מתקדמים',
-          description: 'אינביזיליין ומתקנים אסתטיים לנוחות מירבית',
-          icon: 'Shield'
-        },
-        {
-          title: 'מומחיות ביישור מבוגרים',
-          description: 'התמחות בטיפולי יישור למבוגרים ובני נוער',
-          icon: 'Award'
-        },
-        {
-          title: 'מעקב מתמיד',
-          description: 'ביקורי מעקב סדירים והתאמות מדויקות',
-          icon: 'Clock'
-        }
-      ]
-    },
-    process: {
-      title: 'תהליך הטיפול המקצועי שלנו',
-      subtitle: 'כל שלב מתוכנן בקפידה למען התוצאה הטובה ביותר',
-      steps: [
-        {
-          title: 'בדיקה ראשונית מקיפה',
-          description: 'בדיקה קלינית, צילומי רנטגן ותכנון הטיפול המתאים',
-          duration: '60-90 דקות'
-        },
-        {
-          title: 'התקנת המתקן',
-          description: 'התקנה מדויקת ונוחה של מתקן היישור',
-          duration: '60-120 דקות'
-        },
-        {
-          title: 'ביקורי מעקב והתאמות',
-          description: 'ביקורים סדירים להתאמת המתקן ומעקב התקדמות',
-          duration: '30-45 דקות'
-        }
-      ]
-    },
-    benefits: {
-      title: 'היתרונות הרפואיים של יישור שיניים',
-      health: {
-        title: 'יתרונות בריאותיים',
-        items: [
-          'שיפור היגיינת הפה והפחתת סיכון לעששת',
-          'מניעת מחלות חניכיים',
-          'הפחתת שחיקת שיניים לא תקינה',
-          'שיפור תפקוד הלעיסה והעיכול'
-        ]
-      },
-      aesthetic: {
-        title: 'יתרונות אסתטיים',
-        items: [
-          'חיוך יפה וסימטרי',
-          'שיפור פרופורציות הפנים',
-          'עלייה בביטחון העצמי',
-          'מראה צעיר יותר'
-        ]
-      }
-    },
-    faq: {
-      title: 'שאלות נפוצות',
-      items: [
-        {
-          question: 'האם יישור שיניים מתאים רק לילדים?',
-          answer: 'לא! מבוגרים ובני נוער עוברים היום טיפולי יישור, והטכנולוגיות החדישות הופכות את התהליך לנוח ויעיל בכל גיל.'
-        },
-        {
-          question: 'כמה זמן אורך טיפול ממוצע?',
-          answer: 'רוב התהליכים נעים בין שנה לשנתיים, תלוי במורכבות ובשיטת היישור.'
-        },
-        {
-          question: 'האם אפשר יישור סמוי?',
-          answer: 'בהחלט. אנו מציעים מתקנים שקופים וטכניקות גישרונים סמויים - לפי צרכי המטופל.'
-        },
-        {
-          question: 'האם יש כאב במהלך הטיפול?',
-          answer: 'לעיתים יש אי נוחות בשעות הראשונות לאחר התקנת המתקן, אך היא חולפת במהירות.'
-        }
-      ]
-    },
-    testimonials: {
-      title: 'מה אומרים המטופלים שלנו?',
-      subtitle: 'עדויות אמיתיות של מטופלים שחוו את הטיפול המקצועי שלנו',
-      items: [
-        {
-          name: 'שרה כ.',
-          age: 28,
-          treatment: 'יישור באינביזיליין',
-          rating: 5,
-          date: 'נובמבר 2024',
-          text: 'הטיפול באינביזיליין היה מושלם! ד״ר זמבל הסבירה כל שלב, והתוצאה עברה את הציפיות. החיוך שלי השתנה לגמרי.',
-          verified: true
-        },
-        {
-          name: 'דוד ר.',
-          age: 35,
-          treatment: 'גישרונים קרמיים',
-          rating: 5,
-          date: 'אוקטובר 2024',
-          text: 'בגיל 35 החלטתי ליישר שיניים. הצוות מקצועי והטיפול היה נוח. שנתיים אחרי והתוצאה מדהימה!',
-          verified: true
-        },
-        {
-          name: 'מיכל ל.',
-          age: 16,
-          treatment: 'גישרונים מתכתיים',
-          rating: 5,
-          date: 'ספטמבר 2024',
-          text: 'הצוות הפך את הטיפול לחוויה נעימה. הכל מוסבר בסבלנות והתוצאה מעבר למה שחלמתי.',
-          verified: true
-        }
-      ]
-    }
-  },
-
   'children-dentistry': {
     slug: 'children-dentistry',
     hero: {
@@ -322,16 +179,16 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות אמיתיות של הורים על החוויה במרפאה שלנו',
       items: [
         {
-          name: 'רחל מ.',
+          name: 'רחל מילר',
           age: 35,
           treatment: 'טיפול מניעה לבת בת 4',
           rating: 5,
           date: 'דצמבר 2024',
-          text: 'הבת שלי פחדה מרופא שיניים, אבל ד״ר זמבל הצליחה לבנות אמון ועכשיו היא אפילו מתרגשת לבקרים! גישה מדהימה.',
+          text: 'הבת שלי פחדה מרופא שיניים, אבל ד״ר זמבל הצליחה לבנות אמון ועכשיו היא אפילו מתרגשת לביקורים! גישה מדהימה.',
           verified: true
         },
         {
-          name: 'יוסי כ.',
+          name: 'יוסי כהן',
           age: 42,
           treatment: 'טיפול עששת לבן בן 7',
           rating: 5,
@@ -340,7 +197,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'מירי ל.',
+          name: 'מירי לוי',
           age: 38,
           treatment: 'הדרכת היגיינה לילדים',
           rating: 5,
@@ -465,7 +322,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות אמיתיות על שינוי החיים עם חיוך חדש',
       items: [
         {
-          name: 'ענת ש.',
+          name: 'ענת שמש',
           age: 34,
           treatment: 'ציפויי חרסינה מלאים',
           rating: 5,
@@ -474,7 +331,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'רון כ.',
+          name: 'רון כהן',
           age: 28,
           treatment: 'הלבנה מקצועית + ציפויים',
           rating: 5,
@@ -483,7 +340,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'יעל מ.',
+          name: 'יעל מנדל',
           age: 45,
           treatment: 'שיקום אסתטי מקיף',
           rating: 5,
@@ -608,7 +465,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות על הצלחת הגישה המונעת שלנו',
       items: [
         {
-          name: 'דני ר.',
+          name: 'דני רוזן',
           age: 52,
           treatment: 'תכנית מניעה שנתית',
           rating: 5,
@@ -617,7 +474,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'שירה כ.',
+          name: 'שירה כהן',
           age: 38,
           treatment: 'מעקב מניעה למשפחה',
           rating: 5,
@@ -626,7 +483,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'אבי מ.',
+          name: 'אבי מזור',
           age: 65,
           treatment: 'מניעה לגיל הזהב',
           rating: 5,
@@ -751,7 +608,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות על הצלחת טיפולי השורש שלנו',
       items: [
         {
-          name: 'מיכאל ב.',
+          name: 'מיכאל בן דוד',
           age: 45,
           treatment: 'טיפול שורש חירום',
           rating: 5,
@@ -760,7 +617,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'רינה ש.',
+          name: 'רינה שמש',
           age: 52,
           treatment: 'טיפול שורש מורכב',
           rating: 5,
@@ -769,7 +626,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'עמית כ.',
+          name: 'עמית כהן',
           age: 38,
           treatment: 'טיפול שורש ביקור אחד',
           rating: 5,
@@ -894,7 +751,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות על שינוי החיים עם שיקום מקצועי',
       items: [
         {
-          name: 'אליעזר מ.',
+          name: 'אליעזר מור',
           age: 68,
           treatment: 'שיקום מלא עם שתלים',
           rating: 5,
@@ -903,7 +760,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'מרים ש.',
+          name: 'מרים שמש',
           age: 55,
           treatment: 'שיקום קדמי אסתטי',
           rating: 5,
@@ -912,7 +769,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'יוסף כ.',
+          name: 'יוסף כהן',
           age: 62,
           treatment: 'שיקום מורכב',
           rating: 5,
@@ -1037,7 +894,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
       subtitle: 'עדויות על תוצאות טבעיות ויפות',
       items: [
         {
-          name: 'רונית מ.',
+          name: 'רונית מור',
           age: 42,
           treatment: 'בוטוקס למצח ועיניים',
           rating: 5,
@@ -1046,7 +903,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'ליאת ש.',
+          name: 'ליאת שמש',
           age: 38,
           treatment: 'הרמת גבות בבוטוקס',
           rating: 5,
@@ -1055,7 +912,7 @@ export const treatmentContent: Record<string, TreatmentContent> = {
           verified: true
         },
         {
-          name: 'דנה כ.',
+          name: 'דנה כהן',
           age: 45,
           treatment: 'טיפול מקיף בפנים',
           rating: 5,
@@ -1069,5 +926,12 @@ export const treatmentContent: Record<string, TreatmentContent> = {
 };
 
 export const getTreatmentContent = (slug: string): TreatmentContent | null => {
+  // First try to get from focused treatment files
+  const focusedContent = getTreatmentContentFromFiles(slug);
+  if (focusedContent) {
+    return focusedContent;
+  }
+  
+  // Fallback to main content object
   return treatmentContent[slug] || null;
 };

@@ -59,20 +59,15 @@ const TreatmentPageWrapper: React.FC = () => {
     return <Navigate to={`/${language}/404`} replace />;
   }
 
-  // Handle dedicated landing pages
-  if (subpage === 'landing' && treatmentInfo.hasLandingPage) {
-    switch (treatmentType) {
-      case 'root-canal':
-        return <RootCanalLanding />;
-      // Add other landing pages as needed
-      default:
-        return <Navigate to={`/${language}/treatments/${treatmentType}`} replace />;
-    }
+  // Handle legacy /landing routes with redirects
+  if (subpage === 'landing') {
+    return <Navigate to={`/${language}/treatments/${treatmentType}`} replace />;
   }
 
-  // Redirect to landing page if it exists and no subpage specified
-  if (!subpage && treatmentInfo.hasLandingPage && treatmentType === 'root-canal') {
-    // For now, show the generic page but with a prominent link to the landing page
+  // Handle dedicated landing pages that haven't been migrated yet
+  if (treatmentType === 'root-canal' && !subpage) {
+    // Root canal still uses dedicated landing for now
+    return <RootCanalLanding />;
   }
 
   return (
