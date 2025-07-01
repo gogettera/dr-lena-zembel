@@ -1,81 +1,50 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
 
 interface LoadingSkeletonProps {
-  variant?: 'card' | 'text' | 'avatar' | 'image' | 'button' | 'custom';
-  lines?: number;
   className?: string;
-  children?: React.ReactNode;
+  variant?: 'text' | 'card' | 'image' | 'button';
+  lines?: number;
 }
 
 export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
-  variant = 'text',
-  lines = 3,
   className,
-  children
+  variant = 'text',
+  lines = 1
 }) => {
-  if (children) {
-    return <>{children}</>;
+  const baseClasses = "animate-pulse bg-dental-beige/50 rounded";
+  
+  const variants = {
+    text: "h-4 w-full",
+    card: "h-32 w-full",
+    image: "h-48 w-full",
+    button: "h-10 w-24"
+  };
+
+  if (variant === 'text' && lines > 1) {
+    return (
+      <div className="space-y-2">
+        {Array.from({ length: lines }).map((_, index) => (
+          <div
+            key={index}
+            className={cn(
+              baseClasses,
+              variants[variant],
+              index === lines - 1 && "w-3/4", // Last line shorter
+              className
+            )}
+          />
+        ))}
+      </div>
+    );
   }
 
-  switch (variant) {
-    case 'card':
-      return (
-        <div className={cn('space-y-3', className)}>
-          <Skeleton className="h-[200px] w-full rounded-xl" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      );
-
-    case 'text':
-      return (
-        <div className={cn('space-y-2', className)}>
-          {Array.from({ length: lines }).map((_, index) => (
-            <Skeleton
-              key={index}
-              className={cn(
-                'h-4',
-                index === lines - 1 ? 'w-3/4' : 'w-full'
-              )}
-            />
-          ))}
-        </div>
-      );
-
-    case 'avatar':
-      return (
-        <div className={cn('flex items-center space-x-4', className)}>
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      );
-
-    case 'image':
-      return (
-        <Skeleton className={cn('aspect-video w-full rounded-lg', className)} />
-      );
-
-    case 'button':
-      return (
-        <Skeleton className={cn('h-10 w-[120px] rounded-md', className)} />
-      );
-
-    case 'custom':
-      return (
-        <Skeleton className={className} />
-      );
-
-    default:
-      return (
-        <Skeleton className={cn('h-4 w-full', className)} />
-      );
-  }
+  return (
+    <div
+      className={cn(baseClasses, variants[variant], className)}
+      aria-label="טוען..."
+      role="status"
+    />
+  );
 };

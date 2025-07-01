@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { createLocalizedPath } from '@/utils/languageRoutes';
@@ -13,6 +12,7 @@ import TreatmentTestimonials from './TreatmentTestimonials';
 import TreatmentProcedure from './TreatmentProcedure';
 import RelatedTreatments from './RelatedTreatments';
 import { TranslatedText } from '@/components/ui/translated-text';
+import { TreatmentOverview } from './TreatmentOverview';
 
 interface TreatmentTabsProps {
   treatmentType: string;
@@ -25,9 +25,8 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   treatmentNameKey,
   treatmentDescKey
 }) => {
-  const { t, language, isRTL } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState('overview');
-  const [expandedOverview, setExpandedOverview] = useState(false);
 
   // Helper to convert kebab-case to camelCase
   const kebabToCamel = (s: string) => s.replace(/-./g, x => x[1].toUpperCase());
@@ -48,37 +47,25 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
   const getTreatmentBenefits = (type: string) => {
     const camelCaseType = kebabToCamel(type);
 
-    // Strategy 1: Try treatment-specific benefits
+    // Try treatment-specific benefits first
     const treatmentBenefits = t(`${camelCaseType}.benefits.items`, { returnObjects: true, returnNull: true });
     if (Array.isArray(treatmentBenefits) && treatmentBenefits.length > 0 && treatmentBenefits[0]?.title) {
       return treatmentBenefits.map((b: any) => b.title || "").filter(Boolean);
     }
 
-    // Strategy 2: Try from treatments namespace
+    // Try from treatments namespace
     const namespacedBenefits = t(`treatments.${camelCaseType}.benefits.items`, { returnObjects: true, returnNull: true });
     if (Array.isArray(namespacedBenefits) && namespacedBenefits.length > 0 && namespacedBenefits[0]?.title) {
       return namespacedBenefits.map((b: any) => b.title || "").filter(Boolean);
     }
 
-    // Strategy 3: Generic treatment benefits
+    // Generic fallbacks
     const genericBenefits = t('treatments.benefits.items', { returnObjects: true, returnNull: true });
     if (Array.isArray(genericBenefits) && genericBenefits.length > 0 && genericBenefits[0]?.title) {
       return genericBenefits.map((b: any) => b.title || "").filter(Boolean);
     }
 
-    // Strategy 4: Base individual benefit keys
-    const individualBenefits = [
-      t('treatments.benefits.professional', ''),
-      t('treatments.benefits.modern', ''),
-      t('treatments.benefits.comfortable', ''),
-      t('treatments.benefits.effective', '')
-    ].filter(Boolean);
-
-    if (individualBenefits.length > 0) {
-      return individualBenefits;
-    }
-
-    // Strategy 5: Hardcoded fallbacks per treatment type
+    // Hardcoded fallbacks per treatment type
     const fallbackBenefits: Record<string, string[]> = {
       'children-dentistry': [
         'טיפול עדין ומותאם במיוחד לילדים',
@@ -195,58 +182,11 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
         
         {/* Enhanced tab content */}
         <TabsContent value="overview" className="space-y-0">
-          <Card className="shadow-soft hover:shadow-md transition-shadow duration-300">
-            <CardContent className="p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-dental-navy">
-                <TranslatedText textKey={treatmentNameKey} defaultText="טיפול מתקדם" />
-              </h3>
-              
-              <div className={`space-y-4 ${!expandedOverview ? 'line-clamp-3' : ''}`}>
-                <p className="text-dental-navy/80 leading-relaxed">
-                  <TranslatedText textKey={treatmentDescKey} defaultText="תיאור הטיפול" />
-                </p>
-                
-                {expandedOverview && (
-                  <div className="space-y-4 animate-fade-in">
-                    <div className="border-t border-dental-beige/50 pt-4">
-                      <h4 className="font-semibold text-dental-navy mb-3">
-                        <TranslatedText textKey="treatments.keyPoints" defaultText="נקודות מפתח:" />
-                      </h4>
-                      <ul className="space-y-2">
-                        {benefits.slice(0, 4).map((benefit, index) =>
-                          benefit ? (
-                            <li key={index} className="flex items-start gap-3">
-                              <div className="w-2 h-2 bg-dental-orange rounded-full mt-2 flex-shrink-0"></div>
-                              <span className="text-dental-navy/80">{benefit}</span>
-                            </li>
-                          ) : null
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setExpandedOverview(!expandedOverview)}
-                className="mt-4 text-dental-orange hover:text-dental-orange/80 hover:bg-dental-orange/5"
-              >
-                {expandedOverview ? (
-                  <>
-                    <ChevronUp className="h-4 w-4 mr-1" />
-                    <TranslatedText textKey="common.showLess" defaultText="הצג פחות" />
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="h-4 w-4 mr-1" />
-                    <TranslatedText textKey="common.showMore" defaultText="הצג עוד" />
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
+          <TreatmentOverview 
+            treatmentNameKey={treatmentNameKey}
+            treatmentDescKey={treatmentDescKey}
+            benefits={benefits}
+          />
         </TabsContent>
         
         <TabsContent value="procedure">
