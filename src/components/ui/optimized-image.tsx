@@ -9,6 +9,7 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   className?: string;
   fallback?: string;
   showSkeleton?: boolean;
+  priority?: boolean;
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -17,6 +18,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   className,
   fallback = '/placeholder-image.jpg',
   showSkeleton = true,
+  priority = false,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +49,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
           isLoading ? "opacity-0" : "opacity-100",
           className
         )}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
         {...props}
       />
     </div>
