@@ -2,8 +2,8 @@
 import React from 'react';
 import { TreatmentType } from '@/data/treatmentTypes';
 import { ChildrenDentistryHero } from '@/components/children-dentistry/Hero';
-import ProfessionalTreatmentHero from './ProfessionalTreatmentHero';
-import RootCanalProfessionalHero from './RootCanalProfessionalHero';
+import { getTreatmentContent } from '@/data/treatmentContent';
+import EnhancedTreatmentHero from './professional/enhanced/EnhancedTreatmentHero';
 
 interface TreatmentHeroProps {
   treatment: TreatmentType;
@@ -21,18 +21,28 @@ const TreatmentHero: React.FC<TreatmentHeroProps> = ({
     return <ChildrenDentistryHero />;
   }
 
-  // Special case for root canal with professional hero
-  if (treatment?.slug === "root-canal") {
-    return <RootCanalProfessionalHero />;
+  // Use enhanced hero for treatments with content data
+  const content = getTreatmentContent(treatment?.slug || '');
+  if (content) {
+    return (
+      <EnhancedTreatmentHero
+        title={content.hero.title}
+        subtitle={content.hero.subtitle}
+        features={content.hero.features}
+        imageUrl={content.hero.imageUrl}
+        treatmentSlug={content.slug}
+      />
+    );
   }
 
-  // Use professional hero for all other treatments
+  // Fallback - this shouldn't happen with the new system
   return (
-    <ProfessionalTreatmentHero
-      treatmentNameKey={treatmentNameKey}
-      treatmentDescKey={treatmentDescKey}
-      treatmentSlug={treatment?.slug || ''}
-    />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-dental-navy mb-4">טיפול לא נמצא</h1>
+        <p className="text-dental-navy/70">הטיפול המבוקש אינו זמין כרגע</p>
+      </div>
+    </div>
   );
 };
 

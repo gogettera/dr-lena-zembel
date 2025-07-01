@@ -5,7 +5,7 @@ import type { TreatmentType } from '@/data/treatmentTypes';
 import { Section } from '@/components/ui/section';
 import { ErrorBoundary } from '@/components/ui/error-boundary';
 import { LoadingSkeleton } from '@/components/ui/loading-skeleton';
-import ProfessionalTreatmentLanding from './professional/ProfessionalTreatmentLanding';
+import EnhancedTreatmentLanding from './professional/enhanced/EnhancedTreatmentLanding';
 
 interface TreatmentContentProps {
   treatment: TreatmentType;
@@ -38,7 +38,7 @@ const TreatmentContent: React.FC<TreatmentContentProps> = ({
     <div dir={isRTL ? 'rtl' : 'ltr'} className="bg-white">
       <ErrorBoundary>
         <Suspense fallback={<LoadingSkeleton variant="card" lines={3} />}>
-          <ProfessionalTreatmentLanding treatmentType={treatmentType} />
+          <EnhancedTreatmentLanding treatmentType={treatmentType} />
         </Suspense>
       </ErrorBoundary>
     </div>

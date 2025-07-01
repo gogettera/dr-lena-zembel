@@ -68,7 +68,7 @@ export const treatmentRegistry: Record<string, TreatmentInfo> = {
     slug: 'botox-treatments',
     nameKey: 'botoxTreatments.hero.title',
     descKey: 'botoxTreatments.hero.subtitle',
-    hasLandingPage: false,
+    hasLandingPage: true,
     category: 'aesthetic',
     icon: 'botox.jpg',
     imageUrl: '/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg'
