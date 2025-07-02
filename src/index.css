@@ -1,59 +1,101 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base HTML styles */
+/* Base HTML styles - French elegance */
 html {
   font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv03" on;
   text-rendering: optimizeLegibility;
   height: 100%;
   scroll-behavior: smooth;
+  letter-spacing: 0.025em;
 }
 
 body {
-  font-family: 'Assistant', sans-serif;
+  font-family: 'Inter', 'Assistant', sans-serif;
   height: 100%;
   overflow-x: hidden;
-  background-color: #FEFEFE; /* Light beige background */
+  background-color: #FAF9F7; /* Warm ivory background */
+  color: #2C3E50; /* Rich charcoal text */
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-/* Focus styles for accessibility - lighter colors */
+/* Elegant typography hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', 'Heebo', serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #2C3E50;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.75rem);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+}
+
+p {
+  font-family: 'Inter', 'Assistant', sans-serif;
+  line-height: 1.7;
+  color: #2C3E50;
+  font-weight: 400;
+}
+
+/* Focus styles for accessibility - elegant */
 *:focus-visible {
-  outline: 2px solid #FB7185; /* Soft coral instead of bright orange */
+  outline: 2px solid #E67E22;
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Skip to content link for accessibility - lighter */
+/* Skip to content link for accessibility */
 .skip-to-content {
   position: absolute;
   top: -9999px;
   left: -9999px;
-  background: #3B82F6; /* Light blue instead of dark navy */
+  background: #2C3E50;
   color: white;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   z-index: 9999;
+  border-radius: 0.5rem;
+  font-weight: 500;
 }
 
 .skip-to-content:focus {
-  top: 0;
-  left: 0;
+  top: 1rem;
+  left: 1rem;
 }
 
-/* Mobile optimizations */
+/* Mobile optimizations - elegant responsive */
 @media (max-width: 640px) {
   .hero-title {
     font-size: 2.5rem !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.03em !important;
   }
   
   .hero-subtitle {
     font-size: 1.125rem !important;
-    line-height: 1.5 !important;
+    line-height: 1.6 !important;
   }
 }
 
-/* RTL support */
+/* RTL support with elegance */
 html[dir="rtl"] .ltr-only {
   display: none;
 }
@@ -62,75 +104,160 @@ html[dir="ltr"] .rtl-only {
   display: none;
 }
 
-/* High contrast mode for accessibility - adjusted for lighter theme */
-body.high-contrast {
-  background: white;
-  color: #1F2937;
-}
-
-body.high-contrast .bg-white,
-body.high-contrast .bg-dental-beige,
-body.high-contrast .bg-dental-beige\/10,
-body.high-contrast .bg-dental-beige\/20 {
-  background-color: white !important;
-}
-
-body.high-contrast .text-dental-navy,
-body.high-contrast .text-dental-navy\/80,
-body.high-contrast .text-dental-navy\/70,
-body.high-contrast .text-dental-navy\/60 {
-  color: #1F2937 !important;
-}
-
-body.high-contrast a,
-body.high-contrast button:not(.bg-dental-orange) {
-  border: 1px solid #1F2937 !important;
-}
-
-body.high-contrast img,
-body.high-contrast svg {
-  filter: contrast(120%);
-}
-
-body.high-contrast .bg-dental-orange,
-body.high-contrast .bg-dental-navy {
-  background-color: #1F2937 !important;
-  color: white !important;
-}
-
-/* Better container for global page layouts */
+/* Elegant container for global page layouts */
 .page-container {
   width: 100%;
   min-height: calc(100vh - var(--navbar-height, 4rem) - var(--footer-height, 4rem));
   margin-top: var(--navbar-height, 4rem);
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* French-inspired animations */
+@keyframes elegantFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }  
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out forwards;
+@keyframes frenchSlide {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.animate-fade-in-delay-1 {
+@keyframes sophisticatedFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-elegant-fade-in {
+  animation: elegantFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-french-slide {
   opacity: 0;
-  animation: fadeIn 0.5s ease-out 0.1s forwards;
+  animation: frenchSlide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-.animate-fade-in-delay-2 {
+.animate-sophisticated-float {
+  animation: sophisticatedFloat 6s ease-in-out infinite;
+}
+
+.animate-elegant-delay-1 {
   opacity: 0;
-  animation: fadeIn 0.5s ease-out 0.2s forwards;
+  animation: elegantFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
 }
 
-.animate-fade-in-delay-3 {
+.animate-elegant-delay-2 {
   opacity: 0;
-  animation: fadeIn 0.5s ease-out 0.3s forwards;
+  animation: elegantFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
 }
 
-/* Responsive utilities */
+.animate-elegant-delay-3 {
+  opacity: 0;
+  animation: elegantFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards;
+}
+
+/* Elegant responsive utilities */
 .responsive-container {
-  @apply px-4 sm:px-6 md:px-8 max-w-7xl mx-auto;
+  @apply px-6 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto;
+}
+
+/* French-inspired button styles */
+.btn-elegant {
+  @apply px-8 py-4 rounded-xl font-medium transition-all duration-300 shadow-elegant hover:shadow-premium;
+  letter-spacing: 0.025em;
+}
+
+.btn-elegant:hover {
+  transform: translateY(-2px);
+}
+
+/* Sophisticated card styles */
+.card-elegant {
+  @apply bg-white rounded-2xl shadow-elegant border border-gray-100 transition-all duration-300;
+}
+
+.card-elegant:hover {
+  @apply shadow-premium;
+  transform: translateY(-4px);
+}
+
+/* Elegant text styles */
+.text-elegant {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+.text-sophisticated {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.025em;
+}
+
+/* Premium section backgrounds */
+.section-elegant {
+  background: linear-gradient(135deg, #FAF9F7 0%, #F8F6F0 100%);
+}
+
+.section-premium {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F7ECE1 100%);
+}
+
+/* Sophisticated gradients */
+.gradient-elegant {
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #E67E22 0%, #F39C12 100%);
+}
+
+/* Enhanced spacing for elegance */
+.section-spacing {
+  @apply py-20 md:py-28 lg:py-32;
+}
+
+.content-spacing {
+  @apply space-y-8 md:space-y-12;
+}
+
+/* Elegant dividers */
+.divider-elegant {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #E67E22 50%, transparent 100%);
+}
+
+/* Sophisticated hover effects */
+.hover-elegant {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-elegant:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px -10px rgba(44, 62, 80, 0.15);
+}
+
+/* French-inspired text effects */
+.text-gradient-elegant {
+  background: linear-gradient(135deg, #2C3E50 0%, #E67E22 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

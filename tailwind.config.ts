@@ -54,17 +54,22 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         dental: {
-          navy: '#3B82F6',     // Lighter blue instead of deep navy
-          sky: '#93C5FD',      // Softer sky blue
-          ocean: '#60A5FA',    // Lighter ocean blue
-          azure: '#DBEAFE',    // Much lighter azure
-          pink: '#FEF7F7',     // Very soft pink
-          orange: '#FB7185',   // Softer coral/pink instead of orange
-          beige: '#FEFEFE',    // Almost white beige
-          textDark: '#374151', // Lighter text color
-          muted: '#9CA3AF',    // Lighter muted text
-          accent: '#FCA5A5',   // Keep accent as is
-          highlight: '#FED7DD', // Lighter highlight
+          navy: '#2C3E50',     // Deep sophisticated blue
+          sky: '#74B9FF',      // Soft French blue  
+          ocean: '#0984E3',    // Classic French blue
+          azure: '#DDD6FE',    // Lavender
+          pink: '#FDF2F8',     // Soft rose
+          orange: '#E67E22',   // Warm sophisticated orange
+          beige: '#FAF9F7',    // Warm ivory
+          textDark: '#2C3E50', // Rich charcoal
+          muted: '#6C757D',    // Sophisticated muted
+          accent: '#FDCB6E',   // Golden accent
+          highlight: '#FFE8E8', // Soft blush
+          champagne: '#F7ECE1', // Champagne
+          pearl: '#F8F6F0',     // Pearl white
+          sage: '#A8B5A0',      // Sage green
+          lavender: '#E6E6FA',  // French lavender
+          cream: '#FFFDD0',     // Cream
         },
       },
       borderRadius: {
@@ -88,22 +93,47 @@ export default {
         "slide-in": {
           "0%": { transform: "translateX(100%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" }
+        },
+        "elegant-fade-in": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        "french-slide": {
+          "0%": { opacity: "0", transform: "translateY(30px) scale(0.95)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
-        "slide-in": "slide-in 0.8s ease-out forwards"
+        "slide-in": "slide-in 0.8s ease-out forwards",
+        "elegant-fade-in": "elegant-fade-in 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards",
+        "french-slide": "french-slide 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards"
       },
       fontFamily: {
-        sans: ['Assistant', 'system-ui', 'sans-serif'],
-        heading: ['Heebo', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'Assistant', 'system-ui', 'sans-serif'],
+        heading: ['Playfair Display', 'Heebo', 'system-ui', 'serif'],
+        body: ['Inter', 'Assistant', 'system-ui', 'sans-serif'],
+        elegant: ['Crimson Text', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'soft': '0 1px 10px -2px rgba(0, 0, 0, 0.03), 0 4px 15px -1px rgba(0, 0, 0, 0.02)',
-        'glow': '0 0 15px rgba(251, 113, 133, 0.15)',
+        'elegant': '0 4px 20px -2px rgba(44, 62, 80, 0.08), 0 2px 8px -1px rgba(44, 62, 80, 0.04)',
+        'premium': '0 8px 32px -4px rgba(44, 62, 80, 0.12), 0 4px 16px -2px rgba(44, 62, 80, 0.08)',
+        'french': '0 10px 40px -10px rgba(44, 62, 80, 0.15)',
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'glow': '0 0 20px rgba(230, 126, 34, 0.15)',
       },
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      letterSpacing: {
+        'elegant': '0.025em',
+        'wide': '0.05em',
+        'wider': '0.1em',
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

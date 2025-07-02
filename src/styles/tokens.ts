@@ -1,45 +1,52 @@
 
-// Design tokens system
+// Design tokens system - Enhanced French Elegance
 
-// Color palette - Updated to lighter theme
+// Color palette - Sophisticated French-inspired colors
 export const COLORS = {
-  // Primary colors - lighter and softer
-  navy: '#3B82F6',     // Light blue instead of dark navy
-  orange: '#FB7185',   // Soft coral/pink instead of bright orange
-  beige: '#FEFEFE',    // Almost white
-  textDark: '#374151', // Softer dark text
+  // Primary colors - refined and elegant
+  navy: '#2C3E50',     // Deep sophisticated blue
+  orange: '#E67E22',   // Warm sophisticated orange
+  beige: '#FAF9F7',    // Warm ivory
+  textDark: '#2C3E50', // Rich charcoal
   
-  // Supporting colors - all lighter
-  sky: '#93C5FD',      // Soft sky blue
-  ocean: '#60A5FA',    // Light ocean blue
-  azure: '#DBEAFE',    // Very light azure
-  pink: '#FEF7F7',     // Barely there pink
-  accent: '#FCA5A5',   // Light accent
-  highlight: '#FED7DD', // Soft highlight
+  // Supporting colors - French palette
+  sky: '#74B9FF',      // Soft French blue
+  ocean: '#0984E3',    // Classic French blue
+  azure: '#DDD6FE',    // Lavender
+  pink: '#FDF2F8',     // Soft rose
+  accent: '#FDCB6E',   // Golden accent
+  highlight: '#FFE8E8', // Soft blush
   
-  // Functional colors - lighter versions
-  success: '#34D399',  // Light green
-  error: '#F87171',    // Light red
-  warning: '#FBBF24',  // Light yellow
-  info: '#60A5FA',     // Light blue
+  // French elegance colors
+  champagne: '#F7ECE1', // Champagne
+  pearl: '#F8F6F0',     // Pearl white
+  sage: '#A8B5A0',      // Sage green
+  lavender: '#E6E6FA',  // French lavender
+  cream: '#FFFDD0',     // Cream
   
-  // Neutral tones - lighter palette
+  // Functional colors - refined
+  success: '#00B894',   // Elegant green
+  error: '#E17055',     // Sophisticated red
+  warning: '#FDCB6E',   // Golden warning
+  info: '#74B9FF',      // Elegant blue
+  
+  // Neutral tones - sophisticated palette
   white: '#FFFFFF',
-  black: '#1F2937',    // Softer black
+  black: '#2C3E50',     // Sophisticated dark
   gray: {
-    100: '#F9FAFB',    // Very light
-    200: '#F3F4F6',    // Light
-    300: '#E5E7EB',    // Medium light
-    400: '#D1D5DB',    // Medium
-    500: '#9CA3AF',    // Medium muted
-    600: '#6B7280',    // Darker muted
-    700: '#4B5563',    // Dark
-    800: '#374151',    // Darker
-    900: '#1F2937',    // Darkest
+    100: '#F8F9FA',     // Whisper
+    200: '#E9ECEF',     // Mist
+    300: '#DEE2E6',     // Fog
+    400: '#CED4DA',     // Cloud
+    500: '#ADB5BD',     // Stone
+    600: '#6C757D',     // Slate
+    700: '#495057',     // Charcoal
+    800: '#343A40',     // Graphite
+    900: '#212529',     // Midnight
   }
 };
 
-// Spacing system
+// Spacing system - refined proportions
 export const SPACING = {
   px: '1px',
   0: '0',
@@ -78,74 +85,74 @@ export const SPACING = {
   96: '24rem',     // 384px
 };
 
-// Font sizes
+// Font sizes - elegant typography scale
 export const FONT_SIZE = {
-  xs: '0.75rem',     // 12px
-  sm: '0.875rem',    // 14px
-  base: '1rem',      // 16px
-  lg: '1.125rem',    // 18px
-  xl: '1.25rem',     // 20px
-  '2xl': '1.5rem',   // 24px
-  '3xl': '1.875rem', // 30px
-  '4xl': '2.25rem',  // 36px
-  '5xl': '3rem',     // 48px
-  '6xl': '3.75rem',  // 60px
-  '7xl': '4.5rem',   // 72px
-  '8xl': '6rem',     // 96px
-  '9xl': '8rem',     // 128px
+  xs: '0.75rem',     // 12px - Caption
+  sm: '0.875rem',    // 14px - Small text
+  base: '1rem',      // 16px - Body
+  lg: '1.125rem',    // 18px - Large body
+  xl: '1.25rem',     // 20px - Subtitle
+  '2xl': '1.5rem',   // 24px - Heading 6
+  '3xl': '1.875rem', // 30px - Heading 5
+  '4xl': '2.25rem',  // 36px - Heading 4
+  '5xl': '3rem',     // 48px - Heading 3
+  '6xl': '3.75rem',  // 60px - Heading 2
+  '7xl': '4.5rem',   // 72px - Hero
+  '8xl': '6rem',     // 96px - Display
+  '9xl': '8rem',     // 128px - Hero Display
 };
 
-// Font weights
+// Font weights - refined hierarchy
 export const FONT_WEIGHT = {
   thin: '100',
   extralight: '200',
-  light: '300',
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-  extrabold: '800',
+  light: '300',      // Elegant light
+  normal: '400',     // Body text
+  medium: '500',     // Emphasis
+  semibold: '600',   // Headings
+  bold: '700',       // Strong headings
+  extrabold: '800',  // Display
   black: '900',
 };
 
-// Line heights
+// Line heights - elegant proportions
 export const LINE_HEIGHT = {
   none: '1',
-  tight: '1.25',
-  snug: '1.375',
-  normal: '1.5',
-  relaxed: '1.625',
-  loose: '2',
+  tight: '1.25',     // Headlines
+  snug: '1.375',     // Subheadings
+  normal: '1.5',     // Body text
+  relaxed: '1.625',  // Large text
+  loose: '2',        // Spacious
 };
 
-// Shadows
+// Shadows - sophisticated depth
 export const SHADOWS = {
-  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-  DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-  inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+  sm: '0 1px 2px 0 rgba(44, 62, 80, 0.05)',
+  DEFAULT: '0 1px 3px 0 rgba(44, 62, 80, 0.1), 0 1px 2px 0 rgba(44, 62, 80, 0.06)',
+  md: '0 4px 6px -1px rgba(44, 62, 80, 0.1), 0 2px 4px -1px rgba(44, 62, 80, 0.06)',
+  lg: '0 10px 15px -3px rgba(44, 62, 80, 0.1), 0 4px 6px -2px rgba(44, 62, 80, 0.05)',
+  xl: '0 20px 25px -5px rgba(44, 62, 80, 0.1), 0 10px 10px -5px rgba(44, 62, 80, 0.04)',
+  '2xl': '0 25px 50px -12px rgba(44, 62, 80, 0.25)',
+  inner: 'inset 0 2px 4px 0 rgba(44, 62, 80, 0.06)',
   none: 'none',
-  soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-  glow: '0 0 20px rgba(252, 165, 165, 0.2)',
+  elegant: '0 4px 20px -2px rgba(44, 62, 80, 0.08), 0 2px 8px -1px rgba(44, 62, 80, 0.04)',
+  premium: '0 8px 32px -4px rgba(44, 62, 80, 0.12), 0 4px 16px -2px rgba(44, 62, 80, 0.08)',
 };
 
-// Border radius
+// Border radius - refined curves
 export const BORDER_RADIUS = {
   none: '0',
-  sm: '0.125rem',    // 2px
-  DEFAULT: '0.25rem', // 4px
-  md: '0.375rem',    // 6px
-  lg: '0.5rem',      // 8px
-  xl: '0.75rem',     // 12px
-  '2xl': '1rem',     // 16px
-  '3xl': '1.5rem',   // 24px
+  sm: '0.125rem',    // 2px - Subtle
+  DEFAULT: '0.375rem', // 6px - Standard
+  md: '0.5rem',      // 8px - Medium
+  lg: '0.75rem',     // 12px - Large
+  xl: '1rem',        // 16px - Extra large
+  '2xl': '1.5rem',   // 24px - Hero elements
+  '3xl': '2rem',     // 32px - Feature cards
   full: '9999px',    // Fully rounded
 };
 
-// Z-index
+// Z-index - layered elegance
 export const Z_INDEX = {
   0: '0',
   10: '10',
@@ -164,16 +171,17 @@ export const Z_INDEX = {
   tooltip: '1500',
 };
 
-// Animation durations
+// Animation durations - smooth transitions
 export const DURATIONS = {
   75: '75ms',
   100: '100ms',
   150: '150ms',
   200: '200ms',
-  300: '300ms',
-  500: '500ms',
-  700: '700ms',
-  1000: '1000ms',
+  300: '300ms',    // Standard
+  400: '400ms',    // Elegant
+  500: '500ms',    // Smooth
+  700: '700ms',    // Luxurious
+  1000: '1000ms',  // Dramatic
 };
 
 // Media queries
@@ -185,7 +193,7 @@ export const BREAKPOINTS = {
   '2xl': '1536px',
 };
 
-// Layout
+// Layout - refined containers
 export const CONTAINERS = {
   xs: '20rem',    // 320px
   sm: '24rem',    // 384px
