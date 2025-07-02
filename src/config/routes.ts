@@ -107,8 +107,7 @@ export const getMainNavigationItems = (language: Language): NavigationLink[] => 
   return languageRoutes
     .filter(route => route.inNavigation)
     .map(route => ({
-      key: route.label || route.path, // Use label as key if available
-      labelKey: route.label || '',
-      path: getLanguagePath(route.path, language)
+      href: getLanguagePath(route.path, language),
+      labelKey: route.label || ''
     }));
 };

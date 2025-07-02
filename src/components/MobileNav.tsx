@@ -52,7 +52,7 @@ const MobileNav = () => {
       >
         <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('navigation.mainNavigation', 'Main navigation')}>
           <NavigationLinks
-            links={navigation.main}
+            links={navigation.mainMenu}
             vertical
             onNavigate={() => setSheetOpen(false)}
           />

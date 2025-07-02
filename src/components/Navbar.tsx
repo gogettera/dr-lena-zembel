@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import MobileNav from './MobileNav';
 import LanguageSwitcher from './LanguageSwitcher';
-import { getMainNavigationItems } from '@/config/routes';
+import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
 import { useDirectionalStyles } from '@/utils/direction';
 import { debounce } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
@@ -18,7 +18,7 @@ import { TranslatedText } from './ui/translated-text';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, isRTL, t } = useLanguage();
-  const navigationItems = getMainNavigationItems(language);
+  const navigation = createLocalizedNavigationConfig(language);
   const styles = useDirectionalStyles();
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const Navbar = () => {
           "flex-1"
         )}>
           <NavigationLinks 
-            links={navigationItems} 
+            links={navigation.mainMenu} 
             vertical={false}
           />
         </div>

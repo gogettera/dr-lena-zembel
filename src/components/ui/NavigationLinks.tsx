@@ -20,18 +20,18 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
 }) => {
   const { isRTL } = useLanguage();
   const location = useLocation();
-  const [submenuOpenKey, setSubmenuOpenKey] = useState<string | null>(null);
+  const [submenuOpenHref, setSubmenuOpenHref] = useState<string | null>(null);
 
-  const isActive = (path: string) => {
-    return location.pathname === path || location.pathname.startsWith(path + '/');
+  const isActive = (href: string) => {
+    return location.pathname === href || location.pathname.startsWith(href + '/');
   };
 
-  const handleSubmenuToggle = (key: string) => {
-    setSubmenuOpenKey(submenuOpenKey === key ? null : key);
+  const handleSubmenuToggle = (href: string) => {
+    setSubmenuOpenHref(submenuOpenHref === href ? null : href);
   };
 
   const handleNavigation = () => {
-    setSubmenuOpenKey(null);
+    setSubmenuOpenHref(null);
     if (onNavigate) {
       onNavigate();
     }
@@ -43,16 +43,21 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
       vertical ? "flex-col space-y-2" : "flex-row space-x-6",
       isRTL && !vertical && "space-x-reverse"
     )}>
-      {links.map((link) => {
-        const hasChildren = link.children && link.children.length > 0;
-        const isLinkActive = isActive(link.path);
-        const isSubmenuOpen = submenuOpenKey === link.key;
+      {links.map((link, index) => {
+        const hasDropdown = link.dropdown && (
+          link.dropdown.general?.length || 
+          link.dropdown.specialized?.length || 
+          link.dropdown.aesthetic?.length
+        );
+        const isLinkActive = isActive(link.href);
+        const isSubmenuOpen = submenuOpenHref === link.href;
+        const linkKey = `${link.href}-${index}`;
 
         return (
-          <div key={link.key} className="relative">
-            {hasChildren ? (
+          <div key={linkKey} className="relative">
+            {hasDropdown ? (
               <button
-                onClick={() => handleSubmenuToggle(link.key)}
+                onClick={() => handleSubmenuToggle(link.href)}
                 className={cn(
                   "flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors",
                   "hover:text-dental-orange focus:outline-none focus:ring-2 focus:ring-dental-orange/20",
@@ -73,7 +78,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
               </button>
             ) : (
               <Link
-                to={link.path}
+                to={link.href}
                 onClick={handleNavigation}
                 className={cn(
                   "flex items-center px-3 py-2 text-sm font-medium transition-colors",
@@ -85,20 +90,46 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({
               </Link>
             )}
 
-            {hasChildren && isSubmenuOpen && (
+            {hasDropdown && isSubmenuOpen && (
               <div className={cn(
                 "absolute top-full mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50",
                 vertical && "relative top-0 mt-2 ml-4",
                 isRTL && !vertical && "right-0"
               )}>
-                {link.children?.map((child) => (
+                {link.dropdown?.general?.map((child, childIndex) => (
                   <Link
-                    key={child.key}
-                    to={child.path}
+                    key={`${child.href}-${childIndex}`}
+                    to={child.href}
                     onClick={handleNavigation}
                     className={cn(
                       "block px-4 py-2 text-sm text-dental-navy hover:bg-dental-beige hover:text-dental-orange transition-colors",
-                      isActive(child.path) && "bg-dental-beige text-dental-orange"
+                      isActive(child.href) && "bg-dental-beige text-dental-orange"
+                    )}
+                  >
+                    <TranslatedText textKey={child.labelKey} />
+                  </Link>
+                ))}
+                {link.dropdown?.specialized?.map((child, childIndex) => (
+                  <Link
+                    key={`${child.href}-specialized-${childIndex}`}
+                    to={child.href}
+                    onClick={handleNavigation}
+                    className={cn(
+                      "block px-4 py-2 text-sm text-dental-navy hover:bg-dental-beige hover:text-dental-orange transition-colors",
+                      isActive(child.href) && "bg-dental-beige text-dental-orange"
+                    )}
+                  >
+                    <TranslatedText textKey={child.labelKey} />
+                  </Link>
+                ))}
+                {link.dropdown?.aesthetic?.map((child, childIndex) => (
+                  <Link
+                    key={`${child.href}-aesthetic-${childIndex}`}
+                    to={child.href}
+                    onClick={handleNavigation}
+                    className={cn(
+                      "block px-4 py-2 text-sm text-dental-navy hover:bg-dental-beige hover:text-dental-orange transition-colors",
+                      isActive(child.href) && "bg-dental-beige text-dental-orange"
                     )}
                   >
                     <TranslatedText textKey={child.labelKey} />
