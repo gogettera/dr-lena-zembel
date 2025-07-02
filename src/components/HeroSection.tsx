@@ -20,11 +20,10 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center section-elegant overflow-hidden">
-      {/* Elegant background elements */}
-      <div className="absolute top-1/4 left-8 w-32 h-32 rounded-full bg-dental-champagne/20 animate-sophisticated-float pointer-events-none" />
-      <div className="absolute bottom-1/3 right-12 w-24 h-24 rounded-full bg-dental-lavender/25 animate-sophisticated-float pointer-events-none" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-gradient-to-br from-dental-sage/10 to-dental-champagne/10 blur-3xl pointer-events-none" />
+    <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
+      {/* Minimal background elements */}
+      <div className="absolute top-1/4 left-8 w-32 h-32 rounded-full bg-gray-100 opacity-50 animate-pulse pointer-events-none" />
+      <div className="absolute bottom-1/3 right-12 w-24 h-24 rounded-full bg-red-50 opacity-60 animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
 
       <div
         className="responsive-container pt-32 pb-20 md:pt-40 md:pb-28 relative z-10"
@@ -33,58 +32,58 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
           {/* Content */}
           <div className={`lg:w-1/2 space-y-8 ${isMobile ? 'text-center' : isRTL ? 'lg:order-1 text-right' : 'text-left'}`}>
-            {/* Elegant badge */}
-            <div className="inline-flex items-center gap-3 bg-white/60 backdrop-blur-sm rounded-full px-6 py-3 shadow-elegant animate-elegant-fade-in">
-              <Sparkles className="h-5 w-5 text-dental-orange" />
-              <span className="text-dental-navy font-medium text-sm tracking-wide">
-                Excellence • Élégance • Innovation
+            {/* Premium badge */}
+            <div className="inline-flex items-center gap-3 bg-gray-50 rounded-full px-6 py-3 shadow-card animate-premium-fade-in">
+              <Sparkles className="h-5 w-5 text-red-500" />
+              <span className="text-gray-900 font-medium text-sm tracking-tight">
+                Excellence • Innovation • Care
               </span>
             </div>
 
-            {/* Main headline with French typography */}
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-dental-navy leading-[1.1] animate-elegant-delay-1">
-              <span className="text-gradient-elegant">
+            {/* Main headline - premium typography */}
+            <h1 className="text-premium-heading text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[1.1] animate-premium-delay-1">
+              <span className="text-gradient-premium">
                 {t("hero.heroTitle", "רפואת שיניים מתקדמת")}
               </span>
               <br />
-              <span className="text-dental-navy/80 text-4xl md:text-5xl lg:text-6xl font-medium">
-                בסטנדרט צרפתי
+              <span className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-semibold">
+                ברמה עולמית
               </span>
             </h1>
 
-            {/* Elegant subtitle */}
-            <p className="text-sophisticated text-xl md:text-2xl text-dental-navy/70 leading-relaxed max-w-2xl animate-elegant-delay-2">
-              {t("hero.heroSubtitle", "מרפאה יוקרתית בצפון יפו, בה המומחיות פוגשת יחס אישי ואלגנטיות צרפתית. כל חיוך מקבל כאן תשומת לב מיוחדת.")}
+            {/* Premium subtitle */}
+            <p className="text-premium text-xl md:text-2xl text-gray-600 leading-relaxed max-w-2xl animate-premium-delay-2">
+              {t("hero.heroSubtitle", "מרפאה מתקדמת בצפון יפו, בה הטכנולוגיה הכי חדישה פוגשת יחס אישי מקצועי. כל חיוך מקבל כאן תשומת לב מושלמת.")}
             </p>
 
-            {/* Sophisticated CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 animate-elegant-delay-3">
+            {/* Premium CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 animate-premium-delay-3">
               <Button 
                 variant="default" 
                 size="lg" 
-                className="btn-elegant gradient-warm text-white font-semibold text-lg shadow-premium hover:shadow-french group" 
+                className="btn-premium gradient-coral text-white font-semibold text-lg shadow-card hover:shadow-hover group" 
                 asChild
               >
                 <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer">
                   <Calendar className={`h-5 w-5 transition-transform group-hover:scale-110 ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                  {t("hero.bookAppointment", "לתיאום ייעוץ דיסקרטי")}
+                  {t("hero.bookAppointment", "לתיאום ייעוץ פרטי")}
                 </a>
               </Button>
               
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="btn-elegant border-2 border-dental-navy/20 text-dental-navy hover:bg-dental-navy hover:text-white font-medium text-lg backdrop-blur-sm bg-white/40"
+                className="btn-premium border-2 border-gray-200 text-gray-900 hover:bg-gray-50 font-medium text-lg"
                 asChild
               >
                 <a href="#why-premium">
-                  {t("hero.learnMore", "גלו את החוויה הצרפתית")}
+                  {t("hero.learnMore", "גלו את החוויה המקצועית")}
                 </a>
               </Button>
             </div>
 
-            {/* Elegant trust indicators */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 animate-elegant-delay-3">
+            {/* Premium trust indicators */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 animate-premium-delay-3">
               {[
                 { number: "13+", label: "שנות מצוינות" },
                 { number: "2000+", label: "חיוכים מושלמים" },
@@ -92,10 +91,10 @@ const HeroSection = () => {
                 { number: "24/7", label: "זמינות מלאה" }
               ].map((stat, index) => (
                 <div key={index} className="text-center group">
-                  <div className="text-2xl md:text-3xl font-bold text-dental-navy group-hover:text-dental-orange transition-colors duration-300">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-red-500 transition-colors duration-200">
                     {stat.number}
                   </div>
-                  <div className="text-sm text-dental-navy/60 font-medium mt-1">
+                  <div className="text-sm text-gray-600 font-medium mt-1">
                     {stat.label}
                   </div>
                 </div>
@@ -103,40 +102,40 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Elegant image section */}
+          {/* Premium image section */}
           <div className={`lg:w-1/2 flex justify-center ${isMobile ? 'mt-12' : ''}`}>
-            <div className="relative animate-french-slide">
-              {/* Sophisticated image frame */}
-              <div className="absolute inset-0 bg-gradient-to-br from-dental-champagne/30 to-dental-lavender/20 rounded-3xl blur-2xl transform rotate-3 scale-105 pointer-events-none"></div>
+            <div className="relative animate-premium-slide">
+              {/* Subtle image frame */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-50 rounded-2xl blur-xl transform rotate-1 scale-105 pointer-events-none opacity-30"></div>
               
               <div className="relative">
                 <AspectRatio ratio={4/3} className="overflow-visible">
                   <NextGenImage 
-                    alt={t('common.dentistryWithLove', 'Professional French-Style Dentistry')} 
+                    alt={t('common.dentistryWithLove', 'Professional Modern Dentistry')} 
                     src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
                     width={600}
                     height={450}
                     priority={true}
-                    className="w-full h-full object-cover rounded-3xl shadow-premium hover:shadow-french transition-all duration-500 hover-elegant card-elegant border-4 border-white/50" 
+                    className="w-full h-full object-cover rounded-2xl shadow-hover hover:shadow-premium transition-all duration-300 hover-premium card-premium border border-gray-100" 
                   />
                 </AspectRatio>
 
-                {/* Floating elegant testimonial */}
+                {/* Premium floating testimonial */}
                 <div 
                   className={`absolute ${isMobile ? 'left-1/2 -translate-x-1/2 -bottom-6' : isRTL ? '-right-8 bottom-8' : '-left-8 bottom-8'}
-                    card-elegant backdrop-blur-lg p-6 max-w-[300px] hover-elegant`}
+                    card-premium backdrop-blur-sm p-6 max-w-[300px] hover-premium`}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="flex text-dental-orange text-lg">★★★★★</div>
-                    <span className="text-dental-navy/60 text-sm font-medium">Excellent</span>
+                    <div className="flex text-red-500 text-lg">★★★★★</div>
+                    <span className="text-gray-600 text-sm font-medium">Excellent</span>
                   </div>
-                  <p className="text-dental-navy font-semibold text-base leading-relaxed">
+                  <p className="text-gray-900 font-semibold text-base leading-relaxed">
                     <TranslatedText 
                       textKey="common.completelyHappy" 
-                      defaultText="חוויה יוקרתית ברמה עולמית - כמו במרפאות פאריז הטובות ביותר" 
+                      defaultText="חוויה מקצועית ברמה עולמית - טכנולוגיה מתקדמת ויחס אישי מושלם" 
                     />
                   </p>
-                  <div className="text-dental-navy/50 text-sm mt-2 font-medium">
+                  <div className="text-gray-500 text-sm mt-2 font-medium">
                     מאות לקוחות מרוצים
                   </div>
                 </div>

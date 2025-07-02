@@ -1,62 +1,62 @@
 
-// French elegance gradient presets for sophisticated styling
+// Premium tech gradient presets - Airbnb-inspired sophistication
 export const GRADIENTS = {
-  // Main gradient backgrounds - sophisticated French palette
-  primary: 'bg-gradient-to-br from-dental-pearl via-white to-dental-champagne/30',
-  secondary: 'bg-gradient-to-tr from-dental-champagne/20 via-white to-dental-lavender/10',
-  accent: 'bg-gradient-to-r from-dental-sage/20 to-dental-lavender/15',
-  cool: 'bg-gradient-to-br from-dental-lavender/30 via-white to-dental-azure/20',
-  warm: 'bg-gradient-to-br from-dental-champagne/25 via-white to-dental-cream/15',
-  navy: 'bg-gradient-to-br from-dental-navy via-slate-700 to-slate-600',
+  // Main gradient backgrounds - clean tech aesthetics
+  primary: 'bg-white',
+  secondary: 'bg-gradient-to-br from-gray-50 to-white',
+  accent: 'bg-gradient-to-r from-gray-50 to-gray-100',
+  cool: 'bg-gradient-to-br from-blue-50 to-white',
+  warm: 'bg-gradient-to-br from-orange-50 to-white',
+  navy: 'bg-gradient-to-br from-gray-900 to-gray-800',
   
-  // Elegant section backgrounds - French sophistication
+  // Premium section backgrounds - minimal tech
   elegant: {
-    pearl: 'bg-gradient-to-br from-dental-pearl via-white to-dental-champagne/20',
-    champagne: 'bg-gradient-to-br from-dental-champagne/30 via-white to-dental-pearl',
-    lavender: 'bg-gradient-to-br from-dental-lavender/25 via-white to-dental-azure/15',
-    sage: 'bg-gradient-to-br from-dental-sage/20 via-white to-dental-champagne/10',
-    cream: 'bg-gradient-to-br from-dental-cream/40 via-white to-dental-pearl',
+    pearl: 'bg-white',
+    champagne: 'bg-gradient-to-br from-gray-50 to-white',
+    lavender: 'bg-gradient-to-br from-purple-50 to-white',
+    sage: 'bg-gradient-to-br from-green-50 to-white',
+    cream: 'bg-gradient-to-br from-yellow-50 to-white',
   },
   
-  // Hero sections - French elegance
+  // Hero sections - premium tech
   hero: {
-    main: 'bg-gradient-to-br from-white via-dental-champagne/10 to-dental-lavender/8',
-    children: 'bg-gradient-to-br from-dental-lavender/20 via-dental-champagne/15 to-dental-sage/10',
-    treatments: 'bg-gradient-to-br from-dental-sage/15 via-dental-pearl to-white',
-    aesthetic: 'bg-gradient-to-br from-white via-dental-champagne/15 to-dental-lavender/12',
-    preventive: 'bg-gradient-to-br from-dental-sage/25 to-dental-champagne/20',
+    main: 'bg-white',
+    children: 'bg-gradient-to-br from-blue-50 to-white',
+    treatments: 'bg-gradient-to-br from-green-50 to-white',
+    aesthetic: 'bg-gradient-to-br from-pink-50 to-white',
+    preventive: 'bg-gradient-to-br from-teal-50 to-white',
   },
   
-  // Sophisticated card backgrounds
+  // Clean card backgrounds
   card: {
     default: 'bg-white',
-    elegant: 'bg-gradient-to-br from-white to-dental-pearl/30',
-    premium: 'bg-gradient-to-br from-white to-dental-champagne/20',
-    sophisticated: 'bg-gradient-to-br from-white to-dental-lavender/15',
-    luxury: 'bg-gradient-to-br from-dental-pearl to-white',
+    elegant: 'bg-white',
+    premium: 'bg-gradient-to-br from-white to-gray-50',
+    sophisticated: 'bg-white',
+    luxury: 'bg-white',
   },
   
-  // French-inspired text gradients
+  // Premium text gradients
   text: {
-    primary: 'bg-gradient-to-r from-dental-navy via-slate-600 to-dental-ocean bg-clip-text text-transparent',
-    accent: 'bg-gradient-to-r from-dental-orange to-amber-500 bg-clip-text text-transparent',
-    elegant: 'bg-gradient-to-r from-dental-navy to-dental-sage bg-clip-text text-transparent',
-    sophisticated: 'bg-gradient-to-r from-slate-700 to-dental-navy bg-clip-text text-transparent',
+    primary: 'bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent',
+    accent: 'bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent',
+    elegant: 'bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent',
+    sophisticated: 'bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent',
   },
   
-  // Elegant button gradients
+  // Premium button gradients
   button: {
-    primary: 'bg-gradient-to-r from-dental-orange to-amber-500 hover:from-dental-orange/90 hover:to-amber-500/90',
-    secondary: 'bg-gradient-to-r from-dental-navy to-slate-700 hover:from-dental-navy/90 hover:to-slate-700/90',
-    elegant: 'bg-gradient-to-r from-slate-600 to-dental-navy hover:from-slate-700 hover:to-dental-navy/90',
-    sophisticated: 'bg-gradient-to-r from-dental-sage to-slate-500 hover:from-dental-sage/90 hover:to-slate-500/90',
+    primary: 'bg-gradient-to-r from-red-500 to-red-400 hover:from-red-600 hover:to-red-500',
+    secondary: 'bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700',
+    elegant: 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-800 hover:to-gray-700',
+    sophisticated: 'bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-700 hover:to-teal-600',
   },
   
-  // French elegance overlays
+  // Premium overlays
   overlay: {
-    sophisticated: 'bg-gradient-to-t from-dental-navy/60 via-dental-navy/20 to-transparent',
-    elegant: 'bg-gradient-to-br from-white/80 via-dental-champagne/30 to-dental-lavender/20',
-    premium: 'bg-gradient-to-t from-dental-champagne/40 to-transparent',
+    sophisticated: 'bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-transparent',
+    elegant: 'bg-gradient-to-br from-white/80 via-gray-50/30 to-gray-100/20',
+    premium: 'bg-gradient-to-t from-gray-100/40 to-transparent',
   },
 };
 
@@ -70,7 +70,7 @@ export const getGradient = (path: string) => {
       result = result[part];
     } else {
       console.warn(`Gradient path "${path}" not found`);
-      return GRADIENTS.primary; // Fallback to primary
+      return GRADIENTS.primary;
     }
   }
   
@@ -88,6 +88,5 @@ export const createCustomGradient = (
 };
 
 export const addGradientHover = (baseGradient: string, intensity: number = 90): string => {
-  // This would need to be implemented based on specific hover requirements
   return baseGradient + ` hover:opacity-${intensity}`;
 };
