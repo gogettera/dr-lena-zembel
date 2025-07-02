@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Calendar, Sparkles, ArrowRight } from 'lucide-react';
+import { Calendar, Heart, ArrowRight, Award, Users, Clock } from 'lucide-react';
 import { NextGenImage } from '@/components/ui/next-gen-image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -32,76 +32,115 @@ const HeroSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-20 lg:gap-24">
           {/* Content */}
           <div className={`lg:w-1/2 space-y-10 ${isMobile ? 'text-center' : isRTL ? 'lg:order-1 text-right' : 'text-left'}`}>
-            {/* Premium badge - Apple style */}
+            {/* Personal introduction badge */}
             <div className="inline-flex items-center gap-3 bg-gray-100 rounded-full px-6 py-3 animate-apple-spring">
-              <Sparkles className="h-4 w-4 text-dental-primary" />
+              <Heart className="h-4 w-4 text-dental-coral" />
               <span className="text-gray-800 font-medium text-sm tracking-tight">
-                Excellence • Innovation • Care
+                ד״ר לנה זמבל • 13 שנות מצוינות
               </span>
             </div>
 
-            {/* Main headline - Apple precision */}
+            {/* Personal headline */}
             <div className="space-y-6 animate-delay-1">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-[0.9] tracking-tight">
+                <span className="block mb-2 text-gray-900">
+                  שלום, אני
+                </span>
                 <span className="apple-gradient-text block mb-2">
-                  {t("hero.heroTitle", "רפואת שיניים מתקדמת")}
+                  ד״ר לנה זמבל
                 </span>
                 <span className="text-gray-700 text-4xl md:text-5xl lg:text-6xl font-semibold block">
-                  ברמה עולמית
+                  רופאת השיניים שלכם
                 </span>
               </h1>
             </div>
 
-            {/* Premium subtitle - Apple clarity */}
-            <p className="apple-text-large max-w-2xl animate-delay-2">
-              {t("hero.heroSubtitle", "מרפאה מתקדמת בצפון יפו, בה הטכנולוגיה הכי חדישה פוגשת יחס אישי מקצועי. כל חיוך מקבל כאן תשומת לב מושלמת.")}
-            </p>
+            {/* Personal story */}
+            <div className="space-y-4 animate-delay-2">
+              <p className="apple-text-large max-w-2xl">
+                <strong className="text-dental-coral">13 שנים</strong> שאני עוזרת למשפחות בצפון יפו ליצור את החיוך המושלם. 
+                כל מטופל הוא עולם שלם עבורי.
+              </p>
+              <p className="text-lg text-gray-600 max-w-2xl">
+                בוגרת אוניברסיטת קלן, גרמניה • מתמחה ביישור שיניים וטיפולי ילדים • 
+                מדברת עברית, גרמנית, אנגלית ורוסית
+              </p>
+            </div>
 
-            {/* Premium CTA buttons - Apple style */}
-            <div className="flex flex-col sm:flex-row gap-4 animate-delay-3">
+            {/* Personal approach */}
+            <div className="bg-dental-cream/50 rounded-3xl p-8 animate-delay-3">
+              <blockquote className="text-lg text-gray-800 italic leading-relaxed">
+                "הגישה שלי פשוטה: כל מטופל מקבל את מלא הזמן, התשומת לב והטיפול שאני הייתי רוצה לקבל. 
+                זה לא רק טיפול - זה יחס אישי מהלב."
+              </blockquote>
+              <div className="mt-4 text-dental-navy font-semibold">
+                ד״ר לנה זמבל
+              </div>
+            </div>
+
+            {/* Personal CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 animate-delay-4">
               <Button 
                 className="apple-button apple-button-primary group text-lg px-8 py-4 h-auto" 
                 asChild
               >
                 <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer">
                   <Calendar className={`h-5 w-5 transition-transform group-hover:scale-110 ${isRTL ? 'ml-3' : 'mr-3'}`} />
-                  {t("hero.bookAppointment", "לתיאום ייעוץ פרטי")}
+                  בואו נכיר - התייעצות חינם
                 </a>
               </Button>
               
               <Button 
                 variant="outline" 
                 className="apple-button apple-button-secondary text-lg px-8 py-4 h-auto group"
-                asChild
+                onClick={() => window.location.href = 'tel:03-566-6915'}
               >
-                <a href="#why-premium">
-                  {t("hero.learnMore", "גלו את החוויה המקצועית")}
-                  <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isRTL ? 'mr-2' : 'ml-2'}`} />
-                </a>
+                התקשרו אליי עכשיו
+                <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isRTL ? 'mr-2' : 'ml-2'}`} />
               </Button>
             </div>
 
-            {/* Premium trust indicators - Apple precision */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 animate-delay-4">
-              {[
-                { number: "13+", label: "שנות מצוינות" },
-                { number: "2000+", label: "חיוכים מושלמים" },
-                { number: "98%", label: "שביעות רצון" },
-                { number: "24/7", label: "זמינות מלאה" }
-              ].map((stat, index) => (
-                <div key={index} className="text-center group">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-dental-primary transition-colors duration-250">
-                    {stat.number}
-                  </div>
-                  <div className="apple-text-small mt-2">
-                    {stat.label}
-                  </div>
+            {/* Personal achievements */}
+            <div className="grid grid-cols-3 gap-8 pt-12 animate-delay-5">
+              <div className="text-center group">
+                <div className="w-12 h-12 bg-dental-coral/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Users className="w-6 h-6 text-dental-coral" />
                 </div>
-              ))}
+                <div className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-dental-coral transition-colors duration-250">
+                  2000+
+                </div>
+                <div className="apple-text-small mt-2">
+                  מטופלים מרוצים
+                </div>
+              </div>
+              
+              <div className="text-center group">
+                <div className="w-12 h-12 bg-dental-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Award className="w-6 h-6 text-dental-primary" />
+                </div>
+                <div className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-dental-primary transition-colors duration-250">
+                  98%
+                </div>
+                <div className="apple-text-small mt-2">
+                  שביעות רצון
+                </div>
+              </div>
+              
+              <div className="text-center group">
+                <div className="w-12 h-12 bg-dental-mint/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Clock className="w-6 h-6 text-dental-mint" />
+                </div>
+                <div className="text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-dental-mint transition-colors duration-250">
+                  24/7
+                </div>
+                <div className="apple-text-small mt-2">
+                  זמינות לכם
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Premium image section - Apple elegance */}
+          {/* Personal image section */}
           <div className={`lg:w-1/2 flex justify-center ${isMobile ? 'mt-12' : ''}`}>
             <div className="relative animate-apple-spring">
               {/* Subtle depth effect */}
@@ -110,8 +149,8 @@ const HeroSection = () => {
               <div className="relative apple-card border-0 shadow-card-hover">
                 <AspectRatio ratio={4/3} className="overflow-hidden rounded-3xl">
                   <NextGenImage 
-                    alt={t('common.dentistryWithLove', 'Professional Modern Dentistry')} 
-                    src="/lovable-uploads/461f9da9-a7b8-4127-9111-c45b5742bdcf.png" 
+                    alt="ד״ר לנה זמבל - רופאת השיניים שלכם" 
+                    src="/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg" 
                     width={600}
                     height={450}
                     priority={true}
@@ -119,23 +158,32 @@ const HeroSection = () => {
                   />
                 </AspectRatio>
 
-                {/* Premium floating testimonial - Apple card style */}
+                {/* Personal floating testimonial */}
                 <div 
                   className={`absolute ${isMobile ? 'left-1/2 -translate-x-1/2 -bottom-8' : isRTL ? '-right-12 bottom-12' : '-left-12 bottom-12'}
                     apple-card backdrop-blur-sm p-8 max-w-[320px] border-0 shadow-card-hover`}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="flex text-dental-gold text-lg">★★★★★</div>
-                    <span className="apple-text-small font-semibold">Excellent</span>
+                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                      <NextGenImage
+                        src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
+                        alt="מטופלת מרוצה"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <div className="flex text-dental-gold text-sm">★★★★★</div>
+                      <span className="apple-text-small font-semibold text-gray-600">שרה כהן</span>
+                    </div>
                   </div>
                   <p className="text-gray-900 font-semibold text-base leading-relaxed mb-3">
-                    <TranslatedText 
-                      textKey="common.completelyHappy" 
-                      defaultText="חוויה מקצועית ברמה עולמית - טכנולוגיה מתקדמת ויחס אישי מושלם" 
-                    />
+                    "ד״ר לנה לא רק רופאה מעולה - היא באמת אכפת לה. 
+                    הרגשתי בטוחה ומטופלת לאורך כל הדרך."
                   </p>
-                  <div className="apple-text-small font-medium">
-                    מאות לקוחות מרוצים
+                  <div className="apple-text-small font-medium text-gray-600">
+                    מטופלת כבר 3 שנים
                   </div>
                 </div>
               </div>
@@ -148,4 +196,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
