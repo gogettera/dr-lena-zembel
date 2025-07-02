@@ -1,7 +1,7 @@
 
 // Premium Apple-inspired Design System - Precision and Elegance
 
-// Color palette - Apple-inspired sophistication with dental warmth
+// Color palette - Apple precision with medical trust
 export const COLORS = {
   // Primary colors - Apple precision with medical trust
   primary: '#007AFF',      // Apple blue - trust, professionalism
@@ -99,6 +99,10 @@ export const TYPOGRAPHY = {
     widest: '0.1em',
   },
 };
+
+// Export individual typography properties for backwards compatibility
+export const FONT_SIZE = TYPOGRAPHY.fontSize;
+export const FONT_WEIGHT = TYPOGRAPHY.fontWeight;
 
 // Spacing - Apple's 8px grid system
 export const SPACING = {
@@ -216,4 +220,3 @@ export const Z_INDEX = {
   tooltip: 1070,
   notification: 1080,
 };
-

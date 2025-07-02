@@ -27,18 +27,18 @@ export const spacing = (
   left?: keyof typeof SPACING
 ): string => {
   if (top !== undefined && right === undefined && bottom === undefined && left === undefined) {
-    return `p-${top}`;
+    return `p-${String(top)}`;
   }
   
   if (top !== undefined && bottom !== undefined && right === undefined && left === undefined) {
-    return `py-${top} px-${bottom}`;
+    return `py-${String(top)} px-${String(bottom)}`;
   }
   
   let classes = '';
-  if (top !== undefined) classes += ` pt-${top}`;
-  if (right !== undefined) classes += ` pr-${right}`;
-  if (bottom !== undefined) classes += ` pb-${bottom}`;
-  if (left !== undefined) classes += ` pl-${left}`;
+  if (top !== undefined) classes += ` pt-${String(top)}`;
+  if (right !== undefined) classes += ` pr-${String(right)}`;
+  if (bottom !== undefined) classes += ` pb-${String(bottom)}`;
+  if (left !== undefined) classes += ` pl-${String(left)}`;
   
   return classes.trim();
 };
@@ -51,18 +51,18 @@ export const margin = (
   left?: keyof typeof SPACING
 ): string => {
   if (top !== undefined && right === undefined && bottom === undefined && left === undefined) {
-    return `m-${top}`;
+    return `m-${String(top)}`;
   }
   
   if (top !== undefined && bottom !== undefined && right === undefined && left === undefined) {
-    return `my-${top} mx-${bottom}`;
+    return `my-${String(top)} mx-${String(bottom)}`;
   }
   
   let classes = '';
-  if (top !== undefined) classes += ` mt-${top}`;
-  if (right !== undefined) classes += ` mr-${right}`;
-  if (bottom !== undefined) classes += ` mb-${bottom}`;
-  if (left !== undefined) classes += ` ml-${left}`;
+  if (top !== undefined) classes += ` mt-${String(top)}`;
+  if (right !== undefined) classes += ` mr-${String(right)}`;
+  if (bottom !== undefined) classes += ` mb-${String(bottom)}`;
+  if (left !== undefined) classes += ` ml-${String(left)}`;
   
   return classes.trim();
 };
@@ -73,18 +73,19 @@ export const textStyle = (
   weight: keyof typeof FONT_WEIGHT = 'normal',
   color: string = 'textDark'
 ): string => {
-  return `text-${size} font-${weight} text-dental-${color}`;
+  return `text-${String(size)} font-${String(weight)} text-dental-${color}`;
 };
 
 // Generate a shadow class
 export const shadow = (level: keyof typeof SHADOWS): string => {
-  return `shadow-${level}`;
+  return `shadow-${String(level)}`;
 };
 
 // Generate a border radius class
 export const borderRadius = (size: keyof typeof BORDER_RADIUS): string => {
-  if (size === 'DEFAULT') return 'rounded';
-  return `rounded-${size}`;
+  if (size === 'none') return 'rounded-none';
+  if (size === 'full') return 'rounded-full';
+  return `rounded-${String(size)}`;
 };
 
 // Generate a container style class with max width
@@ -107,7 +108,7 @@ export const gridLayout = (
   cols: number,
   gap: keyof typeof SPACING = 4
 ): string => {
-  return `grid grid-cols-${cols} gap-${gap}`;
+  return `grid grid-cols-${cols} gap-${String(gap)}`;
 };
 
 // Generate responsive style classes
@@ -125,7 +126,7 @@ export const responsive = {
     return `${breakpoint}:grid-cols-${cols}`;
   },
   text: (breakpoint: 'sm' | 'md' | 'lg' | 'xl' | '2xl', size: keyof typeof FONT_SIZE): string => {
-    return `${breakpoint}:text-${size}`;
+    return `${breakpoint}:text-${String(size)}`;
   }
 };
 
