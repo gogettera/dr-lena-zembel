@@ -101,23 +101,24 @@ export const applyTreatmentSEO = (seoData: TreatmentSEO): void => {
   document.title = seoData.title;
   
   // Update meta description
-  const metaDescription = document.querySelector('meta[name="description"]');
+  const metaDescription = document.querySelector('meta[name="description"]') as HTMLMetaElement;
   if (metaDescription) {
     metaDescription.setAttribute('content', seoData.description);
   }
   
   // Update keywords
-  const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
-  metaKeywords.setAttribute('name', 'keywords');
-  metaKeywords.setAttribute('content', seoData.keywords.join(', '));
-  if (!document.querySelector('meta[name="keywords"]')) {
+  let metaKeywords = document.querySelector('meta[name="keywords"]') as HTMLMetaElement;
+  if (!metaKeywords) {
+    metaKeywords = document.createElement('meta') as HTMLMetaElement;
+    metaKeywords.setAttribute('name', 'keywords');
     document.head.appendChild(metaKeywords);
   }
+  metaKeywords.setAttribute('content', seoData.keywords.join(', '));
   
   // Add structured data
-  let structuredDataScript = document.querySelector('script[type="application/ld+json"]');
+  let structuredDataScript = document.querySelector('script[type="application/ld+json"]') as HTMLScriptElement;
   if (!structuredDataScript) {
-    structuredDataScript = document.createElement('script');
+    structuredDataScript = document.createElement('script') as HTMLScriptElement;
     structuredDataScript.type = 'application/ld+json';
     document.head.appendChild(structuredDataScript);
   }

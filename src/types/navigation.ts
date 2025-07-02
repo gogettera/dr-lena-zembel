@@ -2,24 +2,26 @@
 import { Language } from '@/types/language';
 
 export interface NavigationLink {
-  key: string;
+  href: string;
   labelKey: string;
-  path: string;
-  children?: NavigationLink[];
-  isExternal?: boolean;
-  icon?: string;
+  dropdown?: {
+    general?: NavigationLink[];
+    specialized?: NavigationLink[];
+    aesthetic?: NavigationLink[];
+  };
 }
 
 export interface NavigationConfig {
-  main: NavigationLink[];
-  footer: {
-    info: NavigationLink[];
+  isRTL: boolean;
+  mainMenu: NavigationLink[];
+  footerMenu: {
+    main: NavigationLink[];
     treatments: NavigationLink[];
     legal: NavigationLink[];
+    accessibility: NavigationLink[];
   };
-  social: {
-    platform: string;
-    url: string;
-    icon: string;
-  }[];
+  breadcrumb: {
+    separator: string;
+    homeKey: string;
+  };
 }
