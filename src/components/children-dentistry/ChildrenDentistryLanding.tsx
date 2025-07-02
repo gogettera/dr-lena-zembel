@@ -1,26 +1,31 @@
 
 import React, { useEffect } from "react";
 import { Section } from "@/components/ui/section";
-import Hero from "./Hero";
-import WhyUs from "./WhyUs";
+import EnhancedHero from "./EnhancedHero";
+import EnhancedWhyUs from "./EnhancedWhyUs";
 import DoctorStory from "./DoctorStory";
 import VisitSteps from "./VisitSteps";
-import Testimonials from "./Testimonials";
+import EnhancedTestimonials from "./EnhancedTestimonials";
 import FAQ from "./FAQ";
 import QuickContactForm from "./QuickContactForm";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
 import ClinicExpertise from "./ClinicExpertise";
-import SiteAuditDashboard from "@/components/admin/SiteAuditDashboard";
 
 const ChildrenDentistryLanding: React.FC = () => {
-  // Debug logging
   useEffect(() => {
     console.log('ChildrenDentistryLanding component mounted');
     window.scrollTo(0, 0);
+    
+    // Update page title and meta description
+    document.title = "רפואת שיניים לילדים - החוויה הטובה ביותר | ד״ר לנה זמבל";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'טיפולי שיניים מקצועיים לילדים עם צוות מומחה שיודע לגרום לכל ילד להרגיש בטוח ושמח. 13+ שנות ניסיון, 98% שביעות רצון הורים.');
+    }
   }, []);
 
-  // Add error boundary for this component
   try {
     console.log('Rendering ChildrenDentistryLanding');
     
@@ -34,12 +39,12 @@ const ChildrenDentistryLanding: React.FC = () => {
 
         {/* HERO */}
         <Section background="none" spacing="none" containerClass="px-0">
-          <Hero />
+          <EnhancedHero />
         </Section>
 
-        {/* Why Us Section - premium feel */}
-        <Section background="beige" spacing="md" maxWidth="xl">
-          <WhyUs />
+        {/* Why Us Section - Enhanced */}
+        <Section background="none" spacing="none" containerClass="px-0">
+          <EnhancedWhyUs />
         </Section>
 
         {/* Doctor Story */}
@@ -52,9 +57,9 @@ const ChildrenDentistryLanding: React.FC = () => {
           <VisitSteps />
         </Section>
         
-        {/* Testimonials */}
+        {/* Enhanced Testimonials */}
         <Section background="none" spacing="none" containerClass="px-0">
-          <Testimonials />
+          <EnhancedTestimonials />
         </Section>
 
         {/* Clinic Expertise / Credentials */}
@@ -76,14 +81,6 @@ const ChildrenDentistryLanding: React.FC = () => {
         <Section background="none" spacing="none" containerClass="px-0">
           <BookVisitAnchor />
         </Section>
-        
-        {/* Site Audit Dashboard */}
-        <div className="my-16 border-t-4 border-dashed border-dental-orange pt-16">
-          <Section background="white" spacing="md" maxWidth="full" id="site-audit">
-            <h2 className="text-3xl font-bold text-center text-dental-navy mb-12">Site Health Audit (For Admin Review)</h2>
-            <SiteAuditDashboard />
-          </Section>
-        </div>
       </div>
     );
   } catch (error) {
