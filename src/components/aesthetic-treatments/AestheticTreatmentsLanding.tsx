@@ -2,11 +2,11 @@
 import React, { useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Section } from "@/components/ui/section";
-import Hero from "./Hero";
-import TreatmentTypes from "./TreatmentTypes";
+import EnhancedHero from "./EnhancedHero";
+import EnhancedTreatmentTypes from "./EnhancedTreatmentTypes";
 import Benefits from "./Benefits";
 import Process from "./Process";
-import Testimonials from "./Testimonials";
+import EnhancedTestimonials from "./EnhancedTestimonials";
 import FAQ from "./FAQ";
 import BookVisitAnchor from "./BookVisitAnchor";
 import StickyNavigation from "./StickyNavigation";
@@ -18,6 +18,14 @@ const AestheticTreatmentsLanding: React.FC = () => {
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
+    
+    // Update page title and meta description
+    document.title = "טיפולים אסתטיים - החיוך המושלם | ד״ר לנה זמבל";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'טיפולים אסתטיים מתקדמים: הלבנת שיניים, ציפויי חרסינה, עיצוב חיוך ועוד. 13+ שנות ניסיון, 1500+ מטופלים מרוצים. התייעצות חינם!');
+    }
   }, []);
 
   return (
@@ -34,11 +42,11 @@ const AestheticTreatmentsLanding: React.FC = () => {
       <StickyNavigation />
       
       <Section background="none" spacing="none" containerClass="px-0" className="bg-white">
-        <Hero />
+        <EnhancedHero />
       </Section>
       
       <Section background="none" spacing="none" containerClass="px-0" className="bg-white">
-        <TreatmentTypes />
+        <EnhancedTreatmentTypes />
       </Section>
       
       <Section background="none" spacing="none" containerClass="px-0" className="bg-white">
@@ -50,7 +58,7 @@ const AestheticTreatmentsLanding: React.FC = () => {
       </Section>
       
       <Section background="none" spacing="none" containerClass="px-0" className="bg-white">
-        <Testimonials />
+        <EnhancedTestimonials />
       </Section>
       
       <Section background="none" spacing="none" containerClass="px-0" className="bg-white">
@@ -65,4 +73,3 @@ const AestheticTreatmentsLanding: React.FC = () => {
 };
 
 export default AestheticTreatmentsLanding;
-
