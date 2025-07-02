@@ -1,41 +1,41 @@
 
 // Design tokens system
 
-// Color palette
+// Color palette - Updated to lighter theme
 export const COLORS = {
-  // Primary colors
-  navy: '#1E3A8A',
-  orange: '#FF6B6B',
-  beige: '#FDF4F0',
-  textDark: '#1F2937',
+  // Primary colors - lighter and softer
+  navy: '#3B82F6',     // Light blue instead of dark navy
+  orange: '#FB7185',   // Soft coral/pink instead of bright orange
+  beige: '#FEFEFE',    // Almost white
+  textDark: '#374151', // Softer dark text
   
-  // Supporting colors
-  sky: '#60A5FA',
-  ocean: '#0369A1',
-  azure: '#93C5FD',
-  pink: '#FFF1F2',
-  accent: '#FCA5A5',
-  highlight: '#FECDD3',
+  // Supporting colors - all lighter
+  sky: '#93C5FD',      // Soft sky blue
+  ocean: '#60A5FA',    // Light ocean blue
+  azure: '#DBEAFE',    // Very light azure
+  pink: '#FEF7F7',     // Barely there pink
+  accent: '#FCA5A5',   // Light accent
+  highlight: '#FED7DD', // Soft highlight
   
-  // Functional colors
-  success: '#10B981',
-  error: '#EF4444',
-  warning: '#F59E0B',
-  info: '#3B82F6',
+  // Functional colors - lighter versions
+  success: '#34D399',  // Light green
+  error: '#F87171',    // Light red
+  warning: '#FBBF24',  // Light yellow
+  info: '#60A5FA',     // Light blue
   
-  // Neutral tones
+  // Neutral tones - lighter palette
   white: '#FFFFFF',
-  black: '#000000',
+  black: '#1F2937',    // Softer black
   gray: {
-    100: '#F3F4F6',
-    200: '#E5E7EB',
-    300: '#D1D5DB',
-    400: '#9CA3AF',
-    500: '#6B7280',
-    600: '#4B5563',
-    700: '#374151',
-    800: '#1F2937',
-    900: '#111827',
+    100: '#F9FAFB',    // Very light
+    200: '#F3F4F6',    // Light
+    300: '#E5E7EB',    // Medium light
+    400: '#D1D5DB',    // Medium
+    500: '#9CA3AF',    // Medium muted
+    600: '#6B7280',    // Darker muted
+    700: '#4B5563',    // Dark
+    800: '#374151',    // Darker
+    900: '#1F2937',    // Darkest
   }
 };
 

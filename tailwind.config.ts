@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,17 +54,17 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         dental: {
-          navy: '#1E3A8A',     // Deep blue
-          sky: '#60A5FA',      // Bright sky blue
-          ocean: '#0369A1',    // Dark sky blue
-          azure: '#93C5FD',    // Light azure
-          pink: '#FFF1F2',     // Soft pink
-          orange: '#FF6B6B',   // Modern coral
-          beige: '#FDF4F0',    // Warm beige
-          textDark: '#1F2937', // Dark text
-          muted: '#6B7280',    // Muted text
-          accent: '#FCA5A5',   // Accent color
-          highlight: '#FECDD3', // Highlight color
+          navy: '#3B82F6',     // Lighter blue instead of deep navy
+          sky: '#93C5FD',      // Softer sky blue
+          ocean: '#60A5FA',    // Lighter ocean blue
+          azure: '#DBEAFE',    // Much lighter azure
+          pink: '#FEF7F7',     // Very soft pink
+          orange: '#FB7185',   // Softer coral/pink instead of orange
+          beige: '#FEFEFE',    // Almost white beige
+          textDark: '#374151', // Lighter text color
+          muted: '#9CA3AF',    // Lighter muted text
+          accent: '#FCA5A5',   // Keep accent as is
+          highlight: '#FED7DD', // Lighter highlight
         },
       },
       borderRadius: {
@@ -100,8 +101,8 @@ export default {
         heading: ['Heebo', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'glow': '0 0 20px rgba(252, 165, 165, 0.2)',
+        'soft': '0 1px 10px -2px rgba(0, 0, 0, 0.03), 0 4px 15px -1px rgba(0, 0, 0, 0.02)',
+        'glow': '0 0 15px rgba(251, 113, 133, 0.15)',
       },
     },
   },

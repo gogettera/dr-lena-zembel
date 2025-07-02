@@ -1,49 +1,49 @@
 
-// Common gradient presets for consistent styling
+// Common gradient presets for consistent styling - Updated to lighter theme
 export const GRADIENTS = {
-  // Main gradient backgrounds
-  primary: 'bg-gradient-to-br from-dental-beige via-white to-dental-pink/10',
-  secondary: 'bg-gradient-to-tr from-dental-pink/20 via-white to-dental-beige/20',
-  accent: 'bg-gradient-to-r from-dental-orange/10 to-dental-accent/10',
-  cool: 'bg-gradient-to-br from-dental-sky/20 via-white to-dental-azure/20',
-  warm: 'bg-gradient-to-br from-dental-beige/30 via-white to-dental-orange/10',
-  navy: 'bg-gradient-to-br from-dental-navy via-dental-navy/90 to-dental-navy/80',
+  // Main gradient backgrounds - lighter and softer
+  primary: 'bg-gradient-to-br from-white via-blue-50/30 to-pink-50/20',
+  secondary: 'bg-gradient-to-tr from-pink-50/30 via-white to-blue-50/20',
+  accent: 'bg-gradient-to-r from-pink-100/30 to-blue-100/20',
+  cool: 'bg-gradient-to-br from-blue-50/40 via-white to-sky-50/30',
+  warm: 'bg-gradient-to-br from-pink-50/30 via-white to-rose-50/20',
+  navy: 'bg-gradient-to-br from-blue-500 via-blue-400 to-blue-300',
   
-  // Subtle section backgrounds
+  // Subtle section backgrounds - very light
   subtle: {
-    beige: 'bg-gradient-to-br from-dental-beige/30 via-dental-beige/20 to-dental-beige/10',
-    pink: 'bg-gradient-to-br from-dental-pink/30 via-dental-pink/20 to-dental-pink/10',
-    orange: 'bg-gradient-to-br from-dental-orange/20 via-dental-orange/10 to-dental-orange/5',
-    sky: 'bg-gradient-to-br from-dental-sky/20 via-dental-sky/10 to-dental-sky/5',
+    beige: 'bg-gradient-to-br from-gray-50/50 via-white to-gray-50/30',
+    pink: 'bg-gradient-to-br from-pink-50/40 via-white to-pink-50/20',
+    orange: 'bg-gradient-to-br from-rose-50/30 via-white to-pink-50/20',
+    sky: 'bg-gradient-to-br from-blue-50/30 via-white to-sky-50/20',
   },
   
-  // Hero sections
+  // Hero sections - light and airy
   hero: {
-    main: 'bg-gradient-to-br from-dental-beige via-dental-pink to-dental-beige',
-    children: 'bg-gradient-to-br from-[#FFDEE2]/40 via-[#D3E4FD]/20 to-[#F1F0FB]/50',
-    treatments: 'bg-gradient-to-br from-[#E5DEFF]/40 via-[#F1F0FB]/20 to-[#FDF4F0]/50',
-    aesthetic: 'bg-white min-h-screen',
-    preventive: 'bg-[#FFDEE2] relative',
+    main: 'bg-gradient-to-br from-white via-blue-50/20 to-pink-50/10',
+    children: 'bg-gradient-to-br from-pink-50/30 via-blue-50/20 to-purple-50/10',
+    treatments: 'bg-gradient-to-br from-purple-50/20 via-blue-50/10 to-white',
+    aesthetic: 'bg-white',
+    preventive: 'bg-gradient-to-br from-green-50/30 to-blue-50/20',
   },
   
-  // Card backgrounds
+  // Card backgrounds - very subtle
   card: {
     default: 'bg-white',
-    highlighted: 'bg-gradient-to-br from-white to-dental-beige/10',
-    accent: 'bg-gradient-to-br from-white to-dental-accent/10',
-    cool: 'bg-gradient-to-br from-white to-dental-sky/10',
+    highlighted: 'bg-gradient-to-br from-white to-gray-50/30',
+    accent: 'bg-gradient-to-br from-white to-pink-50/20',
+    cool: 'bg-gradient-to-br from-white to-blue-50/20',
   },
   
-  // Text gradients (use with bg-clip-text text-transparent)
+  // Text gradients - softer colors
   text: {
-    primary: 'bg-gradient-to-r from-dental-navy via-dental-ocean to-dental-sky bg-clip-text text-transparent',
-    accent: 'bg-gradient-to-r from-dental-orange to-dental-accent bg-clip-text text-transparent',
+    primary: 'bg-gradient-to-r from-blue-500 via-blue-400 to-sky-400 bg-clip-text text-transparent',
+    accent: 'bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent',
   },
   
-  // Button gradients
+  // Button gradients - lighter
   button: {
-    primary: 'bg-gradient-to-r from-dental-orange to-dental-orange/90 hover:from-dental-orange/90 hover:to-dental-orange',
-    secondary: 'bg-gradient-to-r from-dental-navy to-dental-navy/90 hover:from-dental-navy/90 hover:to-dental-navy',
+    primary: 'bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500',
+    secondary: 'bg-gradient-to-r from-blue-500 to-blue-400 hover:from-blue-600 hover:to-blue-500',
   },
 };
 
