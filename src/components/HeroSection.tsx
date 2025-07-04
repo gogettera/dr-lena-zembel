@@ -142,47 +142,51 @@ const HeroSection = () => {
 
           {/* Personal image section */}
           <div className={`lg:w-1/2 flex justify-center ${isMobile ? 'mt-12' : ''}`}>
-            <div className="relative animate-apple-spring">
-              {/* Subtle depth effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-50 rounded-3xl blur-xl transform rotate-1 scale-105 pointer-events-none opacity-20"></div>
+            <div className="relative animate-premium-float">
+              {/* Enhanced depth effect with multiple layers */}
+              <div className="absolute inset-0 bg-gradient-to-br from-dental-primary/5 to-dental-coral/5 rounded-3xl blur-xl transform rotate-2 scale-105 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-dental-mint/5 to-dental-gold/5 rounded-3xl blur-lg transform -rotate-1 scale-102 pointer-events-none"></div>
               
-              <div className="relative apple-card border-0 shadow-card-hover">
+              <div className="relative premium-card border-0 shadow-floating hover:shadow-premium transition-all duration-500">
                 <AspectRatio ratio={4/3} className="overflow-hidden rounded-3xl">
                   <NextGenImage 
-                    alt="ד״ר לנה זמבל - רופאת השיניים שלכם" 
+                    alt="ד״ר לנה זמבל - רופאת השיניים המובילה שלכם" 
                     src="/lovable-uploads/c4b49e3b-cd26-4669-b6f6-6f3750db21fa.jpg" 
-                    width={600}
-                    height={450}
+                    width={700}
+                    height={525}
                     priority={true}
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                   />
+                  {/* Premium overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                 </AspectRatio>
 
-                {/* Personal floating testimonial */}
+                {/* Enhanced floating testimonial with premium glass effect */}
                 <div 
-                  className={`absolute ${isMobile ? 'left-1/2 -translate-x-1/2 -bottom-8' : isRTL ? '-right-12 bottom-12' : '-left-12 bottom-12'}
-                    apple-card backdrop-blur-sm p-8 max-w-[320px] border-0 shadow-card-hover`}
+                  className={`absolute ${isMobile ? 'left-1/2 -translate-x-1/2 -bottom-12' : isRTL ? '-right-16 bottom-12' : '-left-16 bottom-12'}
+                    premium-glass backdrop-blur-xl p-6 max-w-[360px] border border-white/20 shadow-floating`}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-white/20">
                       <NextGenImage
                         src="/lovable-uploads/64779606-c19d-42d7-b1a4-48f853db3d43.jpg"
                         alt="מטופלת מרוצה"
-                        width={40}
-                        height={40}
+                        width={48}
+                        height={48}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div>
-                      <div className="flex text-dental-gold text-sm">★★★★★</div>
-                      <span className="apple-text-small font-semibold text-gray-600">שרה כהן</span>
+                      <div className="flex text-dental-gold text-lg mb-1">★★★★★</div>
+                      <span className="premium-text-small font-semibold text-gray-700">שרה כהן</span>
                     </div>
                   </div>
                   <p className="text-gray-900 font-semibold text-base leading-relaxed mb-3">
                     "ד״ר לנה לא רק רופאה מעולה - היא באמת אכפת לה. 
                     הרגשתי בטוחה ומטופלת לאורך כל הדרך."
                   </p>
-                  <div className="apple-text-small font-medium text-gray-600">
+                  <div className="premium-text-small font-medium text-gray-600 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-dental-coral rounded-full"></div>
                     מטופלת כבר 3 שנים
                   </div>
                 </div>
