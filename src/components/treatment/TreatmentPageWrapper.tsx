@@ -64,9 +64,8 @@ const TreatmentPageWrapper: React.FC = () => {
     return <Navigate to={`/${language}/treatments/${treatmentType}`} replace />;
   }
 
-  // Handle dedicated landing pages that haven't been migrated yet
-  if (treatmentType === 'root-canal' && !subpage) {
-    // Root canal still uses dedicated landing for now
+  // All treatments now use the enhanced landing system
+  if (!subpage) {
     return <RootCanalLanding />;
   }
 
