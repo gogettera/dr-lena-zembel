@@ -9,6 +9,10 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { TranslatedText } from '@/components/ui/translated-text';
 import TestimonialsSection from '@/components/testimonials/TestimonialsSection';
 import HeroSection from '@/components/HeroSection';
+import ProfessionalCredentials from '@/components/trust/ProfessionalCredentials';
+import TrustBadges from '@/components/trust/TrustBadges';
+import EnhancedTestimonials from '@/components/trust/EnhancedTestimonials';
+import DoctorStorySection from '@/components/trust/DoctorStorySection';
 
 const HomePage: React.FC = () => {
   const { language, isRTL } = useLanguage();
@@ -18,44 +22,8 @@ const HomePage: React.FC = () => {
       {/* Advanced Hero Section */}
       <HeroSection />
 
-      {/* Quick Stats Section */}
-      <section className="py-16 bg-dental-beige/30">
-        <Container>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-dental-orange rounded-full flex items-center justify-center mb-4">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-dental-navy mb-2">5000+</h3>
-              <p className="text-dental-navy/70">Happy Patients</p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-dental-sky rounded-full flex items-center justify-center mb-4">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-dental-navy mb-2">15+</h3>
-              <p className="text-dental-navy/70">Years Experience</p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-dental-azure rounded-full flex items-center justify-center mb-4">
-                <Star className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-dental-navy mb-2">4.9/5</h3>
-              <p className="text-dental-navy/70">Patient Rating</p>
-            </div>
-            
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-dental-accent rounded-full flex items-center justify-center mb-4">
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-dental-navy mb-2">100%</h3>
-              <p className="text-dental-navy/70">Satisfaction</p>
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* Trust Badges - Premium Stats */}
+      <TrustBadges />
 
       {/* Services Overview - Enhanced */}
       <section className="py-20 bg-white">
@@ -187,52 +155,14 @@ const HomePage: React.FC = () => {
         </Container>
       </section>
 
-      {/* Doctor Section */}
-      <section className="py-20 bg-gradient-to-br from-dental-navy to-dental-ocean text-white">
-        <Container>
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Meet Dr. Lena Zembel</h2>
-              <p className="text-xl mb-6 opacity-90">
-                With over 15 years of experience in modern dentistry, Dr. Zembel brings expertise, 
-                compassion, and the latest dental technology to provide exceptional care.
-              </p>
-              
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center space-x-4">
-                  <Award className="w-6 h-6 text-dental-orange" />
-                  <span>Board Certified Dentist</span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <Users className="w-6 h-6 text-dental-orange" />
-                  <span>5000+ Satisfied Patients</span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <Star className="w-6 h-6 text-dental-orange" />
-                  <span>Specialist in Family Dentistry</span>
-                </div>
-              </div>
-              
-              <Button variant="orange" size="lg" asChild>
-                <Link to={`/${language}/about`}>
-                  Learn More About Dr. Zembel
-                </Link>
-              </Button>
-            </div>
-            
-            <div className="flex justify-center">
-              <div className="w-80 h-80 bg-white/10 rounded-full flex items-center justify-center">
-                <div className="w-60 h-60 bg-dental-beige rounded-full flex items-center justify-center">
-                  <span className="text-dental-navy text-6xl font-bold">DZ</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+      {/* Doctor Story - Enhanced Trust Section */}
+      <DoctorStorySection />
 
-      {/* Testimonials Section */}
-      <TestimonialsSection />
+      {/* Professional Credentials */}
+      <ProfessionalCredentials />
+
+      {/* Enhanced Testimonials with Trust Elements */}
+      <EnhancedTestimonials />
 
       {/* Emergency & Contact Section */}
       <section className="py-20 bg-dental-beige/30">
