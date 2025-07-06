@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "title": "Kinderzahnheilkunde mit Fürsorge und Verständnis",
+    "subtitle": "Wir schaffen positive Zahnarzt-Erfahrungen für Ihre Kinder"
+  },
+  "whyUs": {
+    "title": "Warum Kinder unsere Praxis lieben",
+    "reason1": {
+      "title": "Kinderfreundliche Atmosphäre",
+      "description": "Speziell eingerichteter Kinderbereich mit Spielzeug und Unterhaltung"
+    },
+    "reason2": {
+      "title": "Erfahrener Kinderzahnarzt",
+      "description": "Spezialisierte Ausbildung im Umgang mit Kindern jeden Alters"
+    },
+    "reason3": {
+      "title": "Schmerzfreie Behandlung",
+      "description": "Moderne Anästhesiemethoden, angepasst für Kinder"
+    }
+  },
+  "services": {
+    "title": "Unsere Leistungen für Kinder",
+    "prevention": {
+      "title": "Vorsorge",
+      "description": "Regelmäßige Kontrollen, Reinigung und Fluoridierung"
+    },
+    "treatment": {
+      "title": "Kariesbehandlung",
+      "description": "Schonende Behandlung von Milch- und bleibenden Zähnen"
+    },
+    "orthodontics": {
+      "title": "Kieferorthopädie",
+      "description": "Zahnstellungskorrektur im frühen Alter"
+    }
+  },
+  "ageGroups": {
+    "title": "Behandlung nach Altersgruppen",
+    "toddlers": {
+      "title": "1-3 Jahre",
+      "description": "Erste Bekanntschaft mit dem Zahnarzt, Vorsorgeuntersuchungen"
+    },
+    "preschool": {
+      "title": "4-6 Jahre",
+      "description": "Behandlung der Milchzähne, Vorbereitung auf den Zahnwechsel"
+    },
+    "school": {
+      "title": "7-12 Jahre",
+      "description": "Umfassende Behandlung während des Zahnwechsels"
+    }
+  },
+  "tips": {
+    "title": "Tipps für Eltern",
+    "items": [
+      "Erster Zahnarztbesuch im Alter von 1 Jahr",
+      "Regelmäßiges Zähneputzen ab dem ersten Zahn",
+      "Begrenzung von Süßigkeiten und zuckerhaltigen Getränken",
+      "Verwendung fluoridhaltiger Zahnpasta"
+    ]
+  }
+}

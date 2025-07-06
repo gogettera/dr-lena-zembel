@@ -1,0 +1,55 @@
+{
+  "hero": {
+    "title": "Kieferorthopädische Behandlung - schönes Lächeln in jedem Alter",
+    "subtitle": "Moderne Methoden zur Zahnstellungskorrektur für Kinder und Erwachsene"
+  },
+  "treatments": {
+    "title": "Arten kieferorthopädischer Behandlung",
+    "braces": {
+      "title": "Zahnspangen",
+      "metal": "Metallbrackets - klassische effektive Methode",
+      "ceramic": "Keramikbrackets - ästhetische Lösung",
+      "lingual": "Linguale Brackets - unsichtbare Behandlung"
+    },
+    "aligners": {
+      "title": "Durchsichtige Schienen",
+      "description": "Herausnehmbare durchsichtige Schienen für unauffällige Behandlung"
+    },
+    "retainers": {
+      "title": "Retainer",
+      "description": "Erhaltung des Ergebnisses nach der Hauptbehandlung"
+    }
+  },
+  "problems": {
+    "title": "Welche Probleme wir lösen",
+    "crowding": "Zahnengstand",
+    "gaps": "Lücken zwischen den Zähnen",
+    "overbite": "Tiefbiss",
+    "underbite": "Vorbiss",
+    "crossbite": "Kreuzbiss"
+  },
+  "process": {
+    "title": "Phasen der kieferorthopädischen Behandlung",
+    "consultation": {
+      "title": "Beratung und Diagnostik",
+      "description": "Untersuchung, Röntgenaufnahmen, Erstellung eines individuellen Plans"
+    },
+    "treatment": {
+      "title": "Aktive Behandlung",
+      "description": "Einsetzen und regelmäßige Anpassung der kieferorthopädischen Apparatur"
+    },
+    "retention": {
+      "title": "Retentionsphase",
+      "description": "Sicherung des Ergebnisses mit Hilfe von Retainern"
+    }
+  },
+  "benefits": {
+    "title": "Vorteile kieferorthopädischer Behandlung",
+    "items": [
+      "Schönes und gesundes Lächeln",
+      "Verbesserung der Kaufunktion",
+      "Vorbeugung von Parodontalerkrankungen",
+      "Steigerung des Selbstwertgefühls und Selbstvertrauens"
+    ]
+  }
+}

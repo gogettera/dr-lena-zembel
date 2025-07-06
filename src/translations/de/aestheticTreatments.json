@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "title": "Ästhetische Zahnheilkunde in Tel Aviv",
+    "subtitle": "Verwandeln Sie Ihr Lächeln mit modernster Technologie und persönlicher Betreuung"
+  },
+  "benefits": {
+    "title": "Vorteile der ästhetischen Behandlung",
+    "items": [
+      { "title": "Natürliche Ergebnisse mit individueller Herangehensweise" },
+      { "title": "Schmerzfreie Behandlungen mit moderner Anästhesie" },
+      { "title": "Langanhaltende Ergebnisse mit Qualitätsgarantie" }
+    ]
+  },
+  "treatments": {
+    "title": "Unsere ästhetischen Behandlungen",
+    "veneers": {
+      "title": "Keramikveneers",
+      "description": "Dünne Keramikschalen für das perfekte Lächeln"
+    },
+    "whitening": {
+      "title": "Professionelle Zahnaufhellung",
+      "description": "Sichere Aufhellung um 6-8 Nuancen in einer Sitzung"
+    },
+    "crowns": {
+      "title": "Ästhetische Kronen",
+      "description": "Restauration beschädigter Zähne mit natürlichem Aussehen"
+    }
+  },
+  "process": {
+    "title": "Behandlungsablauf",
+    "step1": {
+      "title": "Beratung und Planung",
+      "description": "Detaillierte Untersuchung und Erstellung eines individuellen Behandlungsplans"
+    },
+    "step2": {
+      "title": "Vorbereitung",
+      "description": "Schonende Zahnvorbereitung mit maximaler Gewebeerhaltung"
+    },
+    "step3": {
+      "title": "Einsetzen",
+      "description": "Präzise Eingliederung mit Kontrolle von Biss und Ästhetik"
+    }
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "q1": "Wie lange dauert eine ästhetische Behandlung?",
+    "a1": "Je nach Behandlung von einem Besuch bis zu mehreren Wochen für umfassende Sanierungen.",
+    "q2": "Sind ästhetische Behandlungen schmerzhaft?",
+    "a2": "Alle Behandlungen werden unter örtlicher Betäubung durchgeführt und sind praktisch schmerzfrei.",
+    "q3": "Wie lange hält das Ergebnis?",
+    "a3": "Bei richtiger Pflege kann das Ergebnis 10-15 Jahre oder länger halten."
+  }
+}

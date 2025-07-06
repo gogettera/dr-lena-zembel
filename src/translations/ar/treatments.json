@@ -1,0 +1,31 @@
+{
+  "tabs": {
+    "overview": "نظرة عامة",
+    "procedure": "الإجراء",
+    "benefits": "الفوائد",
+    "faq": "الأسئلة الشائعة",
+    "testimonials": "شهادات المرضى",
+    "related": "العلاجات ذات الصلة"
+  },
+  "keyPoints": "النقاط الرئيسية:",
+  "idealFor": "مثالي لـ:",
+  "fullExperience": "التجربة الكاملة",
+  "viewCompleteLandingPage": "اعرض الصفحة الكاملة مع جميع التفاصيل والمعلومات",
+  "viewFullPage": "اعرض الصفحة الكاملة",
+  "professionalCare": "رعاية مهنية مضمونة",
+  "bookConsultation": "احجز استشارة مجانية",
+  "emergencyAvailable": "علاجات طوارئ متاحة 24/7",
+  "whyChooseUs": {
+    "title": "لماذا تختار عيادتنا؟",
+    "experience": "13+ سنة من الخبرة المثبتة",
+    "technology": "أحدث التقنيات الألمانية",
+    "success": "98% معدل نجاح في العلاجات المعقدة",
+    "care": "رعاية شخصية ودعم كامل"
+  },
+  "commonBenefits": {
+    "painFree": "علاج خالي من الألم بتخدير متقدم",
+    "fastRecovery": "شفاء سريع مع حد أدنى من الانزعاج",
+    "modernTech": "أحدث التقنيات للحصول على نتائج دقيقة",
+    "personalCare": "اهتمام فردي ودعم مستمر"
+  }
+}

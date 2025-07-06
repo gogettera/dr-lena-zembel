@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Prophylaxe - die Grundlage gesunder Zähne",
+    "subtitle": "Vorbeugen ist besser als Behandeln"
+  },
+  "services": {
+    "title": "Prophylaxe-Leistungen",
+    "cleaning": {
+      "title": "Professionelle Zahnreinigung",
+      "description": "Entfernung von Zahnbelag und Zahnstein mit modernster Ausrüstung"
+    },
+    "fluoridation": {
+      "title": "Fluoridierung",
+      "description": "Schmelzhärtung zum Schutz vor Karies"
+    },
+    "sealants": {
+      "title": "Fissurenversiegelung",
+      "description": "Schutz der Kauflächen der Zähne"
+    },
+    "checkups": {
+      "title": "Regelmäßige Kontrollen",
+      "description": "Früherkennung und Vorbeugung von Problemen"
+    }
+  },
+  "benefits": {
+    "title": "Vorteile der Prophylaxe",
+    "items": [
+      "Vorbeugung von Karies und Zahnfleischerkrankungen",
+      "Kosteneinsparung bei zukünftigen Behandlungen",
+      "Erhaltung der Mundgesundheit",
+      "Frischer Atem und schönes Lächeln"
+    ]
+  },
+  "schedule": {
+    "title": "Empfohlene Besuchshäufigkeit",
+    "adults": "Erwachsene: alle 6 Monate",
+    "children": "Kinder: alle 3-4 Monate",
+    "risk": "Risikogruppen: alle 3 Monate"
+  },
+  "homecare": {
+    "title": "Häusliche Pflege",
+    "tips": [
+      "Zähneputzen zweimal täglich",
+      "Tägliche Verwendung von Zahnseide",
+      "Spülung mit antiseptischer Lösung",
+      "Einschränkung von Süßem und Saurem"
+    ]
+  }
+}

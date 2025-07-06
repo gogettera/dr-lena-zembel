@@ -7,6 +7,10 @@ import treatmentsJson from './treatments.json';
 import rootCanalJson from './rootCanal.json';
 import trustJson from './trust.json';
 import botoxTreatmentsJson from './botoxTreatments.json';
+import aestheticTreatmentsJson from './aestheticTreatments.json';
+import childrenDentistryJson from './childrenDentistry.json';
+import orthodonticsJson from './orthodontics.json';
+import preventiveMedicineJson from './preventiveMedicine.json';
 
 // Export a combined object with all translations - this is the structure the translation function expects
 export default {
@@ -15,5 +19,9 @@ export default {
   treatments: treatmentsJson,
   rootCanal: rootCanalJson,
   trust: trustJson,
-  botoxTreatments: botoxTreatmentsJson
+  botoxTreatments: botoxTreatmentsJson,
+  aestheticTreatments: aestheticTreatmentsJson,
+  childrenDentistry: childrenDentistryJson,
+  orthodontics: orthodonticsJson,
+  preventiveMedicine: preventiveMedicineJson
 };
