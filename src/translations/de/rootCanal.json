@@ -1,0 +1,57 @@
+{
+  "headline": "Wurzelkanalbehandlung mit fortschrittlicher Technik, fokussiert auf Komfort und Unterstützung",
+  "subtext": "Professionelle und beruhigende Betreuung - damit Sie Ihren Zahn erhalten und wieder sorgenfrei lächeln können.",
+  "heroImageAlt": "Wurzelkanalbehandlung in unserer Praxis",
+  "stepsTitle": "Behandlungsschritte",
+  "whyUsTitle": "Warum bei uns behandeln lassen?",
+  "faqTitle": "Häufig gestellte Fragen",
+  "benefits": {
+    "items": [
+      { "title": "Modernste Ausrüstung und Technologie zur Schmerzreduktion" },
+      { "title": "Persönliche Betreuung und Unterstützung während der gesamten Behandlung" },
+      { "title": "Umfangreiche Erfahrung und hohe Reputation" }
+    ]
+  },
+  "steps": {
+    "step1": {
+      "title": "Diagnostische Untersuchung",
+      "desc": "Gründliche Zahnuntersuchung und Röntgenaufnahme - ein vollständiges Bild vor Behandlungsbeginn."
+    },
+    "step2": {
+      "title": "Wurzelkanalbehandlung",
+      "desc": "Unter örtlicher Betäubung Reinigung der Wurzelkanäle, Desinfektion und Füllung zur Vorbeugung künftiger Infektionen."
+    },
+    "step3": {
+      "title": "Zahnrestauration und Versiegelung",
+      "desc": "Zahnrestauration und Versiegelung - Gewährleistung der Dichtigkeit und Vorbeugung wiederkehrender Schmerzen."
+    }
+  },
+  "faq": {
+    "q1": "Was ist eine Wurzelkanalbehandlung und warum wird sie benötigt?",
+    "a1": "Die Wurzelkanalbehandlung dient dazu, einen Zahn zu retten, der eine Entzündung oder Infektion im Wurzelkanal erlitten hat und ermöglicht den Erhalt des Zahnes im Mund.",
+    "q2": "Ist die Wurzelkanalbehandlung schmerzhaft?",
+    "a2": "Die Behandlung wird normalerweise unter örtlicher Betäubung durchgeführt und sollte schmerzfrei sein - bei Bedarf wird zusätzliche Unterstützung bereitgestellt.",
+    "q3": "Wie lange dauert eine Wurzelkanalbehandlung?",
+    "a3": "Eine Wurzelkanalbehandlung dauert in Standardfällen zwischen ein bis zwei Stunden und erfordert manchmal mehrere Termine.",
+    "q4": "Gibt es Einschränkungen nach der Wurzelkanalbehandlung?",
+    "a4": "In den ersten Tagen nach der Wurzelkanalbehandlung wird empfohlen, auf der behandelten Seite nicht zu kauen und strenge Hygiene einzuhalten."
+  },
+  "testimonials": {
+    "testimonial1": {
+      "name": "Sarah M.",
+      "text": "Ich kam mit Bedenken, aber die Ärztin erklärte jeden Schritt geduldig. Ich unterzog mich einer schmerzfreien Wurzelkanalbehandlung, sehr empfehlenswert."
+    },
+    "testimonial2": {
+      "name": "Robert S.",
+      "text": "Ausgezeichneter Service, erhielt Unterstützung vom Team auch nach der Behandlung. Vielen Dank!"
+    }
+  },
+  "cta": {
+    "title": "Möchten Sie eine schnelle Beendigung der Schmerzen?",
+    "description": "Für dringende Termine oder Fragen - wir sind da!",
+    "calendarText": "Behandlungen am selben Tag nach Verfügbarkeit",
+    "syringeText": "Einfühlsames und unterstützendes Team, den ganzen Weg",
+    "bookButton": "Kostenlose Beratung vereinbaren",
+    "backToTop": "Zurück zum Anfang"
+  }
+}

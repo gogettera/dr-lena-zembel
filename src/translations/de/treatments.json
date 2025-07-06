@@ -1,0 +1,31 @@
+{
+  "tabs": {
+    "overview": "Überblick",
+    "procedure": "Behandlungsablauf",
+    "benefits": "Vorteile",
+    "faq": "Häufige Fragen",
+    "testimonials": "Patientenerfahrungen",
+    "related": "Verwandte Behandlungen"
+  },
+  "keyPoints": "Wichtige Punkte:",
+  "idealFor": "Ideal geeignet für:",
+  "fullExperience": "Vollständige Erfahrung",
+  "viewCompleteLandingPage": "Vollständige Informationsseite mit allen Details ansehen",
+  "viewFullPage": "Vollständige Seite ansehen",
+  "professionalCare": "Professionelle Behandlung garantiert",
+  "bookConsultation": "Kostenlose Beratung vereinbaren",
+  "emergencyAvailable": "Notfallbehandlungen 24/7 verfügbar",
+  "whyChooseUs": {
+    "title": "Warum unsere Praxis wählen?",
+    "experience": "13+ Jahre bewährte Expertise",
+    "technology": "Modernste deutsche Technologie",
+    "success": "98% Erfolgsrate bei komplexen Behandlungen",
+    "care": "Persönliche Betreuung und vollständige Unterstützung"
+  },
+  "commonBenefits": {
+    "painFree": "Schmerzfreie Behandlung mit modernster Anästhesie",
+    "fastRecovery": "Schnelle Heilung mit minimalen Beschwerden",
+    "modernTech": "Neueste Technologie für präzise Ergebnisse",
+    "personalCare": "Individuelle Betreuung und kontinuierliche Unterstützung"
+  }
+}

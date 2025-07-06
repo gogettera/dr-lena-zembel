@@ -1,0 +1,24 @@
+{
+  "credentials": {
+    "title": "Our Expertise and Reliability",
+    "subtitle": "13 years of experience, leading international education, and continuous training - all to provide you with the best and safest treatment available"
+  },
+  "badges": {
+    "title": "The Numbers That Prove Our Reliability",
+    "subtitle": "Numbers that tell the story - beyond any doubt, concrete proof of our service quality"
+  },
+  "testimonials": {
+    "title": "What Our Patients Say",
+    "subtitle": "The most honest truth - real patients share their experience with our advanced treatments",
+    "cta": {
+      "title": "Want to join our circle of satisfied patients?",
+      "subtitle": "Come meet us in a personal, no-obligation consultation",
+      "button": "Schedule Free Consultation"
+    }
+  },
+  "doctor": {
+    "title": "Meet Dr. Lena Zembel",
+    "intro": "The specialist who brings together the best of two worlds - German precision and technology, with Israeli warmth and personal care",
+    "quote": "\"My dream has always been to combine the highest medical excellence with human and warm treatment. Every patient who comes to me receives not only advanced medical care, but also understanding, patience, and genuine concern for their wellbeing. This is not just work for me - it's a mission.\""
+  }
+}

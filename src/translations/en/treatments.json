@@ -1,86 +1,31 @@
 {
-  "ourTreatments": "The Treatments That Will Change Your Life",
-  "wideRangeOfTreatments": "From Dream Smiles to Reality - The Complete Range of Advanced Dental Treatments at Dr. Lena Zembel's Clinic",
-  "treatmentIntro": "Every treatment with us is a personal journey - from the initial consultation to the perfect result. We combine world-class technologies with warm human care and uncompromising professionalism.",
-  
-  "childrenDentistry": "Pediatric Dentistry - Turning Fear into a Fun Experience",
-  "childrenDentistryDesc": "Your children will love coming to us! We specialize in creating positive experiences that accompany children for life. With a special team that understands children, adapted equipment, and gentle treatment methods - we turn the doctor's visit into an enjoyable and empowering experience.",
-  
-  "aestheticTreatments": "Aesthetic Treatments - The Smile You've Always Dreamed Of",
-  "aestheticTreatmentsDesc": "Your smile is your business card to the world. With advanced professional whitening, thin and strong porcelain veneers, perfect aesthetic crowns, and implants with leading technology - we create a smile that radiates confidence and attracts attention.",
-  
-  "preventiveMedicine": "Preventive Medicine - The Smartest Investment You'll Make",
-  "preventiveMedicineDesc": "Why wait for a problem when you can prevent it? Our prevention programs include advanced checkups that identify problems early, professional cleaning that restores freshness, and personal guidance that will keep your smile perfect over time.",
-  
-  "rootCanal": "Pain-Free Root Canal Treatments - Saves Teeth, Restores Confidence",
-  "rootCanalDesc": "Root canal treatment is no longer what it used to be! With the most advanced technologies in the world, we perform precise, fast, and pain-free root canal treatments. Instead of losing a precious tooth, we save it and restore your confidence to smile and eat comfortably.",
-  
-  "oralRehabilitation": "Oral Rehabilitation - Restoring Your Quality of Life",
-  "oralRehabilitationDesc": "Life is more beautiful when you can smile confidently and eat everything. Our rehabilitation solutions - advanced crowns, quality bridges, and comfortable dentures - restore not only full function but also the simple joy of a natural smile.",
-  
-  "orthodontics": "Orthodontics - The Straight Smile You've Always Wanted",
-  "orthodonticsDesc": "Age is no limit! From children to adults, we specialize in orthodontics with a variety of solutions: from efficient traditional braces to nearly invisible clear aligners. Every plan is personally customized with close monitoring until the perfect result.",
-  
-  "botoxTreatments": "Professional Botox and Fillers - Natural Beauty That Enhances",
-  "botoxTreatmentsDesc": "True beauty is natural beauty. Our aesthetic treatments - professional Botox and quality hyaluronic acid fillers - are performed at a high medical level with natural and impressive results. Because you deserve to feel beautiful inside and out.",
-
-  "treatmentProcess": "Your Journey to the Clinic - 5 Steps to a Perfect Smile",
-  "processSteps": {
-    "consultation": {
-      "title": "Getting Acquainted and Consultation Without Obligation",
-      "description": "We'll get to know you, listen, and understand exactly what's important to you"
-    },
-    "diagnosis": {
-      "title": "Advanced and Precise Diagnosis",
-      "description": "State-of-the-art technologies that identify everything - even what you can't see"
-    },
-    "planning": {
-      "title": "Personalized Treatment Plan",
-      "description": "Presentation of all options with clear and transparent explanation"
-    },
-    "treatment": {
-      "title": "Professional Treatment in a Comfortable Environment",
-      "description": "Every detail is planned for your comfort and security"
-    },
-    "followup": {
-      "title": "Ongoing Support and Maintaining Results",
-      "description": "We're with you even after - because your smile is important to us"
-    }
+  "tabs": {
+    "overview": "Overview",
+    "procedure": "Procedure",
+    "benefits": "Benefits",
+    "faq": "FAQ",
+    "testimonials": "Testimonials",
+    "related": "Related Treatments"
   },
-
-  "whyChooseUs": "Why Do Thousands of Patients Choose Dr. Lena Zembel's Clinic?",
-  "advantages": [
-    {
-      "title": "Proven Experience and Excellent Reputation",
-      "description": "13 years of excellence, thousands of satisfied patients, and results that speak for themselves"
-    },
-    {
-      "title": "The Most Advanced Technology in the World",
-      "description": "We've invested in the most advanced equipment because you deserve the best"
-    },
-    {
-      "title": "Professional and Caring Team",
-      "description": "Every team member is carefully selected and believes in the same values as us"
-    },
-    {
-      "title": "Personal Care That Feels Like Home",
-      "description": "Every patient receives full attention and care tailored exactly to their needs"
-    },
-    {
-      "title": "Service in 4 Languages from the Heart",
-      "description": "Hebrew, English, German, and Russian - because it's important that you feel comfortable asking everything"
-    }
-  ],
-  "benefits": {
-    "items": [
-      { "title": "Professional and caring team" },
-      { "title": "Modern technology in every treatment" },
-      { "title": "Proven experience, excellent reputation" },
-      { "title": "Comfortable, safe and positive" }
-    ],
-    "professional": "Professional, caring team",
-    "modern": "Advanced equipment and technology",
-    "comfortable": "Welcoming, safe environment",
-    "effective": "Proven and effective methods"
+  "keyPoints": "Key Points:",
+  "idealFor": "Ideal for:",
+  "fullExperience": "Full Experience",
+  "viewCompleteLandingPage": "View complete landing page with all details and information",
+  "viewFullPage": "View Full Page",
+  "professionalCare": "Professional Care Guaranteed",
+  "bookConsultation": "Book Free Consultation",
+  "emergencyAvailable": "Emergency treatments available 24/7",
+  "whyChooseUs": {
+    "title": "Why Choose Our Clinic?",
+    "experience": "13+ years of proven expertise",
+    "technology": "Most advanced German technology",
+    "success": "98% success rate in complex treatments",
+    "care": "Personal care and full support"
+  },
+  "commonBenefits": {
+    "painFree": "Pain-free treatment with advanced anesthesia",
+    "fastRecovery": "Quick recovery with minimal discomfort",
+    "modernTech": "Latest technology for precise results",
+    "personalCare": "Individual attention and ongoing support"
   }
 }
