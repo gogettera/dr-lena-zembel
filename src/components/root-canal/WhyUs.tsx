@@ -10,32 +10,20 @@ const WhyUs = () => {
   const reasons = [
     {
       icon: Syringe,
-      title: t("rootCanal.whyUs.reason1.title", language === "he" 
-        ? "ציוד מתקדם וטכנולוגיות עכשוויות" 
-        : "Advanced Equipment & Modern Technology"),
-      desc: t("rootCanal.whyUs.reason1.desc", language === "he"
-        ? "הטיפול נעשה בעזרת המכשור המתקדם ביותר – להפחתת כאב והבטחת הצלחת התהליך."
-        : "Treatments performed using the most advanced equipment – reducing pain and ensuring treatment success."),
+      title: t("rootCanal.whyUs.reason1.title", "Advanced Equipment & Modern Technology"),
+      desc: t("rootCanal.whyUs.reason1.desc", "Treatments performed using the most advanced equipment – reducing pain and ensuring treatment success."),
       color: 'hsl(var(--dental-primary))' 
     },
     {
       icon: Heart,
-      title: t("rootCanal.whyUs.reason2.title", language === "he" 
-        ? "יחס אישי וליווי צמוד" 
-        : "Personalized Care & Close Support"),
-      desc: t("rootCanal.whyUs.reason2.desc", language === "he"
-        ? "אנחנו כאן בשבילך לכל שאלה ודאגה, מהרגע הראשון עד לסיום מלא של ההחלמה."
-        : "We are here for you with any concern or question, from the first moment until your full recovery."),
+      title: t("rootCanal.whyUs.reason2.title", "Personalized Care & Close Support"),
+      desc: t("rootCanal.whyUs.reason2.desc", "We are here for you with any concern or question, from the first moment until your full recovery."),
       color: 'hsl(var(--dental-coral))'
     },
     {
       icon: Award,
-      title: t("rootCanal.whyUs.reason3.title", language === "he" 
-        ? "ניסיון רב ומוניטין גבוה" 
-        : "Extensive Experience & Great Reputation"),
-      desc: t("rootCanal.whyUs.reason3.desc", language === "he"
-        ? "מאות מטופלים עברו אצלנו טיפולי שורש – בהצלחה ובאווירה בטוחה."
-        : "Hundreds of patients have had successful root canal treatments here – in a safe and relaxed environment."),
+      title: t("rootCanal.whyUs.reason3.title", "Extensive Experience & Great Reputation"),
+      desc: t("rootCanal.whyUs.reason3.desc", "Hundreds of patients have had successful root canal treatments here – in a safe and relaxed environment."),
       color: 'hsl(var(--dental-gold))'
     },
   ];
@@ -45,10 +33,10 @@ const WhyUs = () => {
       <div className="premium-container">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-dental-navy mb-6">
-            {t("rootCanal.whyUsTitle", language === "he" ? "למה לטפל אצלנו?" : "Why Choose Us?")}
+            {t("rootCanal.whyUsTitle", "Why Choose Us?")}
           </h2>
           <p className="premium-text-large text-dental-navy/80 max-w-3xl mx-auto">
-            המומחיות והטכנולוגיה הגרמנית של ד״ר לנה זמבל - הסיבות שמטופלים בוחרים בנו פעם אחר פעם
+            {t("rootCanal.whyUsSubtitle", "Dr. Lena Zembel's expertise and German technology - the reasons patients choose us time and again")}
           </p>
         </div>
         
@@ -90,19 +78,19 @@ const WhyUs = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="text-3xl font-bold text-dental-primary mb-2">98%</div>
-                <div className="premium-text-small text-dental-navy/70">שיעור הצלחה</div>
+                <div className="premium-text-small text-dental-navy/70">{t("rootCanal.stats.successRate", "Success Rate")}</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-dental-coral mb-2">500+</div>
-                <div className="premium-text-small text-dental-navy/70">טיפולי שורש</div>
+                <div className="premium-text-small text-dental-navy/70">{t("rootCanal.stats.treatments", "Root Canal Treatments")}</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-dental-mint mb-2">13+</div>
-                <div className="premium-text-small text-dental-navy/70">שנות ניסיון</div>
+                <div className="premium-text-small text-dental-navy/70">{t("rootCanal.stats.experience", "Years of Experience")}</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-dental-gold mb-2">24/7</div>
-                <div className="premium-text-small text-dental-navy/70">זמינות לחירום</div>
+                <div className="premium-text-small text-dental-navy/70">{t("rootCanal.stats.availability", "Emergency Availability")}</div>
               </div>
             </div>
           </div>

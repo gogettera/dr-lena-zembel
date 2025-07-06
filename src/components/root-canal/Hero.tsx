@@ -8,18 +8,14 @@ import { TranslatedText } from "@/components/ui/translated-text";
 const RootCanalHero: React.FC = () => {
   const { t, language, isRTL } = useLanguage();
 
-  const headline = t("rootCanal.headline", language === "he" 
-    ? "טיפולי שורש בטכניקה מתקדמת, עם דגש על נוחות ותמיכה"
-    : "Advanced Root Canal Treatment Focused On Comfort and Support");
+  const headline = t("rootCanal.headline", "Advanced Root Canal Treatment Focused On Comfort and Support");
   
-  const subtext = t("rootCanal.subtext", language === "he"
-    ? "מענה מקצועי ומרגיע – כך שתוכלו לשמור על השן ולחזור לחייך ללא חשש."
-    : "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.");
+  const subtext = t("rootCanal.subtext", "Professional and reassuring care – so you can preserve your tooth and smile again with confidence.");
 
   const features = [
-    "טכנולוגיה גרמנית מתקדמת להפחתת כאב",
-    "13 שנות ניסיון בטיפולי שורש מורכבים", 
-    "98% שיעור הצלחה בטיפולים"
+    t("rootCanal.features.technology", "Advanced German technology for pain reduction"),
+    t("rootCanal.features.experience", "13+ years of experience in complex root canal treatments"), 
+    t("rootCanal.features.success", "98% success rate in treatments")
   ];
 
   return (
@@ -110,7 +106,7 @@ const RootCanalHero: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="text-dental-navy font-bold text-sm mb-1">
-                          ד״ר לנה זמבל
+                          <TranslatedText textKey="doctor.name" defaultText="ד״ר לנה זמבל" />
                         </div>
                         <div className="premium-text-small text-dental-navy/70">
                           <TranslatedText textKey="doctor.rootCanalExpert" defaultText="מומחית לטיפולי שורש" />
