@@ -10,12 +10,24 @@ import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/BackToTop';
 import TreatmentHero from './TreatmentHero';
 import TreatmentContent from './TreatmentContent';
+import { useMultilingualSEO } from '@/hooks/use-multilingual-seo';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 
 const TreatmentPageWrapper: React.FC = () => {
   const { treatmentType, subpage } = useParams<{ treatmentType: string; subpage?: string }>();
   const { t, language } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Get treatment info for SEO
+  const treatmentInfo = treatmentType ? getTreatmentInfo(treatmentType) : null;
+  
+  // Apply multilingual SEO
+  useMultilingualSEO(treatmentInfo ? {
+    slug: treatmentInfo.slug,
+    nameKey: treatmentInfo.nameKey,
+    descKey: treatmentInfo.descKey,
+    keywords: [] // Will be populated by the hook based on treatment type
+  } : undefined);
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -25,13 +37,10 @@ const TreatmentPageWrapper: React.FC = () => {
   }, [treatmentType]);
 
   useEffect(() => {
-    if (treatmentType) {
-      const treatmentInfo = getTreatmentInfo(treatmentType);
-      if (treatmentInfo) {
-        document.title = `${t(treatmentInfo.nameKey)} | Dental Love`;
-      }
+    if (treatmentType && treatmentInfo) {
+      document.title = `${t(treatmentInfo.nameKey)} | Dental Love`;
     }
-  }, [treatmentType, t, language]);
+  }, [treatmentType, treatmentInfo, t, language]);
 
   if (isLoading) {
     return (
@@ -53,8 +62,6 @@ const TreatmentPageWrapper: React.FC = () => {
     return <Navigate to={`/${language}`} replace />;
   }
 
-  const treatmentInfo = getTreatmentInfo(treatmentType);
-  
   if (!treatmentInfo) {
     return <Navigate to={`/${language}/404`} replace />;
   }

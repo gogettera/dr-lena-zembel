@@ -7,6 +7,7 @@ import {
 } from '@/utils/translation';
 import { translations } from '@/utils/translation/core';
 import { logger } from '@/utils/logger';
+import { dentalClinicLanguageDetection } from '@/utils/enhanced-language-detection';
 
 // Translation function type
 type TranslationFunction = (key: string, options?: string | TranslationOptions) => any;
@@ -28,17 +29,21 @@ const RTL_LANGUAGES: Language[] = ['he', 'ar'];
 // Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-// Get language from URL path with absolute priority
-const getLanguageFromURL = (): Language | null => {
-  const pathname = window.location.pathname;
-  const pathLang = pathname.split('/')[1] as Language;
+// Enhanced language detection
+const getInitialLanguage = (): Language => {
+  const hints = dentalClinicLanguageDetection.getLanguageHints();
+  logger.debug('Language detection hints:', hints);
   
-  if (pathLang && AVAILABLE_LANGUAGES.includes(pathLang)) {
-    logger.debug(`URL language detected: ${pathLang}`);
-    return pathLang;
+  // URL has absolute priority
+  if (hints.url) {
+    logger.debug(`URL language detected: ${hints.url}`);
+    return hints.url;
   }
   
-  return null;
+  // Use enhanced detection for initial load
+  const detected = dentalClinicLanguageDetection.detectLanguage();
+  logger.debug(`Enhanced detection result: ${detected}`);
+  return detected;
 };
 
 // Provider component
@@ -48,21 +53,20 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     console.log("[LanguageProvider] Initialized"); // תוודא שה-Provider נטען
   }
   
-  // Get initial language with URL having absolute priority
-  const urlLanguage = getLanguageFromURL();
-  const [language, setLanguageState] = useState<Language>(urlLanguage || DEFAULT_LANGUAGE);
+  // Get initial language using enhanced detection
+  const [language, setLanguageState] = useState<Language>(() => getInitialLanguage());
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Derived state
   const isRTL = RTL_LANGUAGES.includes(language);
 
-  // Handle language change
+  // Handle language change with enhanced detection
   const setLanguage = (newLanguage: Language) => {
     if (AVAILABLE_LANGUAGES.includes(newLanguage) && newLanguage !== language) {
       logger.debug(`Changing language to: ${newLanguage}`);
       
-      // Save to localStorage
-      localStorage.setItem('preferredLanguage', newLanguage);
+      // Store preference using enhanced detection
+      dentalClinicLanguageDetection.storeLanguagePreference(newLanguage);
       
       // Update state
       setLanguageState(newLanguage);
@@ -72,21 +76,20 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  // URL language detection with absolute priority
+  // Enhanced language detection with priority system
   useEffect(() => {
-    const currentUrlLang = getLanguageFromURL();
+    const updateCheck = dentalClinicLanguageDetection.shouldUpdateLanguage(language);
     
-    // URL language ALWAYS takes precedence
-    if (currentUrlLang && currentUrlLang !== language) {
-      logger.debug(`URL language override: ${language} -> ${currentUrlLang}`);
-      setLanguageState(currentUrlLang);
-      setupDirectionByLanguage(currentUrlLang);
-      localStorage.setItem('preferredLanguage', currentUrlLang);
+    if (updateCheck.shouldUpdate) {
+      logger.debug(`Language update needed: ${updateCheck.reason}`);
+      setLanguageState(updateCheck.suggestedLanguage);
+      setupDirectionByLanguage(updateCheck.suggestedLanguage);
+      dentalClinicLanguageDetection.storeLanguagePreference(updateCheck.suggestedLanguage);
     }
     
     if (!isInitialized) {
       setIsInitialized(true);
-      logger.debug(`Initialized with language: ${currentUrlLang || language}`);
+      logger.debug(`Initialized with language: ${language}`);
     }
   }, [language, isInitialized]);
 
@@ -98,14 +101,15 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [language, isRTL, isInitialized]);
 
-  // Listen for URL changes
+  // Listen for URL changes with enhanced detection
   useEffect(() => {
     const handlePopState = () => {
-      const newUrlLang = getLanguageFromURL();
-      if (newUrlLang && newUrlLang !== language) {
-        logger.debug(`URL change detected: ${newUrlLang}`);
-        setLanguageState(newUrlLang);
-        setupDirectionByLanguage(newUrlLang);
+      const hints = dentalClinicLanguageDetection.getLanguageHints();
+      if (hints.url && hints.url !== language) {
+        logger.debug(`URL change detected: ${hints.url}`);
+        setLanguageState(hints.url);
+        setupDirectionByLanguage(hints.url);
+        dentalClinicLanguageDetection.storeLanguagePreference(hints.url);
       }
     };
 
