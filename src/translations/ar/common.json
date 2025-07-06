@@ -29,5 +29,15 @@
   "advancedEquipment": "معدات وتكنولوجيا متقدمة",
   "shortWaits": "أوقات انتظار قصيرة",
   "phoneNumber": "03-566-6915",
-  "copyright": "© عيادة الأسنان د. لينا زمبل. جميع الحقوق محفوظة"
+  "copyright": "© عيادة الأسنان د. لينا زمبل. جميع الحقوق محفوظة",
+  "freeConsultation": "استشارة مجانية",
+  "refreshReviews": "تحديث التقييمات",
+  "reviewsUpdated": "تم تحديث التقييمات",
+  "reviewsFetchSuccess": "تم تحميل التقييمات بنجاح",
+  "readFullReview": "اقرأ التقييم كاملاً",
+  "patientExperiences": "تجارب المرضى",
+  "doctor": {
+    "name": "د. لينا زمبل",
+    "rootCanalExpert": "أخصائية قناة الجذر"
+  }
 }

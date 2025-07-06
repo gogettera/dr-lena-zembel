@@ -29,5 +29,15 @@
   "advancedEquipment": "Moderne Ausrüstung und Technologie",
   "shortWaits": "Kurze Wartezeiten",
   "phoneNumber": "03-566-6915",
-  "copyright": "© Zahnarztpraxis Dr. Lena Zembel. Alle Rechte vorbehalten"
+  "copyright": "© Zahnarztpraxis Dr. Lena Zembel. Alle Rechte vorbehalten",
+  "freeConsultation": "Kostenlose Beratung",
+  "refreshReviews": "Bewertungen aktualisieren",
+  "reviewsUpdated": "Bewertungen aktualisiert",
+  "reviewsFetchSuccess": "Bewertungen erfolgreich geladen",
+  "readFullReview": "Vollständige Bewertung lesen",
+  "patientExperiences": "Patientenerfahrungen",
+  "doctor": {
+    "name": "Dr. Lena Zembel",
+    "rootCanalExpert": "Wurzelkanalbehandlungs-Spezialistin"
+  }
 }
