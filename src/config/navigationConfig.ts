@@ -1,42 +1,41 @@
 
 import { NavigationConfig } from '@/types/navigation';
-import { Language } from '@/types/language';
 
-export const createLocalizedNavigationConfig = (language: Language): NavigationConfig => {
-  const isRTL = language === 'he';
+export const createLocalizedNavigationConfig = (): NavigationConfig => {
+  const isRTL = true; // Hebrew is RTL
   
   const treatmentsDropdown = {
     general: [
       { 
-        href: `/${language}/treatments/preventive-medicine`, 
+        href: '/treatments/preventive-medicine', 
         labelKey: 'navigation.preventiveMedicine' 
       },
       { 
-        href: `/${language}/treatments/root-canal`, 
+        href: '/treatments/root-canal', 
         labelKey: 'navigation.rootCanal' 
       },
       { 
-        href: `/${language}/treatments/oral-rehabilitation`, 
+        href: '/treatments/oral-rehabilitation', 
         labelKey: 'navigation.oralRehabilitation' 
       }
     ],
     specialized: [
       { 
-        href: `/${language}/treatments/orthodontics`, 
+        href: '/treatments/orthodontics', 
         labelKey: 'navigation.orthodontics' 
       },
       { 
-        href: `/${language}/treatments/children-dentistry`, 
+        href: '/treatments/children-dentistry', 
         labelKey: 'navigation.childrenDentistry' 
       }
     ],
     aesthetic: [
       { 
-        href: `/${language}/treatments/aesthetic-treatments`, 
+        href: '/treatments/aesthetic-treatments', 
         labelKey: 'navigation.aestheticTreatments' 
       },
       { 
-        href: `/${language}/treatments/botox-treatments`, 
+        href: '/treatments/botox-treatments', 
         labelKey: 'navigation.botoxTreatments' 
       }
     ]
@@ -46,91 +45,91 @@ export const createLocalizedNavigationConfig = (language: Language): NavigationC
     isRTL,
     mainMenu: [
       { 
-        href: `/${language}`, 
+        href: '/', 
         labelKey: 'navigation.home' 
       },
       { 
-        href: `/${language}/about`, 
+        href: '/about', 
         labelKey: 'navigation.about' 
       },
       {
-        href: `/${language}/treatments`,
+        href: '/treatments',
         labelKey: 'navigation.treatments',
         dropdown: treatmentsDropdown
       },
       { 
-        href: `/${language}/contact`, 
+        href: '/contact', 
         labelKey: 'navigation.contact' 
       }
     ],
     footerMenu: {
       main: [
         { 
-          href: `/${language}`, 
+          href: '/', 
           labelKey: 'navigation.home' 
         },
         { 
-          href: `/${language}/about`, 
+          href: '/about', 
           labelKey: 'navigation.about' 
         },
         { 
-          href: `/${language}/treatments`, 
+          href: '/treatments', 
           labelKey: 'navigation.treatments' 
         },
         { 
-          href: `/${language}/contact`, 
+          href: '/contact', 
           labelKey: 'navigation.contact' 
         }
       ],
       treatments: [
         { 
-          href: `/${language}/treatments/preventive-medicine`, 
+          href: '/treatments/preventive-medicine', 
           labelKey: 'navigation.preventiveMedicine' 
         },
         { 
-          href: `/${language}/treatments/orthodontics`, 
+          href: '/treatments/orthodontics', 
           labelKey: 'navigation.orthodontics' 
         },
         { 
-          href: `/${language}/treatments/children-dentistry`, 
+          href: '/treatments/children-dentistry', 
           labelKey: 'navigation.childrenDentistry' 
         },
         { 
-          href: `/${language}/treatments/aesthetic-treatments`, 
+          href: '/treatments/aesthetic-treatments', 
           labelKey: 'navigation.aestheticTreatments' 
         },
         { 
-          href: `/${language}/treatments/root-canal`, 
+          href: '/treatments/root-canal', 
           labelKey: 'navigation.rootCanal' 
         },
         { 
-          href: `/${language}/treatments/oral-rehabilitation`, 
+          href: '/treatments/oral-rehabilitation', 
           labelKey: 'navigation.oralRehabilitation' 
         },
         { 
-          href: `/${language}/treatments/botox-treatments`, 
+          href: '/treatments/botox-treatments', 
           labelKey: 'navigation.botoxTreatments' 
         }
       ],
       legal: [
         { 
-          href: `/${language}/legal/privacy`, 
+          href: '/legal/privacy', 
           labelKey: 'navigation.legal.privacy' 
         },
         { 
-          href: `/${language}/legal/terms`, 
+          href: '/legal/terms', 
           labelKey: 'navigation.legal.terms' 
         }
       ],
       accessibility: [
         { 
-          href: `/${language}/accessibility`, 
+          href: '/accessibility', 
           labelKey: 'navigation.accessibility.statement' 
         }
       ]
     },
     breadcrumb: {
-      separator: isRTL ? '←' : '→',
+      separator: '←', // Hebrew RTL
       homeKey: 'navigation.home'
     }
   };

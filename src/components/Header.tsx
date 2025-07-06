@@ -6,13 +6,12 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
-import LanguageSwitcher from './LanguageSwitcher';
 import { TranslatedText } from './ui/translated-text';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { language, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,10 +28,10 @@ const Header: React.FC = () => {
 
   // Simple navigation items
   const navigationItems = [
-    { key: 'home', label: 'navigation.home', path: `/${language}` },
-    { key: 'about', label: 'navigation.about', path: `/${language}/about` },
-    { key: 'treatments', label: 'navigation.treatments', path: `/${language}/treatments/children-dentistry` },
-    { key: 'contact', label: 'navigation.contact', path: `/${language}/contact` },
+    { key: 'home', label: 'navigation.home', path: '/' },
+    { key: 'about', label: 'navigation.about', path: '/about' },
+    { key: 'treatments', label: 'navigation.treatments', path: '/treatments/children-dentistry' },
+    { key: 'contact', label: 'navigation.contact', path: '/contact' },
   ];
 
   return (
@@ -47,7 +46,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to={`/${language}`} className="flex items-center">
+            <Link to="/" className="flex items-center">
               <Logo />
             </Link>
           </div>
@@ -79,9 +78,6 @@ const Header: React.FC = () => {
                 <TranslatedText textKey="common.call" />
               </a>
             </Button>
-
-            {/* Language Switcher */}
-            <LanguageSwitcher />
 
             {/* Mobile Menu Button */}
             <Button 

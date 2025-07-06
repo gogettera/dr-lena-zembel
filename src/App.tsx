@@ -21,71 +21,13 @@ function App() {
     <LanguageProvider>
       <div className="min-h-screen">
         <Routes>
-          {/* Root redirect */}
-          <Route path="/" element={<Index />} />
-          
-          {/* Language-specific routes */}
-          <Route path="/:lang" element={
+          {/* Root - Home page */}
+          <Route path="/" element={
             <AccessibleLayout>
               <LanguageHome />
             </AccessibleLayout>
           } />
           
-          <Route path="/:lang/about" element={
-            <AccessibleLayout>
-              <AboutPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/contact" element={
-            <AccessibleLayout>
-              <ContactPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/treatments/:treatmentType" element={
-            <AccessibleLayout>
-              <LanguageTreatmentPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/treatments/:treatmentType/:subpage" element={
-            <AccessibleLayout>
-              <LanguageTreatmentPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/treatments/botox-treatments" element={
-            <AccessibleLayout>
-              <BotoxTreatmentsPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/preventive-medicine" element={
-            <AccessibleLayout>
-              <PreventiveMedicinePage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/accessibility-statement" element={
-            <AccessibleLayout>
-              <AccessibilityStatementPage />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/privacy-policy" element={
-            <AccessibleLayout>
-              <PrivacyPolicy />
-            </AccessibleLayout>
-          } />
-          
-          <Route path="/:lang/terms-of-service" element={
-            <AccessibleLayout>
-              <TermsOfService />
-            </AccessibleLayout>
-          } />
-          
-          {/* Simple fallback routes for compatibility */}
           <Route path="/about" element={
             <AccessibleLayout>
               <AboutPage />
@@ -95,6 +37,48 @@ function App() {
           <Route path="/contact" element={
             <AccessibleLayout>
               <ContactPage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/treatments/:treatmentType" element={
+            <AccessibleLayout>
+              <LanguageTreatmentPage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/treatments/:treatmentType/:subpage" element={
+            <AccessibleLayout>
+              <LanguageTreatmentPage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/treatments/botox-treatments" element={
+            <AccessibleLayout>
+              <BotoxTreatmentsPage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/preventive-medicine" element={
+            <AccessibleLayout>
+              <PreventiveMedicinePage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/accessibility-statement" element={
+            <AccessibleLayout>
+              <AccessibilityStatementPage />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/privacy-policy" element={
+            <AccessibleLayout>
+              <PrivacyPolicy />
+            </AccessibleLayout>
+          } />
+          
+          <Route path="/terms-of-service" element={
+            <AccessibleLayout>
+              <TermsOfService />
             </AccessibleLayout>
           } />
           

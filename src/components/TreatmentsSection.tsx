@@ -7,14 +7,12 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { EnhancedCarousel, CarouselItem } from "@/components/ui/enhanced-carousel";
-import { createLocalizedPath } from '@/utils/languageRoutes';
 import SectionHeader from '@/components/ui/section-header';
 import HebrewText from './shared/HebrewText';
 import { TranslatedText } from './ui/translated-text';
 
 const TreatmentsSection = () => {
   const isMobile = useIsMobile();
-  const { language } = useLanguage();
 
   const treatments = [
     {
@@ -74,7 +72,7 @@ const TreatmentsSection = () => {
             <EnhancedCarousel className="w-full">
               {treatments.map((treatment, index) => (
                 <CarouselItem key={index} className="pl-4 basis-4/5 sm:basis-1/2 md:basis-1/3">
-                  <TreatmentCard treatment={treatment} index={index} language={language} />
+                  <TreatmentCard treatment={treatment} index={index} />
                 </CarouselItem>
               ))}
             </EnhancedCarousel>
@@ -82,7 +80,7 @@ const TreatmentsSection = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {treatments.map((treatment, index) => (
-              <TreatmentCard key={index} treatment={treatment} index={index} language={language} />
+              <TreatmentCard key={index} treatment={treatment} index={index} />
             ))}
           </div>
         )}
@@ -91,7 +89,7 @@ const TreatmentsSection = () => {
   );
 };
 
-const TreatmentCard = ({ treatment, index, language }) => {
+const TreatmentCard = ({ treatment, index }) => {
   return (
     <Card 
       className="group border-none shadow-lg hover:shadow-xl transition-all duration-500 bg-white/80 backdrop-blur-sm rounded-xl overflow-hidden opacity-0 animate-[fade-in_0.5s_ease-out_forwards]"
@@ -115,8 +113,8 @@ const TreatmentCard = ({ treatment, index, language }) => {
           
           <div className="space-y-3 text-center transform transition-transform duration-300 group-hover:translate-y-0 translate-y-2">
             {treatment.hasLandingPage && (
-              <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}/landing`)}>
-                <Button 
+              <Link to={`/treatments/${treatment.slug}/landing`}>
+                <Button
                   variant="orange" 
                   size="sm" 
                   className="w-full rounded-full transition-all duration-300 group-hover:scale-105 flex items-center justify-center gap-2"
@@ -129,8 +127,8 @@ const TreatmentCard = ({ treatment, index, language }) => {
               </Link>
             )}
             
-            <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
-              <Button 
+            <Link to={`/treatments/${treatment.slug}`}>
+              <Button
                 variant="outline" 
                 size="sm" 
                 className="w-full rounded-full border-2 border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"

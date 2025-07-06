@@ -95,19 +95,12 @@ export const languageRoutes: RouteConfig[] = [
   }
 ];
 
-// Generate a path with language prefix
-export const getLanguagePath = (path: string, lang: Language): string => {
-  const basePath = `/${lang}`;
-  if (!path || path === '/') return basePath;
-  return `${basePath}/${path.startsWith('/') ? path.substring(1) : path}`;
-};
-
-// Get navigation items for the main menu (updated to return NavigationLink[])
-export const getMainNavigationItems = (language: Language): NavigationLink[] => {
+// Get navigation items for the main menu
+export const getMainNavigationItems = (): NavigationLink[] => {
   return languageRoutes
     .filter(route => route.inNavigation)
     .map(route => ({
-      href: getLanguagePath(route.path, language),
+      href: route.path.startsWith('/') ? route.path : `/${route.path}`,
       labelKey: route.label || ''
     }));
 };

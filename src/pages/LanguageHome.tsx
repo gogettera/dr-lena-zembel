@@ -1,5 +1,4 @@
 import React from 'react';
-import { usePageSEO } from '@/hooks/use-page-seo';
 import HeroSection from '@/components/HeroSection';
 import TestimonialSection from '@/components/TestimonialSection';
 import BrandSection from '@/components/BrandSection';
@@ -14,9 +13,6 @@ import PageContainer from '@/components/layout/PageContainer';
 import EmergencyBanner from '@/components/EmergencyBanner';
 
 const LanguageHome = () => {
-  // Apply basic SEO (hreflang tags)
-  usePageSEO();
-  
   return (
     <PageContainer title="home.pageTitle" description="home.pageDescription" className="overflow-hidden">
       <EmergencyBanner />

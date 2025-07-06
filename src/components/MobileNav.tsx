@@ -4,7 +4,6 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from '@/contexts/LanguageContext';
-import LanguageSwitcher from './LanguageSwitcher';
 import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
 import { useDirectionalStyles } from '@/utils/direction';
 import { NAVIGATION_ANIMATIONS } from '@/styles/animation';
@@ -12,9 +11,9 @@ import { cn } from '@/lib/utils';
 import NavigationLinks from './ui/NavigationLinks';
 
 const MobileNav = () => {
-  const { t, language } = useLanguage();
-  const isRTL = language === 'he' || language === 'ar';
-  const navigation = createLocalizedNavigationConfig(language);
+  const { t } = useLanguage();  
+  const isRTL = true; // Hebrew is RTL
+  const navigation = createLocalizedNavigationConfig();
   const styles = useDirectionalStyles();
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -50,16 +49,12 @@ const MobileNav = () => {
         aria-modal="true"
         role="dialog"
       >
-        <nav className="flex flex-col gap-4 mt-8" dir={isRTL ? 'rtl' : 'ltr'} aria-label={t('navigation.mainNavigation', 'Main navigation')}>
+        <nav className="flex flex-col gap-4 mt-8" dir="rtl" aria-label={t('navigation.mainNavigation', 'Main navigation')}>
           <NavigationLinks
             links={navigation.mainMenu}
             vertical
             onNavigate={() => setSheetOpen(false)}
           />
-          <div className="my-4"><hr /></div>
-          <div className="px-2">
-            <LanguageSwitcher />
-          </div>
         </nav>
       </SheetContent>
     </Sheet>

@@ -7,7 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import MobileNav from './MobileNav';
-import LanguageSwitcher from './LanguageSwitcher';
+
 import { createLocalizedNavigationConfig } from '@/config/navigationConfig';
 import { useDirectionalStyles } from '@/utils/direction';
 import { debounce } from '@/utils/direction';
@@ -17,8 +17,8 @@ import { TranslatedText } from './ui/translated-text';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const { language, isRTL, t } = useLanguage();
-  const navigation = createLocalizedNavigationConfig(language);
+  const { isRTL, t } = useLanguage();
+  const navigation = createLocalizedNavigationConfig();
   const styles = useDirectionalStyles();
 
   useEffect(() => {
@@ -41,11 +41,8 @@ const Navbar = () => {
       dir={isRTL ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* First section - Phone + Language (right in RTL, left in LTR) */}
-        <div className={cn(
-          "flex items-center gap-2",
-          isRTL ? "order-3" : "order-1"
-        )}>
+        {/* First section - Phone (right in RTL) */}
+        <div className="flex items-center gap-2 order-3">
           <Button 
             variant="ghost" 
             size="icon"
@@ -53,13 +50,12 @@ const Navbar = () => {
             asChild
           >
             <a 
-              href={`tel:${language === 'he' ? '035666915' : '+972-3-566-6915'}`}
+              href="tel:035666915"
               aria-label={t("common.call", { defaultValue: "טלפון" })}
             >
               <Phone className="h-5 w-5 text-dental-navy" />
             </a>
           </Button>
-          <LanguageSwitcher />
           <MobileNav />
         </div>
 
@@ -69,7 +65,7 @@ const Navbar = () => {
           isRTL ? "order-2" : "order-2"
         )}>
           <Link 
-            to={`/${language}`}
+            to="/"
             className={cn(
               "transition-transform duration-300 hover:scale-105",
               NAVIGATION_ANIMATIONS.scaleHover
@@ -80,12 +76,8 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Third section - Navigation links (left in RTL, right in LTR) */}
-        <div className={cn(
-          "hidden md:flex",
-          isRTL ? "order-1 justify-end" : "order-3 justify-start",
-          "flex-1"
-        )}>
+        {/* Third section - Navigation links (left in RTL) */}
+        <div className="hidden md:flex order-1 justify-end flex-1">
           <NavigationLinks 
             links={navigation.mainMenu} 
             vertical={false}

@@ -10,24 +10,15 @@ import Footer from '@/components/layout/Footer';
 import BackToTop from '@/components/BackToTop';
 import TreatmentHero from './TreatmentHero';
 import TreatmentContent from './TreatmentContent';
-import { useMultilingualSEO } from '@/hooks/use-multilingual-seo';
 import RootCanalLanding from '@/components/root-canal/RootCanalLanding';
 
 const TreatmentPageWrapper: React.FC = () => {
   const { treatmentType, subpage } = useParams<{ treatmentType: string; subpage?: string }>();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
   
-  // Get treatment info for SEO
+  // Get treatment info
   const treatmentInfo = treatmentType ? getTreatmentInfo(treatmentType) : null;
-  
-  // Apply multilingual SEO
-  useMultilingualSEO(treatmentInfo ? {
-    slug: treatmentInfo.slug,
-    nameKey: treatmentInfo.nameKey,
-    descKey: treatmentInfo.descKey,
-    keywords: [] // Will be populated by the hook based on treatment type
-  } : undefined);
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,7 +31,7 @@ const TreatmentPageWrapper: React.FC = () => {
     if (treatmentType && treatmentInfo) {
       document.title = `${t(treatmentInfo.nameKey)} | Dental Love`;
     }
-  }, [treatmentType, treatmentInfo, t, language]);
+  }, [treatmentType, treatmentInfo, t]);
 
   if (isLoading) {
     return (
@@ -59,16 +50,16 @@ const TreatmentPageWrapper: React.FC = () => {
   }
 
   if (!treatmentType) {
-    return <Navigate to={`/${language}`} replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (!treatmentInfo) {
-    return <Navigate to={`/${language}/404`} replace />;
+    return <Navigate to="/404" replace />;
   }
 
   // Handle legacy /landing routes with redirects
   if (subpage === 'landing') {
-    return <Navigate to={`/${language}/treatments/${treatmentType}`} replace />;
+    return <Navigate to={`/treatments/${treatmentType}`} replace />;
   }
 
   // All treatments now use the enhanced landing system
