@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { createLocalizedPath } from '@/utils/languageRoutes';
+
 import { getTreatmentInfo } from '@/data/treatmentRegistry';
 import { TranslatedText } from '@/components/ui/translated-text';
 import { TreatmentOverview } from './TreatmentOverview';
@@ -102,7 +102,7 @@ const TreatmentTabs: React.FC<TreatmentTabsProps> = ({
                   />
                 </p>
               </div>
-              <Link to={createLocalizedPath(language, `/treatments/${treatmentType}/landing`)}>
+              <Link to={`/treatments/${treatmentType}/landing`}>
                 <Button 
                   variant="orange" 
                   size="lg" 

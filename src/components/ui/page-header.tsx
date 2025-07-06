@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
-import { createLocalizedPath } from '@/utils/languageRoutes';
+
 
 interface PageHeaderProps {
   title: string;
@@ -72,7 +72,7 @@ export function PageHeader({
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link to={createLocalizedPath(language, '/')} className="text-dental-navy/70 hover:text-dental-orange">
+                  <Link to="/" className="text-dental-navy/70 hover:text-dental-orange">
                     {t('home', 'Home')}
                   </Link>
                 </BreadcrumbLink>

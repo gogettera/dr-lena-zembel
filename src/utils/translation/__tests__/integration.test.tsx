@@ -57,43 +57,27 @@ vi.mock('@/utils/direction', () => ({
 
 // Test component that combines HebrewText and translations
 const TranslatedGreeting = () => {
-  const { t, language, setLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <div>
       <HebrewText tag="h1">{t('greetings.hello')}</HebrewText>
       <HebrewText>{t('greetings.welcome', { context: 'User' })}</HebrewText>
-      <div>
-        <button onClick={() => setLanguage('he')} data-testid="he-btn">Hebrew</button>
-        <button onClick={() => setLanguage('en')} data-testid="en-btn">English</button>
-      </div>
       <div data-testid="current-lang">{language}</div>
     </div>
   );
 };
 
 describe('Translation System Integration', () => {
-  it('renders translations with proper RTL handling', () => {
+  it('renders Hebrew translations with proper RTL handling', () => {
     const { container } = render(
       <LanguageProvider>
         <TranslatedGreeting />
       </LanguageProvider>
     );
 
-    // Check initial Hebrew state
+    // Check Hebrew state
     expect(screen.getByRole('heading')).toHaveTextContent('שלום');
     expect(container.textContent).toContain('ברוכים הבאים, User!');
     expect(screen.getByTestId('current-lang')).toHaveTextContent('he');
-
-    // Switch to English
-    fireEvent.click(screen.getByTestId('en-btn'));
-
-    // Check English translations
-    expect(screen.getByRole('heading')).toHaveTextContent('Hello');
-    expect(container.textContent).toContain('Welcome, User!');
-    expect(screen.getByTestId('current-lang')).toHaveTextContent('en');
-
-    // Back to Hebrew
-    fireEvent.click(screen.getByTestId('he-btn'));
-    expect(screen.getByRole('heading')).toHaveTextContent('שלום');
   });
 });

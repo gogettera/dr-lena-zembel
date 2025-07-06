@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { createLocalizedPath } from '@/utils/languageRoutes';
+
 
 interface TreatmentHighlightProps {
   treatment: {
@@ -69,7 +69,7 @@ const TreatmentHighlight: React.FC<TreatmentHighlightProps> = ({
         </div>
 
         {/* Action Button */}
-        <Link to={createLocalizedPath(language, `/treatments/${treatment.slug}`)}>
+        <Link to={`/treatments/${treatment.slug}`}>
           <Button 
             variant="outline" 
             className="w-full rounded-full border-dental-orange text-dental-orange hover:bg-dental-orange hover:text-white transition-all duration-300 group-hover:scale-105"

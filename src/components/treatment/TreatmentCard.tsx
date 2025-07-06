@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { createLocalizedPath } from '@/utils/languageRoutes';
+
 import { TranslatedText } from '@/components/ui/translated-text';
 import { LoadingSkeleton } from '@/components/ui/loading-skeleton';
 
@@ -67,7 +67,7 @@ export const TreatmentCard: React.FC<TreatmentCardProps> = ({
           size="sm"
           className="group-hover:bg-dental-orange group-hover:text-white group-hover:border-dental-orange transition-all duration-300"
         >
-          <Link to={createLocalizedPath(language, `/treatments/${slug}`)}>
+          <Link to={`/treatments/${slug}`}>
             <TranslatedText textKey="learnMore" defaultText="למידע נוסף" />
             {isRTL ? 
               <ArrowLeft className="h-4 w-4 mr-2" /> : 

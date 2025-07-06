@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Phone, Clock, Award, Users, Shield, Calendar
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { createLocalizedPath } from '@/utils/languageRoutes';
+
 import { TranslatedText } from '@/components/ui/translated-text';
 import DoctorPortrait from '@/components/shared/DoctorPortrait';
 
@@ -46,7 +46,7 @@ const RootCanalProfessionalHero: React.FC = () => {
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                   <Link 
-                    to={createLocalizedPath(language, '/')} 
+                    to="/" 
                     className="text-dental-navy/70 hover:text-dental-orange transition-colors duration-300 text-sm md:text-base font-medium"
                   >
                     <TranslatedText textKey="home" defaultText="בית" />
@@ -59,7 +59,7 @@ const RootCanalProfessionalHero: React.FC = () => {
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                   <Link 
-                    to={createLocalizedPath(language, '/#treatments')} 
+                    to="/#treatments" 
                     className="text-dental-navy/70 hover:text-dental-orange transition-colors duration-300 text-sm md:text-base font-medium"
                   >
                     <TranslatedText textKey="treatments" defaultText="טיפולים" />
